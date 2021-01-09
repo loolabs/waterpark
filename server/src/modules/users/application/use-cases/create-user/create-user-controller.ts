@@ -41,9 +41,4 @@ export class CreateUserController extends BaseController {
       return this.fail(res, err)
     }
   }
-
-  async test(_req: express.Request, res: express.Response): Promise<express.Response> {
-    const result = await this.useCase.test()
-    return res.send(result)
-  }
 }

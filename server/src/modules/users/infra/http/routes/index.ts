@@ -7,10 +7,6 @@ userRouter.post('/', (req, res) => {
   createUserController.execute(req, res)
 })
 
-userRouter.get('/', (req, res) => {
-  createUserController.test(req, res)
-})
-
 // userRouter.get('/me', middleware.ensureAuthenticated(), (req, res) =>
 //   getCurrentUserController.execute(req, res)
 // )
