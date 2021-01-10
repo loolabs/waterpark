@@ -59,8 +59,4 @@ export class CreateUserUseCase
       return Result.err(new AppError.UnexpectedError(err))
     }
   }
-
-  async test(): Promise<any> {
-    return await this.userRepo.findAll()
-  }
 }

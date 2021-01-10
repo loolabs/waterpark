@@ -5,5 +5,4 @@ export abstract class UserRepo {
   abstract exists(userEmail: UserEmail): Promise<boolean>
   abstract getUserByUserId(userId: string): Promise<User>
   abstract save(user: User): Promise<void>
-  abstract findAll(): Promise<Array<User>>
 }
