@@ -1,17 +1,17 @@
 import { DomainEvent } from '../../../../shared/domain/events/domain-event'
 import { UniqueEntityID } from '../../../../shared/domain/unique-entity-id'
-import { User } from '../entities/user'
+import { Club } from '../entities/club'
 
 export class ClubDeleted implements DomainEvent {
   public dateTimeOccurred: Date
-  public user: User
+  public club: Club
 
-  constructor(user: User) {
+  constructor(club: Club) {
     this.dateTimeOccurred = new Date()
-    this.user = user
+    this.club = club
   }
 
   public getAggregateId(): UniqueEntityID {
-    return this.user.id
+    return this.club.id
   }
 }

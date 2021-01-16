@@ -27,10 +27,7 @@ export class MikroClubRepo implements ClubRepo {
 
   async getAllClubs(): Promise<Club[]>{
     const clubEntities  = await DB.clubsEntityRepo.find({}, { orderBy: { name: QueryOrder.DESC_NULLS_LAST } })
-    if (clubEntities === undefined)
-      throw new Error() // TODO handle error
-    const clubs = clubEntities.map((clubEntity: ClubEntity): Club => ClubMap.toDomain(clubEntity))
-    return clubs;
+    return clubEntities.map((clubEntity: ClubEntity): Club => ClubMap.toDomain(clubEntity))    
   }
 
   async save(club: Club): Promise<void> {
@@ -45,8 +42,4 @@ export class MikroClubRepo implements ClubRepo {
     DB.clubsEntityRepo.flush()
   }
 
-  async findAll(): Promise<Array<Club>> {
-    const clubs = await DB.clubsEntityRepo.findAll()
-    return clubs.map((club) => ClubMap.toDomain(club))
-  }
 }
