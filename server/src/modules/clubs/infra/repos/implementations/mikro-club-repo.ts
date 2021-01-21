@@ -25,8 +25,8 @@ export class MikroClubRepo implements ClubRepo {
     return ClubMap.toDomain(club)
   }
 
-  async getAllClubs(): Promise<Club[]>{
-    const clubEntities  = await DB.clubsEntityRepo.find({}, { orderBy: { name: QueryOrder.DESC_NULLS_LAST } })
+  async getAllClubs(): Promise<Array<Club>>{
+    const clubEntities: Array<ClubEntity> = await DB.clubsEntityRepo.find({}, { orderBy: { name: QueryOrder.DESC_NULLS_LAST } })
     return clubEntities.map((clubEntity: ClubEntity): Club => ClubMap.toDomain(clubEntity))    
   }
 

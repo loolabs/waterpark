@@ -9,7 +9,7 @@ export abstract class AggregateRoot<T> extends Entity<T> {
   protected addDomainEvent(domainEvent: DomainEvent): void {
     // Add the domain event to this aggregate's list of domain events
     this._domainEvents.push(domainEvent)
-    // Add this aggregate instance to the domain event's list of aggregates who's
+    // Add this aggregate instance to the DomainEvents' list of aggregates who's
     // events it eventually needs to dispatch.
     DomainEvents.markAggregateForDispatch(this)
     // Log the domain event

@@ -6,31 +6,14 @@ import { BaseEntity } from './base.entity'
 @Entity()
 export class ClubEntity extends BaseEntity {
   @Property()
-  email!: string
-
-  @Property()
-  password!: string
-    
-  @Property()
   name!: string
 
   @Property()
   description!: string
 
   @Property({ default: false })
-  emailVerified!: boolean
-
-  @Property({ default: false })
   isDeleted!: boolean
 
-  @Property()
-  accessToken?: string
-
-  @Property()
-  refreshToken?: string
-
-  @Property()
-  lastLogin?: Date
 
   // TODO: fix any type
   @AfterCreate()

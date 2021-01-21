@@ -7,6 +7,7 @@ export class ClubMap {
   public static toDTO(club: Club): ClubDTO { //TODO: verify use of toDTO and adapt to clubs
     return {
       name: club.name,
+      description: club.description
     }
   }
 
@@ -15,10 +16,7 @@ export class ClubMap {
       {
         name: clubEntity.name,
         description: clubEntity.description,
-        // accessToken: clubEntity.accessToken,
-        // refreshToken: clubEntity.refreshToken,
         isDeleted: clubEntity.isDeleted,
-        // lastLogin: clubEntity.lastLogin,
       },
       new UniqueEntityID(clubEntity.id)
     )
@@ -32,10 +30,6 @@ export class ClubMap {
     clubEntity.name = club.name
     clubEntity.description=club.description
     if (club.isDeleted !== undefined) clubEntity.isDeleted = club.isDeleted
-
-    // clubEntity.accessToken = club.accessToken
-    // clubEntity.refreshToken = club.refreshToken
-    // clubEntity.lastLogin = club.lastLogin
 
     return clubEntity
   }

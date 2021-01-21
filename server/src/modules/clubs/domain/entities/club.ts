@@ -3,15 +3,11 @@ import { AggregateRoot } from '../../../../shared/domain/aggregate-root'
 import { UniqueEntityID } from '../../../../shared/domain/unique-entity-id'
 import { ClubCreated } from '../events/club-created'
 import { ClubDeleted } from '../events/club-deleted'
-// import { ClubLoggedIn } from '../events/club-logged-in'
-// import { JWTToken, RefreshToken } from '../value-objects/jwt'
 import { ClubId } from '../value-objects/clubId'
 
 interface ClubProps {
-  name: string //TODO: string for now, implement schema?
+  name: string 
   description: string
-  // accessToken?: JWTToken
-  // refreshToken?: RefreshToken
   isDeleted?: boolean
 }
 
@@ -34,14 +30,6 @@ export class Club extends AggregateRoot<ClubProps> {
     super(props, id)
   }
 
-  // public setAccessToken(token: JWTToken, refreshToken: RefreshToken): void {
-  //   this.addDomainEvent(new ClubLoggedIn(this))
-  //   this.props.accessToken = token
-  //   this.props.refreshToken = refreshToken
-  //   this.props.lastLogin = new Date()
-  // }
-
-
   public delete(): void {
     if (!this.props.isDeleted) {
       this.addDomainEvent(new ClubDeleted(this))
@@ -63,19 +51,9 @@ export class Club extends AggregateRoot<ClubProps> {
     return this.props.description
   }
 
-  // get accessToken(): string | undefined {
-  //   return this.props.accessToken
-  // }
 
   get isDeleted(): boolean | undefined {
     return this.props.isDeleted
   }
 
-  // get lastLogin(): Date | undefined {
-  //   return this.props.lastLogin
-  // }
-
-  // get refreshToken(): RefreshToken | undefined {
-  //   return this.props.refreshToken
-  // }
 }

@@ -1,3 +1,4 @@
 export interface ClubDTO {
-  name:string
+  name: string,
+  description: string
 }
