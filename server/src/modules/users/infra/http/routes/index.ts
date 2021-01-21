@@ -1,5 +1,6 @@
 import express from 'express'
 import { createUserController } from '../../../application/use-cases/create-user'
+import { loginUserController } from '../../../application/use-cases/login-user'
 const userRouter = express.Router()
 
 // routes are coupled to controllers - no need for DI to enable easier testing, that's just overkill
@@ -11,7 +12,9 @@ userRouter.post('/', (req, res) => {
 //   getCurrentUserController.execute(req, res)
 // )
 
-// userRouter.post('/login', (req, res) => loginController.execute(req, res))
+userRouter.post('/login', (req, res) => {
+  loginUserController.execute(req, res)
+})
 
 // userRouter.post('/logout', middleware.ensureAuthenticated(), (req, res) =>
 //   logoutController.execute(req, res)
