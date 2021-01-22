@@ -1,12 +1,13 @@
 import express from 'express'
+import { ValidationError } from 'joi'
 import { BaseController } from '../../../../../shared/app/base-controller'
 import { CreateUserUseCase } from './create-user-use-case'
-import { CreateUserDTO } from './create-user-dto'
+import { CreateUserDTO, createUserDTOSchema } from './create-user-dto'
 import { CreateUserErrors } from './create-user-errors'
 import { UserValueObjectErrors } from '../../../domain/value-objects/errors'
-import { DecodedExpressRequest } from '../../../../../shared/infra/http/routes/decoded-request'
+import { Result } from '../../../../../shared/core/result'
 
-export class CreateUserController extends BaseController {
+export class CreateUserController extends BaseController<CreateUserDTO> {
   private useCase: CreateUserUseCase
 
   constructor(useCase: CreateUserUseCase) {
@@ -14,10 +15,14 @@ export class CreateUserController extends BaseController {
     this.useCase = useCase
   }
 
-  async executeImpl(req: DecodedExpressRequest, res: express.Response): Promise<express.Response> {
-    // TODO: add class validator/transformer
-    const dto: CreateUserDTO = req.body as CreateUserDTO
+  validate(req: express.Request): Result<CreateUserDTO, ValidationError> {
+    const { error, value } = createUserDTOSchema.validate(req.body)
 
+    if (error) return Result.err(error)
+    return Result.ok(value as CreateUserDTO)
+  }
+
+  async executeImpl(dto: CreateUserDTO, res: express.Response): Promise<express.Response> {
     try {
       const result = await this.useCase.execute(dto)
 
