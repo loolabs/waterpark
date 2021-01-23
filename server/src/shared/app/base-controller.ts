@@ -1,17 +1,24 @@
 import * as express from 'express'
+import { ValidationError } from 'joi'
+import { Result } from '../core/result'
 
-export abstract class BaseController {
-  public async execute(req: express.Request, res: express.Response): Promise<void> {
+export abstract class BaseController<DTO> {
+  public async execute(req: express.Request, res: express.Response): Promise<express.Response> {
     try {
-      await this.executeImpl(req, res)
+      const dtoResult = await this.validate(req)
+      if (dtoResult.isErr()) {
+        return this.clientError(res, dtoResult.error.toString())
+      } else {
+        return await this.executeImpl(dtoResult.value, res)
+      }
     } catch (err) {
       console.log(`[BaseController]: Uncaught controller error`)
       console.log(err)
-      this.fail(res, 'An unexpected error occurred')
+      return this.fail(res, 'An unexpected error occurred')
     }
   }
 
-  public ok<T>(res: express.Response, dto?: T) {
+  public ok<T>(res: express.Response, dto?: T): express.Response {
     if (dto) {
       res.type('application/json')
       return res.status(200).json(dto)
@@ -20,14 +27,16 @@ export abstract class BaseController {
     }
   }
 
-  public fail(res: express.Response, error: Error | string) {
+  public fail(res: express.Response, error: Error | string): express.Response {
     console.log(error)
     return res.status(500).json({
       message: error.toString(),
     })
   }
 
-  protected abstract executeImpl(req: express.Request, res: express.Response): Promise<void | any>
+  protected abstract validate(req: express.Request): Result<DTO, ValidationError>
+
+  protected abstract executeImpl(dto: DTO, res: express.Response): Promise<void | any>
 
   public static jsonResponse(res: express.Response, code: number, message: string) {
     return res.status(code).json({ message })
