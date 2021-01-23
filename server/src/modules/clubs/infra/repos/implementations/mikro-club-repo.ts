@@ -1,18 +1,17 @@
-import { EntityRepository, QueryOrder } from '@mikro-orm/core'
+import { QueryOrder } from '@mikro-orm/core' // {EntityRepository, QueryOrder}
 import { DB } from '../../../../../shared/infra/db'
 import { ClubEntity } from '../../../../../shared/infra/db/entities/club.entity'
 import { Club } from '../../../domain/entities/club'
-// import { ClubEmail } from '../../../domain/value-objects/club-email'
 import { ClubMap } from '../../../mappers/club-map'
 import { ClubRepo } from '../club-repo'
 
 export class MikroClubRepo implements ClubRepo {
   // TODO: same coupling error as equivalent users version of this file
-    private clubsEntityRepo: EntityRepository<ClubEntity> | undefined
+  // private clubsEntityRepo: EntityRepository<ClubEntity> | undefined
     
-  constructor(clubRepo: EntityRepository<ClubEntity> | undefined) {
-    this.clubsEntityRepo = clubRepo
-  }
+  // constructor(clubRepo: EntityRepository<ClubEntity> | undefined) {
+  //   this.clubsEntityRepo = clubRepo
+  // }
 
   async exists(name: string): Promise<boolean> {
     const club = await DB.clubsEntityRepo.findOne({ name })
@@ -30,16 +29,15 @@ export class MikroClubRepo implements ClubRepo {
     return clubEntities.map((clubEntity: ClubEntity): Club => ClubMap.toDomain(clubEntity))    
   }
 
-  async save(club: Club): Promise<void> {
-    console.log(this.clubsEntityRepo)
-    const exists = await this.exists(club.name)
+  // async save(club: Club): Promise<void> {
+  //   const exists = await this.exists(club.name)
 
-    if (exists) return
+  //   if (exists) return
 
-    const clubEntity = await ClubMap.toPersistence(club)
+  //   const clubEntity = await ClubMap.toPersistence(club)
 
-    DB.clubsEntityRepo.persist(clubEntity)
-    DB.clubsEntityRepo.flush()
-  }
+  //   DB.clubsEntityRepo.persist(clubEntity)
+  //   DB.clubsEntityRepo.flush()
+  // }
 
 }

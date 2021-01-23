@@ -3,7 +3,6 @@ import { BaseController } from '../../../../../shared/app/base-controller'
 import { GetAllClubsUseCase } from './get-all-clubs-use-case'
 // import { ClubValueObjectErrors } from '../../../domain/value-objects/errors'
 import { DecodedExpressRequest } from '../../../../../shared/infra/http/routes/decoded-request'
-
 export class GetAllClubsController extends BaseController {
   private useCase: GetAllClubsUseCase
 
