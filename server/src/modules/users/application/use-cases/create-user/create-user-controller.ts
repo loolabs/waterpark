@@ -1,25 +1,13 @@
 import express from 'express'
-import { ValidationError } from 'joi'
 import { BaseController } from '../../../../../shared/app/base-controller'
 import { CreateUserUseCase } from './create-user-use-case'
 import { CreateUserDTO, createUserDTOSchema } from './create-user-dto'
 import { CreateUserErrors } from './create-user-errors'
 import { UserValueObjectErrors } from '../../../domain/value-objects/errors'
-import { Result } from '../../../../../shared/core/result'
 
-export class CreateUserController extends BaseController<CreateUserDTO> {
-  private useCase: CreateUserUseCase
-
+export class CreateUserController extends BaseController<CreateUserUseCase> {
   constructor(useCase: CreateUserUseCase) {
-    super()
-    this.useCase = useCase
-  }
-
-  validate(req: express.Request): Result<CreateUserDTO, ValidationError> {
-    const { error, value } = createUserDTOSchema.validate(req.body)
-
-    if (error) return Result.err(error)
-    return Result.ok(value as CreateUserDTO)
+    super(useCase, createUserDTOSchema)
   }
 
   async executeImpl(dto: CreateUserDTO, res: express.Response): Promise<express.Response> {

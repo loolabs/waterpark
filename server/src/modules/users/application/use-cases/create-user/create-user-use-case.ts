@@ -1,4 +1,4 @@
-import { UseCase } from '../../../../../shared/app/use-case'
+import { BaseUseCase } from '../../../../../shared/app/use-case'
 import { AppError } from '../../../../../shared/core/app-error'
 import { Result } from '../../../../../shared/core/result'
 import { User } from '../../../domain/entities/user'
@@ -18,7 +18,7 @@ type CreateUserUseCaseError =
 type CreateUserUseCaseResponse = Result<User, CreateUserUseCaseError>
 
 export class CreateUserUseCase
-  implements UseCase<CreateUserDTO, Promise<CreateUserUseCaseResponse>> {
+  implements BaseUseCase<CreateUserDTO, CreateUserUseCaseResponse> {
   private userRepo: UserRepo
 
   constructor(userRepo: UserRepo) {

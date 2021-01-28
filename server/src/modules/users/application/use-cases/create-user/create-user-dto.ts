@@ -5,7 +5,7 @@ export interface CreateUserDTO {
   password: string
 }
 
-export const createUserDTOSchema = Joi.object({
+export const createUserDTOSchema = Joi.object<CreateUserDTO>({
   email: Joi.string(),
   password: Joi.string(),
 }).options({ abortEarly: false })
