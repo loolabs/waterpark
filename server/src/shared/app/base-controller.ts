@@ -12,7 +12,7 @@ export abstract class BaseController<UseCase extends BaseUseCase<any, any>> {
 
   protected validate(body: unknown, onErr: (err: ValidationError) => void): body is extractDTO<UseCase> {
     const { error } = this.schema.validate(body)
-    if (error) {
+    if (error !== undefined) {
       onErr(error)
       return false
     }
