@@ -20,6 +20,7 @@
     "@mikro-orm/reflection": "^4.3.4",
     "@mikro-orm/sql-highlighter": "^1.0.1",
     "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "graphql": "^15.4.0",
     "joi": "^17.3.0",
