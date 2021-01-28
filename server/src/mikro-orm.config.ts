@@ -45,6 +45,7 @@ const mikroORMConfig: Options = {
   entitiesTs: ['**/*.entity.ts'], // path to your TS entities (source), relative to `baseDir`
   metadataProvider: TsMorphMetadataProvider,
   migrations: {
+    disableForeignKeys: false,
     path: path.join(__dirname, './migrations'), // path to the folder with migrations
     pattern: /^[\w-]+\d+\.[tj]s$/, // regex pattern for the migration files
   },

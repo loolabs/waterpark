@@ -1,5 +1,3 @@
 build:
   docker:
     server: Dockerfile
-run:
-  web: npm start
