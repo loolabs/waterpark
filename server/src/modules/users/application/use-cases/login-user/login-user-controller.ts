@@ -1,6 +1,4 @@
 import express from 'express'
-//import passport from 'passport'
-//import passportLocal from 'passport-local'
 import { BaseController } from '../../../../../shared/app/base-controller'
 import { LoginUserUseCase } from './login-user-use-case'
 import { LoginUserDTO } from './login-user-dto'
@@ -19,7 +17,7 @@ export class LoginUserController extends BaseController {
   async executeImpl(req: DecodedExpressRequest, res: express.Response): Promise<express.Response> {
     // TODO: add class validator/transformer
     const dto: LoginUserDTO = req.body as LoginUserDTO
-
+    
     try {
       const result = await this.useCase.execute(dto)
 

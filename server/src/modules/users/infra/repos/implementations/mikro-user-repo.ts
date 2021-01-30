@@ -1,8 +1,11 @@
 import { EntityRepository } from '@mikro-orm/core'
+import { Result } from '../../../../../shared/core/result'
 import { DB } from '../../../../../shared/infra/db'
 import { UserEntity } from '../../../../../shared/infra/db/entities/user.entity'
+import { RepoError, RepoErrors } from '../../../../../shared/infra/db/errors/errors'
 import { User } from '../../../domain/entities/user'
 import { UserEmail } from '../../../domain/value-objects/user-email'
+import { UserPassword } from '../../../domain/value-objects/user-password'
 import { UserMap } from '../../../mappers/user-map'
 import { UserRepo } from '../user-repo'
 
@@ -22,10 +25,16 @@ export class MikroUserRepo implements UserRepo {
     return user !== null
   }
 
-  async getUserByUserId(userId: string): Promise<User> {
+  async getUserByUserId(userId: string): Promise<Result<User, RepoError>> {
     const user = await DB.usersEntityRepo.findOne({ id: userId })
-    if (!user) throw new Error() // TODO handle error
-    return UserMap.toDomain(user)
+    if (!user) return Result.err(new RepoErrors.NotFound())
+    return Result.ok(UserMap.toDomain(user))
+  }
+
+  async getUserByUserEmailandUserPassword(userEmail: UserEmail, password: UserPassword): Promise<Result<User, RepoError>> {
+    const user = await DB.usersEntityRepo.findOne({ email: userEmail.value, password: password.value })
+    if (!user) return Result.err(new RepoErrors.NotFound())
+    return Result.ok(UserMap.toDomain(user))
   }
 
   async save(user: User): Promise<void> {

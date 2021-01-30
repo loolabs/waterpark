@@ -1,4 +1,5 @@
 import { UseCase } from '../../../../../shared/app/use-case'
+import { UserAuthHandler } from '../../../../../shared/auth/user-auth-handler'
 import { AppError } from '../../../../../shared/core/app-error'
 import { Result } from '../../../../../shared/core/result'
 import { User } from '../../../domain/entities/user'
@@ -15,7 +16,12 @@ type CreateUserUseCaseError =
   | CreateUserErrors.EmailAlreadyExistsError
   | AppError.UnexpectedError
 
-type CreateUserUseCaseResponse = Result<User, CreateUserUseCaseError>
+type CreateUserSuccess = {
+  user: User,
+  token: string
+}
+
+type CreateUserUseCaseResponse = Result<CreateUserSuccess, CreateUserUseCaseError>
 
 export class CreateUserUseCase
   implements UseCase<CreateUserDTO, Promise<CreateUserUseCaseResponse>> {
@@ -53,8 +59,17 @@ export class CreateUserUseCase
 
       const user = userResult.value
       await this.userRepo.save(user)
+      const tokenResponse = await new UserAuthHandler().create(email.value)
 
-      return Result.ok(user)
+      if(tokenResponse.isErr())
+        return tokenResponse
+
+      const createUserSuccessResponse: CreateUserSuccess = {
+        user,
+        token: tokenResponse.value
+      }
+
+      return Result.ok(createUserSuccessResponse)
     } catch (err) {
       return Result.err(new AppError.UnexpectedError(err))
     }
