@@ -2,7 +2,7 @@
 .env
 
 # Database
-db/
+/db/
 
 # Junk
 .DS_Store
