@@ -1,8 +1,8 @@
 import * as express from 'express'
-import { BaseUseCase } from './use-case'
 import Joi, { ValidationError } from 'joi'
+import { BaseUseCase } from './base-use-case'
 
-type extractDTO<UseCase> = UseCase extends BaseUseCase<infer T, any> ? T : never;
+type extractDTO<UseCase> = UseCase extends BaseUseCase<infer T, any> ? T : never
 
 export abstract class BaseController<UseCase extends BaseUseCase<any, any>> {
   constructor(
