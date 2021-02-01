@@ -1,6 +1,11 @@
 {
-  "name": "client",
+  "name": "@waterpark/client",
   "version": "0.1.0",
+  "description": "Web client for Loo Labs' centralized clubs and events platform",
+  "main": "index.js",
+  "repository": "https://github.com/loolabs/waterpark",
+  "author": "Loo Labs",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev",
