@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "lint": "exit 0",
+    "start": "next start",
+    "test": "exit 0"
   },
   "dependencies": {
     "next": "10.0.5",
