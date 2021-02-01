@@ -17,8 +17,7 @@ type CreateUserUseCaseError =
 
 type CreateUserUseCaseResponse = Result<User, CreateUserUseCaseError>
 
-export class CreateUserUseCase
-  implements BaseUseCase<CreateUserDTO, CreateUserUseCaseResponse> {
+export class CreateUserUseCase implements BaseUseCase<CreateUserDTO, CreateUserUseCaseResponse> {
   private userRepo: UserRepo
 
   constructor(userRepo: UserRepo) {

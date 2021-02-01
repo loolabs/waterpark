@@ -1,19 +1,5 @@
-# Junk
-.DS_Store
-
-# Dev
-.git/
-.gitignore
-Dockerfile
-.dockerignore
-.prettierrc
-.prettierignore
-
-
-################################################################################
-# copy of .gitignore
-
 /temp/
+/src/migrations/
 
 
 # standard Node .gitignore #####################################################

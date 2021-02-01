@@ -10,7 +10,10 @@ export abstract class BaseController<UseCase extends BaseUseCase<any, any>> {
     protected readonly schema: Joi.ObjectSchema<extractDTO<UseCase>>
   ) {}
 
-  protected validate(body: unknown, onErr: (err: ValidationError) => void): body is extractDTO<UseCase> {
+  protected validate(
+    body: unknown,
+    onErr: (err: ValidationError) => void
+  ): body is extractDTO<UseCase> {
     const { error } = this.schema.validate(body)
     if (error !== undefined) {
       onErr(error)
@@ -35,7 +38,10 @@ export abstract class BaseController<UseCase extends BaseUseCase<any, any>> {
     }
   }
 
-  protected abstract executeImpl(dto: extractDTO<UseCase>, res: express.Response): Promise<void | any>
+  protected abstract executeImpl(
+    dto: extractDTO<UseCase>,
+    res: express.Response
+  ): Promise<void | any>
 
   public ok<T>(res: express.Response, dto?: T): express.Response {
     if (dto) {
@@ -61,35 +67,35 @@ export abstract class BaseController<UseCase extends BaseUseCase<any, any>> {
     return res.sendStatus(201)
   }
 
-  public clientError(res: express.Response, message: string='Unauthorized') {
+  public clientError(res: express.Response, message: string = 'Unauthorized') {
     return BaseController.jsonResponse(res, 400, message)
   }
 
-  public unauthorized(res: express.Response, message: string='Unauthorized') {
+  public unauthorized(res: express.Response, message: string = 'Unauthorized') {
     return BaseController.jsonResponse(res, 401, message)
   }
 
-  public paymentRequired(res: express.Response, message: string='Payment required') {
+  public paymentRequired(res: express.Response, message: string = 'Payment required') {
     return BaseController.jsonResponse(res, 402, message)
   }
 
-  public forbidden(res: express.Response, message: string='Forbidden') {
+  public forbidden(res: express.Response, message: string = 'Forbidden') {
     return BaseController.jsonResponse(res, 403, message)
   }
 
-  public notFound(res: express.Response, message: string='Not found') {
+  public notFound(res: express.Response, message: string = 'Not found') {
     return BaseController.jsonResponse(res, 404, message)
   }
 
-  public conflict(res: express.Response, message: string='Conflict') {
+  public conflict(res: express.Response, message: string = 'Conflict') {
     return BaseController.jsonResponse(res, 409, message)
   }
 
-  public tooMany(res: express.Response, message: string='Too many requests') {
+  public tooMany(res: express.Response, message: string = 'Too many requests') {
     return BaseController.jsonResponse(res, 429, message)
   }
 
-  public todo(res: express.Response, message: string='TODO') {
+  public todo(res: express.Response, message: string = 'TODO') {
     return BaseController.jsonResponse(res, 400, message)
   }
 }
