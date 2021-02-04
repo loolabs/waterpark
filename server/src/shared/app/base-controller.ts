@@ -1,41 +1,7 @@
 import * as express from 'express'
-import Joi, { ValidationError } from 'joi'
-import { BaseUseCase } from './base-use-case'
 
-type extractDTO<UseCase> = UseCase extends BaseUseCase<infer T, any> ? T : never
-
-export abstract class BaseController<UseCase extends BaseUseCase<any, any>> {
-  constructor(
-    protected readonly useCase: UseCase,
-    protected readonly schema: Joi.ObjectSchema<extractDTO<UseCase>>
-  ) {}
-
-  protected validate(body: unknown, onErr: (err: ValidationError) => void): body is extractDTO<UseCase> {
-    const { error } = this.schema.validate(body)
-    if (error !== undefined) {
-      onErr(error)
-      return false
-    }
-    return true
-  }
-
-  public async execute(req: express.Request, res: express.Response): Promise<express.Response> {
-    try {
-      const onErr = (err: ValidationError) => {
-        this.clientError(res, err.toString())
-      }
-      if (this.validate(req.body, onErr)) {
-        await this.executeImpl(req.body, res)
-      }
-      return res
-    } catch (err) {
-      console.log(`[BaseController]: Uncaught controller error`)
-      console.log(err)
-      return this.fail(res, 'An unexpected error occurred')
-    }
-  }
-
-  protected abstract executeImpl(dto: extractDTO<UseCase>, res: express.Response): Promise<void | any>
+export abstract class BaseController {
+  public abstract execute(req: express.Request, res: express.Response): Promise<express.Response>
 
   public ok<T>(res: express.Response, dto?: T): express.Response {
     if (dto) {
