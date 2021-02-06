@@ -32,20 +32,19 @@ class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrat
   }
 }
 
+const clientUrl = process.env.DATABASE_URL
+
 // TODO: import connection-related properties from root .env
 const mikroORMConfig: Options = {
   // debug: process.env.NODE_ENV !== 'production',
+  clientUrl,
   debug: true,
-  dbName: 'clubs',
-  host: 'db', // must match service name of postgres container in docker-compose
-  user: 'loolabs',
-  password: 'loolabs',
-  port: 5432,
   highlighter: new SqlHighlighter(),
   entities: ['**/*.entity.js'],
   entitiesTs: ['**/*.entity.ts'], // path to your TS entities (source), relative to `baseDir`
   metadataProvider: TsMorphMetadataProvider,
   migrations: {
+    disableForeignKeys: false,
     path: path.join(__dirname, './migrations'), // path to the folder with migrations
     pattern: /^[\w-]+\d+\.[tj]s$/, // regex pattern for the migration files
   },
