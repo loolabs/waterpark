@@ -9,7 +9,6 @@ import { createMockClubDTOs } from '../test-utils/create-club-dtos'
 
 // TODO: how to show developer these mocks are necessary when building a controller? aka must be synced with buildController()
 jest.mock('../../../../infra/repos/implementations/mikro-club-repo')
-jest.mock('../get-all-clubs-use-case')
 
 describe('GetAllClubsController', () => {
   let mockClubs: Array<Club>
