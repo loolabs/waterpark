@@ -34,7 +34,7 @@ export class CreateUserUseCase
 
     const results = [emailResult, passwordResult] as const
     if (!Result.resultsAllOk(results)) {
-      return Result.err(Result.getFirstError([emailResult, passwordResult]).error)
+      return Result.err(Result.getFirstError(results).error)
     }
 
     const email = results[0].value
