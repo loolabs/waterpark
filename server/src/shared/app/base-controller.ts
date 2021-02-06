@@ -6,8 +6,7 @@ export abstract class BaseController {
   public ok<T>(res: express.Response, dto?: T): express.Response {
     if (dto) {
       res.type('application/json')
-      const temp = res.status(200).json(dto)
-      return temp
+      return res.status(200).json(dto)
     } else {
       return res.sendStatus(200)
     }
