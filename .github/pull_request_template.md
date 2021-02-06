@@ -2,7 +2,11 @@
 _Describe the problem or feature in addition to a link to the issues._
 
 ## Approach
-_How does this change address the problem?_
+_What are the possible approaches we can use to address the problem?_
+
+_What are the pros and cons of each approach?_
+
+_What approach are you choosing? Why?_
 
 ## Testing
 _How did you test your changes?_
