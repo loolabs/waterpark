@@ -1,32 +1,19 @@
 import express from 'express'
 import { BaseController } from '../../../../../shared/app/base-controller'
-import { GetAllClubsUseCase } from './get-all-clubs-use-case'
-// import { ClubValueObjectErrors } from '../../../domain/value-objects/errors'
-import { DecodedExpressRequest } from '../../../../../shared/infra/http/routes/decoded-request'
-import Joi from 'joi'
-export class GetAllClubsController extends BaseController<GetAllClubsUseCase> {
-  constructor(useCase: GetAllClubsUseCase) {
-    super(useCase, Joi.object())
+import { ClubRepo } from '../../../infra/repos/club-repo'
+import { ClubDTO } from '../../../mappers/club-dto'
+import { ClubMap } from '../../../mappers/club-map'
+
+export class GetAllClubsController extends BaseController {
+  constructor(private clubRepo: ClubRepo) {
+    super()
   }
 
-  async executeImpl(_req: DecodedExpressRequest, res: express.Response): Promise<express.Response> {
+  async execute(_req: express.Request, res: express.Response): Promise<express.Response> {
     try {
-      const result = await this.useCase.execute()
-
-      if (result.isOk()) {
-        return this.ok(res, result.value)
-      } else {
-        const error = result.error
-
-        switch (error.constructor) {
-          //   case ClubValueObjectErrors.InvalidEmail:
-          //     return this.clientError(res, error.message)
-          //   case ClubValueObjectErrors.InvalidPassword:
-          //     return this.clientError(res, error.message)
-          default:
-            return this.fail(res, error.message)
-        }
-      }
+      const clubs = await this.clubRepo.getAllClubs()
+      const clubDTOs: Array<ClubDTO> = clubs.map((club) => ClubMap.toDTO(club))
+      return this.ok(res, clubDTOs)
     } catch (err) {
       return this.fail(res, err)
     }
