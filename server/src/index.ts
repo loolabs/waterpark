@@ -5,7 +5,6 @@ import { v1Router } from './shared/infra/http/routes'
 import mikroORMConfig from './mikro-orm.config'
 import { DB } from './shared/infra/db'
 import { UserEntity } from './shared/infra/db/entities/user.entity'
-require('dotenv').config()
 
 const app = express()
 

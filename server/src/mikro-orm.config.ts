@@ -2,7 +2,6 @@ import path from 'path'
 import { AbstractNamingStrategy, NamingStrategy, Options } from '@mikro-orm/core'
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection'
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter'
-require('dotenv').config()
 
 class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrategy {
   classToTableName(entityName: string) {

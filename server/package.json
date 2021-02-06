@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc",
     "migration:create": "npx mikro-orm migration:create",
-    "start": "node dist/index.js",
+    "start": "node -r dotenv/config dist/index.js",
     "start:dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
     "test:all": "jest --maxWorkers =1",
     "test:unit": "jest --testPathPattern=unit.ts$ --maxWorkers=1",
