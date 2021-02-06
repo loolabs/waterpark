@@ -7,8 +7,9 @@ import { ClubRepo } from '../club-repo'
 
 export class MikroClubRepo implements ClubRepo {
   // TODO: same coupling error as equivalent users version of this file
+
   // private clubsEntityRepo: EntityRepository<ClubEntity> | undefined
-    
+
   // constructor(clubRepo: EntityRepository<ClubEntity> | undefined) {
   //   this.clubsEntityRepo = clubRepo
   // }
@@ -24,20 +25,11 @@ export class MikroClubRepo implements ClubRepo {
     return ClubMap.toDomain(club)
   }
 
-  async getAllClubs(): Promise<Array<Club>>{
-    const clubEntities: Array<ClubEntity> = await DB.clubsEntityRepo.find({}, { orderBy: { name: QueryOrder.DESC_NULLS_LAST } })
-    return clubEntities.map((clubEntity: ClubEntity): Club => ClubMap.toDomain(clubEntity))    
+  async getAllClubs(): Promise<Array<Club>> {
+    const clubEntities: Array<ClubEntity> = await DB.clubsEntityRepo.find(
+      {},
+      { orderBy: { name: QueryOrder.DESC_NULLS_LAST } }
+    )
+    return clubEntities.map((clubEntity: ClubEntity): Club => ClubMap.toDomain(clubEntity))
   }
-
-  // async save(club: Club): Promise<void> {
-  //   const exists = await this.exists(club.name)
-
-  //   if (exists) return
-
-  //   const clubEntity = await ClubMap.toPersistence(club)
-
-  //   DB.clubsEntityRepo.persist(clubEntity)
-  //   DB.clubsEntityRepo.flush()
-  // }
-
 }

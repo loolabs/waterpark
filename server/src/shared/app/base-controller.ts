@@ -7,7 +7,6 @@ export abstract class BaseController {
     if (dto) {
       res.type('application/json')
       const temp = res.status(200).json(dto)
-      console.log(typeof temp)
       return temp
     } else {
       return res.sendStatus(200)

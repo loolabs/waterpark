@@ -6,7 +6,7 @@ import { ClubDeleted } from '../events/club-deleted'
 import { ClubId } from '../value-objects/clubId'
 
 interface ClubProps {
-  name: string 
+  name: string
   description: string
   isDeleted?: boolean
 }
@@ -43,17 +43,15 @@ export class Club extends AggregateRoot<ClubProps> {
     else throw new Error('Could not create ClubId instance')
   }
 
-  get name(): string{
+  get name(): string {
     return this.props.name
   }
 
-  get description(): string{
+  get description(): string {
     return this.props.description
   }
-
 
   get isDeleted(): boolean | undefined {
     return this.props.isDeleted
   }
-
 }
