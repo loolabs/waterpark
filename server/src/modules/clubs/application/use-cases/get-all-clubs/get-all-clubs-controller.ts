@@ -3,18 +3,13 @@ import { BaseController } from '../../../../../shared/app/base-controller'
 import { GetAllClubsUseCase } from './get-all-clubs-use-case'
 // import { ClubValueObjectErrors } from '../../../domain/value-objects/errors'
 import { DecodedExpressRequest } from '../../../../../shared/infra/http/routes/decoded-request'
-export class GetAllClubsController extends BaseController {
-  private useCase: GetAllClubsUseCase
-
+import Joi from 'joi'
+export class GetAllClubsController extends BaseController<GetAllClubsUseCase> {
   constructor(useCase: GetAllClubsUseCase) {
-    super()
-    this.useCase = useCase
+    super(useCase, Joi.object())
   }
 
-    
   async executeImpl(_req: DecodedExpressRequest, res: express.Response): Promise<express.Response> {
-    // TODO: add class validator/transformer
-        
     try {
       const result = await this.useCase.execute()
 
@@ -24,10 +19,10 @@ export class GetAllClubsController extends BaseController {
         const error = result.error
 
         switch (error.constructor) {
-        //   case ClubValueObjectErrors.InvalidEmail:
-        //     return this.clientError(res, error.message)
-        //   case ClubValueObjectErrors.InvalidPassword:
-        //     return this.clientError(res, error.message)
+          //   case ClubValueObjectErrors.InvalidEmail:
+          //     return this.clientError(res, error.message)
+          //   case ClubValueObjectErrors.InvalidPassword:
+          //     return this.clientError(res, error.message)
           default:
             return this.fail(res, error.message)
         }
