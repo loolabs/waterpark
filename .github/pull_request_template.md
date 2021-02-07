@@ -1,3 +1,6 @@
+## Screenshots
+_If you're working on the frontend, or any other change where visuals would help, please provide them here._
+
 ## Purpose
 _Describe the problem or feature in addition to a link to the issues._
 
