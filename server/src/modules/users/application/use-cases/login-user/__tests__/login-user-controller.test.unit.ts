@@ -1,4 +1,5 @@
 import httpMocks from 'node-mocks-http'
+import { UserAuthHandlerLoginSuccess } from '../../../../../../shared/auth/user-auth-handler'
 import { AppError } from '../../../../../../shared/core/app-error'
 import { Result } from '../../../../../../shared/core/result'
 import { DecodedExpressRequest } from '../../../../../../shared/infra/http/routes/decoded-request'
@@ -32,7 +33,11 @@ describe('LoginUserController', () => {
       body: loginUserDTO,
     }) as DecodedExpressRequest
     const mockResponse = httpMocks.createResponse()
-    jest.spyOn(LoginUserUseCase.prototype, 'execute').mockResolvedValue(Result.ok(mockUser))
+    const useCaseResolvedValue: UserAuthHandlerLoginSuccess = {
+      user: mockUser,
+      token: "testtoken"
+    }
+    jest.spyOn(LoginUserUseCase.prototype, 'execute').mockResolvedValue(Result.ok(useCaseResolvedValue))
     const loginUserController = buildController()
 
     const result = await loginUserController.executeImpl(mockRequest, mockResponse)

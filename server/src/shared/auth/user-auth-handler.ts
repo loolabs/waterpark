@@ -1,17 +1,19 @@
 import passport from 'passport'
-import * as jwt from "jsonwebtoken"; 
-import { Result } from '../core/result';
+import { sign } from 'jsonwebtoken'
+import { Result } from '../core/result'
 import { LoginUserErrors } from '../../modules/users/application/use-cases/login-user/login-user-errors'
-import { AppError } from '../core/app-error';
-import { JWT_SECRET } from '../core/secret';
+import { AppError } from '../core/app-error'
+import { JWT_SECRET } from '../core/secret'
+import { User } from '../../modules/users/domain/entities/user'
 
-type UserAuthHandlerLoginToken = {
+export type UserAuthHandlerLoginSuccess = {
+  user: User,
   token: string
 }
 
-type UserAuthHandlerLoginError = LoginUserErrors.IncorrectPasswordError |  AppError.UnexpectedError
+export type UserAuthHandlerLoginError = LoginUserErrors.IncorrectPasswordError |  AppError.UnexpectedError
 
-export type UserAuthHandlerLoginResponse = Result<UserAuthHandlerLoginToken, UserAuthHandlerLoginError> 
+export type UserAuthHandlerLoginResponse = Result<UserAuthHandlerLoginSuccess, UserAuthHandlerLoginError> 
  
 //add implementation-specific auth functions here
 export class UserAuthHandler {
@@ -23,8 +25,8 @@ export class UserAuthHandler {
       if (!user) {
         userAuthHandlerLoginResponse = Result.err(new LoginUserErrors.IncorrectPasswordError())
       } else {
-        const token = jwt.sign({ email: user.email }, JWT_SECRET)
-        const response: UserAuthHandlerLoginToken = { token }
+        const token = sign({ email: user.email }, JWT_SECRET)
+        const response: UserAuthHandlerLoginSuccess = { user, token }
         userAuthHandlerLoginResponse = Result.ok(response)
       }
     });
@@ -32,7 +34,7 @@ export class UserAuthHandler {
   }
 
   async create(email: string): Promise<Result<string, AppError.UnexpectedError>> {
-    const token = jwt.sign({ email: email }, JWT_SECRET);
+    const token = sign({ email: email }, JWT_SECRET);
     return Result.ok(token)
   }
 }

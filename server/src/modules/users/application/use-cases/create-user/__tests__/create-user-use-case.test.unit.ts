@@ -1,4 +1,4 @@
-import { Err } from '../../../../../../shared/core/result'
+import { Err, Result } from '../../../../../../shared/core/result'
 import { User } from '../../../../domain/entities/user'
 import { UserValueObjectErrors } from '../../../../domain/value-objects/errors'
 import { MikroUserRepo } from '../../../../infra/repos/implementations/mikro-user-repo'
@@ -65,7 +65,8 @@ describe('CreateUserUseCase', () => {
     const user = createMockUser()
     const fakeUserRepo: UserRepo = {
       exists: async () => true,
-      getUserByUserId: async () => user,
+      getUserByUserId: async () => Result.ok(user),
+      getUserByUserEmailandUserPassword: async () => Result.ok(user),
       save: async () => {},
     }
     const createUserUseCase = new CreateUserUseCase(fakeUserRepo)

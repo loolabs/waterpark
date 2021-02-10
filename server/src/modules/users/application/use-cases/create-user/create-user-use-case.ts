@@ -10,18 +10,18 @@ import { UserRepo } from '../../../infra/repos/user-repo'
 import { CreateUserDTO } from './create-user-dto'
 import { CreateUserErrors } from './create-user-errors'
 
-type CreateUserUseCaseError =
+export type CreateUserUseCaseError =
   | UserValueObjectErrors.InvalidEmail
   | UserValueObjectErrors.InvalidPassword
   | CreateUserErrors.EmailAlreadyExistsError
   | AppError.UnexpectedError
 
-type CreateUserSuccess = {
+export type CreateUserSuccess = {
   user: User,
   token: string
 }
 
-type CreateUserUseCaseResponse = Result<CreateUserSuccess, CreateUserUseCaseError>
+export type CreateUserUseCaseResponse = Result<CreateUserSuccess, CreateUserUseCaseError>
 
 export class CreateUserUseCase
   implements UseCase<CreateUserDTO, Promise<CreateUserUseCaseResponse>> {

@@ -6,7 +6,7 @@ import { User } from '../../../../domain/entities/user'
 import { UserValueObjectErrors } from '../../../../domain/value-objects/errors'
 import { CreateUserDTO } from '../create-user-dto'
 import { CreateUserErrors } from '../create-user-errors'
-import { CreateUserUseCase } from '../create-user-use-case'
+import { CreateUserUseCase, CreateUserSuccess } from '../create-user-use-case'
 import { buildController } from '../test-utils/build-controller'
 import { createMockUser } from '../test-utils/create-user'
 
@@ -32,7 +32,13 @@ describe('CreateUserController', () => {
       body: createUserDTO,
     }) as DecodedExpressRequest
     const mockResponse = httpMocks.createResponse()
-    jest.spyOn(CreateUserUseCase.prototype, 'execute').mockResolvedValue(Result.ok(mockUser))
+    
+    const useCaseResolvedValue: CreateUserSuccess = {
+      user: mockUser,
+      token: "testtoken"
+    }
+
+    jest.spyOn(CreateUserUseCase.prototype, 'execute').mockResolvedValue(Result.ok(useCaseResolvedValue))
     const createUserController = buildController()
 
     const result = await createUserController.executeImpl(mockRequest, mockResponse)
