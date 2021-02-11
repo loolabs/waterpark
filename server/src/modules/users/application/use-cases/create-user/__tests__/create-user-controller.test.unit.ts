@@ -41,7 +41,7 @@ describe('CreateUserController', () => {
     jest.spyOn(CreateUserUseCase.prototype, 'execute').mockResolvedValue(Result.ok(useCaseResolvedValue))
     const createUserController = buildController()
 
-    const result = await createUserController.executeImpl(mockRequest, mockResponse)
+    const result = await createUserController.execute(mockRequest, mockResponse)
 
     expect(result.statusCode).toBe(200)
   })
@@ -56,7 +56,24 @@ describe('CreateUserController', () => {
       .mockResolvedValue(Result.err(new UserValueObjectErrors.InvalidEmail(createUserDTO.email)))
     const createUserController = buildController()
 
-    const result = await createUserController.executeImpl(mockRequest, mockResponse)
+    const result = await createUserController.execute(mockRequest, mockResponse)
+
+    expect(result.statusCode).toBe(400)
+  })
+
+  test('When the DTO is invalid, CreateUserController returns 400 Bad Request', async () => {
+    const invalidCreateUserDTO = {
+      email: 123,
+      password: 456,
+    }
+    const mockRequest = httpMocks.createRequest({
+      body: invalidCreateUserDTO,
+    }) as DecodedExpressRequest
+    const mockResponse = httpMocks.createResponse()
+    jest.spyOn(CreateUserUseCase.prototype, 'execute').mockResolvedValue(Result.ok(mockUser))
+    const createUserController = buildController()
+
+    const result = await createUserController.execute(mockRequest, mockResponse)
 
     expect(result.statusCode).toBe(400)
   })
@@ -73,8 +90,7 @@ describe('CreateUserController', () => {
       )
     const createUserController = buildController()
 
-    const result = await createUserController.executeImpl(mockRequest, mockResponse)
-
+    const result = await createUserController.execute(mockRequest, mockResponse)
     expect(result.statusCode).toBe(400)
   })
 
@@ -90,7 +106,7 @@ describe('CreateUserController', () => {
       )
     const createUserController = buildController()
 
-    const result = await createUserController.executeImpl(mockRequest, mockResponse)
+    const result = await createUserController.execute(mockRequest, mockResponse)
 
     expect(result.statusCode).toBe(409)
   })
@@ -105,7 +121,7 @@ describe('CreateUserController', () => {
       .mockResolvedValue(Result.err(new AppError.UnexpectedError('Unexpected error')))
     const createUserController = buildController()
 
-    const result = await createUserController.executeImpl(mockRequest, mockResponse)
+    const result = await createUserController.execute(mockRequest, mockResponse)
 
     expect(result.statusCode).toBe(500)
   })

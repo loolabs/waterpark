@@ -7,7 +7,7 @@ services:
       context: ./server
       # target: development
     volumes:
-      - ./server:/usr/src/app
+      - ./server/src:/usr/src/app/src
       - /usr/src/app/node_modules # isolate container's node_modules from local node_modules (different OS versions)
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}

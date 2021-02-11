@@ -4,7 +4,7 @@ import { loginUserController } from '../../../application/use-cases/login-user'
 const userRouter = express.Router()
 
 // routes are coupled to controllers - no need for DI to enable easier testing, that's just overkill
-userRouter.post('/', (req, res) => {
+userRouter.post('/', (req, res): void => {
   createUserController.execute(req, res)
 })
 
