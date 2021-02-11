@@ -3,10 +3,10 @@ import { ClubDTO } from '../../../../mappers/club-dto'
 export const createMockClubDTOs = (): Array<ClubDTO> => {
   
   const clubs: Array<ClubDTO> =[]
-  for (let _i = 1; _i <= 3; ++_i){
+  for (let i = 1; i <= 3; ++i){
     clubs.push({
-          name: `Club Name ${_i}`,
-          description: `Club Description ${_i}`
+          name: `Club Name ${i}`,
+          description: `Club Description ${i}`
     })
   }
   return clubs
