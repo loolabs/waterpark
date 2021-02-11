@@ -11,10 +11,6 @@ export class ClubEntity extends BaseEntity {
   @Property()
   description!: string
 
-  @Property({ default: false })
-  isDeleted!: boolean
-
-
   // TODO: fix any type
   @AfterCreate()
   afterCreate(target: any) {

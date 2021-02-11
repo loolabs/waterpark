@@ -41,7 +41,7 @@ export class MikroUserRepo implements UserRepo {
   }
 
   async findAll(): Promise<Array<User>> {
-    const users: Array<UserEntity> = await DB.usersEntityRepo.findAll()
+    const users = await DB.usersEntityRepo.findAll()
     return users.map((user) => UserMap.toDomain(user))
   }
 }

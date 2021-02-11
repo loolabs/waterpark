@@ -4,7 +4,7 @@ import { Club } from '../domain/entities/club'
 import { ClubDTO } from './club-dto'
 
 export class ClubMap {
-  public static toDTO(club: Club): ClubDTO { //TODO: verify use of toDTO and adapt to clubs
+  public static toDTO(club: Club): ClubDTO { 
     return {
       name: club.name,
       description: club.description
@@ -16,7 +16,6 @@ export class ClubMap {
       {
         name: clubEntity.name,
         description: clubEntity.description,
-        isDeleted: clubEntity.isDeleted,
       },
       new UniqueEntityID(clubEntity.id)
     )
@@ -29,7 +28,6 @@ export class ClubMap {
     const clubEntity = new ClubEntity()
     clubEntity.name = club.name
     clubEntity.description=club.description
-    if (club.isDeleted !== undefined) clubEntity.isDeleted = club.isDeleted
 
     return clubEntity
   }

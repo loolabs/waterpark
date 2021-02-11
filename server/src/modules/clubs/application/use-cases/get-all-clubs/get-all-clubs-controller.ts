@@ -11,9 +11,14 @@ export class GetAllClubsController extends BaseController {
 
   async execute(_req: express.Request, res: express.Response): Promise<express.Response> {
     try {
-      const clubs = await this.clubRepo.getAllClubs()
-      const clubDTOs: Array<ClubDTO> = clubs.map((club) => ClubMap.toDTO(club))
-      return this.ok(res, clubDTOs)
+      const result = await this.clubRepo.getAllClubs()
+      if (result.isOk()) {
+        const clubDTOs: Array<ClubDTO> = result.value.map((club) => ClubMap.toDTO(club))
+        return this.ok(res, clubDTOs)
+      } else {
+            return this.fail(res, result.error.message)        
+      }
+      
     } catch (err) {
       return this.fail(res, err)
     }
