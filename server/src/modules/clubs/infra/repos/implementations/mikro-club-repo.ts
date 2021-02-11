@@ -15,7 +15,7 @@ export class MikroClubRepo implements ClubRepo {
   // }
 
   async exists(name: string): Promise<boolean> {
-    const club = await DB.clubsEntityRepo.findOne({ name })
+    return (await DB.clubsEntityRepo.count({ name }) > 0)
     return club !== null
   }
 
