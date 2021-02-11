@@ -17,9 +17,14 @@ export class MikroClubRepo implements ClubRepo {
   // }
 
   async exists(name: string): Promise<boolean> {
-    const club = await DB.clubsEntityRepo.findOne({ name })
-    return club !== null
-  }  
+    return (await DB.clubsEntityRepo.count({ name }) > 0);
+  }
+
+  async getClubByClubId(clubId: string): Promise<Club> {
+    const club = await DB.clubsEntityRepo.findOne({ id: clubId })
+    if (!club) throw new Error() // TODO handle error
+    return ClubMap.toDomain(club)
+  }
 
   async getAllClubs(): Promise<Result<Array<Club>, AppError.UnexpectedError>> {
     try {

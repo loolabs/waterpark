@@ -48,7 +48,7 @@ describe('User AggregateRoot', () => {
     user.setAccessToken('token', 'refresh')
 
     // note: not sure if this is the best way to test AggregateRoot.addDomainEvent() was called with UserLoggedIn event
-   // TODO: if changes made here, see clubs/domain/entities/__tests__/club.test.unit.ts as well.
+    // TODO: if changes made here, see clubs/domain/entities/__tests__/club.test.unit.ts as well.
     expect(UserLoggedIn).toBeCalled()
     expect(DomainEvents.markAggregateForDispatch).toBeCalled()
   })
