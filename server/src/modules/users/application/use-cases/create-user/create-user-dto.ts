@@ -6,6 +6,6 @@ export interface CreateUserDTO {
 }
 
 export const createUserDTOSchema = Joi.object<CreateUserDTO>({
-  email: Joi.string(),
-  password: Joi.string(),
+  email: Joi.string().required(),
+  password: Joi.string().required(),
 }).options({ abortEarly: false })
