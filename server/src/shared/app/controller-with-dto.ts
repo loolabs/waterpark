@@ -1,10 +1,17 @@
-import * as express from 'express'
+import express from "express"
+import BaseController from './base-controller'
+import { UseCaseWithDTO } from './use-case-with-dto'
+import { Result } from "../../shared/core/result"
 import Joi, { ValidationError } from 'joi'
-import { Result } from '../core/result'
-import { BaseController } from './base-controller'
 
-export abstract class TypedController<DTO> extends BaseController {
-  protected abstract buildDTO(req: express.Request): Result<DTO, Array<ValidationError>>
+type extractDTO<UseCase> = UseCase extends UseCaseWithDTO<infer T, any> ? T : never
+
+export  abstract class ControllerWithDTO<UseCase extends UseCaseWithDTO<any, any>> extends BaseController {
+  constructor(protected useCase: UseCase) {
+    super()
+  }
+  
+  protected abstract buildDTO(req: express.Request): Result<extractDTO<UseCase>, Array<ValidationError>>
 
   protected validate<T>(obj: unknown, schema: Joi.ObjectSchema<T>): Result<T, ValidationError> {
     const { error } = schema.validate(obj)
@@ -27,5 +34,6 @@ export abstract class TypedController<DTO> extends BaseController {
     }
   }
 
-  protected abstract executeImpl(dto: DTO, res: express.Response): Promise<express.Response | void | any>
+  protected abstract executeImpl(dto: extractDTO<UseCase>, res: express.Response): Promise<express.Response | void | any>
+
 }

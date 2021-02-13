@@ -1,5 +1,5 @@
 import express from 'express'
-import { UseCaseController } from '../../../../../shared/app/use-case-controller'
+import { ControllerWithDTO } from '../../../../../shared/app/controller-with-dto'
 import { CreateUserUseCase } from './create-user-use-case'
 import { CreateUserDTO, createUserDTOSchema } from './create-user-dto'
 import { CreateUserErrors } from './create-user-errors'
@@ -7,8 +7,10 @@ import { UserValueObjectErrors } from '../../../domain/value-objects/errors'
 import { Result } from '../../../../../shared/core/result'
 import { ValidationError } from 'joi'
 
-export class CreateUserController extends UseCaseController<CreateUserUseCase> {
-  constructor(useCase: CreateUserUseCase) { super(useCase) }
+export class CreateUserController extends ControllerWithDTO<CreateUserUseCase> {
+  constructor(useCase: CreateUserUseCase) {
+    super(useCase)
+  }
 
   buildDTO(req: express.Request): Result<CreateUserDTO, Array<ValidationError>> {
     const errs: Array<ValidationError> = []
