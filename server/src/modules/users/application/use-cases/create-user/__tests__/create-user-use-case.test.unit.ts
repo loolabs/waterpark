@@ -64,7 +64,7 @@ describe('CreateUserUseCase', () => {
     }
     const user = createMockUser()
     const fakeUserRepo: UserRepo = {
-      exists: async () => true,
+      exists: async () => Result.ok(true),
       getUserByUserId: async () => Result.ok(user),
       getUserByUserEmailandUserPassword: async () => Result.ok(user),
       save: async () => {},

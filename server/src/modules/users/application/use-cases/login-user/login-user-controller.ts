@@ -1,23 +1,31 @@
 import express from 'express'
-import { BaseController } from '../../../../../shared/app/base-controller'
 import { LoginUserUseCase } from './login-user-use-case'
-import { LoginUserDTO } from './login-user-dto'
+import { LoginUserDTO, loginUserDTOSchema } from './login-user-dto'
 import { LoginUserErrors } from './login-user-errors'
 import { UserValueObjectErrors } from '../../../domain/value-objects/errors'
-import { DecodedExpressRequest } from '../../../../../shared/infra/http/routes/decoded-request'
+import { UseCaseController } from '../../../../../shared/app/use-case-controller'
+import { Result } from '../../../../../shared/core/result'
+import { ValidationError } from 'joi'
 
-export class LoginUserController extends BaseController {
-  private useCase: LoginUserUseCase
+export class LoginUserController extends UseCaseController<LoginUserUseCase> {
 
   constructor(useCase: LoginUserUseCase) {
-    super()
-    this.useCase = useCase
+    super(useCase)
   }
 
-  async executeImpl(req: DecodedExpressRequest, res: express.Response): Promise<express.Response> {
-    // TODO: add class validator/transformer
-    const dto: LoginUserDTO = req.body as LoginUserDTO
-    
+  buildDTO(req: express.Request): Result<LoginUserDTO, Array<ValidationError>> {
+    const errs: Array<ValidationError> = []
+    const bodyResult = this.validate(req.body, loginUserDTOSchema)
+    if (bodyResult.isOk()) {
+      const body = bodyResult.value
+      return Result.ok(body)
+    } else {
+      errs.push(bodyResult.error)
+      return Result.err(errs)
+    }
+  }
+
+  async executeImpl(dto: LoginUserDTO, res: express.Response): Promise<express.Response> {
     try {
       const result = await this.useCase.execute(dto)
 

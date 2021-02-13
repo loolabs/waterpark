@@ -48,7 +48,7 @@ export class CreateUserUseCase
 
     try {
       const userAlreadyExists = await this.userRepo.exists(email)
-      if (userAlreadyExists)
+      if (userAlreadyExists.isOk())
         return Result.err(new CreateUserErrors.EmailAlreadyExistsError(email.value))
 
       const userResult = User.create({

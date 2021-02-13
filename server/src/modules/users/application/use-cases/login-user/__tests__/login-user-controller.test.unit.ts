@@ -2,7 +2,6 @@ import httpMocks from 'node-mocks-http'
 import { UserAuthHandlerLoginSuccess } from '../../../../../../shared/auth/user-auth-handler'
 import { AppError } from '../../../../../../shared/core/app-error'
 import { Result } from '../../../../../../shared/core/result'
-import { DecodedExpressRequest } from '../../../../../../shared/infra/http/routes/decoded-request'
 import { User } from '../../../../domain/entities/user'
 import { UserValueObjectErrors } from '../../../../domain/value-objects/errors'
 import { LoginUserDTO } from '../login-user-dto'
@@ -29,9 +28,6 @@ describe('LoginUserController', () => {
   })
 
   test('When the LoginUserUseCase returns Ok, the LoginUserController returns 200 OK', async () => {
-    const mockRequest = httpMocks.createRequest({
-      body: loginUserDTO,
-    }) as DecodedExpressRequest
     const mockResponse = httpMocks.createResponse()
     const useCaseResolvedValue: UserAuthHandlerLoginSuccess = {
       user: mockUser,
@@ -40,30 +36,24 @@ describe('LoginUserController', () => {
     jest.spyOn(LoginUserUseCase.prototype, 'execute').mockResolvedValue(Result.ok(useCaseResolvedValue))
     const loginUserController = buildController()
 
-    const result = await loginUserController.executeImpl(mockRequest, mockResponse)
+    const result = await loginUserController.executeImpl(loginUserDTO, mockResponse)
 
     expect(result.statusCode).toBe(200)
   })
 
   test('When the LoginUserUseCase returns UserValueObjectErrors.InvalidEmail, LoginUserController returns 400 Bad Request', async () => {
-    const mockRequest = httpMocks.createRequest({
-      body: loginUserDTO,
-    }) as DecodedExpressRequest
     const mockResponse = httpMocks.createResponse()
     jest
       .spyOn(LoginUserUseCase.prototype, 'execute')
       .mockResolvedValue(Result.err(new UserValueObjectErrors.InvalidEmail(loginUserDTO.email)))
     const loginUserController = buildController()
 
-    const result = await loginUserController.executeImpl(mockRequest, mockResponse)
+    const result = await loginUserController.executeImpl(loginUserDTO, mockResponse)
 
     expect(result.statusCode).toBe(400)
   })
 
   test('When the LoginUserUseCase returns UserValueObjectErrors.InvalidPassword, LoginUserController returns 400 Bad Request', async () => {
-    const mockRequest = httpMocks.createRequest({
-      body: loginUserDTO,
-    }) as DecodedExpressRequest
     const mockResponse = httpMocks.createResponse()
     jest
       .spyOn(LoginUserUseCase.prototype, 'execute')
@@ -72,15 +62,12 @@ describe('LoginUserController', () => {
       )
     const loginUserController = buildController()
 
-    const result = await loginUserController.executeImpl(mockRequest, mockResponse)
+    const result = await loginUserController.executeImpl(loginUserDTO, mockResponse)
 
     expect(result.statusCode).toBe(400)
   })
 
   test('When the LoginUserUseCase returns LoginUserErrors.IncorrectPasswordError, LoginUserController returns 409 Conflict', async () => {
-    const mockRequest = httpMocks.createRequest({
-      body: loginUserDTO,
-    }) as DecodedExpressRequest
     const mockResponse = httpMocks.createResponse()
     jest
       .spyOn(LoginUserUseCase.prototype, 'execute')
@@ -89,22 +76,19 @@ describe('LoginUserController', () => {
       )
     const loginUserController = buildController()
 
-    const result = await loginUserController.executeImpl(mockRequest, mockResponse)
+    const result = await loginUserController.executeImpl(loginUserDTO, mockResponse)
 
     expect(result.statusCode).toBe(409)
   })
 
   test('When the LoginUserUseCase returns AppError.UnexpectedError, LoginUserController returns 500 Internal Server Error', async () => {
-    const mockRequest = httpMocks.createRequest({
-      body: loginUserDTO,
-    }) as DecodedExpressRequest
     const mockResponse = httpMocks.createResponse()
     jest
       .spyOn(LoginUserUseCase.prototype, 'execute')
       .mockResolvedValue(Result.err(new AppError.UnexpectedError('Unexpected error')))
     const loginUserController = buildController()
 
-    const result = await loginUserController.executeImpl(mockRequest, mockResponse)
+    const result = await loginUserController.executeImpl(loginUserDTO, mockResponse)
 
     expect(result.statusCode).toBe(500)
   })

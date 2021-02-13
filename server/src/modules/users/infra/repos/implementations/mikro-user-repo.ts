@@ -2,7 +2,7 @@ import { EntityRepository } from '@mikro-orm/core'
 import { Result } from '../../../../../shared/core/result'
 import { DB } from '../../../../../shared/infra/db'
 import { UserEntity } from '../../../../../shared/infra/db/entities/user.entity'
-import { RepoError, RepoErrors } from '../../../../../shared/infra/db/errors/errors'
+import { DBError, DBErrors } from '../../../../../shared/infra/db/errors/errors'
 import { User } from '../../../domain/entities/user'
 import { UserEmail } from '../../../domain/value-objects/user-email'
 import { UserPassword } from '../../../domain/value-objects/user-password'
@@ -20,20 +20,20 @@ export class MikroUserRepo implements UserRepo {
     this.usersEntityRepo = userRepo
   }
 
-  async exists(userEmail: UserEmail): Promise<boolean> {
+  async exists(userEmail: UserEmail): Promise<Result<boolean, DBErrors>> {
     const user = await DB.usersEntityRepo.findOne({ email: userEmail.value })
-    return user !== null
+    return Result.ok(user !== null)
   }
 
-  async getUserByUserId(userId: string): Promise<Result<User, RepoError>> {
+  async getUserByUserId(userId: string): Promise<Result<User, DBErrors>> {
     const user = await DB.usersEntityRepo.findOne({ id: userId })
-    if (!user) return Result.err(new RepoErrors.NotFound())
+    if (!user) return Result.err(new DBError.UserNotFoundError(userId))
     return Result.ok(UserMap.toDomain(user))
   }
 
-  async getUserByUserEmailandUserPassword(userEmail: UserEmail, password: UserPassword): Promise<Result<User, RepoError>> {
+  async getUserByUserEmailandUserPassword(userEmail: UserEmail, password: UserPassword): Promise<Result<User, DBErrors>> {
     const user = await DB.usersEntityRepo.findOne({ email: userEmail.value, password: password.value })
-    if (!user) return Result.err(new RepoErrors.NotFound())
+    if (!user) return Result.err(new DBError.UserNotFoundError(userEmail.value))
     return Result.ok(UserMap.toDomain(user))
   }
 
@@ -49,8 +49,8 @@ export class MikroUserRepo implements UserRepo {
     DB.usersEntityRepo.flush()
   }
 
-  async findAll(): Promise<Array<User>> {
+  async findAll(): Promise<Result<Array<User>, DBErrors>> {
     const users = await DB.usersEntityRepo.findAll()
-    return users.map((user) => UserMap.toDomain(user))
+    return Result.ok(users.map((user) => UserMap.toDomain(user)))
   }
 }

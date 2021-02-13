@@ -70,7 +70,13 @@ describe('CreateUserController', () => {
       body: invalidCreateUserDTO,
     }) as DecodedExpressRequest
     const mockResponse = httpMocks.createResponse()
-    jest.spyOn(CreateUserUseCase.prototype, 'execute').mockResolvedValue(Result.ok(mockUser))
+
+    const useCaseResolvedValue: CreateUserSuccess = {
+      user: mockUser,
+      token: "testtoken"
+    }
+
+    jest.spyOn(CreateUserUseCase.prototype, 'execute').mockResolvedValue(Result.ok(useCaseResolvedValue))
     const createUserController = buildController()
 
     const result = await createUserController.execute(mockRequest, mockResponse)
