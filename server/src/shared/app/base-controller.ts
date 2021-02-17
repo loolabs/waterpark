@@ -1,6 +1,6 @@
 import * as express from 'express'
 
-export default abstract class BaseController {
+export abstract class BaseController {
   public abstract execute(req: express.Request, res: express.Response): Promise<express.Response>
 
   public ok<T>(res: express.Response, dto?: T): express.Response {
