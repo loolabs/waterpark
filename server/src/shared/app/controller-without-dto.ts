@@ -1,4 +1,4 @@
-import BaseController from './base-controller'
+import { BaseController } from './base-controller'
 import { UseCaseWithoutDTO } from './use-case-without-dto'
 
 export abstract class ControllerWithoutDTO<
