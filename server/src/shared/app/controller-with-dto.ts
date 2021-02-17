@@ -1,5 +1,5 @@
 import express from 'express'
-import BaseController from './base-controller'
+import { BaseController } from './base-controller'
 import { UseCaseWithDTO } from './use-case-with-dto'
 import { Result } from '../../shared/core/result'
 import Joi, { ValidationError } from 'joi'
