@@ -1,4 +1,4 @@
-import { QueryOrder } from '@mikro-orm/core' // {EntityRepository, QueryOrder}
+import { QueryOrder } from '@mikro-orm/core'
 import { DB } from '../../../../../shared/infra/db'
 import { ClubEntity } from '../../../../../shared/infra/db/entities/club.entity'
 import { Club } from '../../../domain/entities/club'
