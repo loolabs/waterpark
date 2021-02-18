@@ -1,3 +1,3 @@
-export interface BaseUseCase<DTO, Response> {
+export interface UseCaseWithDTO<DTO, Response> {
   execute(dto: DTO): Promise<Response> | Response
 }
