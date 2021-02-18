@@ -17,16 +17,12 @@ export class GetAllClubsUseCase implements UseCaseWithoutDTO<Promise<GetAllClubs
   }
 
   async execute(): Promise<GetAllClubsUseCaseResponse> {
-    try {
-      const result = await this.clubRepo.getAllClubs()
-      if (result.isOk()) {
-        const clubDTOs: Array<ClubDTO> = result.value.map((club) => ClubMap.toDTO(club))
-        return Result.ok(clubDTOs)
-      } else {
-        return result
-      }
-    } catch (err) {
-      return Result.err(new AppError.UnexpectedError(err))
+    const result = await this.clubRepo.getAllClubs()
+    if (result.isOk()) {
+      const clubDTOs: Array<ClubDTO> = result.value.map((club) => ClubMap.toDTO(club))
+      return Result.ok(clubDTOs)
+    } else {
+      return result
     }
   }
 }

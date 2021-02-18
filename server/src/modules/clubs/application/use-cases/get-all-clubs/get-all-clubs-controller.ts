@@ -8,15 +8,11 @@ export class GetAllClubsController extends ControllerWithoutDTO<GetAllClubsUseCa
   }
 
   async execute(_req: express.Request, res: express.Response): Promise<express.Response> {
-    try {
-      const result = await this.useCase.execute()
-      if (result.isOk()) {
-        return this.ok(res, result.value)
-      } else {
-        return this.fail(res, result.error.message)
-      }
-    } catch (err) {
-      return this.fail(res, err)
+    const result = await this.useCase.execute()
+    if (result.isOk()) {
+      return this.ok(res, result.value)
+    } else {
+      return this.fail(res, result.error.message)
     }
   }
 }
