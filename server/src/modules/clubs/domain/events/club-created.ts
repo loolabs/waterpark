@@ -1,6 +1,6 @@
 import { DomainEvent } from '../../../../shared/domain/events/domain-event'
 import { UniqueEntityID } from '../../../../shared/domain/unique-entity-id'
-import { Club } from "../entities/club"
+import { Club } from '../entities/club'
 
 export class ClubCreated implements DomainEvent {
   public dateTimeOccurred: Date

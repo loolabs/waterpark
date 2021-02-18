@@ -28,7 +28,6 @@ export class Club extends AggregateRoot<ClubProps> {
     super(props, id)
   }
 
-
   get clubId(): ClubId {
     const clubIdResult = ClubId.create(this._id)
     if (clubIdResult.isOk()) return clubIdResult.value
@@ -42,5 +41,4 @@ export class Club extends AggregateRoot<ClubProps> {
   get description(): string {
     return this.props.description
   }
-
 }

@@ -4,10 +4,10 @@ import { Club } from '../domain/entities/club'
 import { ClubDTO } from './club-dto'
 
 export class ClubMap {
-  public static toDTO(club: Club): ClubDTO { 
+  public static toDTO(club: Club): ClubDTO {
     return {
       name: club.name,
-      description: club.description
+      description: club.description,
     }
   }
 
@@ -27,7 +27,7 @@ export class ClubMap {
   public static async toPersistence(club: Club): Promise<ClubEntity> {
     const clubEntity = new ClubEntity()
     clubEntity.name = club.name
-    clubEntity.description=club.description
+    clubEntity.description = club.description
 
     return clubEntity
   }

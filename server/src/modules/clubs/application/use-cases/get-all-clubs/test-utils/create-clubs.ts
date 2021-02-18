@@ -1,7 +1,7 @@
 import { Club } from '../../../../domain/entities/club'
-import { Result} from "../../../../../../shared/core/result"
+import { Result } from '../../../../../../shared/core/result'
 import { AppError } from '../../../../../../shared/core/app-error'
-export const createMockClubs = (): Result<Array<Club>,AppError.UnexpectedError> => {
+export const createMockClubs = (): Result<Array<Club>, AppError.UnexpectedError> => {
   const clubs: Array<Club> = []
   for (let i = 1; i <= 3; ++i) {
     const clubResult = Club.create({
@@ -9,9 +9,10 @@ export const createMockClubs = (): Result<Array<Club>,AppError.UnexpectedError> 
       description: `Club Description ${i}`,
     })
 
-    if (clubResult.isErr()) return Result.err(new AppError.UnexpectedError('Something went wrong with Club creation'))
+    if (clubResult.isErr())
+      return Result.err(new AppError.UnexpectedError('Something went wrong with Club creation'))
     clubs.push(clubResult.value)
   }
 
-  return Result.ok(clubs);
+  return Result.ok(clubs)
 }

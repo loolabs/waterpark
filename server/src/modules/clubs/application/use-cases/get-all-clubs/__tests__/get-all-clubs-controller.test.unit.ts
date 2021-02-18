@@ -1,39 +1,32 @@
 import httpMocks from 'node-mocks-http'
-import { MikroClubRepo } from '../../../../infra/repos/implementations/mikro-club-repo'
 import { DecodedExpressRequest } from '../../../../../../shared/infra/http/routes/decoded-request'
-import { Club } from '../../../../domain/entities/club'
 import { ClubDTO } from '../../../../mappers/club-dto'
-import { GetAllClubsController } from '../get-all-clubs-controller'
-import { createMockClubs } from '../test-utils/create-clubs'
 import { createMockClubDTOs } from '../test-utils/create-club-dtos'
 import { Result } from '../../../../../../shared/core/result'
+import { GetAllClubsUseCase } from '../get-all-clubs-use-case'
+import { buildController } from '../test-utils/build-controller'
 import { AppError } from '../../../../../../shared/core/app-error'
 
-// TODO: how to show developer these mocks are necessary when building a controller? aka must be synced with buildController()
 jest.mock('../../../../infra/repos/implementations/mikro-club-repo')
 
 describe('GetAllClubsController', () => {
-  let mockClubs: Result<Array<Club>, AppError.UnexpectedError>
   let mockClubDTOs: Array<ClubDTO>
-  const fakeMikroClubRepo = new MikroClubRepo()
   beforeAll(() => {
-    mockClubs = createMockClubs()
     mockClubDTOs = createMockClubDTOs()
   })
 
-  test('When executed, the GetAllClubsController returns all clubs and 200 OK', async () => {
+  test('When executed, the GetAllClubsController returns 200 OK', async () => {
     const mockRequest = httpMocks.createRequest() as DecodedExpressRequest
     const mockResponse = httpMocks.createResponse()
-    jest.spyOn(MikroClubRepo.prototype, 'getAllClubs').mockResolvedValue(mockClubs)
+    jest.spyOn(GetAllClubsUseCase.prototype, 'execute').mockResolvedValue(Result.ok(mockClubDTOs))
 
-    const getAllClubsController = new GetAllClubsController(fakeMikroClubRepo)
+    const getAllClubsController = buildController()
 
     const result: httpMocks.MockResponse<any> = await getAllClubsController.execute(
       mockRequest,
       mockResponse
     ) //TODO: find proper type for result so that ._getData() property is found by compiler
 
-    expect(fakeMikroClubRepo.getAllClubs).toBeCalled()
     expect(result.statusCode).toBe(200)
 
     const body = JSON.parse(result._getData())
@@ -42,17 +35,17 @@ describe('GetAllClubsController', () => {
     }
   })
 
-  test('If repo throws error, the GetALlClubsController responds 500', async () => {
+  test('If use case throws error, the GetAllClubsController responds 500', async () => {
     const mockRequest = httpMocks.createRequest() as DecodedExpressRequest
     const mockResponse = httpMocks.createResponse()
     jest
-      .spyOn(MikroClubRepo.prototype, 'getAllClubs')
+      .spyOn(GetAllClubsUseCase.prototype, 'execute')
       .mockResolvedValue(Result.err(new AppError.UnexpectedError('Pretend something failed.')))
-    const getAllClubsController = new GetAllClubsController(fakeMikroClubRepo)
+
+    const getAllClubsController = buildController()
 
     const result = await getAllClubsController.execute(mockRequest, mockResponse)
 
-    expect(fakeMikroClubRepo.getAllClubs).toBeCalled()
     expect(result.statusCode).toBe(500)
   })
 })
