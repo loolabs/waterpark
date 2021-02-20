@@ -21,6 +21,8 @@ jobs:
           POSTGRES_DB: clubs
           POSTGRES_USER: loolabs
           POSTGRES_PASSWORD: loolabs
+        ports:
+          - 5432:5432
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
