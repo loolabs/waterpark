@@ -1,10 +1,10 @@
 {
-  "name": "@loolabs/club-server",
-  "version": "0.0.0-development",
-  "description": "REST API server for Loo Labs' centralized club platform",
-  "main": "index.js",
-  "repository": "https://github.com/loolabs/clubs",
-  "license": "MIT",
+  "name": "@loolabs/waterpark-server",
+  "description": "REST API server for Loo Labs' centralized clubs and events platform",
+  "author": "Loo Labs",
+  "version": "0.0.1",
+  "license": "ISC",
+  "private": true,
   "scripts": {
     "build": "tsc",
     "migration:create": "npx mikro-orm migration:create",
@@ -32,6 +32,7 @@
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/express": "^4.17.9",
+    "@types/hapi__joi": "^17.1.6",
     "@types/jest": "^26.0.19",
     "@types/supertest": "^2.0.10",
     "@types/uuid": "^8.3.0",

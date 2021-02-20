@@ -31,7 +31,7 @@ const bootstrap = async () => {
 
   app.use((_req, res) => res.status(404).json({ message: 'No route found' }))
   app.listen(port, () => {
-    console.log(`Clubs REST API server running on port ${port} 🦆`)
+    console.log(`Waterpark REST API server running on port ${port} 🦆`)
   })
 }
 
