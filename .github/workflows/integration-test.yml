@@ -43,6 +43,7 @@ jobs:
         # Runs a script that creates a PostgreSQL client, populates
         # the client with data, and retrieves data
         # TODO: populate
+        working-directory: server
         run: npm run test:integration
         # Environment variable used by the `client.js` script to create a new PostgreSQL client.
         env:
