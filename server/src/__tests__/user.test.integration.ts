@@ -11,11 +11,14 @@ app.use(express.json())
 app.use('/api/v1', v1Router)
 
 const clientUrl = process.env.DB_URL_OUTSIDE_DOCKER
+const port = process.env.PORT ? process.env.PORT : ''
+
 describe('User Router', () => {
   beforeAll(async () => {
     DB.orm = await MikroORM.init({
       ...mikroORMConfig,
       clientUrl,
+      port: parseInt(port),
       debug: false,
     })
     DB.em = DB.orm.em
