@@ -32,7 +32,7 @@ class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrat
   }
 }
 
-const clientUrl = process.env.DATABASE_URL
+const clientUrl = process.env.DB_URL_IN_DOCKER
 
 // TODO: import connection-related properties from root .env
 const mikroORMConfig: Options = {
