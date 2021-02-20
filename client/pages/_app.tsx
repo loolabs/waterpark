@@ -1,62 +1,62 @@
-import React from "react";
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
+import React from 'react'
+import '../styles/globals.css'
+import type { AppProps } from 'next/app'
 
 interface AppData {
-  clubs: Map<ClubId, ClubInfo>;
+  clubs: Map<ClubId, ClubInfo>
 }
-export const AppContext = React.createContext<AppData>(null);
+export const AppContext = React.createContext<AppData>(null)
 
 export interface ClubInfo {
-  name: string;
-  description: string;
+  name: string
+  description: string
 }
 
 export interface EventInfo {
-  name: string;
-  description: string;
+  name: string
+  description: string
 }
 
-export type ClubId = number;
+export type ClubId = number
 
 interface AppData {
-  clubs: Map<ClubId, ClubInfo>;
+  clubs: Map<ClubId, ClubInfo>
 }
 
-const clubs = new Map([
+export const clubs = new Map([
   [
     2932,
     {
-      name: "UW Ballroom",
-      description: "dancing in the dark",
+      name: 'UW Ballroom',
+      description: 'dancing in the dark',
     },
   ],
   [
     8888,
     {
-      name: "Cooking club",
-      description: "chef curry with the shot",
+      name: 'Cooking club',
+      description: 'chef curry with the shot',
     },
   ],
   [
     111,
     {
-      name: "Loo Labs",
-      description: "👩‍🔬",
+      name: 'Loo Labs',
+      description: '👩‍🔬',
     },
   ],
-]);
+])
 
 function App({ Component, pageProps }: AppProps) {
   return (
     <AppContext.Provider
       value={{
-        clubs
+        clubs,
       }}
     >
       <Component {...pageProps} />
     </AppContext.Provider>
-  );
+  )
 }
 
-export default App;
+export default App
