@@ -29,7 +29,7 @@ jobs:
           --health-retries 5
         ports:
           # Maps tcp port 5432 on service container to the host
-          - 5432:5432
+          - 5432/tcp
 
     steps:
       # Downloads a copy of the code in your repository before running CI tests
@@ -54,6 +54,6 @@ jobs:
           DB_DATABASE_NAME: clubs
           DB_USERNAME: loolabs
           DB_PASSWORD: loolabs
-          DB_PORT: 5432
+          DB_PORT: ${{ job.services.postgres.ports[5432] }}
           DB_URL_IN_DOCKER: postgresql://loolabs:loolabs@db/clubs
           DB_URL_OUTSIDE_DOCKER: postgresql://loolabs:loolabs@localhost/clubs
