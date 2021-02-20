@@ -39,7 +39,7 @@ jobs:
         working-directory: server
         run: npm install
 
-      - name: Connect to PostgreSQL
+      - name: Test
         # Runs a script that creates a PostgreSQL client, populates
         # the client with data, and retrieves data
         # TODO: populate
@@ -52,4 +52,5 @@ jobs:
           DB_USERNAME: loolabs
           DB_PASSWORD: loolabs
           DB_PORT: 5432
-          DATABASE_URL: postgresql://loolabs:loolabs@db/clubs
+          DB_URL_IN_DOCKER: postgresql://loolabs:loolabs@db/clubs
+          DB_URL_OUTSIDE_DOCKER: postgresql://loolabs:loolabs@localhost/clubs
