@@ -1,6 +1,9 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "@loolabs/waterpark-client",
+  "description": "Next.js frontend for Loo Labs' centralized clubs and events platform",
+  "author": "Loo Labs",
+  "version": "0.0.1",
+  "license": "ISC",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,9 +12,9 @@
     "test": "jest --maxWorkers=1"
   },
   "dependencies": {
-    "fuse.js": "^6.4.6",
     "babel-jest": "^26.6.3",
-    "next": "10.0.5",
+    "fuse.js": "^6.4.6",
+    "next": "10.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1"
   },
