@@ -63,7 +63,11 @@ export class CreateUserUseCase
 
       const user = userResult.value
       await this.userRepo.save(user)
-      const tokenResponse = await new UserAuthHandler().create(user.id.toString())
+      const updatedUser = await this.userRepo.getUserByUserEmail(email);
+      if(updatedUser.isErr())
+        return Result.err(new AppError.UnexpectedError(updatedUser.error.message))
+      
+        const tokenResponse = await new UserAuthHandler().create(updatedUser.value.id.toString())
 
       if(tokenResponse.isErr())
         return tokenResponse

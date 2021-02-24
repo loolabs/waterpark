@@ -7,6 +7,7 @@ import { UserPassword } from '../../domain/value-objects/user-password'
 export abstract class UserRepo {
   abstract exists(userEmail: UserEmail): Promise<Result<boolean, DBErrors>>
   abstract getUserByUserId(userId: string): Promise<Result<User, DBErrors>>
+  abstract getUserByUserEmail(userEmail: UserEmail): Promise<Result<User, DBErrors>>
   abstract getUserByUserEmailandUserPassword(userEmail: UserEmail, password: UserPassword): Promise<Result<User, DBErrors>>
   abstract save(user: User): Promise<void>
 }
