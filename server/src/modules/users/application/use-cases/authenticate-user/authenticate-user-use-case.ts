@@ -12,7 +12,7 @@ type AuthenticateUserUseCaseError =
     AuthenticateUserErrors.AuthenticationFailedError
   | AppError.UnexpectedError
 
-type AuthenticateUserUseCaseResponse = Result<User, AuthenticateUserUseCaseError>
+export type AuthenticateUserUseCaseResponse = Result<User, AuthenticateUserUseCaseError>
 
 export class AuthenticateUserUseCase
   implements BaseUseCase<AuthenticateUserDTO, Promise<AuthenticateUserUseCaseResponse>> {

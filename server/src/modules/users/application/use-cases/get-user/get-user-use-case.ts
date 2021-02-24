@@ -10,7 +10,7 @@ type GetUserUseCaseError =
     GetUserErrors.GetUserByIdFailedError
   | AppError.UnexpectedError
 
-type GetUserUseCaseResponse = Result<User, GetUserUseCaseError>
+export type GetUserUseCaseResponse = Result<User, GetUserUseCaseError>
 
 export class GetUserUseCase
   implements BaseUseCase<GetUserDTO, Promise<GetUserUseCaseResponse>> {
@@ -20,8 +20,8 @@ export class GetUserUseCase
     this.userRepo = userRepo
   }
 
-  async execute(request: GetUserDTO): Promise<GetUserUseCaseResponse> {
-    const userId = request.id
+  async execute(dto: GetUserDTO): Promise<GetUserUseCaseResponse> {
+    const userId = dto.userId
     try {
       const userById = await this.userRepo.getUserByUserId(userId)
       if (userById.isErr())

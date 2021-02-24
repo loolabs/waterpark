@@ -25,9 +25,9 @@ export class CreateUserController extends UseCaseController<CreateUserUseCase> {
   async executeImpl(dto: CreateUserDTO, res: express.Response): Promise<express.Response> {
     try {
       const result = await this.useCase.execute(dto)
-
+      
       if (result.isOk()) {
-        return this.ok(res)
+        return this.ok(res, result.value)
       } else {
         const error = result.error
 

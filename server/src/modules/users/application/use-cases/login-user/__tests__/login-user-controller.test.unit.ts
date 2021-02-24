@@ -4,6 +4,7 @@ import { AppError } from '../../../../../../shared/core/app-error'
 import { Result } from '../../../../../../shared/core/result'
 import { User } from '../../../../domain/entities/user'
 import { UserValueObjectErrors } from '../../../../domain/value-objects/errors'
+import { UserMap } from '../../../../mappers/user-map'
 import { LoginUserDTO } from '../login-user-dto'
 import { LoginUserErrors } from '../login-user-errors'
 import { LoginUserUseCase } from '../login-user-use-case'
@@ -17,20 +18,23 @@ jest.mock('../login-user-use-case')
 describe('LoginUserController', () => {
   let loginUserDTO: LoginUserDTO
   let mockUser: User
+  let mockEmail: string
+  let mockPassword: string
 
   beforeAll(() => {
     loginUserDTO = {
-      email: 'john.doe@uwaterloo.ca',
-      password: 'secret',
-    }
-
+      req: httpMocks.createRequest(),
+      res: httpMocks.createResponse()
+    },
+    mockEmail = "loolabs@uwaterloo.ca",
+    mockPassword = "password",
     mockUser = createMockUser()
   })
 
   test('When the LoginUserUseCase returns Ok, the LoginUserController returns 200 OK', async () => {
     const mockResponse = httpMocks.createResponse()
     const useCaseResolvedValue: UserAuthHandlerLoginSuccess = {
-      user: mockUser,
+      user: UserMap.toDTO(mockUser),
       token: "testtoken"
     }
     jest.spyOn(LoginUserUseCase.prototype, 'execute').mockResolvedValue(Result.ok(useCaseResolvedValue))
@@ -45,7 +49,7 @@ describe('LoginUserController', () => {
     const mockResponse = httpMocks.createResponse()
     jest
       .spyOn(LoginUserUseCase.prototype, 'execute')
-      .mockResolvedValue(Result.err(new UserValueObjectErrors.InvalidEmail(loginUserDTO.email)))
+      .mockResolvedValue(Result.err(new UserValueObjectErrors.InvalidEmail(mockEmail)))
     const loginUserController = buildController()
 
     const result = await loginUserController.executeImpl(loginUserDTO, mockResponse)
@@ -58,7 +62,7 @@ describe('LoginUserController', () => {
     jest
       .spyOn(LoginUserUseCase.prototype, 'execute')
       .mockResolvedValue(
-        Result.err(new UserValueObjectErrors.InvalidPassword(loginUserDTO.password))
+        Result.err(new UserValueObjectErrors.InvalidPassword(mockPassword))
       )
     const loginUserController = buildController()
 

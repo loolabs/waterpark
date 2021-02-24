@@ -9,6 +9,8 @@ import { UserPassword } from '../../../domain/value-objects/user-password'
 import { UserRepo } from '../../../infra/repos/user-repo'
 import { CreateUserDTO } from './create-user-dto'
 import { CreateUserErrors } from './create-user-errors'
+import { UserMap } from '../../../mappers/user-map'
+import { UserDTO } from '../../../mappers/user-dto'
 
 export type CreateUserUseCaseError =
   | UserValueObjectErrors.InvalidEmail
@@ -17,7 +19,7 @@ export type CreateUserUseCaseError =
   | AppError.UnexpectedError
 
 export type CreateUserSuccess = {
-  user: User,
+  user: UserDTO,
   token: string
 }
 
@@ -48,9 +50,11 @@ export class CreateUserUseCase
 
     try {
       const userAlreadyExists = await this.userRepo.exists(email)
-      if (userAlreadyExists.isOk() && userAlreadyExists.value)
+    
+      if (userAlreadyExists.isOk() && userAlreadyExists.value){
         return Result.err(new CreateUserErrors.EmailAlreadyExistsError(email.value))
-
+      }
+        
       const userResult = User.create({
         email,
         password,
@@ -59,13 +63,13 @@ export class CreateUserUseCase
 
       const user = userResult.value
       await this.userRepo.save(user)
-      const tokenResponse = await new UserAuthHandler().create(email.value)
+      const tokenResponse = await new UserAuthHandler().create(user.id.toString())
 
       if(tokenResponse.isErr())
         return tokenResponse
 
       const createUserSuccessResponse: CreateUserSuccess = {
-        user,
+        user: UserMap.toDTO(user),
         token: tokenResponse.value
       }
 

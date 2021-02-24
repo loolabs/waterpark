@@ -4,6 +4,7 @@ import { Result } from '../../../../../../shared/core/result'
 import { DecodedExpressRequest } from '../../../../../../shared/infra/http/routes/decoded-request'
 import { User } from '../../../../domain/entities/user'
 import { UserValueObjectErrors } from '../../../../domain/value-objects/errors'
+import { UserMap } from '../../../../mappers/user-map'
 import { CreateUserDTO } from '../create-user-dto'
 import { CreateUserErrors } from '../create-user-errors'
 import { CreateUserUseCase, CreateUserSuccess } from '../create-user-use-case'
@@ -34,7 +35,7 @@ describe('CreateUserController', () => {
     const mockResponse = httpMocks.createResponse()
     
     const useCaseResolvedValue: CreateUserSuccess = {
-      user: mockUser,
+      user: UserMap.toDTO(mockUser),
       token: "testtoken"
     }
 
@@ -72,7 +73,7 @@ describe('CreateUserController', () => {
     const mockResponse = httpMocks.createResponse()
 
     const useCaseResolvedValue: CreateUserSuccess = {
-      user: mockUser,
+      user: UserMap.toDTO(mockUser),
       token: "testtoken"
     }
 

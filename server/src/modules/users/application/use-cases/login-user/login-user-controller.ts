@@ -13,11 +13,14 @@ export class LoginUserController extends UseCaseController<LoginUserUseCase> {
     super(useCase)
   }
 
-  buildDTO(req: express.Request): Result<LoginUserDTO, Array<ValidationError>> {
+  buildDTO(req: express.Request, res: express.Response): Result<LoginUserDTO, Array<ValidationError>> {
     const errs: Array<ValidationError> = []
-    const bodyResult = this.validate(req.body, loginUserDTOSchema)
+    const compiledValidationBody = {
+      req, res
+    }
+    const bodyResult = this.validate(compiledValidationBody, loginUserDTOSchema)
     if (bodyResult.isOk()) {
-      const body = bodyResult.value
+      const body: LoginUserDTO = compiledValidationBody
       return Result.ok(body)
     } else {
       errs.push(bodyResult.error)
@@ -30,7 +33,7 @@ export class LoginUserController extends UseCaseController<LoginUserUseCase> {
       const result = await this.useCase.execute(dto)
 
       if (result.isOk()) {
-        return this.ok(res)
+        return this.ok(res, result.value)
       } else {
         const error = result.error
 

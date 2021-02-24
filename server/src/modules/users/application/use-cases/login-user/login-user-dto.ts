@@ -1,11 +1,12 @@
 import Joi from 'joi'
+import express from 'express'
 
 export interface LoginUserDTO {
-  email: string
-  password: string
+  req: express.Request,
+  res: express.Response
 }
 
 export const loginUserDTOSchema = Joi.object<LoginUserDTO>({
-  email: Joi.string(),
-  password: Joi.string(),
+  req: Joi.object().required(),
+  res: Joi.object().required()
 }).options({ abortEarly: false })

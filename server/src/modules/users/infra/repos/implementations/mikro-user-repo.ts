@@ -15,9 +15,8 @@ export class MikroUserRepo implements UserRepo {
   // right now we are directly importing the DB via module which is bad bc it couples this repo to the mikroentityrepo which is not good bc of testing. ideally we would pass this repo an entityrepostub
 
   // look into async imports with JS (one option i tried exploring is inverisfy, that shit is confusing though with async modules)
-  private usersEntityRepo: EntityRepository<UserEntity> | undefined
-  constructor(userRepo: EntityRepository<UserEntity> | undefined) {
-    this.usersEntityRepo = userRepo
+  constructor(_userRepo: EntityRepository<UserEntity> | undefined) {
+    
   }
 
   async exists(userEmail: UserEmail): Promise<Result<boolean, DBErrors>> {
@@ -27,21 +26,21 @@ export class MikroUserRepo implements UserRepo {
 
   async getUserByUserId(userId: string): Promise<Result<User, DBErrors>> {
     const user = await DB.usersEntityRepo.findOne({ id: userId })
-    if (!user) return Result.err(new DBError.UserNotFoundError(userId))
+    if (user === null) return Result.err(new DBError.UserNotFoundError(userId))
     return Result.ok(UserMap.toDomain(user))
   }
 
-  async getUserByUserEmailandUserPassword(userEmail: UserEmail, password: UserPassword): Promise<Result<User, DBErrors>> {
-    const user = await DB.usersEntityRepo.findOne({ email: userEmail.value, password: password.value })
-    if (!user) return Result.err(new DBError.UserNotFoundError(userEmail.value))
+  async getUserByUserEmailandUserPassword(userEmail: UserEmail, userPassword: UserPassword): Promise<Result<User, DBErrors>> {
+    const user = await DB.usersEntityRepo.findOne({ email: userEmail.value })
+    if (user === null || !userPassword.comparePassword(user.password)) return Result.err(new DBError.UserNotFoundError(userEmail.value))
     return Result.ok(UserMap.toDomain(user))
   }
 
   async save(user: User): Promise<void> {
-    console.log(this.usersEntityRepo)
+   
     const exists = await this.exists(user.email)
 
-    if (exists) return
+    if (exists.isOk() && exists.value) return
 
     const userEntity = await UserMap.toPersistence(user)
 

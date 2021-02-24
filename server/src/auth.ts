@@ -9,16 +9,10 @@ passport.use(new LocalStrategy.Strategy({
     usernameField: 'email',
     passwordField: 'password',
 }, function (email, password, cb) {
-    return () => {
-        authenticateUserUseCase.execute({email, password})
-           .then(user => {
-               if (!user) {
-                   return cb(null, false);
-               }
-               return cb(null, user);
-          })
-          .catch(err => cb(err));
-        }
+    authenticateUserUseCase.execute({email, password})
+        .then(result => {
+            return cb(null, result);
+        })
     }
 ));
 
@@ -28,13 +22,11 @@ const options: StrategyOptions = {
 }
 
 passport.use(
-    new Strategy(options, (payload, done) => {
-      return getUserUseCase.execute(payload.id)
-          .then(user => {
-              return done(null, user);
-          })
-          .catch(err => {
-              return done(err);
-          });
+    new Strategy(options, 
+    function(token, done) {
+        getUserUseCase.execute({userId: token.userId})
+        .then(result => {
+            return done(null, result);
+        })
     })
 );
