@@ -1,6 +1,6 @@
 import React, { FC, ReactElement } from 'react'
 import { render, RenderOptions } from '@testing-library/react'
-import { AppContext, clubs } from '../../pages/_app'
+import { AppContext, clubs, events } from '../../pages/_app'
 import Home from '../../pages'
 
 const AllTheProviders: FC = ({ children }) => {
@@ -8,6 +8,7 @@ const AllTheProviders: FC = ({ children }) => {
     <AppContext.Provider
       value={{
         clubs,
+        events
       }}
     >
       {children}

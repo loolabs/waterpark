@@ -3,9 +3,11 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 
 interface AppData {
-  clubs: Map<ClubId, ClubInfo>
+  clubs: Map<Id, ClubInfo>;
+  events: Map<Id, EventInfo>;
 }
-export const AppContext = React.createContext<AppData>(null)
+
+export const AppContext = React.createContext<AppData>(null);
 
 export interface ClubInfo {
   name: string
@@ -17,11 +19,7 @@ export interface EventInfo {
   description: string
 }
 
-export type ClubId = number
-
-interface AppData {
-  clubs: Map<ClubId, ClubInfo>
-}
+export type Id = number;
 
 export const clubs = new Map([
   [
@@ -47,11 +45,36 @@ export const clubs = new Map([
   ],
 ])
 
+export const events = new Map([
+  [
+    1234,
+    {
+      name: "Tech+ Mock Interview",
+      description: "dancing in the dark",
+    },
+  ],
+  [
+    6787,
+    {
+      name: "ARBUS Society Movie Night",
+      description: "chef curry with the shot",
+    },
+  ],
+  [
+    6367,
+    {
+      name: "UWACC Open Auditions",
+      description: "👩‍🔬",
+    },
+  ],
+]);
+
 function App({ Component, pageProps }: AppProps) {
   return (
     <AppContext.Provider
       value={{
         clubs,
+        events
       }}
     >
       <Component {...pageProps} />
