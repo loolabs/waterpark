@@ -6,6 +6,7 @@ import mikroORMConfig from './mikro-orm.config'
 import { DB } from './shared/infra/db'
 import { UserEntity } from './shared/infra/db/entities/user.entity'
 import { ClubEntity } from './shared/infra/db/entities/club.entity'
+import { EventEntity } from './shared/infra/db/entities/event.entity'
 
 const app = express()
 
@@ -16,7 +17,7 @@ const initializeORM = async (DBObject: typeof DB) => {
   DBObject.em = DBObject.orm.em
   DBObject.usersEntityRepo = DBObject.orm.em.getRepository(UserEntity)
   DBObject.clubsEntityRepo = DBObject.orm.em.getRepository(ClubEntity)
-
+  DBObject.eventsEntityRepo = DBObject.orm.em.getRepository(EventEntity)
   const migrator = DBObject.orm.getMigrator()
   await migrator.up()
 }
