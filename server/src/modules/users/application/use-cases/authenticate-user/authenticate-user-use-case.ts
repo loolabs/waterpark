@@ -1,4 +1,4 @@
-import { BaseUseCase } from '../../../../../shared/app/base-use-case'
+import { UseCaseWithDTO } from '../../../../../shared/app/use-case-with-dto'
 import { AppError } from '../../../../../shared/core/app-error'
 import { Result } from '../../../../../shared/core/result'
 import { User } from '../../../domain/entities/user'
@@ -15,7 +15,7 @@ type AuthenticateUserUseCaseError =
 export type AuthenticateUserUseCaseResponse = Result<User, AuthenticateUserUseCaseError>
 
 export class AuthenticateUserUseCase
-  implements BaseUseCase<AuthenticateUserDTO, Promise<AuthenticateUserUseCaseResponse>> {
+  implements UseCaseWithDTO<AuthenticateUserDTO, Promise<AuthenticateUserUseCaseResponse>> {
   private userRepo: UserRepo
 
   constructor(userRepo: UserRepo) {
@@ -40,7 +40,7 @@ export class AuthenticateUserUseCase
     try {
       const userByEmailAndPassword = await this.userRepo.getUserByUserEmailandUserPassword(email, password)
       if (userByEmailAndPassword.isErr())
-        return Result.err(new AuthenticateUserErrors.AuthenticationFailedError(email.value))
+        return Result.err(new AuthenticateUserErrors.AuthenticationFailedError(email.value, userByEmailAndPassword.error.message))
 
       return Result.ok(userByEmailAndPassword.value)
     } catch (err) {

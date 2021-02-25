@@ -1,4 +1,4 @@
-import { BaseUseCase } from '../../../../../shared/app/base-use-case'
+import { UseCaseWithDTO } from '../../../../../shared/app/use-case-with-dto'
 import { AppError } from '../../../../../shared/core/app-error'
 import { Result } from '../../../../../shared/core/result'
 import { ProtectedUserDTO } from './protected-user-dto'
@@ -13,7 +13,7 @@ export type ProtectedUserSuccess = {
 export type ProtectedUserUseCaseResponse = Result<ProtectedUserSuccess, ProtectedUserUseCaseError>
 
 export class ProtectedUserUseCase
-  implements BaseUseCase<ProtectedUserDTO, ProtectedUserUseCaseResponse> {
+  implements UseCaseWithDTO<ProtectedUserDTO, ProtectedUserUseCaseResponse> {
 
   async execute(dto: ProtectedUserDTO): Promise<ProtectedUserUseCaseResponse> {
     const res: ProtectedUserSuccess = {

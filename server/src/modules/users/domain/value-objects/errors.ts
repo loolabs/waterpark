@@ -12,4 +12,11 @@ export namespace UserValueObjectErrors {
       this.message = message
     }
   }
+
+  export class InvalidPasswordComparison {
+    public message: string
+    public constructor(message: string) {
+      this.message = message
+    }
+  }
 }

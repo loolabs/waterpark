@@ -38,7 +38,12 @@ export class MikroUserRepo implements UserRepo {
 
   async getUserByUserEmailandUserPassword(userEmail: UserEmail, userPassword: UserPassword): Promise<Result<User, DBErrors>> {
     const user = await DB.usersEntityRepo.findOne({ email: userEmail.value })
-    if (user === null || !userPassword.comparePassword(user.password)) return Result.err(new DBError.UserNotFoundError(userEmail.value))
+    if (user === null) return Result.err(new DBError.UserNotFoundError(userEmail.value))
+        
+    const passwordsEqual = await userPassword.comparePassword(user.password)
+    if(passwordsEqual.isOk() && !passwordsEqual.value){
+      return Result.err(new DBError.PasswordsNotEqualError(userEmail.value))
+    }
     return Result.ok(UserMap.toDomain(user))
   }
 

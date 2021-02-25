@@ -3,11 +3,11 @@ import { LoginUserUseCase } from './login-user-use-case'
 import { LoginUserDTO, loginUserDTOSchema } from './login-user-dto'
 import { LoginUserErrors } from './login-user-errors'
 import { UserValueObjectErrors } from '../../../domain/value-objects/errors'
-import { UseCaseController } from '../../../../../shared/app/use-case-controller'
+import { ControllerWithDTO } from '../../../../../shared/app/controller-with-dto'
 import { Result } from '../../../../../shared/core/result'
 import { ValidationError } from 'joi'
 
-export class LoginUserController extends UseCaseController<LoginUserUseCase> {
+export class LoginUserController extends ControllerWithDTO<LoginUserUseCase> {
 
   constructor(useCase: LoginUserUseCase) {
     super(useCase)

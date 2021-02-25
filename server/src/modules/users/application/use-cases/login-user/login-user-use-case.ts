@@ -1,10 +1,10 @@
-import { BaseUseCase } from '../../../../../shared/app/base-use-case'
+import { UseCaseWithDTO } from '../../../../../shared/app/use-case-with-dto'
 import { UserAuthHandler, UserAuthHandlerLoginResponse } from '../../../../../shared/auth/user-auth-handler'
 import  '../../../../../shared/auth/user-auth-handler'
 import { LoginUserDTO } from './login-user-dto'
 
 export class LoginUserUseCase
-  implements BaseUseCase<LoginUserDTO, Promise<UserAuthHandlerLoginResponse>> {
+  implements UseCaseWithDTO<LoginUserDTO, Promise<UserAuthHandlerLoginResponse>> {
   private userAuthHandler: UserAuthHandler
 
   constructor(userAuthHandler: UserAuthHandler) {

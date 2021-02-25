@@ -1,11 +1,11 @@
 import express from 'express'
-import { UseCaseController } from '../../../../../shared/app/use-case-controller'
+import { ControllerWithDTO } from '../../../../../shared/app/controller-with-dto'
 import { ProtectedUserUseCase } from './protected-user-use-case'
 import { ProtectedUserDTO, protectedUserDTOSchema } from './protected-user-dto'
 import { Result } from '../../../../../shared/core/result'
 import { ValidationError } from 'joi'
 
-export class ProtectedUserController extends UseCaseController<ProtectedUserUseCase> {
+export class ProtectedUserController extends ControllerWithDTO<ProtectedUserUseCase> {
   constructor(useCase: ProtectedUserUseCase) { super(useCase) }
 
   buildDTO(req: express.Request): Result<ProtectedUserDTO, Array<ValidationError>> {

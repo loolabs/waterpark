@@ -10,6 +10,7 @@ import { CreateUserDTO } from './create-user-dto'
 import { CreateUserErrors } from './create-user-errors'
 import { UserMap } from '../../../mappers/user-map'
 import { UserDTO } from '../../../mappers/user-dto'
+import { UserAuthHandler } from '../../../../../shared/auth/user-auth-handler'
 
 export type CreateUserUseCaseError =
   | UserValueObjectErrors.InvalidEmail

@@ -66,6 +66,7 @@ describe('CreateUserUseCase', () => {
     const fakeUserRepo: UserRepo = {
       exists: async () => Result.ok(true),
       getUserByUserId: async () => Result.ok(user),
+      getUserByUserEmail: async () => Result.ok(user),
       getUserByUserEmailandUserPassword: async () => Result.ok(user),
       save: async () => {},
     }

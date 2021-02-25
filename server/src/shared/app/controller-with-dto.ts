@@ -14,7 +14,8 @@ export abstract class ControllerWithDTO<
   }
 
   protected abstract buildDTO(
-    req: express.Request
+    req: express.Request,
+    res?: express.Response
   ): Result<extractDTO<UseCase>, Array<ValidationError>>
 
   protected validate<T>(obj: unknown, schema: Joi.ObjectSchema<T>): Result<T, ValidationError> {
@@ -24,7 +25,7 @@ export abstract class ControllerWithDTO<
 
   public async execute(req: express.Request, res: express.Response): Promise<express.Response> {
     try {
-      const dtoResult = this.buildDTO(req)
+      const dtoResult = this.buildDTO(req, res)
       if (dtoResult.isOk()) {
         return await this.executeImpl(dtoResult.value, res)
       } else {

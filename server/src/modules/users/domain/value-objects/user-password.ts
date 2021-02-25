@@ -64,15 +64,9 @@ export class UserPassword extends ValueObject<UserPasswordProps> {
     })
   }
 
-  public async comparePassword(plainTextPassword: string): Promise<boolean> {
-    let hashed: string
-
-    if (this.isAlreadyHashed()) {
-      hashed = this.props.value
-      return this.bcryptCompare(plainTextPassword, hashed)
-    } else {
-      return this.props.value === plainTextPassword
-    }
+  public async comparePassword(hashedPassword: string): Promise<Result<boolean, UserValueObjectErrors.InvalidPasswordComparison>> {
+    if (this.isAlreadyHashed()) return Result.err(new UserValueObjectErrors.InvalidPasswordComparison("Comparing two hashed passwords"))
+    return Result.ok(await this.bcryptCompare(this.value, hashedPassword))
   }
 
   private bcryptCompare(plainText: string, hashed: string): Promise<boolean> {
