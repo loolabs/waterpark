@@ -1,5 +1,4 @@
-import { UserAuthHandler } from '../../../../../shared/auth/user-auth-handler'
-import { BaseUseCase } from '../../../../../shared/app/base-use-case'
+import { UseCaseWithDTO } from '../../../../../shared/app/use-case-with-dto'
 import { AppError } from '../../../../../shared/core/app-error'
 import { Result } from '../../../../../shared/core/result'
 import { User } from '../../../domain/entities/user'
@@ -25,8 +24,7 @@ export type CreateUserSuccess = {
 
 export type CreateUserUseCaseResponse = Result<CreateUserSuccess, CreateUserUseCaseError>
 
-export class CreateUserUseCase
-  implements BaseUseCase<CreateUserDTO, CreateUserUseCaseResponse> {
+export class CreateUserUseCase implements UseCaseWithDTO<CreateUserDTO, CreateUserUseCaseResponse> {
   private userRepo: UserRepo
 
   constructor(userRepo: UserRepo) {

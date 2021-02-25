@@ -19,8 +19,7 @@ const ClubCard = (props: ClubCardProps) => {
 
   return (
     <div className={styles.card} onClick={handleClick}>
-      <h1>Club Card</h1>
-      <p>{name}</p>
+      <h1>{name}</h1>
       <p>{description}</p>
     </div>
   );

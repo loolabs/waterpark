@@ -25,6 +25,7 @@ describe('User AggregateRoot', () => {
     })
 
     // note: not sure if this is the best way to test AggregateRoot.addDomainEvent() was called with UserCreated event
+    // TODO: if changes made here, see clubs/domain/entities/__tests__/club.test.unit.ts as well.
     expect(UserCreated).toBeCalled()
     expect(DomainEvents.markAggregateForDispatch).toBeCalled()
   })
@@ -47,11 +48,12 @@ describe('User AggregateRoot', () => {
     user.setAccessToken('token', 'refresh')
 
     // note: not sure if this is the best way to test AggregateRoot.addDomainEvent() was called with UserLoggedIn event
+    // TODO: if changes made here, see clubs/domain/entities/__tests__/club.test.unit.ts as well.
     expect(UserLoggedIn).toBeCalled()
     expect(DomainEvents.markAggregateForDispatch).toBeCalled()
   })
 
-  test('it adds a UserDeleted domain event on user login', () => {
+  test('it adds a UserDeleted domain event on user deletion', () => {
     const emailResult = UserEmail.create('john.doe@uwaterloo.ca')
     const passwordResult = UserPassword.create({ value: 'secretpassword', hashed: false })
 
@@ -69,6 +71,7 @@ describe('User AggregateRoot', () => {
     user.delete()
 
     // note: not sure if this is the best way to test AggregateRoot.addDomainEvent() was called with UserLoggedIn event
+    // TODO: if changes made here, see clubs/domain/entities/__tests__/club.test.unit.ts as well.
     expect(UserDeleted).toBeCalled()
     expect(DomainEvents.markAggregateForDispatch).toBeCalled()
   })

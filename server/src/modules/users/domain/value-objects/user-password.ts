@@ -17,7 +17,7 @@ export class UserPassword extends ValueObject<UserPasswordProps> {
   ): Result<UserPassword, UserValueObjectErrors.InvalidPassword> {
     if (!props.hashed && !this.isAppropriateLength(props.value)) {
       return Result.err(
-        new UserValueObjectErrors.InvalidPassword(`Password doesn't meet criteria [8 chars min].`)
+        new UserValueObjectErrors.InvalidPassword(`Password doesn't meet criteria [${this.minLength} chars min].`)
       )
     }
 

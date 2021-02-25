@@ -27,35 +27,35 @@ export abstract class BaseController {
     return res.sendStatus(201)
   }
 
-  public clientError(res: express.Response, message: string='Unauthorized') {
+  public clientError(res: express.Response, message: string = 'Unauthorized') {
     return BaseController.jsonResponse(res, 400, message)
   }
 
-  public unauthorized(res: express.Response, message: string='Unauthorized') {
+  public unauthorized(res: express.Response, message: string = 'Unauthorized') {
     return BaseController.jsonResponse(res, 401, message)
   }
 
-  public paymentRequired(res: express.Response, message: string='Payment required') {
+  public paymentRequired(res: express.Response, message: string = 'Payment required') {
     return BaseController.jsonResponse(res, 402, message)
   }
 
-  public forbidden(res: express.Response, message: string='Forbidden') {
+  public forbidden(res: express.Response, message: string = 'Forbidden') {
     return BaseController.jsonResponse(res, 403, message)
   }
 
-  public notFound(res: express.Response, message: string='Not found') {
+  public notFound(res: express.Response, message: string = 'Not found') {
     return BaseController.jsonResponse(res, 404, message)
   }
 
-  public conflict(res: express.Response, message: string='Conflict') {
+  public conflict(res: express.Response, message: string = 'Conflict') {
     return BaseController.jsonResponse(res, 409, message)
   }
 
-  public tooMany(res: express.Response, message: string='Too many requests') {
+  public tooMany(res: express.Response, message: string = 'Too many requests') {
     return BaseController.jsonResponse(res, 429, message)
   }
 
-  public todo(res: express.Response, message: string='TODO') {
+  public todo(res: express.Response, message: string = 'TODO') {
     return BaseController.jsonResponse(res, 400, message)
   }
 }

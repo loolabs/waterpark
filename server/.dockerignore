@@ -7,7 +7,7 @@
 Dockerfile
 .dockerignore
 .prettierrc
-
+yarn.lock
 
 ################################################################################
 # copy of .gitignore
