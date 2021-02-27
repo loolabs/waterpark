@@ -6,7 +6,7 @@ jobs:
   container-job:
     name: Tests
     # Containers must run in Linux based operating systems
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     # Docker Hub image that `container-job` executes in
     container: node:10.18-jessie
 
@@ -29,7 +29,7 @@ jobs:
           --health-retries 5
         ports:
           # Maps tcp port 5432 on service container to the host
-          - 5432/5432
+          - 5432/tcp
 
     steps:
       # Downloads a copy of the code in your repository before running CI tests
