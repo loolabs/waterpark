@@ -6,7 +6,7 @@ jobs:
   container-job:
     name: Tests
     # Containers must run in Linux based operating systems
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     # Docker Hub image that `container-job` executes in
     container: node:10.18-jessie
 
