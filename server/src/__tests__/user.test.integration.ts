@@ -15,6 +15,8 @@ const port = process.env.PORT ? process.env.PORT : ''
 
 describe('User Router', () => {
   beforeAll(async () => {
+    console.log('==============================================')
+    console.log('CLIENT URL', clientUrl)
     DB.orm = await MikroORM.init({
       ...mikroORMConfig,
       clientUrl,
