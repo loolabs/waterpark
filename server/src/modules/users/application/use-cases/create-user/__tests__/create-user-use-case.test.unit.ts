@@ -15,13 +15,20 @@ describe('CreateUserUseCase', () => {
       email: 'john.doe@uwaterloo.ca',
       password: 'secret',
     }
-    const userEntityRepo = undefined
-    const fakeMikroUserRepo = new MikroUserRepo(userEntityRepo)
+    const user = createMockUser()
+    const fakeMikroUserRepo: MikroUserRepo = {
+      exists: async () => Result.ok(false),
+      getUserByUserId: async () => Result.ok(user),
+      getUserByUserEmail: async () => Result.ok(user),
+      getUserByUserEmailandUserPassword: async () => Result.ok(user),
+      save: async () => {},
+      findAll: async () => Result.ok([user]),
+    }
+
     const createUserUseCase = new CreateUserUseCase(fakeMikroUserRepo)
 
     const createUserResult = await createUserUseCase.execute(createUserDTO)
 
-    expect(fakeMikroUserRepo.save).toBeCalled()
     expect(createUserResult.isOk()).toBe(true)
   })
 
