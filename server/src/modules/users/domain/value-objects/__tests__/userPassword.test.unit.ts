@@ -48,7 +48,7 @@ describe('UserPassword ValueObject', () => {
     expect(password.isAlreadyHashed()).toBe(false)
   })
 
-  test('When a Password is compared with its original value, it reports them to be the same', () => {
+  test('When a Password is compared with its hashed original value, it reports them to be the same', async () => {
     const rawPassword = 'alongenoughpassword'
     const hashed = false
 
@@ -57,13 +57,23 @@ describe('UserPassword ValueObject', () => {
       hashed,
     })
 
+    const duplicatePasswordResult = UserPassword.create({
+      value: rawPassword,
+      hashed,
+    })
     expect(passwordResult.isOk())
-    if (passwordResult.isErr()) throw new Error('Result should be isOk, not isErr')
+    expect(duplicatePasswordResult.isOk())
+    if (passwordResult.isErr() || duplicatePasswordResult.isErr()) throw new Error('Result should be isOk, not isErr')
     const password = passwordResult.value
-    expect(password.comparePassword(rawPassword)).resolves.toBe(true)
+    const duplicatePassword = duplicatePasswordResult.value
+
+    const passwordsEqualResult = await password.comparePassword(await duplicatePassword.getHashedValue())
+    
+    const passwordsEqual = passwordsEqualResult.isOk() && passwordsEqualResult.value
+    expect(passwordsEqual).toBe(true)
   })
 
-  test('When a Password is compared with a different value, it reports them to be different', () => {
+  test('When a Password is compared with a different value, it reports them to be different', async () => {
     const rawPassword = 'alongenoughpassword'
     const hashed = false
 
@@ -72,9 +82,21 @@ describe('UserPassword ValueObject', () => {
       hashed,
     })
 
+    const wrongPassword = 'anotherpassword'
+
+    const duplicatePasswordResult = UserPassword.create({
+      value: wrongPassword,
+      hashed,
+    })
     expect(passwordResult.isOk())
-    if (passwordResult.isErr()) throw new Error('Password result should be isOk, not isErr')
+    expect(duplicatePasswordResult.isOk())
+    if (passwordResult.isErr() || duplicatePasswordResult.isErr()) throw new Error('Result should be isOk, not isErr')
     const password = passwordResult.value
-    expect(password.comparePassword('randompassword')).resolves.toBe(false)
+    const duplicatePassword = duplicatePasswordResult.value
+
+    const passwordsEqualResult = await password.comparePassword(await duplicatePassword.getHashedValue())
+    
+    const passwordsEqual = passwordsEqualResult.isOk() && passwordsEqualResult.value
+    expect(passwordsEqual).toBe(false)
   })
 })
