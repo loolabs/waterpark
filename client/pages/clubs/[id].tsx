@@ -1,16 +1,15 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { useContext } from "react";
-import { AppContext } from "../_app";
+import { useAppContext } from "../../context";
 
 export default function ClubDetail() {
-  const appData = useContext(AppContext);
+  const { clubs } = useAppContext();
   const router = useRouter();
 
   const { id } = router.query;
   if (typeof id !== 'string') return null;
 
-  const { name, description } = appData.clubs.get(parseInt(id));
+  const { name, description } = clubs.get(parseInt(id));
 
   return (
     <div>
