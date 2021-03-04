@@ -12,10 +12,7 @@ export class MikroUserRepo implements UserRepo {
   // right now we are directly importing the DB via module which is bad bc it couples this repo to the mikroentityrepo which is not good bc of testing. ideally we would pass this repo an entityrepostub
 
   // look into async imports with JS (one option i tried exploring is inverisfy, that shit is confusing though with async modules)
-  private usersEntityRepo: EntityRepository<UserEntity> | undefined
-  constructor(userRepo: EntityRepository<UserEntity> | undefined) {
-    this.usersEntityRepo = userRepo
-  }
+  constructor(protected userRepo: EntityRepository<UserEntity> | undefined) {}
 
   async exists(userEmail: UserEmail): Promise<boolean> {
     const user = await DB.usersEntityRepo.findOne({ email: userEmail.value })
