@@ -7,6 +7,16 @@ import { EventId } from '../value-objects/eventId'
 interface EventProps {
   name: string
   description: string
+  url: string
+  startTime: Date
+  endTime: Date
+  facebookLink: string
+  twitterLink: string
+  instagramLink: string
+  websiteLink: string
+  backgroundImageURL: string
+  tags: Array<string>
+  clubs: Array<any> // CHANGE
 }
 
 export class Event extends AggregateRoot<EventProps> {
@@ -41,4 +51,5 @@ export class Event extends AggregateRoot<EventProps> {
   get description(): string {
     return this.props.description
   }
+
 }

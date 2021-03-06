@@ -11,6 +11,7 @@ export class ClubEntity extends BaseEntity {
   @Property()
   description!: string
 
+  
   // TODO: fix any type
   @AfterCreate()
   afterCreate(target: any) {

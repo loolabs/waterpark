@@ -16,6 +16,15 @@ export class EventMap {
       {
         name: eventEntity.name,
         description: eventEntity.description,
+        url: eventEntity.url,
+        startTime: eventEntity.startTime,
+        endTime: eventEntity.endTime,
+        facebookLink: eventEntity.facebookLink,
+        twitterLink: eventEntity.twitterLink,
+        instagramLink: eventEntity.instagramLink,
+        websiteLink: eventEntity.websiteLink,
+        backgroundImageURL: eventEntity.backgroundImageURL,
+        tags: eventEntity.eventTag.getItems().map(eventTag => eventTag.tag.name),
       },
       new UniqueEntityID(eventEntity.id)
     )
