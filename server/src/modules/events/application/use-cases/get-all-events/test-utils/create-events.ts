@@ -7,6 +7,15 @@ export const createMockEvents = (): Result<Array<Event>, AppError.UnexpectedErro
     const eventResult = Event.create({
       name: `Event Name ${i}`,
       description: `Event Description ${i}`,
+      url: `Event URL ${i}`,
+      startTime: new Date('2021-01-01'),
+      endTime: new Date('2021-01-01'),
+      facebookLink: `Facebook ${i}`,
+      twitterLink: `Twitter ${i}`,
+      instagramLink: `Instagram ${i}`,
+      websiteLink: `Website ${i}`,
+      backgroundImageURL: `Background URL ${i}`,
+      tags: ['tag1', 'tag2', 'tag3'],
     })
 
     if (eventResult.isErr())

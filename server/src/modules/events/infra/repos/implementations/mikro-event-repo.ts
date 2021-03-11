@@ -14,9 +14,12 @@ export class MikroEventRepo implements EventRepo {
         {},
         { orderBy: { name: QueryOrder.DESC_NULLS_LAST } }
       )
-      const events = eventEntities.map(
-        (eventEntity: EventEntity): Event => EventMap.toDomain(eventEntity)
-      )
+      const events = await Promise.all(eventEntities.map(
+        async (eventEntity: EventEntity): Promise<Event> => {
+          await eventEntity.tags.init()
+          return EventMap.toDomain(eventEntity)
+        }
+      ))
       return Result.ok(events)
     } catch (err) {
       return Result.err(new AppError.UnexpectedError(err))

@@ -2,8 +2,8 @@ export interface EventDTO {
   name: string
   description: string
   url: string
-  startTime: Date
-  endTime: Date
+  startTime: string
+  endTime: string
   facebookLink: string
   twitterLink: string
   instagramLink: string

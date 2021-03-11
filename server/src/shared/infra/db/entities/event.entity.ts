@@ -1,9 +1,9 @@
-import { AfterCreate, Collection, Entity, OneToMany, Property } from '@mikro-orm/core'
+import { AfterCreate, Collection, Entity, ManyToMany,  Property } from '@mikro-orm/core'
 import { DomainEvents } from '../../../domain/events/domain-events'
 import { UniqueEntityID } from '../../../domain/unique-entity-id'
 import { BaseEntity } from './base.entity'
-import { ClubEvent } from './club-event.entity'
-import { EventTag } from './tags/event-tag.entity'
+import { ClubEntity } from './club.entity'
+import { TagEntity } from './tags/tag.entity'
 
 @Entity()
 export class EventEntity extends BaseEntity {
@@ -37,11 +37,11 @@ export class EventEntity extends BaseEntity {
   @Property()
   backgroundImageURL!: string
 
-  @OneToMany(() => ClubEvent, (clubEvent) => clubEvent.event)
-  clubEvent = new Collection<ClubEvent>(this)
+  @ManyToMany(() => ClubEntity, (club) => club.events)
+  clubs = new Collection<ClubEntity>(this)
 
-  @OneToMany(() => EventTag, (eventTag) => eventTag.tag)
-  eventTag = new Collection<EventTag>(this)
+  @ManyToMany(() => TagEntity, (tag) => tag.events)
+  tags = new Collection<TagEntity>(this)
 
   // TODO: fix any type
   @AfterCreate()

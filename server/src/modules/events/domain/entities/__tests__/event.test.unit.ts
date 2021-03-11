@@ -13,6 +13,15 @@ describe('Event AggregateRoot', () => {
     eventResult = Event.create({
       name: 'Event Name',
       description: 'Event Description',
+      url: `Event URL`,
+      startTime: new Date(),
+      endTime: new Date(),
+      facebookLink: `Facebook`,
+      twitterLink: `Twitter`,
+      instagramLink: `Instagram`,
+      websiteLink: `Facebook`,
+      backgroundImageURL: `Background URL`,
+      tags: ['tag1', 'tag2', 'tag3'],
     })
   })
   test('it adds a EventCreated domain event on new Event creation', () => {

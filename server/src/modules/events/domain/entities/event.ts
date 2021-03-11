@@ -1,6 +1,7 @@
 import { Result } from '../../../../shared/core/result'
 import { AggregateRoot } from '../../../../shared/domain/aggregate-root'
 import { UniqueEntityID } from '../../../../shared/domain/unique-entity-id'
+// import { ClubEntity } from '../../../../shared/infra/db/entities/club.entity'
 import { EventCreated } from '../events/event-created'
 import { EventId } from '../value-objects/eventId'
 
@@ -16,7 +17,6 @@ interface EventProps {
   websiteLink: string
   backgroundImageURL: string
   tags: Array<string>
-  clubs: Array<any> // CHANGE
 }
 
 export class Event extends AggregateRoot<EventProps> {
@@ -52,4 +52,39 @@ export class Event extends AggregateRoot<EventProps> {
     return this.props.description
   }
 
+  get url(): string{
+    return this.props.url
+  }
+
+  get startTime(): Date {
+    return this.props.startTime
+  }
+
+  get endTime(): Date {
+    return this.props.endTime
+  }
+
+  get facebookLink(): string {
+    return this.props.facebookLink
+  }
+
+  get twitterLink(): string {
+    return this.props.twitterLink
+  }
+
+  get instagramLink(): string {
+    return this.props.instagramLink
+  }
+
+  get websiteLink(): string {
+    return this.props.websiteLink
+  }
+
+  get backgroundImageURL(): string {
+    return this.props.backgroundImageURL
+  }
+
+  get tags(): Array<string> {
+    return this.props.tags
+  }
 }
