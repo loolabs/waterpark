@@ -1,7 +1,6 @@
 # Architecture
 
-This document describes the high-level architecture of Waterpark. If you want to familiarize yourself
-with the codebase, you are just in the right place!
+This document describes the high-level architecture of Waterpark. If you want to familiarize yourself with the codebase, you are just in the right place!
 
 ### Bird's Eye View
 
@@ -9,32 +8,22 @@ with the codebase, you are just in the right place!
 
 Waterpark's architecture is heavily modelled with Domain Driven Design. DDD is a strong tool when modelling complex and rich domains. You can learn more about Loo Labs' motivations for DDD [here]().
 
-On the highest level, you can think of Domain Driven Design as encapsulating pure functional
-business logic in the deepest layer of a system. This way, the business logic, or _domain layer_
-does not know anything about the outside world. It has no idea about how to talk to clients via
-express. Nor does it have a clue on how to talk to databases via ORM. This is great because
-the domain layer is decoupled from the _routing_ and _persistence_ layers. Decoupling layers gives
-us two main advantages!
+On the highest level, you can think of Domain Driven Design as encapsulating pure functional business logic in the deepest layer of a system. This way, the business logic, or _domain layer_ does not know anything about the outside world. It has no idea about how to talk to clients via express. Nor does it have a clue on how to talk to databases via ORM. This is great because the domain layer is decoupled from the _routing_ and _persistence_ layers. Decoupling layers gives us two main advantages!
 
 1. Maintainability
-2. Testing
+1. Testing
 
-**Maintainabilitiy**
+**Maintainability**
 
-If we want to rip out express for another http library, we can do so with ease. All we have to do
-is change the code in our routing layer, without touching _any_ of our important business logic, which is protected in our _domain_ layer. The same thing can be said on the topic of ripping one ORM for the other.
+If we want to rip out express for another http library, we can do so with ease. All we have to do is change the code in our routing layer, without touching _any_ of our important business logic, which is protected in our _domain_ layer. The same thing can be said on the topic of ripping one ORM for the other.
 
 **Testing**
 
-The main thing you want to test is your business logic. The main way to test functionality is with
-unit tests. Integration tests, on the other hand, ensure that all units work in harmony together. Wouldn't it suck if running unit tests required spinning up expensive infrastructure like express and postgres servers? All we want to do is test the functionality of business logic! That's a lot of time wasted both by the developer when running tests locally and by the CI/CD servers when running tests in our release pipeline.
+The main thing you want to test is your business logic. The main way to test functionality is with unit tests. Integration tests, on the other hand, ensure that all units work in harmony together. Wouldn't it suck if running unit tests required spinning up expensive infrastructure like express and postgres servers? All we want to do is test the functionality of business logic! That's a lot of time wasted both by the developer when running tests locally and by the CI/CD servers when running tests in our release pipeline.
 
-But, the beautiful thing with DDD is that our business logic is encapsulated in a pure functional
-layer which only consists of data structures and algorithms. This allows us to run unit tests and
-verify the correctness of our system (unit-wise) without spinning up _any_ infrastructure.
+But, the beautiful thing with DDD is that our business logic is encapsulated in a pure functional layer which only consists of data structures and algorithms. This allows us to run unit tests and verify the correctness of our system (unit-wise) without spinning up _any_ infrastructure.
 
-If the concepts are still hazy at this point don't worry! Things will clear up after reading the next
-section.
+If the concepts are still hazy at this point don't worry! Things will clear up after reading the next section.
 
 ### Code Map
 
@@ -43,8 +32,7 @@ The code map will list important files, modules, and types. There will be no dir
 
 #### `modules`
 
-This is the main directory which contains all the server code. The following directories we'll talk
-about can be found under any module in _this_ directory.
+This is the main directory which contains all the server code. The following directories we'll talk about can be found under any module in _this_ directory.
 
 #### `modules/users/infra`
 
@@ -56,9 +44,7 @@ The application directory is the middle layer of architecture (the green and red
 
 It calls `controller.useCase.execute()`, and runs a switch statement based on the use case's response. If the use case is successful, the controller will return a 200 OK with the corresponding data. If the use case has an error, the controller will know which HTTP response code to return to the client. 400s 500s, etc.
 
-The `UseCase` is where the code starts to get interesting. Usually the use case code will involve
-_loading_ a domain object into memory, doing some manipulation to the object, and then comitting
-it to persistence with it's `Repository`
+The `UseCase` is where the code starts to get interesting. Usually the use case code will involve _loading_ a domain object into memory, doing some manipulation to the object, and then comitting it to persistence with it's `Repository`
 
 ### `modules/users/domain`
 
@@ -70,4 +56,4 @@ In the domain, there are `Entity`s and `ValueObject`s. The difference between th
 
 ### `modules/users/mappers`
 
-This directory has no direct reference in the architecture diagram and is more of an _implementation_ detail of DDD itself. This code is our translation layer that can translate the representation of objects between different layers. Domain, persistence, and DTO (data transfer objects).
+This directory has no direct reference in the architecture diagram and is more of an _implementation_ detail of DDD itself. This code is our translation layer that can translate the representation of objects between different layers: domain, persistence, and DTO (data transfer objects).
