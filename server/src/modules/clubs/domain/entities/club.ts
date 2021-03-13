@@ -7,6 +7,22 @@ import { ClubId } from '../value-objects/clubId'
 interface ClubProps {
   name: string
   description: string
+  backgroundImageURL: string | null
+  iconURL: string | null
+  facebookLink: string | null
+  twitterLink: string | null
+  instagramLink: string | null
+  websiteLink: string | null
+  tags: Array<string>
+  events: Array<BasicEvent>
+}
+
+export type BasicEvent = {
+  name: string
+  startTime: Date
+  endTime: Date
+  backgroundImageURL: string
+  tags: Array<string>
 }
 
 export class Club extends AggregateRoot<ClubProps> {
@@ -40,5 +56,37 @@ export class Club extends AggregateRoot<ClubProps> {
 
   get description(): string {
     return this.props.description
+  }
+
+  get iconURL(): string | null {
+    return this.props.iconURL
+  }
+
+  get backgroundImageURL(): string | null {
+    return this.props.backgroundImageURL
+  }
+
+  get facebookLink(): string | null {
+    return this.props.facebookLink
+  }
+
+  get twitterLink(): string | null {
+    return this.props.twitterLink
+  }
+
+  get instagramLink(): string | null {
+    return this.props.instagramLink
+  }
+
+  get websiteLink(): string | null {
+    return this.props.websiteLink
+  }
+
+  get tags(): Array<string> {
+    return this.props.tags
+  }
+
+  get events(): Array<BasicEvent> {
+    return this.props.events;
   }
 }

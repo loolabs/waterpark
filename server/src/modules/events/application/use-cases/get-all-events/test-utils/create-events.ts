@@ -16,6 +16,7 @@ export const createMockEvents = (): Result<Array<Event>, AppError.UnexpectedErro
       websiteLink: `Website ${i}`,
       backgroundImageURL: `Background URL ${i}`,
       tags: ['tag1', 'tag2', 'tag3'],
+      clubs: [{ name: 'Club Name 1', iconURL: '' }],
     })
 
     if (eventResult.isErr())

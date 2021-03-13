@@ -1,4 +1,4 @@
-import { AfterCreate, Collection, Entity, ManyToMany,  Property } from '@mikro-orm/core'
+import { AfterCreate, Collection, Entity, LoadStrategy, ManyToMany,  Property } from '@mikro-orm/core'
 import { DomainEvents } from '../../../domain/events/domain-events'
 import { UniqueEntityID } from '../../../domain/unique-entity-id'
 import { BaseEntity } from './base.entity'
@@ -13,8 +13,8 @@ export class EventEntity extends BaseEntity {
   @Property()
   description!: string
 
-  @Property()
-  url!: string
+  @Property({ nullable: true })
+  url!: string | null
 
   @Property()
   startTime!: Date
@@ -22,25 +22,25 @@ export class EventEntity extends BaseEntity {
   @Property()
   endTime!: Date
 
-  @Property()
-  facebookLink!: string
+  @Property({ nullable: true })
+  facebookLink!: string | null
 
-  @Property()
-  twitterLink!: string
+  @Property({ nullable: true })
+  twitterLink!: string | null
 
-  @Property()
-  instagramLink!: string
+  @Property({ nullable: true })
+  instagramLink!: string | null
 
-  @Property()
-  websiteLink!: string
+  @Property({ nullable: true })
+  websiteLink!: string | null
 
-  @Property()
-  backgroundImageURL!: string
+  @Property({ nullable: true })
+  backgroundImageURL!: string | null
 
-  @ManyToMany(() => ClubEntity, (club) => club.events)
+  @ManyToMany({ entity: () => ClubEntity, mappedBy: "events", strategy: LoadStrategy.JOINED })
   clubs = new Collection<ClubEntity>(this)
 
-  @ManyToMany(() => TagEntity, (tag) => tag.events)
+  @ManyToMany({ entity: () => TagEntity, mappedBy: "events", strategy: LoadStrategy.JOINED })
   tags = new Collection<TagEntity>(this)
 
   // TODO: fix any type

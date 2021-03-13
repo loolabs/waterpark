@@ -7,9 +7,9 @@ import { EventEntity } from '../event.entity'
 export class TagEntity extends BaseEntity {
   @Property()
   name!: string
-  @ManyToMany(() => ClubEntity, (club) => club.tags, { owner: true })
+  @ManyToMany({ entity: () => ClubEntity, inversedBy: "tags" })
   clubs = new Collection<ClubEntity>(this)
 
-  @ManyToMany(() => EventEntity, (event) => event.tags, { owner: true })
+  @ManyToMany({ entity: () => EventEntity, inversedBy: "tags" })
   events = new Collection<EventEntity>(this)
 }

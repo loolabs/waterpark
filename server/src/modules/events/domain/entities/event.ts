@@ -1,22 +1,27 @@
 import { Result } from '../../../../shared/core/result'
 import { AggregateRoot } from '../../../../shared/domain/aggregate-root'
 import { UniqueEntityID } from '../../../../shared/domain/unique-entity-id'
-// import { ClubEntity } from '../../../../shared/infra/db/entities/club.entity'
 import { EventCreated } from '../events/event-created'
 import { EventId } from '../value-objects/eventId'
 
 interface EventProps {
   name: string
   description: string
-  url: string
+  url: string | null
   startTime: Date
   endTime: Date
-  facebookLink: string
-  twitterLink: string
-  instagramLink: string
-  websiteLink: string
-  backgroundImageURL: string
+  facebookLink: string | null
+  twitterLink: string | null
+  instagramLink: string | null
+  websiteLink: string | null
+  backgroundImageURL: string | null
   tags: Array<string>
+  clubs: Array<BasicClub>
+}
+
+export type BasicClub = {
+  name: string
+  iconURL: string
 }
 
 export class Event extends AggregateRoot<EventProps> {
@@ -52,7 +57,7 @@ export class Event extends AggregateRoot<EventProps> {
     return this.props.description
   }
 
-  get url(): string{
+  get url(): string | null {
     return this.props.url
   }
 
@@ -64,27 +69,31 @@ export class Event extends AggregateRoot<EventProps> {
     return this.props.endTime
   }
 
-  get facebookLink(): string {
+  get facebookLink(): string | null {
     return this.props.facebookLink
   }
 
-  get twitterLink(): string {
+  get twitterLink(): string | null {
     return this.props.twitterLink
   }
 
-  get instagramLink(): string {
+  get instagramLink(): string | null {
     return this.props.instagramLink
   }
 
-  get websiteLink(): string {
+  get websiteLink(): string | null {
     return this.props.websiteLink
   }
 
-  get backgroundImageURL(): string {
+  get backgroundImageURL(): string | null {
     return this.props.backgroundImageURL
   }
 
   get tags(): Array<string> {
     return this.props.tags
+  }
+
+  get clubs(): Array<BasicClub> {
+    return this.props.clubs
   }
 }
