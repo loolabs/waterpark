@@ -21,7 +21,7 @@ interface EventProps {
 
 export type BasicClub = {
   name: string
-  iconURL: string
+  iconURL: string | null
 }
 
 export class Event extends AggregateRoot<EventProps> {
