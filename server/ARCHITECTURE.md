@@ -13,11 +13,11 @@ On the highest level, you can think of Domain Driven Design as encapsulating pur
 1. Maintainability
 1. Testing
 
-**Maintainability**
+#### Maintainability
 
 If we want to rip out express for another http library, we can do so with ease. All we have to do is change the code in our routing layer, without touching _any_ of our important business logic, which is protected in our _domain_ layer. The same thing can be said on the topic of ripping one ORM for the other.
 
-**Testing**
+#### Testing
 
 The main thing you want to test is your business logic. The main way to test functionality is with unit tests. Integration tests, on the other hand, ensure that all units work in harmony together. Wouldn't it suck if running unit tests required spinning up expensive infrastructure like express and postgres servers? All we want to do is test the functionality of business logic! That's a lot of time wasted both by the developer when running tests locally and by the CI/CD servers when running tests in our release pipeline.
 
@@ -28,6 +28,7 @@ If the concepts are still hazy at this point don't worry! Things will clear up a
 ### Code Map
 
 ![](https://i.imgur.com/LKRVNIH.png)
+
 The code map will list important files, modules, and types. There will be no direct links in this document however — this is because links often go stale. Instead, use symbol search to find the mentioned entities by name!
 
 #### `modules`
@@ -38,7 +39,7 @@ This is the main directory which contains all the server code. The following dir
 
 The infra directory is the outside layer of our architecture (the blue in the diagram). This layer is concerned about the application's infrastructure, and how it talk's to the outside world. This is where we have our express routes and `Repositories` that talks to Postgres.
 
-### `modules/users/application`
+#### `modules/users/application`
 
 The application directory is the middle layer of architecture (the green and red in the diagram). This layer is where the user's `Controller`s and `UseCase`s are. The controller's one and only concern is to "_speak_" HTTP.
 
@@ -46,7 +47,7 @@ It calls `controller.useCase.execute()`, and runs a switch statement based on th
 
 The `UseCase` is where the code starts to get interesting. Usually the use case code will involve _loading_ a domain object into memory, doing some manipulation to the object, and then comitting it to persistence with it's `Repository`
 
-### `modules/users/domain`
+#### `modules/users/domain`
 
 The domain directory is the inner layer of the architecture (the yellow in the diagram) and where our precious business logic lives. This layer consists of `Entity`s and `ValueObjects`. Don't get confused between _Domain_ entities and _ORM_ entities.
 
@@ -54,6 +55,6 @@ If there's a domain entity called `User`, and you call `User.create(...)`, _noth
 
 In the domain, there are `Entity`s and `ValueObject`s. The difference between the two is that _entities_ are identified via id number. Value objects are identified via their data. If two value objects have the same fields, then they are considered _equal_.
 
-### `modules/users/mappers`
+#### `modules/users/mappers`
 
 This directory has no direct reference in the architecture diagram and is more of an _implementation_ detail of DDD itself. This code is our translation layer that can translate the representation of objects between different layers: domain, persistence, and DTO (data transfer objects).
