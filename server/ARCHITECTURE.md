@@ -5,7 +5,9 @@ with the codebase, you are just in the right place!
 
 ### Bird's Eye View
 
-![](https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg) Waterpark's architecture is heavily modelled with Domain Driven Design. DDD is a strong tool when modelling complex and rich domains. You can learn more about Loo Labs' motivations for DDD [here]().
+![](https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg)
+
+Waterpark's architecture is heavily modelled with Domain Driven Design. DDD is a strong tool when modelling complex and rich domains. You can learn more about Loo Labs' motivations for DDD [here]().
 
 On the highest level, you can think of Domain Driven Design as encapsulating pure functional
 business logic in the deepest layer of a system. This way, the business logic, or _domain layer_
@@ -20,7 +22,7 @@ us two main advantages!
 **Maintainabilitiy**
 
 If we want to rip out express for another http library, we can do so with ease. All we have to do
-is change the code in our routing layer, without touching _any_ of our important business logic, which is protected in our _domain_ layer. The same thing can be said on the topic of ripping our one ORM for the other.
+is change the code in our routing layer, without touching _any_ of our important business logic, which is protected in our _domain_ layer. The same thing can be said on the topic of ripping one ORM for the other.
 
 **Testing**
 
