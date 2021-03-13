@@ -2,7 +2,7 @@ import { UniqueEntityID } from '../../../shared/domain/unique-entity-id'
 import { ClubEntity } from '../../../shared/infra/db/entities/club.entity'
 import { EventEntity } from '../../../shared/infra/db/entities/event.entity'
 import { BasicEvent, Club } from '../domain/entities/club'
-import { ClubDTO } from './club-dto'
+import { ClubDTO, BasicEventDTO } from './club-dto'
 
 let basicEventMap = async (events: Array<EventEntity>) => {
   const eventPromises = events.map(async (event) => {
@@ -12,10 +12,10 @@ let basicEventMap = async (events: Array<EventEntity>) => {
       startTime: event.startTime,
       endTime: event.endTime,
       backgroundImageURL: event.backgroundImageURL,
-      tags: event.tags.getItems().map((tag)=> tag.name),
+      tags: event.tags.getItems().map((tag) => tag.name),
     } as BasicEvent
   })
-  return await Promise.all(eventPromises);
+  return await Promise.all(eventPromises)
 }
 
 export class ClubMap {
@@ -23,6 +23,20 @@ export class ClubMap {
     return {
       name: club.name,
       description: club.description,
+      iconURL: club.iconURL,
+      backgroundImageURL: club.backgroundImageURL,
+      facebookLink: club.facebookLink,
+      twitterLink: club.twitterLink,
+      instagramLink: club.instagramLink,
+      websiteLink: club.websiteLink,
+      tags: club.tags,
+      events: club.events.map((event) => {
+        return {
+          ...event,
+          startTime: event.startTime.toJSON(),
+          endTime: event.endTime.toJSON(),
+        } as BasicEventDTO
+      }),
     }
   }
 

@@ -13,17 +13,19 @@ describe('Event AggregateRoot', () => {
     eventResult = Event.create({
       name: 'Event Name',
       description: 'Event Description',
-      url: `Event URL`,
-      startTime: new Date(),
-      endTime: new Date(),
-      facebookLink: `Facebook`,
-      twitterLink: `Twitter`,
-      instagramLink: `Instagram`,
-      websiteLink: `Facebook`,
-      backgroundImageURL: `Background URL`,
+      url: 'Event URL',
+      startTime: new Date('2021-01-01'),
+      endTime: new Date('2021-01-01'),
+      facebookLink: 'Facebook',
+      twitterLink: 'Twitter',
+      instagramLink: 'Instagram',
+      websiteLink: 'Website',
+      backgroundImageURL: 'Background URL',
       tags: ['tag1', 'tag2', 'tag3'],
+      clubs: [{ name: 'Club Name 1', iconURL: '' }],
     })
   })
+
   test('it adds a EventCreated domain event on new Event creation', () => {
     if (eventResult.isErr()) throw new Error('Event result should be isOk, not isErr')
     expect(EventCreated).toBeCalled()

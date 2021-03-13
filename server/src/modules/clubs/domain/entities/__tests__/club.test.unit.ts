@@ -13,6 +13,22 @@ describe('Club AggregateRoot', () => {
     clubResult = Club.create({
       name: 'Club Name',
       description: 'Club Description',
+      backgroundImageURL: 'Background URL',
+      iconURL: 'Icon',
+      facebookLink: 'Facebook',
+      twitterLink: 'Twitter',
+      instagramLink: 'Instagram',
+      websiteLink: 'Website',
+      tags: ['tag1', 'tag2', 'tag3'],
+      events: [
+        {
+          name: 'Club Name 1',
+          startTime: new Date('2021-01-01'),
+          endTime: new Date('2021-01-01'),
+          backgroundImageURL: '',
+          tags: ['clubtag1', 'clubtag2'],
+        },
+      ],
     })
   })
   test('it adds a ClubCreated domain event on new Club creation', () => {
