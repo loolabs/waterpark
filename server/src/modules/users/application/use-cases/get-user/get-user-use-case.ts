@@ -6,7 +6,7 @@ import { UserRepo } from '../../../infra/repos/user-repo'
 import { GetUserDTO } from './get-user-dto'
 import { GetUserErrors } from './get-user-errors'
 
-type GetUserUseCaseError =
+export type GetUserUseCaseError =
     GetUserErrors.GetUserByIdFailedError
   | AppError.UnexpectedError
 

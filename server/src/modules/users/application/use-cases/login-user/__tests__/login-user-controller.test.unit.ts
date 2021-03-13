@@ -9,7 +9,7 @@ import { LoginUserDTO } from '../login-user-dto'
 import { LoginUserErrors } from '../login-user-errors'
 import { LoginUserUseCase } from '../login-user-use-case'
 import { buildController } from '../test-utils/build-controller'
-import { createMockUser } from '../test-utils/create-user'
+import { createMockUser } from '../../create-user/test-utils/create-user'
 
 // TODO: how to show developer these mocks are necessary when building a controller? aka must be synced with buildController()
 jest.mock('../../../../infra/repos/implementations/mikro-user-repo')
