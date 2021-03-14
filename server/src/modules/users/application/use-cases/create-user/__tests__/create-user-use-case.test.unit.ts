@@ -2,10 +2,9 @@ import { Err } from '../../../../../../shared/core/result'
 import { User } from '../../../../domain/entities/user'
 import { UserValueObjectErrors } from '../../../../domain/value-objects/errors'
 import { MockUserRepo } from '../../../../infra/repos/implementations/mock-user-repo'
-import { UserMap } from '../../../../mappers/user-map'
 import { CreateUserDTO } from '../create-user-dto'
 import { CreateUserErrors } from '../create-user-errors'
-import { CreateUserUseCase } from '../create-user-use-case'
+import { setup } from '../test-utils/setup'
 
 jest.mock('../../../../infra/repos/implementations/mock-user-repo')
 
@@ -18,12 +17,6 @@ describe('CreateUserUseCase', () => {
       password: 'secret',
     }
   })
-
-  const setup = async (users: Array<User> = []) => {
-    const userRepo = new MockUserRepo(await Promise.all(users.map(UserMap.toPersistence)))
-    const createUserUseCase = new CreateUserUseCase(userRepo)
-    return { userRepo, createUserUseCase }
-  }
 
   test('When executed with valid DTO, should save the user and return an Ok', async () => {
     const { userRepo, createUserUseCase } = await setup()
