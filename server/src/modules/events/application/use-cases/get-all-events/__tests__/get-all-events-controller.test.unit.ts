@@ -1,31 +1,25 @@
 import httpMocks from 'node-mocks-http'
-import { DecodedExpressRequest } from '../../../../../../shared/infra/http/routes/decoded-request'
 import { EventDTO } from '../../../../mappers/event-dto'
-import { createMockEventDTOs } from '../test-utils/create-event-dtos'
+import { createMockEventDTO } from '../test-utils/create-mock-event-dto'
 import { Result } from '../../../../../../shared/core/result'
 import { GetAllEventsUseCase } from '../get-all-events-use-case'
-import { buildController } from '../test-utils/build-controller'
+import { setup } from '../test-utils/setup'
 import { AppError } from '../../../../../../shared/core/app-error'
+import { createHttpMock } from '../../../../../../shared/infra/http/test-utils/create-http-mock'
 
-jest.mock('../../../../infra/repos/implementations/mikro-event-repo')
+jest.mock('../../../../infra/repos/implementations/mock-event-repo')
 
 describe('GetAllEventsController', () => {
-  let mockEventDTOs: Array<EventDTO>
-  beforeAll(() => {
-    mockEventDTOs = createMockEventDTOs()
-  })
+  const ids = [1, 2, 3]
+  const mockEventDTOs: Array<EventDTO> = ids.map(createMockEventDTO)
 
   test('When executed, the GetAllEventsController returns 200 OK', async () => {
-    const mockRequest = httpMocks.createRequest() as DecodedExpressRequest
-    const mockResponse = httpMocks.createResponse()
+    const { req, res } = createHttpMock()
     jest.spyOn(GetAllEventsUseCase.prototype, 'execute').mockResolvedValue(Result.ok(mockEventDTOs))
 
-    const getAllEventsController = buildController()
+    const { getAllEventsController } = setup()
 
-    const result: httpMocks.MockResponse<any> = await getAllEventsController.execute(
-      mockRequest,
-      mockResponse
-    ) //TODO: find proper type for result so that ._getData() property is found by compiler
+    const result: httpMocks.MockResponse<any> = await getAllEventsController.execute(req, res) //TODO: find proper type for result so that ._getData() property is found by compiler
 
     expect(result.statusCode).toBe(200)
 
@@ -36,15 +30,14 @@ describe('GetAllEventsController', () => {
   })
 
   test('If use case throws error, the GetAllEventsController responds 500', async () => {
-    const mockRequest = httpMocks.createRequest() as DecodedExpressRequest
-    const mockResponse = httpMocks.createResponse()
+    const { req, res } = createHttpMock()
     jest
       .spyOn(GetAllEventsUseCase.prototype, 'execute')
       .mockResolvedValue(Result.err(new AppError.UnexpectedError('Pretend something failed.')))
 
-    const getAllEventsController = buildController()
+    const { getAllEventsController } = setup()
 
-    const result = await getAllEventsController.execute(mockRequest, mockResponse)
+    const result = await getAllEventsController.execute(req, res)
 
     expect(result.statusCode).toBe(500)
   })

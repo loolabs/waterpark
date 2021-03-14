@@ -4,7 +4,7 @@ import { UserEmail } from '../../../../domain/value-objects/user-email'
 import { UserPassword } from '../../../../domain/value-objects/user-password'
 import { CreateUserDTO } from '../create-user-dto'
 
-const createUser = ({ email, password }: CreateUserDTO): User => {
+const createMockUser = ({ email, password }: CreateUserDTO): User => {
   const userEmailResult = UserEmail.create(email)
   const userPasswordResult = UserPassword.create({ value: password, hashed: false })
   const results = [userEmailResult, userPasswordResult] as const
@@ -14,4 +14,4 @@ const createUser = ({ email, password }: CreateUserDTO): User => {
   return userResult.value
 }
 
-export { createUser }
+export { createMockUser }
