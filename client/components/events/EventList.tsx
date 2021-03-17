@@ -1,6 +1,6 @@
 import { SearchItem, SearchResult, useSearch } from "../hooks"
 import { EventCard } from "./EventCard";
-import { Id, EventInfo } from "../../pages/_app";
+import { Id, EventInfo } from "../../context";
 
 interface EventListProps {
     eventListData: Map<Id, EventInfo>;

@@ -1,6 +1,6 @@
 import { SearchItem, SearchResult, useSearch } from "../hooks";
 import { ClubCard } from "./ClubCard";
-import { Id, ClubInfo } from "../../pages/_app";
+import { Id, ClubInfo } from "../../context";
 
 interface ClubListProps {
   clubListData: Map<Id, ClubInfo>;

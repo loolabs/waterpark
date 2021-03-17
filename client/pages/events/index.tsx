@@ -1,10 +1,9 @@
 import React from "react";
-import { useContext } from "react";
-import { AppContext } from "../_app";
+import { useAppContext } from "../../context";
 import { EventList } from "../../components/events";
 
 export default function Events() {
-  const {events: eventListData} = useContext(AppContext);
+  const {events: eventListData} = useAppContext();
   
   return (
     <EventList eventListData={eventListData}/>

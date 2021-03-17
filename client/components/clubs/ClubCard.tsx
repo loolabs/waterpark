@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Id, ClubInfo } from "../../pages/_app";
+import { Id, ClubInfo } from "../../context";
 
 type Club = ClubInfo & { id: Id };
 

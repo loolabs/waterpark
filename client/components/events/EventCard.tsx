@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Id, EventInfo } from "../../pages/_app";
+import { Id, EventInfo } from "../../context";
 
 type Event = EventInfo & { id: Id };
 
