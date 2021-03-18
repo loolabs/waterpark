@@ -22,7 +22,7 @@ const weight700 = "700";
 const weight600 = "600";
 const weight400 = "400";
 
-// font weight
+// font style
 const fontBrandonGrotesque = "Brandon Grotesque";
 const fontInter = "Inter";
 

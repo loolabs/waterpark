@@ -18,8 +18,8 @@
     "next": "10.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "vercel-is-pull-request": "^0.0.8",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "vercel-is-pull-request": "^0.0.8"
   },
   "devDependencies": {
     "@testing-library/dom": "^7.29.4",
