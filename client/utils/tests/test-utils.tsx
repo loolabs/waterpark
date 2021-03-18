@@ -1,14 +1,14 @@
 import React, { FC, ReactElement } from 'react'
 import { render, RenderOptions } from '@testing-library/react'
-import { AppContext, CLUBS, EVENTS } from '../../context/Base'
-import { formatClubsData, formatEventsData } from "../index"
+import { AppContext, Club, Event, Id, CLUBS, EVENTS } from '../../context/Base'
+import { indexData } from '../index'
 
 const AllTheProviders: FC = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        clubs: formatClubsData(CLUBS),
-        events: formatEventsData(EVENTS)
+        clubs: indexData<Id, Club>(CLUBS),
+        events: indexData<Id, Event>(EVENTS),
       }}
     >
       {children}

@@ -1,83 +1,85 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { formatClubsData, formatEventsData } from "../utils";
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import { indexData } from '../utils'
+
+export type Id = number
 
 interface AppData {
-    clubs: Map<Id, ClubInfo>;
-    events: Map<Id, EventInfo>;
+  clubs: Map<Id, Club>
+  events: Map<Id, Event>
 }
 
-export interface ClubInfo {
-    name: string
-    description: string
+export type Club = {
+  id: Id
+  name: string
+  description: string
 }
 
-export interface EventInfo {
-    name: string
-    description: string
+export type Event = {
+  id: Id
+  name: string
+  description: string
 }
 
-export type Id = number;
+export const CLUBS: Array<Club> = [
+  {
+    id: 2932,
+    name: 'UW Ballroom',
+    description: 'dancing in the dark',
+  },
+  {
+    id: 8888,
+    name: 'Cooking club',
+    description: 'chef curry with the shot',
+  },
+  {
+    id: 111,
+    name: 'Loo Labs',
+    description: '👩‍🔬',
+  },
+]
 
-export const CLUBS = [
-    {
-        id: 2932,
-        name: 'UW Ballroom',
-        description: 'dancing in the dark',
-    },
-    {
-        id: 8888,
-        name: 'Cooking club',
-        description: 'chef curry with the shot',
-    },
-    {
-        id: 111,
-        name: 'Loo Labs',
-        description: '👩‍🔬',
-    }
-];
+export const EVENTS: Array<Event> = [
+  {
+    id: 1234,
+    name: 'Tech+ Mock Interview',
+    description: 'dancing in the dark',
+  },
+  {
+    id: 6787,
+    name: 'ARBUS Society Movie Night',
+    description: 'chef curry with the shot',
+  },
+  {
+    id: 6367,
+    name: 'UWACC Open Auditions',
+    description: '👩‍🔬',
+  },
+]
 
-export const EVENTS = [
-    {
-        id: 1234,
-        name: "Tech+ Mock Interview",
-        description: "dancing in the dark",
-    },
-    {
-        id: 6787,
-        name: "ARBUS Society Movie Night",
-        description: "chef curry with the shot",
-    },
-    {
-        id: 6367,
-        name: "UWACC Open Auditions",
-        description: "👩‍🔬",
-    }
-];
-
-export const AppContext = createContext<AppData>(null);
+export const AppContext = createContext<AppData>(null)
 
 export const AppProvider = ({ children }) => {
-    const [clubs, setClubs] = useState<Map<Id, ClubInfo>>(formatClubsData([]));
-    const [events, setEvents] = useState<Map<Id, EventInfo>>(formatEventsData([]));
+  const [clubs, setClubs] = useState<Map<Id, Club>>(indexData())
+  const [events, setEvents] = useState<Map<Id, Event>>(indexData())
 
-    useEffect(() => {
-        // make API call
-        setClubs(formatClubsData(CLUBS));
-        setEvents(formatEventsData(EVENTS));
-    }, []);
+  useEffect(() => {
+    // make API call
+    setClubs(indexData(CLUBS))
+    setEvents(indexData(EVENTS))
+  }, [])
 
-    return (
-        <AppContext.Provider
-            value={{
-                clubs,
-                events
-            }}
-        >
-            { children }
-        </AppContext.Provider>
-    )
+  return (
+    <AppContext.Provider
+      value={{
+        clubs,
+        events,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  )
 }
 
 export const useAppContext = () => {
-    return useContext(AppContext);
+  return useContext(AppContext)
 }
