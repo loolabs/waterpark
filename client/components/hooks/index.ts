@@ -1,1 +1,2 @@
-export { useSearch } from './UseSearch'
+export { useSearch } from "./UseSearch";
+export { useViewport } from "./UseViewport";
