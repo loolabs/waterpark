@@ -6,7 +6,7 @@ This document describes the high-level architecture of Waterpark. If you want to
 
 ![](https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg)
 
-Waterpark's architecture is heavily modelled with Domain Driven Design. DDD is a strong tool when modelling complex and rich domains. You can learn more about Loo Labs' motivations for DDD [here]().
+Waterpark's architecture is heavily modelled with Domain Driven Design. DDD is a strong tool when modelling complex and rich domains.
 
 On the highest level, you can think of Domain Driven Design as encapsulating pure functional business logic in the deepest layer of a system. This way, the business logic, or _domain layer_ does not know anything about the outside world. It has no idea about how to talk to clients via express. Nor does it have a clue on how to talk to databases via ORM. This is great because the domain layer is decoupled from the _routing_ and _persistence_ layers. Decoupling layers gives us two main advantages!
 
