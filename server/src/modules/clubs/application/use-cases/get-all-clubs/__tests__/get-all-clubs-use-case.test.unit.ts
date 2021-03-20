@@ -3,7 +3,7 @@ import { MikroClubRepo } from '../../../../infra/repos/implementations/mikro-clu
 import { GetAllClubsUseCase } from '../get-all-clubs-use-case'
 import { createMockClubs } from '../test-utils/create-clubs'
 import { createMockClubDTOs } from '../test-utils/create-club-dtos'
-import { ClubDTO } from '../../../../mappers/club-dto'
+import { ClubDTO } from '../../../../mappers/club-map'
 import { AppError } from '../../../../../../shared/core/app-error'
 import { Result } from '../../../../../../shared/core/result'
 

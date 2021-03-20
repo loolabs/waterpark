@@ -14,7 +14,7 @@ export class EventEntity extends BaseEntity {
   description!: string
 
   @Property({ nullable: true })
-  url!: string | null
+  url?: string
 
   @Property()
   startTime!: Date
@@ -23,19 +23,19 @@ export class EventEntity extends BaseEntity {
   endTime!: Date
 
   @Property({ nullable: true })
-  facebookLink!: string | null
+  facebookLink?: string
 
   @Property({ nullable: true })
-  twitterLink!: string | null
+  twitterLink?: string
 
   @Property({ nullable: true })
-  instagramLink!: string | null
+  instagramLink?: string
 
   @Property({ nullable: true })
-  websiteLink!: string | null
+  websiteLink?: string
 
   @Property({ nullable: true })
-  backgroundImageURL!: string | null
+  backgroundImageURL?: string
 
   @ManyToMany({ entity: () => ClubEntity, mappedBy: "events", strategy: LoadStrategy.JOINED })
   clubs = new Collection<ClubEntity>(this)

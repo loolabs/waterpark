@@ -1,4 +1,4 @@
-import { EventDTO } from '../../../../mappers/event-dto'
+import { EventDTO } from '../../../../mappers/event-map'
 
 export const createMockEventDTOs = (): Array<EventDTO> => {
   const events: Array<EventDTO> = []

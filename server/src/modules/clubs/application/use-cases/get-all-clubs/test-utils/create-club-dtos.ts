@@ -1,4 +1,4 @@
-import { ClubDTO } from '../../../../mappers/club-dto'
+import { ClubDTO } from '../../../../mappers/club-map'
 
 export const createMockClubDTOs = (): Array<ClubDTO> => {
   const clubs: Array<ClubDTO> = []

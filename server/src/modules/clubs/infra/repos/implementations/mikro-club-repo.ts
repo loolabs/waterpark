@@ -17,13 +17,7 @@ export class MikroClubRepo implements ClubRepo {
           orderBy: { name: QueryOrder.DESC_NULLS_LAST },
         }
       )
-      const clubs = await Promise.all(
-        clubEntities.map(
-          async (clubEntity: ClubEntity): Promise<Club> => {
-            return await ClubMap.toDomain(clubEntity)
-          }
-        )
-      )
+      const clubs = await Promise.all(clubEntities.map(ClubMap.toDomain))
       return Result.ok(clubs)
     } catch (err) {
       return Result.err(new AppError.UnexpectedError(err))

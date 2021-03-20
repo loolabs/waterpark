@@ -17,22 +17,22 @@ export class ClubEntity extends BaseEntity {
   size!: number
 
   @Property({ nullable: true })
-  backgroundImageURL!: string | null
+  backgroundImageURL?: string
 
   @Property({ nullable: true })
-  iconURL!: string | null
+  iconURL!: string
 
   @Property({ nullable: true })
-  facebookLink!: string | null
+  facebookLink?: string
 
   @Property({ nullable: true })
-  twitterLink!: string | null
+  twitterLink?: string
 
   @Property({ nullable: true })
-  instagramLink!: string | null
+  instagramLink?: string 
 
   @Property({ nullable: true })
-  websiteLink!: string | null
+  websiteLink?: string 
 
   @ManyToMany({entity: () => EventEntity, inversedBy: "clubs", strategy: LoadStrategy.JOINED})
   events = new Collection<EventEntity>(this)

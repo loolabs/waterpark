@@ -2,9 +2,29 @@ import { UniqueEntityID } from '../../../shared/domain/unique-entity-id'
 import { ClubEntity } from '../../../shared/infra/db/entities/club.entity'
 import { EventEntity } from '../../../shared/infra/db/entities/event.entity'
 import { BasicEvent, Club } from '../domain/entities/club'
-import { ClubDTO, BasicEventDTO } from './club-dto'
 
-let basicEventMap = async (events: Array<EventEntity>) => {
+interface BasicEventDTO {
+  name: string
+  startTime: string
+  endTime: string
+  backgroundImageURL?: string
+  tags: Array<string>
+}
+
+export interface ClubDTO {
+  name: string
+  description: string
+  backgroundImageURL?: string
+  iconURL: string
+  facebookLink?: string
+  twitterLink?: string
+  instagramLink?: string
+  websiteLink?: string
+  tags: Array<string>
+  events: Array<BasicEventDTO>
+}
+
+const basicEventMap = async (events: Array<EventEntity>): Promise<Array<BasicEvent>> => {
   const eventPromises = events.map(async (event) => {
     await event.tags.init()
     return {
