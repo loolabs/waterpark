@@ -12,11 +12,16 @@ export class MikroClubRepo implements ClubRepo {
     try {
       const clubEntities: Array<ClubEntity> = await DB.clubsEntityRepo.find(
         {},
-        { orderBy: { name: QueryOrder.DESC_NULLS_LAST } }
+        {
+          populate: ['tags', 'events'],
+          orderBy: { name: QueryOrder.DESC_NULLS_LAST },
+        }
       )
       const clubs = await Promise.all(
         clubEntities.map(
-          async (clubEntity: ClubEntity): Promise<Club> => await ClubMap.toDomain(clubEntity)
+          async (clubEntity: ClubEntity): Promise<Club> => {
+            return await ClubMap.toDomain(clubEntity)
+          }
         )
       )
       return Result.ok(clubs)

@@ -12,11 +12,13 @@ export class MikroEventRepo implements EventRepo {
     try {
       const eventEntities: Array<EventEntity> = await DB.eventsEntityRepo.find(
         {},
-        { orderBy: { name: QueryOrder.DESC_NULLS_LAST } }
+        {
+          populate: ['tags', 'clubs'],
+          orderBy: { name: QueryOrder.DESC_NULLS_LAST },
+        }
       )
       const events = await Promise.all(eventEntities.map(
         async (eventEntity: EventEntity): Promise<Event> => {
-          await eventEntity.tags.init()
           return EventMap.toDomain(eventEntity)
         }
       ))
