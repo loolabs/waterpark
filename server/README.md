@@ -9,7 +9,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 1. [Docker](https://www.docker.com/products/docker-desktop)
-2. `.env` in the root directory of the monorepo
+1. `.env` in the root directory of the monorepo
 
 ```
 SERVER_PORT=3001
