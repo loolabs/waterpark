@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import styled from ''
+import EventCalendarView from "../EventCalendarView/EventCalendarView"
+import EventListView from "../EventListView//EventListView"
+import styled from 'styled-components'
 
 const LISTVIEW_ACTIVE = 0;
 const CALENDARVIEW_ACTIVE = 1;
@@ -7,6 +9,13 @@ const CALENDARVIEW_ACTIVE = 1;
 export const EventViewToggle = () => {
 
   const [activeView, setActiveView] = useState(LISTVIEW_ACTIVE);
+
+  const ToggleText = styled.div<any>`
+    ${(props: any) => props.isActiveView`
+      font-weight: bold;
+    `};
+    padding-right: 3em;
+  `;
 
   const renderActiveView = () => {
     switch(activeView){
@@ -17,27 +26,18 @@ export const EventViewToggle = () => {
             return <EventListView/>
     }
   }
-
-  const getActiveStateClassname = (viewType) => (
-    activeView === viewType && 'active-view'
-  )
-
-  const getListViewButton = () => (
-    <div className={`listviewButton ${getActiveStateClassname(LISTVIEW_ACTIVE)}`} onClick={()=>setActiveView(LISTVIEW_ACTIVE)}>
-      
-    </div>
-  )
-
-  const getCalendarViewButton = () => (
-    <div className={`cardviewButton ${getActiveStateClassname(CALENDARVIEW_ACTIVE)}`} onClick={()=>setActiveView(CALENDARVIEW_ACTIVE)}>
-        Calendar View
-    </div>
+  
+  const getEventViewButton = (viewType) => (
+    <ToggleText 
+      isActiveView={activeView===viewType}>
+      onClick={()=>setActiveView(viewType)}
+    </ToggleText>
   )
 
   return (
     <div>
-        {getListViewButton()}
-        {getCalendarViewButton()}
+        {getEventViewButton(LISTVIEW_ACTIVE)}
+        {getEventViewButton(CALENDARVIEW_ACTIVE)}
         {renderActiveView()}
     </div>
   );
