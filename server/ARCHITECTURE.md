@@ -19,7 +19,7 @@ If we want to rip out express for another http library, we can do so with ease. 
 
 #### Testing
 
-The main thing you want to test is your business logic. The main way to test functionality is with unit tests. Integration tests, on the other hand, ensure that all units work in harmony together. Wouldn't it suck if running unit tests required spinning up expensive infrastructure like express and postgres servers? All we want to do is test the functionality of business logic! That's a lot of time wasted both by the developer when running tests locally and by the CI/CD servers when running tests in our release pipeline.
+The main thing you want to test is your business logic. The main way to test functionality is with unit tests. On other hand, integration tests ensure that all units work in harmony together. Wouldn't it suck if running unit tests required spinning up expensive infrastructure like express and postgres servers? All we want to do is test the functionality of business logic! That's a lot of time wasted both by the developer when running tests locally and by the CI/CD servers when running tests in our release pipeline.
 
 But, the beautiful thing with DDD is that our business logic is encapsulated in a pure functional layer which only consists of data structures and algorithms. This allows us to run unit tests and verify the correctness of our system (unit-wise) without spinning up _any_ infrastructure.
 
