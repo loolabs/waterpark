@@ -28,7 +28,7 @@ DATABASE_URL=postgresql://loolabs:loolabs@db/clubs
 
 You should see messages in your terminal from the `server` and `postgres` containers, and finally be greeted with:
 
-![](https://i.imgur.com/WhvhzFs.png)
+![](./assets/server-prompt.png)
 
 ## Tests
 
@@ -54,11 +54,11 @@ Here is how to make a [migration](https://en.wikipedia.org/wiki/Schema_migration
 
 1. Login to the Heroku dashboard.
 1. Click the waterpark pipeline.
-   ![](https://i.imgur.com/pf7Xfua.png)
+   ![](./assets/heroku-1.png)
 1. You should see three environments. Review apps, staging, and production. Review apps are automatically created for each PR. Staging is `main`. Any commits merged into `main` will automatically be released to the staging environment. Production is the live environment used for production.
-   ![](https://i.imgur.com/UzDVqu3.png)
+   ![](./assets/heroku-2.png)
 1. To promote the staging environment to production, simply click the "promote to production" button. You'll be prompted with a modal:
-   ![](https://i.imgur.com/wv9180i.png)
+   ![](./assets/heroku-3.png)
 1. Click promote
 
 The latest commit (and all the previous commits) in the staging environment will then be promoted to production!
