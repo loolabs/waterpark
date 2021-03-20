@@ -1,39 +1,26 @@
-import { SearchItem, SearchResult, useSearch } from "../hooks";
-import { ClubCard } from "./ClubCard";
-import { Id, ClubInfo } from "../../context";
+import { useSearch } from '../hooks'
+import { ClubCard } from './ClubCard'
+import { Id, Club } from '../../context'
+import { useMemo } from 'react'
 
 interface ClubListProps {
-  clubListData: Map<Id, ClubInfo>;
+  clubs: Map<Id, Club>
 }
 
-const clubsList = (filteredClubs: SearchResult) => {
-  return filteredClubs.map((club: SearchItem | { item: SearchItem }) => {
-    if ("item" in club) {
-      club = club.item as SearchItem;
-    }
-    return (
-      <ClubCard
-        key={club.id}
-        club={{
-          id: club.id,
-          name: club.name,
-          description: club.description,
-        }}
-      />
-    );
-  })
-}
+export const ClubList = ({ clubs }: ClubListProps) => {
+  const allClubs: Array<Club> = useMemo(() => Array.from(clubs.values()), [clubs])
 
-export const ClubList = ({clubListData}: ClubListProps) => {
-  const [filteredClubs, setSearchValue] = useSearch("", clubListData);
+  const [filteredClubs, setSearchValue] = useSearch(allClubs, ['name'])
 
   return (
     <div>
       <h1>Club List</h1>
       <div>
-        <input onChange={e => setSearchValue(e.target.value)}/>
+        <input onChange={(e) => setSearchValue(e.target.value)} />
       </div>
-      { clubsList(filteredClubs) }
+      {filteredClubs.map((club) => (
+        <ClubCard key={club.id} club={club} />
+      ))}
     </div>
-  );
+  )
 }

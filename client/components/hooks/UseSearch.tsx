@@ -1,39 +1,24 @@
-import { useState, useMemo, Dispatch, SetStateAction } from 'react';
-import Fuse from 'fuse.js';
+import { useState, useMemo, Dispatch, SetStateAction } from 'react'
+import Fuse from 'fuse.js'
 
-type SearchItemData = {
-  name: string,
-  description: string
-}
-
-export type SearchItem = { id: number } & SearchItemData;
-
-export type SearchResult = (Fuse.FuseResult<SearchItem> | SearchItem)[];
-
-type UseSearchReturn = [SearchResult, Dispatch<SetStateAction<string>>];
-
-export const useSearch = (userInput: string, searchListData: Map<number, SearchItemData>): UseSearchReturn => {
-  const [searchValue, setSearchValue] = useState<string>(userInput);
-
-  const formattedSearchItems: SearchItem[] = useMemo(() => {
-    return Array.from(searchListData.entries()).map(([id, info]) => {
-      return ({
-        id,
-        name: info.name,
-        description: info.description
-      });
-    });
-  }, [searchListData]);
+export const useSearch = <T extends object>(
+  items: Array<T>,
+  keys: Array<string>,
+  initialPattern: string = ''
+): [Array<T>, Dispatch<SetStateAction<string>>] => {
+  const [searchValue, setSearchValue] = useState<string>(initialPattern)
 
   const fuse = useMemo(() => {
-    return new Fuse(formattedSearchItems, {
-      keys: ["name"],
+    return new Fuse(items, {
+      keys,
       ignoreLocation: true, // doesn't weight string location
-      threshold: 0.3 // 0=strict, 1=loose
+      threshold: 0.3, // 0=strict, 1=loose
     })
-  }, [formattedSearchItems])
+  }, [items, keys])
 
-  const filteredSearchItems: SearchResult = searchValue ? fuse.search(searchValue) : formattedSearchItems;
-  
-  return [filteredSearchItems, setSearchValue];
+  const searchResult: Array<T> = searchValue
+    ? fuse.search(searchValue).map(({ item }: Fuse.FuseResult<T>) => item)
+    : items
+
+  return [searchResult, setSearchValue]
 }

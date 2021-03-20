@@ -1,2 +1,2 @@
-export { useAppContext, AppProvider } from "./Base";
-export type { ClubInfo, EventInfo, Id } from "./Base"
+export { useAppContext, AppProvider } from './Base'
+export type { Club, Event, Id } from './Base'
