@@ -21,7 +21,6 @@ describe('Event Router', () => {
     for (let i = 1; i <= 3; i++) {
       expect(res.body).toContainEqual(expect.objectContaining({ name: `Event Name ${i}` }))
     }
-    console.log(res.body)
     expect(res.body.length).toBe(3)
     expect(res.status).toBe(200)
   })
