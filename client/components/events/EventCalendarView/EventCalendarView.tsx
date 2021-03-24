@@ -1,8 +1,9 @@
-import React from "react";
-import moment from 'moment';
+import React from "react"
+import moment from 'moment'
 import { Event } from '../../../context'
 import styled from 'styled-components'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
+import EventCalendarCard from './EventCalendarCard'
 
 interface EventViewProps {
   filteredEvents: Array<Event>
@@ -23,37 +24,9 @@ const daysOfWeek: Array<DaySignature> = [
   {dayNumber: 0, dayShortform: "Sun" }, //Sunday
 ]
 
-const CalendarCardImageContainer = styled.div<any>`
-  height: 90px;
-  width: 170px;
-`
-
-const CalendarCardImage = styled.img<any>`
-  max-width: 100%;
-  max-height: 100%;
-`
-
-const CalendarCardEventName = styled.p<any>`
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-size: ${desktopFontSize.subtitle1};
-  line-height: 120%;
-`
-
-const CalendarCardTime = styled.p<any>`
-  font-size: ${desktopFontSize.subtitle1};
-  line-height: 120%;
-`
-
-const CalendarCardEventClub = styled.p<any>`
-  font-size: ${desktopFontSize.subtitle1};
-  line-height: 120%;
-`
-
-const CalendarCard = styled.div<any>`
-  margin-bottom: 20px;
-  width: 170px;
+const CalendarView = styled.div<any>`
+  display: flex;
+  justify-content: center;
 `
 
 const CalendarColumn = styled.div<any>`
@@ -69,36 +42,14 @@ const CalendarColumnHeader = styled.h3<any>`
   margin-bottom: 25px;
 `
 
-const CalendarView = styled.div<any>`
-  display: flex;
-  justify-content: center;
-`
-
 const EventCalendarView = ({ filteredEvents }: EventViewProps) => {
 
   const getEventsOnDay = (dayNumber: Number) => (
     filteredEvents.filter(event => moment(event.startDate).day() <= dayNumber && moment(event.endDate).day() >= dayNumber)
   )
 
-  const getFormattedTimeString = (startDate, endDate) => (
-    `${moment(startDate).format('LT')} - ${moment(endDate).format('LT')} ET`
-  )
-
   const getCalendarCards = (events: Array<Event>) => (
-    events.map(event => <CalendarCard>
-      <CalendarCardImageContainer>
-        <CalendarCardImage src={event.img}/>
-        <CalendarCardEventName>
-          {event.name}
-        </CalendarCardEventName>
-        <CalendarCardTime>
-          {getFormattedTimeString(event.startDate, event.endDate)}
-        </CalendarCardTime>
-        <CalendarCardEventClub>
-          {event.club}
-        </CalendarCardEventClub>
-      </CalendarCardImageContainer>
-    </CalendarCard>)
+    events.map(event => <EventCalendarCard event={event}/>)
   )
 
   const generateDayColumns = () => (
