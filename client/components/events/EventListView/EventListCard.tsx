@@ -1,12 +1,12 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { Event } from '../../context'
+import { Event } from '../../../context'
 
-interface EventCardProps {
+interface EventProps {
   event: Event
 }
 
-export const EventCard = ({ event }: EventCardProps) => {
+export const EventListCard = ({ event }: EventProps) => {
   const { id, name, description } = event
   const router = useRouter()
 
@@ -21,3 +21,5 @@ export const EventCard = ({ event }: EventCardProps) => {
     </div>
   )
 }
+
+export default EventListCard

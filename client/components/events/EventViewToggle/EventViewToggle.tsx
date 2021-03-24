@@ -1,29 +1,44 @@
 import React, { useState } from "react";
 import EventCalendarView from "../EventCalendarView/EventCalendarView"
-import EventListView from "../EventListView//EventListView"
+import EventListView from "../EventListView/EventListView"
+import { Event } from '../../../context'
 import styled from 'styled-components'
 
 const LISTVIEW_ACTIVE = 0;
 const CALENDARVIEW_ACTIVE = 1;
 
-export const EventViewToggle = () => {
+interface EventViewProps {
+  filteredEvents: Array<Event>
+}
+
+export const EventViewToggle = ({ filteredEvents }: EventViewProps) => {
 
   const [activeView, setActiveView] = useState(LISTVIEW_ACTIVE);
 
+  const EventViewToggle = styled.div<any>`
+    display: flex;
+    justify-content: center;
+  `
+
+  const EventViewToggleButtons = styled.div<any>`
+    display: flex;
+    justify-content: flex-start;
+  `
+
   const ToggleText = styled.div<any>`
-    ${(props: any) => props.isActiveView`
+    ${(props: any) => props.isActiveView && `
       font-weight: bold;
     `};
-    padding-right: 3em;
-  `;
+    margin-right: 25px;
+  `
 
   const renderActiveView = () => {
     switch(activeView){
-        case CALENDARVIEW_ACTIVE:
-            return <EventCalendarView/>
-        case LISTVIEW_ACTIVE:
-        default:
-            return <EventListView/>
+      case CALENDARVIEW_ACTIVE:
+        return <EventCalendarView filteredEvents={filteredEvents}/>
+      case LISTVIEW_ACTIVE:
+      default:
+        return <EventListView filteredEvents={filteredEvents}/>
     }
   }
   
@@ -34,11 +49,17 @@ export const EventViewToggle = () => {
     </ToggleText>
   )
 
+  const getToggleButtons = () => (
+    <EventViewToggleButtons>
+      {getEventViewButton(LISTVIEW_ACTIVE)}
+      {getEventViewButton(CALENDARVIEW_ACTIVE)}
+    </EventViewToggleButtons>
+  )
+  
   return (
-    <div>
-        {getEventViewButton(LISTVIEW_ACTIVE)}
-        {getEventViewButton(CALENDARVIEW_ACTIVE)}
-        {renderActiveView()}
-    </div>
+    <EventViewToggle>
+      {getToggleButtons()}
+      {renderActiveView()}
+    </EventViewToggle>
   );
 };

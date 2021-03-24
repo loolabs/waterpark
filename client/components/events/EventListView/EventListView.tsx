@@ -1,10 +1,19 @@
-import React from "react";
+import { EventListCard } from './EventListCard'
+import { Id, Event } from '../../../context'
 
-const EventListView = () => {
+interface EventViewProps {
+  filteredEvents: Array<Event>
+}
+
+export const EventListView = ({ filteredEvents }: EventViewProps) => {
+
   return (
     <div>
+      {filteredEvents.map((event) => (
+        <EventListCard key={event.id} event={event} />
+      ))}
     </div>
-  );
-};
+  )
+}
 
 export default EventListView
