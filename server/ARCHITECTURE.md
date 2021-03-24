@@ -1,6 +1,6 @@
 # Architecture
 
-This document describes the high-level architecture of Waterpark. If you want to familiarize yourself with the codebase, you are just in the right place!
+This document describes the high-level architecture of Waterpark. If you want to familiarize yourself with the codebase, you are in just the right place!
 
 ### Bird's Eye View
 
