@@ -8,13 +8,9 @@ app.use(express.json())
 app.use('/api/v1', v1Router)
 
 describe('Event Router', () => {
-  beforeAll(async () => {
-    await populate()
-  })
+  beforeAll(populate)
 
-  afterAll(async () => {
-    await teardown()
-  })
+  afterAll(teardown)
 
   test('When a GET req is fired to /events, it should return all events', async () => {
     const res = await request(app).get('/api/v1/events').set('Accept', 'application/json')

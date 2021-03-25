@@ -1,22 +1,7 @@
 import { UniqueEntityID } from '../../../shared/domain/unique-entity-id'
 import { EventEntity } from '../../../shared/infra/db/entities/event.entity'
 import { Event } from '../domain/entities/event'
-import { BasicClub } from '../domain/entities/event'
-
-export interface EventDTO {
-  name: string
-  description: string
-  url?: string
-  startTime: string
-  endTime: string
-  facebookLink?: string
-  twitterLink?: string
-  instagramLink?: string
-  websiteLink?: string
-  backgroundImageURL?: string
-  tags: Array<string>
-  clubs: Array<BasicClub>
-}
+import { EventDTO } from './event-dto'
 
 export class EventMap {
   public static toDTO(event: Event): EventDTO {
@@ -51,7 +36,7 @@ export class EventMap {
         backgroundImageURL: eventEntity.backgroundImageURL,
         tags: eventEntity.tags.getItems().map((tag) => tag.name),
         clubs: eventEntity.clubs.getItems().map((club) => {
-          return { name: club.name, iconURL: club.iconURL } as BasicClub
+          return { name: club.name, iconURL: club.iconURL }
         }),
       },
       new UniqueEntityID(eventEntity.id)

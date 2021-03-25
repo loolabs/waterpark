@@ -21,7 +21,7 @@ export type BasicEvent = {
   name: string
   startTime: Date
   endTime: Date
-  backgroundImageURL: string
+  backgroundImageURL?: string
   tags: Array<string>
 }
 

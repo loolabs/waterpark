@@ -2,27 +2,7 @@ import { UniqueEntityID } from '../../../shared/domain/unique-entity-id'
 import { ClubEntity } from '../../../shared/infra/db/entities/club.entity'
 import { EventEntity } from '../../../shared/infra/db/entities/event.entity'
 import { BasicEvent, Club } from '../domain/entities/club'
-
-interface BasicEventDTO {
-  name: string
-  startTime: string
-  endTime: string
-  backgroundImageURL?: string
-  tags: Array<string>
-}
-
-export interface ClubDTO {
-  name: string
-  description: string
-  backgroundImageURL?: string
-  iconURL: string
-  facebookLink?: string
-  twitterLink?: string
-  instagramLink?: string
-  websiteLink?: string
-  tags: Array<string>
-  events: Array<BasicEventDTO>
-}
+import { ClubDTO } from './club-dto'
 
 const basicEventMap = async (events: Array<EventEntity>): Promise<Array<BasicEvent>> => {
   const eventPromises = events.map(async (event) => {
@@ -33,7 +13,7 @@ const basicEventMap = async (events: Array<EventEntity>): Promise<Array<BasicEve
       endTime: event.endTime,
       backgroundImageURL: event.backgroundImageURL,
       tags: event.tags.getItems().map((tag) => tag.name),
-    } as BasicEvent
+    }
   })
   return await Promise.all(eventPromises)
 }
@@ -55,7 +35,7 @@ export class ClubMap {
           ...event,
           startTime: event.startTime.toJSON(),
           endTime: event.endTime.toJSON(),
-        } as BasicEventDTO
+        }
       }),
     }
   }
