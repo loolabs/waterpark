@@ -22,9 +22,8 @@ DATABASE_URL=postgresql://loolabs:loolabs@db/clubs
 
 ### Installing
 
-1. Clone the mono repo.
-1. Navigate to the server directory with `cd server`.
-1. Run `docker-compose up` to start the express and postgres servers.
+1. Clone the `waterpark` repository.
+1. In the root directory of `waterpark`, run `docker-compose up` to start the express and postgres servers.
 
 You should see messages in your terminal from the `server` and `postgres` containers, and finally be greeted with:
 
