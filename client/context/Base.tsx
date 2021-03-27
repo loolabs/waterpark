@@ -25,8 +25,8 @@ export type Club = {
 
 export interface BasicEvent {
   name: string
-  startTime: string
-  endTime: string
+  startTime: moment.Moment,
+  endTime: moment.Moment,
   backgroundImageURL?: string
   tags: Array<string>
 }
@@ -66,8 +66,8 @@ export const CLUBS: Array<Club> = [
     events: [
       {
         name: 'Mac and Chess',
-        startTime: 'tomorrow',
-        endTime: 'next Friday',
+        startTime: moment("2021-26-03 12:00"),
+        endTime: moment("2021-26-03 12:00"),
         backgroundImageURL:
           'https://images.unsplash.com/photo-1580541832626-2a7131ee809f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1956&q=80',
         tags: ['Bored Games', 'Pasta'],
