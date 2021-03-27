@@ -23,7 +23,7 @@ export const EventListView = ({ filteredEvents }: EventViewProps) => {
   
   const getDateLabelIfNecessary = (index: number, allEvents: Event[]) => {
     if(index == 0 || moment(allEvents[index-1].startDate) != moment(allEvents[index].startDate)){
-      return moment(allEvents[index].startDate).format("MMM Do YY");
+      return moment(allEvents[index].startDate).format('ddd, MMM Do');
     }
     return null;
   }
