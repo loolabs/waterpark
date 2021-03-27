@@ -7,8 +7,8 @@ export const createMockEventEntities = (): EventEntity[] => {
     eventEntity.name = `Event Name ${i}`
     eventEntity.description = `Event Description ${i}`
     eventEntity.url = `Event URL ${i}`
-    eventEntity.startTime = new Date('2021-01-01T00:00:00.000Z')
-    eventEntity.endTime = new Date('2021-01-01T00:00:00.000Z')
+    eventEntity.startTime = new Date(`2021-0${i}-01T00:00:00.000Z`)
+    eventEntity.endTime = new Date(`2021-0${i}-01T00:00:00.000Z`)
     eventEntity.facebookLink = `Facebook ${i}`
     eventEntity.twitterLink = `Twitter ${i}`
     eventEntity.instagramLink = `Instagram ${i}`

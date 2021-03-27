@@ -25,6 +25,9 @@ export const populate = async () => {
     eventEntity.clubs.add(...clubEntities)
     eventEntity.tags.add(...tagEntities)
   })
+  clubEntities.forEach((clubEntity) =>
+    clubEntity.tags.add(...tagEntities)
+  )
   DB.eventsEntityRepo.persist(eventEntities)
   await DB.eventsEntityRepo.flush()
 }

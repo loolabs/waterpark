@@ -26,3 +26,4 @@ export class GetAllClubsUseCase implements UseCaseWithoutDTO<Promise<GetAllClubs
     }
   }
 }
+ 

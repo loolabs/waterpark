@@ -14,7 +14,7 @@ export class MikroEventRepo implements EventRepo {
         {},
         {
           populate: ['tags', 'clubs'],
-          orderBy: { startTime: QueryOrder.DESC_NULLS_LAST },
+          orderBy: { startTime: QueryOrder.ASC_NULLS_LAST },
         }
       )
       const events = await Promise.all(eventEntities.map(EventMap.toDomain))

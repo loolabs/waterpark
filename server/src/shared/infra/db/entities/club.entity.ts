@@ -1,4 +1,4 @@
-import { AfterCreate, Collection, Entity, LoadStrategy, ManyToMany, Property } from '@mikro-orm/core'
+import { AfterCreate, Collection, Entity, LoadStrategy, ManyToMany, Property, QueryOrder } from '@mikro-orm/core'
 import { DomainEvents } from '../../../domain/events/domain-events'
 import { UniqueEntityID } from '../../../domain/unique-entity-id'
 import { BaseEntity } from './base.entity'
@@ -34,7 +34,7 @@ export class ClubEntity extends BaseEntity {
   @Property({ nullable: true })
   websiteLink?: string 
 
-  @ManyToMany({entity: () => EventEntity, inversedBy: "clubs", strategy: LoadStrategy.JOINED})
+  @ManyToMany({entity: () => EventEntity, inversedBy: "clubs", strategy: LoadStrategy.JOINED, orderBy: {startTime: QueryOrder.ASC_NULLS_LAST}})
   events = new Collection<EventEntity>(this)
 
   @ManyToMany({ entity: () => TagEntity, mappedBy: "clubs", strategy: LoadStrategy.JOINED})

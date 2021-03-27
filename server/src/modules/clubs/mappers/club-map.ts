@@ -39,7 +39,7 @@ export class ClubMap {
     }
   }
 
-  public static async toDomain(clubEntity: ClubEntity): Promise<Club> {
+  public static toDomain(clubEntity: ClubEntity): Club {
     const clubResult = Club.create(
       {
         name: clubEntity.name,
@@ -51,7 +51,7 @@ export class ClubMap {
         instagramLink: clubEntity.instagramLink,
         websiteLink: clubEntity.websiteLink,
         tags: clubEntity.tags.getItems().map((tag) => tag.name),
-        events: await basicEventMap(clubEntity.events.getItems()),
+        events: basicEventMap(clubEntity.events.getItems()),
       },
       new UniqueEntityID(clubEntity.id)
     )
