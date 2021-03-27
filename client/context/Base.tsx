@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { indexData } from '../utils'
+import moment from 'moment'
 
 export type Id = number
 
@@ -36,8 +37,8 @@ export type Event = {
   club: string,
   description: string,
   backgroundImageURL: string,
-  startDate: string,
-  endDate: string,
+  startDate: moment.Moment,
+  endDate: moment.Moment,
   tags: Array<string>
 }
 
@@ -90,8 +91,8 @@ export const EVENTS: Array<Event> = [
     club: 'Tech + UW',
     description: 'dancing in the dark',
     backgroundImageURL: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80",
-    startDate: "2021-24-03 18:00",
-    endDate: "2021-24-03 20:00",
+    startDate: moment("2021-24-03 18:00"),
+    endDate: moment("2021-24-03 20:00"),
     tags: ["Tech", "Community"]
   },
   {
@@ -100,8 +101,8 @@ export const EVENTS: Array<Event> = [
     club: 'ARBUS',
     description: 'chef curry with the shot',
     backgroundImageURL: "https://images.unsplash.com/photo-1616169201999-0d80789e41c3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
-    startDate: "2021-24-04 8:00",
-    endDate: "2021-24-04 10:00",
+    startDate: moment("2021-24-04 8:00"),
+    endDate: moment("2021-24-04 10:00"),
     tags: ["Arts"]
   },
   {
@@ -110,8 +111,8 @@ export const EVENTS: Array<Event> = [
     club: 'UWACC',
     description: '👩‍🔬',
     backgroundImageURL: "https://images.unsplash.com/photo-1616256074022-3a20e0e8bf1b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=701&q=80",
-    startDate: "2021-24-05 10:00",
-    endDate: "2021-24-05 12:00",
+    startDate: moment("2021-24-05 10:00"),
+    endDate: moment("2021-24-05 12:00"),
     tags: ["Science", "Health"]
   },
 ]
