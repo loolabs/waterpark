@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { indexData } from '../utils'
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 
 export type Id = number
 
@@ -25,8 +25,8 @@ export type Club = {
 
 export interface BasicEvent {
   name: string
-  startTime: moment.Moment,
-  endTime: moment.Moment,
+  startTime: Moment,
+  endTime: Moment,
   backgroundImageURL?: string
   tags: Array<string>
 }
@@ -37,8 +37,8 @@ export type Event = {
   club: string,
   description: string,
   backgroundImageURL: string,
-  startDate: moment.Moment,
-  endDate: moment.Moment,
+  startDate: Moment,
+  endDate: Moment,
   tags: Array<string>
 }
 
