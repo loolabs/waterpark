@@ -1,11 +1,11 @@
 import { useSearch } from '../hooks'
 import { TAGS, Tag, TagGroup, TagRow, TagBubble } from './Tag'
 import { Club, Id } from '../../utils'
-import { useMemo } from 'react'
 import styled from 'styled-components'
 import { ClubCard } from './ClubCard'
 import { PageTitle } from '../../styles'
 import { SearchInput } from './SearchInput'
+import { useMemo, Dispatch, SetStateAction } from 'react'
 
 const mobile = `425px`
 const tablet = `768px`
@@ -116,12 +116,12 @@ const ClubListHeader = ({ onSearch }: ClubListHeaderProps) => {
 
 interface ClubListProps {
   clubs: Map<Id, Club>
+  filteredClubs: Array<Club>
+  setSearchValue: Dispatch<SetStateAction<string>>
 }
 
-export const ClubList = ({ clubs }: ClubListProps) => {
+export const ClubList = ({ clubs, filteredClubs, setSearchValue }: ClubListProps) => {
   const allClubs: Array<Club> = useMemo(() => Array.from(clubs.values()), [clubs])
-
-  const [filteredClubs, setSearchValue] = useSearch(allClubs, ['name'])
 
   return (
     <ClubListPage>

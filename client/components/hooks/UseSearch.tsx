@@ -1,12 +1,20 @@
 import { useState, useMemo, Dispatch, SetStateAction } from 'react'
 import Fuse from 'fuse.js'
+import { indexData } from '../../utils'
+import { Tag, TAGS } from '../../context'
 
 export const useSearch = <T extends object>(
   items: Array<T>,
   keys: Array<string>,
   initialPattern: string = ''
-): [Array<T>, Dispatch<SetStateAction<string>>] => {
+): [
+  Array<T>,
+  Map<number, Tag>,
+  Dispatch<SetStateAction<string>>,
+  Dispatch<SetStateAction<Map<number, Tag>>>
+] => {
   const [searchValue, setSearchValue] = useState<string>(initialPattern)
+  const [filters, setFilters] = useState<Map<number, Tag>>(indexData(TAGS))
 
   const fuse = useMemo(() => {
     return new Fuse(items, {
@@ -20,5 +28,5 @@ export const useSearch = <T extends object>(
     ? fuse.search(searchValue).map(({ item }: Fuse.FuseResult<T>) => item)
     : items
 
-  return [searchResult, setSearchValue]
+  return [searchResult, filters, setSearchValue, setFilters]
 }
