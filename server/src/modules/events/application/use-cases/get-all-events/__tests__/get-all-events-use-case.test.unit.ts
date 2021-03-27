@@ -5,7 +5,7 @@ import { createMockEvents } from '../test-utils/create-events'
 import { createMockEventDTOs } from '../test-utils/create-event-dtos'
 import { AppError } from '../../../../../../shared/core/app-error'
 import { Result } from '../../../../../../shared/core/result'
-import { EventDTO } from '../../../../mappers/event-map'
+import { EventDTO } from '../../../../mappers/event-dto'
 
 jest.mock('../../../../infra/repos/implementations/mikro-event-repo')
 

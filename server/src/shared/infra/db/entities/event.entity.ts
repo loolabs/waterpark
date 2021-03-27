@@ -35,12 +35,12 @@ export class EventEntity extends BaseEntity {
   websiteLink?: string
 
   @Property({ nullable: true })
-  backgroundImageURL?: string
+  bannerURL?: string
 
-  @ManyToMany({ entity: () => ClubEntity, mappedBy: "events", strategy: LoadStrategy.JOINED })
+  @ManyToMany({ entity: () => ClubEntity, mappedBy: 'events', strategy: LoadStrategy.JOINED })
   clubs = new Collection<ClubEntity>(this)
 
-  @ManyToMany({ entity: () => TagEntity, mappedBy: "events", strategy: LoadStrategy.JOINED })
+  @ManyToMany({ entity: () => TagEntity, mappedBy: 'events', strategy: LoadStrategy.JOINED })
   tags = new Collection<TagEntity>(this)
 
   // TODO: fix any type
@@ -49,5 +49,5 @@ export class EventEntity extends BaseEntity {
     const id = target.entity.id
     const aggregateId = new UniqueEntityID(id)
     DomainEvents.dispatchEventsForAggregate(aggregateId)
-  }
+  } 
 }

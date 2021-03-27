@@ -17,7 +17,7 @@ export class ClubEntity extends BaseEntity {
   size!: number
 
   @Property({ nullable: true })
-  backgroundImageURL?: string
+  bannerURL?: string
 
   @Property({ nullable: true })
   iconURL!: string
@@ -29,15 +29,20 @@ export class ClubEntity extends BaseEntity {
   twitterLink?: string
 
   @Property({ nullable: true })
-  instagramLink?: string 
+  instagramLink?: string
 
   @Property({ nullable: true })
-  websiteLink?: string 
+  websiteLink?: string
 
-  @ManyToMany({entity: () => EventEntity, inversedBy: "clubs", strategy: LoadStrategy.JOINED, orderBy: {startTime: QueryOrder.ASC_NULLS_LAST}})
+  @ManyToMany({
+    entity: () => EventEntity,
+    inversedBy: 'clubs',
+    strategy: LoadStrategy.JOINED,
+    orderBy: { startTime: QueryOrder.ASC_NULLS_LAST },
+  })
   events = new Collection<EventEntity>(this)
 
-  @ManyToMany({ entity: () => TagEntity, mappedBy: "clubs", strategy: LoadStrategy.JOINED})
+  @ManyToMany({ entity: () => TagEntity, mappedBy: 'clubs', strategy: LoadStrategy.JOINED })
   tags = new Collection<TagEntity>(this)
 
   // TODO: fix any type

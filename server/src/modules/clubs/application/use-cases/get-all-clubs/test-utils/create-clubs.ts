@@ -7,7 +7,7 @@ export const createMockClubs = (): Result<Array<Club>, AppError.UnexpectedError>
     const clubResult = Club.create({
       name: `Club Name ${i}`,
       description: `Club Description ${i}`,
-      backgroundImageURL: `Club Background ${i}`,
+      bannerURL: `Club Banner ${i}`,
       iconURL: `Club Icon ${i}`,
       facebookLink: `Facebook ${i}`,
       twitterLink: `Twitter ${i}`,
@@ -19,7 +19,7 @@ export const createMockClubs = (): Result<Array<Club>, AppError.UnexpectedError>
           name: 'Event Name 1',
           startTime: new Date('2021-01-01'),
           endTime: new Date('2021-01-01'),
-          backgroundImageURL: 'Event Background',
+          bannerURL: 'Event Banner',
           tags: ['tags'],
         },
       ],

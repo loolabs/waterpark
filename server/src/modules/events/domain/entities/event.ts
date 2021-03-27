@@ -14,7 +14,7 @@ interface EventProps {
   twitterLink?: string
   instagramLink?: string
   websiteLink?: string
-  backgroundImageURL?: string
+  bannerURL?: string
   tags: Array<string>
   clubs: Array<BasicClub>
 }
@@ -85,8 +85,8 @@ export class Event extends AggregateRoot<EventProps> {
     return this.props.websiteLink
   }
 
-  get backgroundImageURL(): string | undefined {
-    return this.props.backgroundImageURL
+  get bannerURL(): string | undefined {
+    return this.props.bannerURL
   }
 
   get tags(): Array<string> {

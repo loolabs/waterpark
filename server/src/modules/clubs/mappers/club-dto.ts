@@ -2,14 +2,14 @@ export interface BasicEventDTO {
   name: string
   startTime: string
   endTime: string
-  backgroundImageURL?: string
+  bannerURL?: string
   tags: Array<string>
 }
 
 export interface ClubDTO {
   name: string
   description: string
-  backgroundImageURL?: string
+  bannerURL?: string
   iconURL: string
   facebookLink?: string
   twitterLink?: string

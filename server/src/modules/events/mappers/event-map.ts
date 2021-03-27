@@ -15,7 +15,7 @@ export class EventMap {
       twitterLink: event.twitterLink,
       instagramLink: event.instagramLink,
       websiteLink: event.websiteLink,
-      backgroundImageURL: event.backgroundImageURL,
+      bannerURL: event.bannerURL,
       tags: event.tags,
       clubs: event.clubs,
     }
@@ -33,7 +33,7 @@ export class EventMap {
         twitterLink: eventEntity.twitterLink,
         instagramLink: eventEntity.instagramLink,
         websiteLink: eventEntity.websiteLink,
-        backgroundImageURL: eventEntity.backgroundImageURL,
+        bannerURL: eventEntity.bannerURL,
         tags: eventEntity.tags.getItems().map((tag) => tag.name),
         clubs: eventEntity.clubs.getItems().map((club) => {
           return { name: club.name, iconURL: club.iconURL }

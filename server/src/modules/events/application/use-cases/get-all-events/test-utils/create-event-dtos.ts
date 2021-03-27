@@ -1,4 +1,4 @@
-import { EventDTO } from '../../../../mappers/event-map'
+import { EventDTO } from '../../../../mappers/event-dto'
 
 export const createMockEventDTOs = (): Array<EventDTO> => {
   const events: Array<EventDTO> = []
@@ -13,7 +13,7 @@ export const createMockEventDTOs = (): Array<EventDTO> => {
       twitterLink: `Twitter ${i}`,
       instagramLink: `Instagram ${i}`,
       websiteLink: `Website ${i}`,
-      backgroundImageURL: `Background URL ${i}`,
+      bannerURL: `Banner URL ${i}`,
       tags: ['tag1', 'tag2', 'tag3'],
       clubs: [{ name: 'Club Name 1', iconURL: '' }],
     })

@@ -1,4 +1,4 @@
-import { ClubDTO } from '../../../../mappers/club-map'
+import { ClubDTO } from '../../../../mappers/club-dto'
 
 export const createMockClubDTOs = (): Array<ClubDTO> => {
   const clubs: Array<ClubDTO> = []
@@ -6,7 +6,7 @@ export const createMockClubDTOs = (): Array<ClubDTO> => {
     clubs.push({
       name: `Club Name ${i}`,
       description: `Club Description ${i}`,
-      backgroundImageURL: `Club Background ${i}`,
+      bannerURL: `Club Banner ${i}`,
       iconURL: `Club Icon ${i}`,
       facebookLink: `Facebook ${i}`,
       twitterLink: `Twitter ${i}`,
@@ -18,7 +18,7 @@ export const createMockClubDTOs = (): Array<ClubDTO> => {
           name: 'Event Name 1',
           startTime: '2021-01-01T00:00:00.000Z',
           endTime: '2021-01-01T00:00:00.000Z',
-          backgroundImageURL: 'Event Background',
+          bannerURL: 'Event Banner',
           tags: ['tags'],
         },
       ],

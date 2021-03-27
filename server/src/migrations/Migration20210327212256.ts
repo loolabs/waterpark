@@ -1,19 +1,17 @@
 import { Migration } from '@mikro-orm/migrations';
 
-export class Migration20210313221156 extends Migration {
+export class Migration20210327212256 extends Migration {
 
   async up(): Promise<void> {
     this.addSql('create table "tag" ("id" varchar(255) not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null, "name" varchar(255) not null);');
     this.addSql('alter table "tag" add constraint "tag_pkey" primary key ("id");');
 
-    this.addSql('create table "event" ("id" varchar(255) not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null, "name" varchar(255) not null, "description" varchar(255) not null, "url" varchar(255) null, "start_time" timestamptz(0) not null, "end_time" timestamptz(0) not null, "facebook_link" varchar(255) null, "twitter_link" varchar(255) null, "instagram_link" varchar(255) null, "website_link" varchar(255) null, "background_image_url" varchar(255) null);');
-    this.addSql('alter table "event" add constraint "event_pkey" primary key ("id");');
+    this.addSql('alter table "event" add column "url" varchar(255) null, add column "start_time" timestamptz(0) not null, add column "end_time" timestamptz(0) not null, add column "facebook_link" varchar(255) null, add column "twitter_link" varchar(255) null, add column "instagram_link" varchar(255) null, add column "website_link" varchar(255) null, add column "banner_url" varchar(255) null;');
 
     this.addSql('create table "tag_events" ("tag_id" varchar(255) not null, "event_id" varchar(255) not null);');
     this.addSql('alter table "tag_events" add constraint "tag_events_pkey" primary key ("tag_id", "event_id");');
 
-    this.addSql('create table "club" ("id" varchar(255) not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null, "name" varchar(255) not null, "description" varchar(255) not null, "size" int4 not null, "background_image_url" varchar(255) null, "icon_url" varchar(255) null, "facebook_link" varchar(255) null, "twitter_link" varchar(255) null, "instagram_link" varchar(255) null, "website_link" varchar(255) null);');
-    this.addSql('alter table "club" add constraint "club_pkey" primary key ("id");');
+    this.addSql('alter table "club" add column "size" int4 not null, add column "banner_url" varchar(255) null, add column "icon_url" varchar(255) null, add column "facebook_link" varchar(255) null, add column "twitter_link" varchar(255) null, add column "instagram_link" varchar(255) null, add column "website_link" varchar(255) null;');
 
     this.addSql('create table "club_events" ("club_id" varchar(255) not null, "event_id" varchar(255) not null);');
     this.addSql('alter table "club_events" add constraint "club_events_pkey" primary key ("club_id", "event_id");');

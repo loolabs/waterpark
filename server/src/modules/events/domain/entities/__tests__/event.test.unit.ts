@@ -20,7 +20,7 @@ describe('Event AggregateRoot', () => {
       twitterLink: 'Twitter',
       instagramLink: 'Instagram',
       websiteLink: 'Website',
-      backgroundImageURL: 'Background URL',
+      bannerURL: 'Banner URL',
       tags: ['tag1', 'tag2', 'tag3'],
       clubs: [{ name: 'Club Name 1', iconURL: '' }],
     })

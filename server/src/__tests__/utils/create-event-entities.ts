@@ -13,7 +13,7 @@ export const createMockEventEntities = (): EventEntity[] => {
     eventEntity.twitterLink = `Twitter ${i}`
     eventEntity.instagramLink = `Instagram ${i}`
     eventEntity.websiteLink = `Website ${i}`
-    eventEntity.backgroundImageURL = `Event Background ${i}`
+    eventEntity.bannerURL = `Event Banner ${i}`
     events.push(eventEntity)
   }
   return events

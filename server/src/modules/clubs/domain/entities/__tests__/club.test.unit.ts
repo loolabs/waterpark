@@ -13,7 +13,7 @@ describe('Club AggregateRoot', () => {
     clubResult = Club.create({
       name: 'Club Name',
       description: 'Club Description',
-      backgroundImageURL: 'Background URL',
+      bannerURL: 'Banner URL',
       iconURL: 'Icon',
       facebookLink: 'Facebook',
       twitterLink: 'Twitter',
@@ -25,7 +25,7 @@ describe('Club AggregateRoot', () => {
           name: 'Club Name 1',
           startTime: new Date('2021-01-01'),
           endTime: new Date('2021-01-01'),
-          backgroundImageURL: '',
+          bannerURL: '',
           tags: ['clubtag1', 'clubtag2'],
         },
       ],

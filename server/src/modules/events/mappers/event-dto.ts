@@ -10,7 +10,7 @@ export interface EventDTO {
   twitterLink?: string
   instagramLink?: string
   websiteLink?: string
-  backgroundImageURL?: string
+  bannerURL?: string
   tags: Array<string>
   clubs: Array<BasicClub>
 }

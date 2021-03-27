@@ -1,6 +1,6 @@
 import httpMocks from 'node-mocks-http'
 import { DecodedExpressRequest } from '../../../../../../shared/infra/http/routes/decoded-request'
-import { EventDTO } from '../../../../mappers/event-map'
+import { EventDTO } from '../../../../mappers/event-dto'
 import { createMockEventDTOs } from '../test-utils/create-event-dtos'
 import { Result } from '../../../../../../shared/core/result'
 import { GetAllEventsUseCase } from '../get-all-events-use-case'
