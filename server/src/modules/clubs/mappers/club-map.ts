@@ -4,18 +4,17 @@ import { EventEntity } from '../../../shared/infra/db/entities/event.entity'
 import { BasicEvent, Club } from '../domain/entities/club'
 import { ClubDTO } from './club-dto'
 
-const basicEventMap = async (events: Array<EventEntity>): Promise<Array<BasicEvent>> => {
-  const eventPromises = events.map(async (event) => {
-    await event.tags.init()
+const basicEventMap = (eventEntities: Array<EventEntity>): Array<BasicEvent> => {
+  const events = eventEntities.map((eventEntity) => {
     return {
-      name: event.name,
-      startTime: event.startTime,
-      endTime: event.endTime,
-      backgroundImageURL: event.backgroundImageURL,
-      tags: event.tags.getItems().map((tag) => tag.name),
+      name: eventEntity.name,
+      startTime: eventEntity.startTime,
+      endTime: eventEntity.endTime,
+      backgroundImageURL: eventEntity.backgroundImageURL,
+      tags: eventEntity.tags.getItems().map((tag) => tag.name),
     }
   })
-  return await Promise.all(eventPromises)
+  return events
 }
 
 export class ClubMap {
