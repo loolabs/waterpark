@@ -15,6 +15,7 @@
     "@types/styled-components": "^5.1.7",
     "babel-jest": "^26.6.3",
     "fuse.js": "^6.4.6",
+    "moment": "^2.29.1",
     "next": "10.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
