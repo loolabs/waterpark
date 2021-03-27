@@ -56,7 +56,7 @@ export const NavBar = () => {
   return (
     <NavBarContainer>
       <Link href="/">
-        {width > 450 ? (
+        {width > 425 ? (
           <Logo src="/Waterpark.svg" alt="Waterpark logo" />
         ) : (
           <Logo src="/W.svg" alt="Waterpark logo" />

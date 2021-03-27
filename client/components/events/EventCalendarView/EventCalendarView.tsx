@@ -1,5 +1,4 @@
 import React from "react"
-import moment from 'moment'
 import { Event } from '../../../context'
 import styled from 'styled-components'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
@@ -45,7 +44,7 @@ const CalendarColumnHeader = styled.h3<any>`
 const EventCalendarView = ({ filteredEvents }: EventViewProps) => {
 
   const getEventsOnDay = (dayNumber: Number) => (
-    filteredEvents.filter(event => moment(event.startDate).day() <= dayNumber && moment(event.endDate).day() >= dayNumber)
+    filteredEvents.filter(event => event.startDate.day() <= dayNumber && event.endDate.day() >= dayNumber)
   )
 
   const getCalendarCards = (events: Array<Event>) => (

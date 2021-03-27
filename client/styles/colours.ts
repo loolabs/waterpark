@@ -51,5 +51,5 @@ export const colours = Object.freeze({
     neutralLight2: greyLight2,
     neutralDark1: greyDark1,
     neutralDark2: greyDark2,
-    tagColours
+    tagColours: tagColours
 });

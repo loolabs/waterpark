@@ -1,5 +1,4 @@
 import React from 'react'
-import moment from 'moment'
 import { useRouter } from 'next/router'
 import { Event } from '../../../context'
 import styled from 'styled-components'
@@ -11,7 +10,7 @@ interface EventProps {
 
 const ListCard = styled.div<any>`
   margin-bottom: 20px;
-  width: 170px;
+  flex: 2 0 auto;
 `
 
 const ListCardImageContainer = styled.div<any>`
@@ -65,7 +64,7 @@ const ListCardTag = styled.div<any>`
 `
 
 export const EventListCard = ({ event }: EventProps) => {
-  const { id, name, club, img, startDate, endDate, tags } = event
+  const { id, name, club, backgroundImageURL, startDate, endDate, tags } = event
   const router = useRouter()
 
   const handleClick = () => {
@@ -73,7 +72,7 @@ export const EventListCard = ({ event }: EventProps) => {
   }
 
   const getFormattedTimeString = () => (
-    `${moment(startDate).format('LT')} - ${moment(endDate).format('LT')} ET`
+    `${startDate.format('LT')} - ${endDate.format('LT')} ET`
   )
 
   const getFormattedTags = () => (
@@ -85,7 +84,7 @@ export const EventListCard = ({ event }: EventProps) => {
   return (
     <ListCard onClick={handleClick}>
       <ListCardImageContainer>
-        <ListCardImage src={img}/>
+        <ListCardImage src={backgroundImageURL}/>
       </ListCardImageContainer>
       <ListCardContent>
         <ListCardName>

@@ -51,7 +51,7 @@ export const fontWeight = Object.freeze({
   regular: weight400,
 })
 
-export const PageTitle = styled.span`
+export const PageTitle = styled.h1`
   font-style: normal;
   font-weight: ${fontWeight.semiBold};
   font-size: ${desktopFontSize.h1};

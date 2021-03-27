@@ -1,5 +1,4 @@
 import React from "react"
-import moment from 'moment'
 import { Event } from '../../../context'
 import styled from 'styled-components'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
@@ -42,16 +41,16 @@ const CalendarCardEventClub = styled.p<any>`
 `
 
 const EventCalendarCard = ({ event }: EventProps) => {
-  const { name, club, img, startDate, endDate } = event
+  const { name, club, backgroundImageURL, startDate, endDate } = event
 
   const getFormattedTimeString = () => (
-    `${moment(startDate).format('LT')} - ${moment(endDate).format('LT')} ET`
+    `${startDate.format('LT')} - ${endDate.format('LT')} ET`
   )
 
   return (
     <CalendarCard>
       <CalendarCardImageContainer>
-        <CalendarCardImage src={img}/>
+        <CalendarCardImage src={backgroundImageURL}/>
         <CalendarCardEventName>
           {name}
         </CalendarCardEventName>
