@@ -13,7 +13,7 @@ export class MikroClubRepo implements ClubRepo {
       const clubEntities: Array<ClubEntity> = await DB.clubsEntityRepo.find(
         {},
         {
-          populate: ['tags', 'events', "events.tags"],
+          populate: ['tags', 'events', 'events.tags'],
           orderBy: { name: QueryOrder.ASC_NULLS_LAST },
         }
       )
