@@ -11,9 +11,8 @@ interface ClubCardProps {
 const ClubCardContainer = styled.div`
   border-radius: 6px;
   overflow: hidden;
-  max-width: 450px;
+  width: 100%;
   box-shadow: 0px 4px 4px 1px ${colours.neutralLight1};
-  margin: 20px;
 `
 
 const ClubCardBanner = styled.div<{ bannerImageURL: string }>`
