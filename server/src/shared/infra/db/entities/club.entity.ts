@@ -16,23 +16,23 @@ export class ClubEntity extends BaseEntity {
   @Property()
   size!: number
 
-  @Property({ nullable: true })
-  bannerURL?: string
+  @Property()
+  bannerImage!: string
+
+  @Property()
+  iconImage!: string
 
   @Property({ nullable: true })
-  iconURL!: string
+  facebook?: string
 
   @Property({ nullable: true })
-  facebookLink?: string
+  twitter?: string
 
   @Property({ nullable: true })
-  twitterLink?: string
+  instagram?: string
 
   @Property({ nullable: true })
-  instagramLink?: string
-
-  @Property({ nullable: true })
-  websiteLink?: string
+  website?: string
 
   @ManyToMany({
     entity: () => EventEntity,

@@ -7,12 +7,12 @@ export const createMockClubEntities = (): ClubEntity[] => {
     clubEntity.name = `Club Name ${i}`
     clubEntity.description = `Club Description ${i}`
     clubEntity.size = 100
-    clubEntity.bannerURL = `Club Banner ${i}`
-    clubEntity.iconURL = `Club Icon ${i}`
-    clubEntity.facebookLink = `Facebook ${i}`
-    clubEntity.twitterLink = `Twitter ${i}`
-    clubEntity.instagramLink = `Instagram ${i}`
-    clubEntity.websiteLink = `Website ${i}`
+    clubEntity.bannerImage = `Club Banner ${i}`
+    clubEntity.iconImage = `Club Icon ${i}`
+    clubEntity.facebook = `Facebook ${i}`
+    clubEntity.twitter = `Twitter ${i}`
+    clubEntity.instagram = `Instagram ${i}`
+    clubEntity.website = `Website ${i}`
     clubs.push(clubEntity)
   }
   return clubs

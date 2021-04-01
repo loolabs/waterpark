@@ -6,19 +6,21 @@ export const createMockClubDTOs = (): Array<ClubDTO> => {
     clubs.push({
       name: `Club Name ${i}`,
       description: `Club Description ${i}`,
-      bannerURL: `Club Banner ${i}`,
-      iconURL: `Club Icon ${i}`,
-      facebookLink: `Facebook ${i}`,
-      twitterLink: `Twitter ${i}`,
-      instagramLink: `Instagram ${i}`,
-      websiteLink: `Website ${i}`,
+      links: {
+        bannerImage: `Club Banner ${i}`,
+        iconImage: `Club Icon ${i}`,
+        facebook: `Facebook ${i}`,
+        twitter: `Twitter ${i}`,
+        instagram: `Instagram ${i}`,
+        website: `Website ${i}`,
+      },
       tags: ['tag1', 'tag2', 'tag3'],
       events: [
         {
           name: 'Event Name 1',
           startTime: '2021-01-01T00:00:00.000Z',
           endTime: '2021-01-01T00:00:00.000Z',
-          bannerURL: 'Event Banner',
+          bannerImage: 'Event Banner',
           tags: ['tags'],
         },
       ],

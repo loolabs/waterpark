@@ -14,15 +14,14 @@ describe('Event AggregateRoot', () => {
       name: 'Event Name',
       description: 'Event Description',
       url: 'Event URL',
+      bannerImage: 'Banner URL',
       startTime: new Date('2021-01-01'),
       endTime: new Date('2021-01-01'),
-      facebookLink: 'Facebook',
-      twitterLink: 'Twitter',
-      instagramLink: 'Instagram',
-      websiteLink: 'Website',
-      bannerURL: 'Banner URL',
+      facebook: 'Facebook',
+      twitter: 'Twitter',
+      instagram: 'Instagram',
       tags: ['tag1', 'tag2', 'tag3'],
-      clubs: [{ name: 'Club Name 1', iconURL: '' }],
+      clubs: [{ name: 'Club Name 1', iconImage: '' }],
     })
   })
 

@@ -8,20 +8,19 @@ interface EventProps {
   name: string
   description: string
   url?: string
+  bannerImage: string
   startTime: Date
   endTime: Date
-  facebookLink?: string
-  twitterLink?: string
-  instagramLink?: string
-  websiteLink?: string
-  bannerURL?: string
+  facebook?: string
+  twitter?: string
+  instagram?: string
   tags: Array<string>
   clubs: Array<BasicClub>
 }
 
 export type BasicClub = {
   name: string
-  iconURL: string
+  iconImage: string
 }
 
 export class Event extends AggregateRoot<EventProps> {
@@ -61,6 +60,10 @@ export class Event extends AggregateRoot<EventProps> {
     return this.props.url
   }
 
+  get bannerImage(): string {
+    return this.props.bannerImage
+  }
+
   get startTime(): Date {
     return this.props.startTime
   }
@@ -69,24 +72,16 @@ export class Event extends AggregateRoot<EventProps> {
     return this.props.endTime
   }
 
-  get facebookLink(): string | undefined {
-    return this.props.facebookLink
+  get facebook(): string | undefined {
+    return this.props.facebook
   }
 
-  get twitterLink(): string | undefined {
-    return this.props.twitterLink
+  get twitter(): string | undefined {
+    return this.props.twitter
   }
 
-  get instagramLink(): string | undefined {
-    return this.props.instagramLink
-  }
-
-  get websiteLink(): string | undefined {
-    return this.props.websiteLink
-  }
-
-  get bannerURL(): string | undefined {
-    return this.props.bannerURL
+  get instagram(): string | undefined {
+    return this.props.instagram
   }
 
   get tags(): Array<string> {

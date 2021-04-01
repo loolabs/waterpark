@@ -17,25 +17,22 @@ export class EventEntity extends BaseEntity {
   url?: string
 
   @Property()
+  bannerImage!: string
+
+  @Property()
   startTime!: Date
 
   @Property()
   endTime!: Date
 
   @Property({ nullable: true })
-  facebookLink?: string
+  facebook?: string
 
   @Property({ nullable: true })
-  twitterLink?: string
+  twitter?: string
 
   @Property({ nullable: true })
-  instagramLink?: string
-
-  @Property({ nullable: true })
-  websiteLink?: string
-
-  @Property({ nullable: true })
-  bannerURL?: string
+  instagram?: string
 
   @ManyToMany({ entity: () => ClubEntity, mappedBy: 'events', strategy: LoadStrategy.JOINED })
   clubs = new Collection<ClubEntity>(this)
@@ -49,5 +46,5 @@ export class EventEntity extends BaseEntity {
     const id = target.entity.id
     const aggregateId = new UniqueEntityID(id)
     DomainEvents.dispatchEventsForAggregate(aggregateId)
-  } 
+  }
 }

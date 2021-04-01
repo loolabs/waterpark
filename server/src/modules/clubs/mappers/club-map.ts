@@ -10,7 +10,7 @@ const basicEventMap = (eventEntities: Array<EventEntity>): Array<BasicEvent> => 
       name: eventEntity.name,
       startTime: eventEntity.startTime,
       endTime: eventEntity.endTime,
-      bannerURL: eventEntity.bannerURL,
+      bannerImage: eventEntity.bannerImage,
       tags: eventEntity.tags.getItems().map((tag) => tag.name),
     }
   })
@@ -22,12 +22,14 @@ export class ClubMap {
     return {
       name: club.name,
       description: club.description,
-      iconURL: club.iconURL,
-      bannerURL: club.bannerURL,
-      facebookLink: club.facebookLink,
-      twitterLink: club.twitterLink,
-      instagramLink: club.instagramLink,
-      websiteLink: club.websiteLink,
+      links: {
+        bannerImage: club.bannerImage,
+        iconImage: club.iconImage,
+        facebook: club.facebook,
+        twitter: club.twitter,
+        instagram: club.instagram,
+        website: club.website,
+      },
       tags: club.tags,
       events: club.events.map((event) => {
         return {
@@ -44,12 +46,12 @@ export class ClubMap {
       {
         name: clubEntity.name,
         description: clubEntity.description,
-        iconURL: clubEntity.iconURL,
-        bannerURL: clubEntity.bannerURL,
-        facebookLink: clubEntity.facebookLink,
-        twitterLink: clubEntity.twitterLink,
-        instagramLink: clubEntity.instagramLink,
-        websiteLink: clubEntity.websiteLink,
+        iconImage: clubEntity.iconImage,
+        bannerImage: clubEntity.bannerImage,
+        facebook: clubEntity.facebook,
+        twitter: clubEntity.twitter,
+        instagram: clubEntity.instagram,
+        website: clubEntity.website,
         tags: clubEntity.tags.getItems().map((tag) => tag.name),
         events: basicEventMap(clubEntity.events.getItems()),
       },
