@@ -160,6 +160,8 @@ const EventCardTitle = styled.p`
 const EventCard = styled.div`
   box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05), 0 15px 100px rgba(166, 173, 201, 0.2);
   display: flex;
+  margin-top: 10px;
+
   @media ${device.mobileL} {
     font-size: 10px;
   }
