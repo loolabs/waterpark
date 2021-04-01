@@ -12,7 +12,7 @@
     "start:dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
     "test:all": "jest --maxWorkers =1",
     "test:unit": "jest --testPathPattern=unit.ts$ --maxWorkers=1",
-    "test:integration": "jest --testPathPattern=integration.ts$ --maxWorkers=1"
+    "test:integration": "jest --testPathPattern=integration.ts$ --setupFiles dotenv/config --maxWorkers=1"
   },
   "dependencies": {
     "@mikro-orm/cli": "^4.3.4",
