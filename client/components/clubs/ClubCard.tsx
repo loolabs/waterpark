@@ -1,12 +1,15 @@
 import React from 'react'
+import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { Club } from '../../context'
-import styled from 'styled-components'
-import { colours, desktopFontSize } from '../../styles'
+import { colours } from '../../styles'
 
-interface ClubCardProps {
-  club: Club
-}
+// Shared styled components that can probably be factored out later
+const Icon = styled.img<{ size: string }>`
+  height: ${({ size }) => size};
+  object-fit: cover;
+  width: ${({ size }) => size};
+`
 
 const ClubCardContainer = styled.div`
   border-radius: 6px;
@@ -16,42 +19,42 @@ const ClubCardContainer = styled.div`
 `
 
 const ClubCardBanner = styled.div<{ bannerImageURL: string }>`
-  width: 100%;
-  height: 0;
-  padding-top: calc(100% / (64 / 27));
   background-image: url(${({ bannerImageURL }) => bannerImageURL});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  height: 0;
+  padding-top: calc(100% / (64 / 27));
+  width: 100%;
 `
 
 const ClubCardContent = styled.div`
-  margin: 30px;
   height: 200px;
+  margin: 30px;
 `
 
 const ClubCardHeader = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
 `
 
 const ClubCardName = styled.h2`
-  margin: 0 20px 0 0;
-  flex-grow: 1;
-
   display: -webkit-box;
+  flex-grow: 1;
+  margin: 0 20px 0 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-  overflow: hidden;
 `
 
-const ClubCardIcon = styled.img<{ size: string }>`
-  width: ${({ size }) => size};
-  height: ${({ size }) => size};
-`
+const ClubCardDescription = styled.p``
+
+interface ClubCardProps {
+  club: Club
+}
 
 export const ClubCard = ({ club }: ClubCardProps) => {
   const { id, name, description, iconURL, bannerImageURL } = club
@@ -67,9 +70,9 @@ export const ClubCard = ({ club }: ClubCardProps) => {
       <ClubCardContent>
         <ClubCardHeader>
           <ClubCardName>{name}</ClubCardName>
-          <ClubCardIcon src={iconURL} size="50px"></ClubCardIcon>
+          <Icon src={iconURL} size="50px"></Icon>
         </ClubCardHeader>
-        <p>{description}</p>
+        <ClubCardDescription>{description}</ClubCardDescription>
       </ClubCardContent>
     </ClubCardContainer>
   )

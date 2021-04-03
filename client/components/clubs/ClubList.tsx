@@ -3,6 +3,12 @@ import { ClubCard } from './ClubCard'
 import { Id, Club } from '../../context'
 import { useMemo } from 'react'
 import styled from 'styled-components'
+import { colours } from '../../styles'
+import { Search } from '@material-ui/icons'
+
+const ClubListPage = styled.div`
+  margin-top: 65px;
+`
 
 const ClubListGrid = styled.div`
   margin: auto;
@@ -18,6 +24,42 @@ const ClubListGrid = styled.div`
 const ClubListHeaderContainer = styled.div`
   grid-column: 1/-1;
   column-span: all;
+`
+
+const ClubListTitleRow = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+`
+
+const ClubListTitle = styled.h1`
+  margin: 0;
+`
+
+const SearchBox = styled.div`
+  height: 36px;
+  position: relative;
+`
+
+const SearchIcon = styled(Search)`
+  margin: 6px;
+  pointer-events: none;
+  position: absolute;
+`
+
+const SearchInput = styled.input`
+  border: none;
+  border-radius: 100vw; // arbitrarily large so that sides are fully rounded
+  background-color: ${colours.neutralLight1};
+  height: 36px;
+  padding-bottom: 6px;
+  padding-left: 36px;
+  padding-right: 12px;
+  padding-top: 6px;
+
+  :focus {
+    outline: none;
+  }
 `
 
 const TAG_HEIGHT = '38px'
@@ -43,12 +85,12 @@ const RightSpaceWrapper = styled.div`
 `
 
 const Tag = styled.a<{
-  borderColour?: string
+  colour?: string
   borderStyle?: string
   borderWidth?: string
 }>`
   align-items: center;
-  border-color: ${({ borderColour }) => borderColour || 'black'};
+  border-color: ${({ colour }) => colour || 'black'};
   border-radius: 100vw; // arbitrarily large so that sides are fully rounded
   border-style: ${({ borderStyle }) => borderStyle || 'solid'};
   border-width: ${({ borderWidth }) => borderWidth || 'auto'};
@@ -62,25 +104,90 @@ const Tag = styled.a<{
   padding: 0 ${TAG_HORIZONTAL_PADDING};
   text-align: center;
   white-space: nowrap;
+
+  :hover {
+    background-color: ${({ colour }) => colour};
+  }
 `
 
 interface ClubListHeaderProps {
   onSearch: (search: string) => any
 }
 
+type Tag = {
+  text: string
+  colour: string
+}
+
 const ClubListHeader = ({ onSearch }: ClubListHeaderProps) => {
-  const tags = ['Creative', 'Active', 'Gaming', 'Volunteering', 'Career', 'Tech', 'Science']
+  const tags = [
+    {
+      text: 'Community',
+      colour: '#FCF4B1',
+    },
+    {
+      text: 'Tech',
+      colour: '#BCFEF2',
+    },
+    {
+      text: 'Creative',
+      colour: '#FCB8C6',
+    },
+    {
+      text: 'Active',
+      colour: '#F9B5B5',
+    },
+    {
+      text: 'Volunteering',
+      colour: '#FEE2B8',
+    },
+    {
+      text: 'Gaming',
+      colour: '#E1EF69',
+    },
+    {
+      text: 'Career',
+      colour: '#B8FDC7',
+    },
+    {
+      text: 'Engineering',
+      colour: '#D0B4EC',
+    },
+    {
+      text: 'Science',
+      colour: '#B6D5FC',
+    },
+    {
+      text: 'Environment',
+      colour: '#D1E77E',
+    },
+    {
+      text: 'Arts',
+      colour: '#FDD5A8',
+    },
+    {
+      text: 'Math',
+      colour: '#FDC1EE',
+    },
+    {
+      text: 'Health',
+      colour: '#97DFEF',
+    },
+  ]
   return (
-    <div>
-      <h1>Club List</h1>
-      <div>
-        <input onChange={(e) => onSearch(e.target.value)} />
-      </div>
+    <ClubListPage>
+      <ClubListTitleRow>
+        <ClubListTitle>Explore Clubs</ClubListTitle>
+        <SearchBox>
+          <SearchIcon htmlColor={colours.neutralDark1} />
+          <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
+        </SearchBox>
+      </ClubListTitleRow>
       <TagRow>
         <TagGroup>
           {tags.map((tag) => (
-            <RightSpaceWrapper>
-              <Tag>{tag}</Tag>
+            <RightSpaceWrapper key={tag.text}>
+              <Tag colour={tag.colour}>{tag.text}</Tag>
             </RightSpaceWrapper>
           ))}
         </TagGroup>
@@ -88,7 +195,7 @@ const ClubListHeader = ({ onSearch }: ClubListHeaderProps) => {
           + More
         </Tag>
       </TagRow>
-    </div>
+    </ClubListPage>
   )
 }
 
