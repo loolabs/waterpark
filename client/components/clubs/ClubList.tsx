@@ -1,6 +1,6 @@
 import { useSearch } from '../hooks'
 import { ClubCard } from './ClubCard'
-import { TAGS, Tag, TagGroup, TagRow } from './Tag'
+import { TAGS, Tag, TagGroup, TagRow, TagBubble } from './Tag'
 import { Id, Club } from '../../context'
 import { useMemo } from 'react'
 import styled from 'styled-components'
@@ -19,13 +19,13 @@ const ClubListPage = styled.div`
 
 const ClubListGrid = styled.div`
   display: grid;
-  grid-column-gap: 12px;
-  grid-row-gap: 16px;
+  grid-gap: 16px;
   justify-content: center;
 
+  // Expand the number of columns with the width of the screen
+  grid-template-columns: repeat(1, minmax(150px, 450px));
   margin-left: 12px;
   margin-right: 12px;
-  grid-template-columns: repeat(1, minmax(150px, 450px));
   @media ${largerThan(tablet)} and ${smallerThan(laptop)} {
     grid-template-columns: repeat(2, minmax(300px, 450px));
     margin-left: 24px;
@@ -46,8 +46,9 @@ const ClubListHeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 
+  // Shrink the page's "forehead" on mobile
   margin-top: max(48px, 5vh);
   @media ${largerThan(tablet)} {
     margin-top: 10vh;
@@ -116,6 +117,27 @@ interface ClubListHeaderProps {
   onSearch: (search: string) => any
 }
 
+interface ClubListTagsProps {
+  tags: Array<Tag>
+}
+
+const ClubListTags = ({ tags }: ClubListTagsProps) => {
+  return (
+    <TagRow>
+      <TagGroup>
+        {tags.map(({ text, colour }, i) => (
+          <RightSpaceWrapper key={text}>
+            <TagBubble colour={colour}>{text}</TagBubble>
+          </RightSpaceWrapper>
+        ))}
+      </TagGroup>
+      <TagBubble borderStyle="dashed" borderWidth="2px">
+        + More
+      </TagBubble>
+    </TagRow>
+  )
+}
+
 const ClubListHeader = ({ onSearch }: ClubListHeaderProps) => {
   return (
     <ClubListHeaderContainer>
@@ -123,18 +145,7 @@ const ClubListHeader = ({ onSearch }: ClubListHeaderProps) => {
         <ClubListTitle>Explore Clubs</ClubListTitle>
         <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
       </ClubListTitleRow>
-      <TagRow>
-        <TagGroup>
-          {Array.from(TAGS).map(([_, tag]) => (
-            <RightSpaceWrapper key={tag.text}>
-              <Tag colour={tag.colour}>{tag.text}</Tag>
-            </RightSpaceWrapper>
-          ))}
-        </TagGroup>
-        <Tag borderStyle="dashed" borderWidth="2px">
-          + More
-        </Tag>
-      </TagRow>
+      <ClubListTags tags={Array.from(TAGS.values())}></ClubListTags>
     </ClubListHeaderContainer>
   )
 }

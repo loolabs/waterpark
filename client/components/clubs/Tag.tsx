@@ -1,6 +1,11 @@
 import styled from 'styled-components'
 
-export const TAGS = new Map<string, { text: string; colour: string }>([
+export type Tag = {
+  text: string
+  colour: string
+}
+
+export const TAGS = new Map<string, Tag>([
   [
     'Community',
     {
@@ -111,7 +116,7 @@ export const TagGroup = styled.div`
   overflow: hidden;
 `
 
-export const Tag = styled.a<{
+export const TagBubble = styled.a<{
   colour?: string
   borderStyle?: string
   borderWidth?: string
@@ -127,6 +132,7 @@ export const Tag = styled.a<{
   flex-shrink: 0;
   height: ${TAG_HEIGHT};
   justify-content: center;
+  margin-bottom: 1px; // make space between rows of bubbles
   overflow: hidden;
   padding: 0 ${TAG_HORIZONTAL_PADDING};
   text-align: center;

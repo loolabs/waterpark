@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-import { TAGS, Tag, TagGroup, TagRow } from './Tag'
+import { TAGS, TagGroup, TagRow, TagBubble } from './Tag'
 import { Club } from '../../context'
 import { colours } from '../../styles'
 
@@ -13,9 +13,11 @@ const Icon = styled.img<{ size: string }>`
 `
 
 const ClubCardContainer = styled.div`
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
   width: 100%;
+
+  // A subtle shadow around the card
   box-shadow: 0px 4px 4px 1px ${colours.neutralLight1};
 `
 
@@ -25,12 +27,12 @@ const ClubCardBanner = styled.div<{ bannerImageURL: string }>`
   background-repeat: no-repeat;
   background-size: cover;
   height: 0;
-  padding-top: calc(100% / (64 / 27));
+  padding-top: calc(100% / 3); // 3:1 aspect ratio
   width: 100%;
 `
 
 const ClubCardContent = styled.div`
-  margin: 30px;
+  margin: 24px;
 `
 
 const ClubCardHeader = styled.div`
@@ -41,23 +43,70 @@ const ClubCardHeader = styled.div`
 `
 
 const ClubCardName = styled.h3`
-  display: -webkit-box;
   flex-grow: 1;
-  margin: 0 20px 0 0;
+  line-height: 24px;
+  max-height: 2 * 24px;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 16px;
+  margin-top: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  // Truncate overflowing text
+  display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 `
 
 const ClubCardDescription = styled.p`
-  line-height: 20px;
-  height: 60px;
+  line-height: 1.2em;
+  height: 3.6em; // 3 lines
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 16px;
+  margin-top: 16px;
+
+  // Truncate overflowing text with an ellipse
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+
+  // Fade out overflowing text
+  /*
+  :after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40%;
+    height: 1.2em;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 80%);
+  }
+  */
 `
 
 const RightSpaceWrapper = styled.div`
   margin-right: 16px;
 `
+
+const ClubCardTag = (tag: string) => {
+  if (TAGS.has(tag)) {
+    const { text, colour } = TAGS.get(tag)
+    return (
+      <RightSpaceWrapper key={text}>
+        <TagBubble colour={colour}>{text}</TagBubble>
+      </RightSpaceWrapper>
+    )
+  } else {
+    return (
+      <RightSpaceWrapper key={tag}>
+        <TagBubble>{tag}</TagBubble>
+      </RightSpaceWrapper>
+    )
+  }
+}
+
 interface ClubCardProps {
   club: Club
 }
@@ -76,27 +125,11 @@ export const ClubCard = ({ club }: ClubCardProps) => {
       <ClubCardContent>
         <ClubCardHeader>
           <ClubCardName>{name}</ClubCardName>
-          <Icon src={iconURL} size="50px"></Icon>
+          <Icon src={iconURL} size="48px"></Icon>
         </ClubCardHeader>
         <ClubCardDescription>{description}</ClubCardDescription>
         <TagRow>
-          <TagGroup>
-            {tags.map((tag) => {
-              if (!TAGS.has(tag)) {
-                return (
-                  <RightSpaceWrapper>
-                    <Tag>{tag}</Tag>
-                  </RightSpaceWrapper>
-                )
-              }
-              const { text, colour } = TAGS.get(tag)
-              return (
-                <RightSpaceWrapper>
-                  <Tag colour={colour}>{text}</Tag>
-                </RightSpaceWrapper>
-              )
-            })}
-          </TagGroup>
+          <TagGroup>{tags.map(ClubCardTag)}</TagGroup>
         </TagRow>
       </ClubCardContent>
     </ClubCardContainer>
