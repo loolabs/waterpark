@@ -9,10 +9,12 @@ interface ClubProps {
   description: string
   iconImage: string
   bannerImage: string
-  facebook?: string
-  twitter?: string
-  instagram?: string
-  website?: string
+  links: {
+    facebook?: string
+    twitter?: string
+    instagram?: string
+    website?: string
+  }
   tags: Array<string>
   events: Array<BasicEvent>
 }
@@ -67,19 +69,19 @@ export class Club extends AggregateRoot<ClubProps> {
   }
 
   get facebook(): string | undefined {
-    return this.props.facebook
+    return this.props.links.facebook
   }
 
   get twitter(): string | undefined {
-    return this.props.twitter
+    return this.props.links.twitter
   }
 
   get instagram(): string | undefined {
-    return this.props.instagram
+    return this.props.links.instagram
   }
 
   get website(): string | undefined {
-    return this.props.website
+    return this.props.links.website
   }
 
   get tags(): Array<string> {

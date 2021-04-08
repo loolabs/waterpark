@@ -17,9 +17,11 @@ describe('Event AggregateRoot', () => {
       bannerImage: 'Banner URL',
       startTime: new Date('2021-01-01'),
       endTime: new Date('2021-01-01'),
-      facebook: 'Facebook',
-      twitter: 'Twitter',
-      instagram: 'Instagram',
+      links: {
+        facebook: 'Facebook',
+        twitter: 'Twitter',
+        instagram: 'Instagram',
+      },
       tags: ['tag1', 'tag2', 'tag3'],
       clubs: [{ name: 'Club Name 1', iconImage: '' }],
     })

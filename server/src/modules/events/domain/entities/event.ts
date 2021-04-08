@@ -11,9 +11,11 @@ interface EventProps {
   bannerImage: string
   startTime: Date
   endTime: Date
-  facebook?: string
-  twitter?: string
-  instagram?: string
+  links: {
+    facebook?: string
+    twitter?: string
+    instagram?: string
+  }
   tags: Array<string>
   clubs: Array<BasicClub>
 }
@@ -73,15 +75,15 @@ export class Event extends AggregateRoot<EventProps> {
   }
 
   get facebook(): string | undefined {
-    return this.props.facebook
+    return this.props.links.facebook
   }
 
   get twitter(): string | undefined {
-    return this.props.twitter
+    return this.props.links.twitter
   }
 
   get instagram(): string | undefined {
-    return this.props.instagram
+    return this.props.links.instagram
   }
 
   get tags(): Array<string> {

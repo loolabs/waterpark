@@ -31,9 +31,11 @@ export class EventMap {
         bannerImage: eventEntity.bannerImage,
         startTime: eventEntity.startTime,
         endTime: eventEntity.endTime,
-        facebook: eventEntity.facebook,
-        twitter: eventEntity.twitter,
-        instagram: eventEntity.instagram,
+        links: {
+          facebook: eventEntity.facebook,
+          twitter: eventEntity.twitter,
+          instagram: eventEntity.instagram,
+        },
         tags: eventEntity.tags.getItems().map((tag) => tag.name),
         clubs: eventEntity.clubs.getItems().map((club) => {
           return { name: club.name, iconImage: club.iconImage }

@@ -9,10 +9,12 @@ export const createMockClubs = (): Result<Array<Club>, AppError.UnexpectedError>
       description: `Club Description ${i}`,
       bannerImage: `Club Banner ${i}`,
       iconImage: `Club Icon ${i}`,
-      facebook: `Facebook ${i}`,
-      twitter: `Twitter ${i}`,
-      instagram: `Instagram ${i}`,
-      website: `Website ${i}`,
+      links: {
+        facebook: `Facebook ${i}`,
+        twitter: `Twitter ${i}`,
+        instagram: `Instagram ${i}`,
+        website: `Website ${i}`,
+      },
       tags: ['tag1', 'tag2', 'tag3'],
       events: [
         {

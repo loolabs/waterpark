@@ -11,9 +11,11 @@ export const createMockEvents = (): Result<Array<Event>, AppError.UnexpectedErro
       bannerImage: `Banner Image ${i}`,
       startTime: new Date('2021-01-01'),
       endTime: new Date('2021-01-01'),
-      facebook: `Facebook ${i}`,
-      twitter: `Twitter ${i}`,
-      instagram: `Instagram ${i}`,
+      links: {
+        facebook: `Facebook ${i}`,
+        twitter: `Twitter ${i}`,
+        instagram: `Instagram ${i}`,
+      },
       tags: ['tag1', 'tag2', 'tag3'],
       clubs: [{ name: 'Club Name 1', iconImage: '' }],
     })

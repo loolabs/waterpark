@@ -15,10 +15,12 @@ describe('Club AggregateRoot', () => {
       description: 'Club Description',
       bannerImage: 'Banner URL',
       iconImage: 'Icon',
-      facebook: 'Facebook',
-      twitter: 'Twitter',
-      instagram: 'Instagram',
-      website: 'Website',
+      links: {
+        facebook: 'Facebook',
+        twitter: 'Twitter',
+        instagram: 'Instagram',
+        website: 'Website',
+      },
       tags: ['tag1', 'tag2', 'tag3'],
       events: [
         {
