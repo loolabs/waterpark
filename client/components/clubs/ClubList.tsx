@@ -125,7 +125,7 @@ const ClubListTags = ({ tags }: ClubListTagsProps) => {
   return (
     <TagRow>
       <TagGroup>
-        {tags.map(({ text, colour }, i) => (
+        {tags.map(({ text, colour }) => (
           <RightSpaceWrapper key={text}>
             <TagBubble colour={colour}>{text}</TagBubble>
           </RightSpaceWrapper>
