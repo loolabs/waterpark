@@ -8,15 +8,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import { BasicEvent } from '../../context/Base'
 import moment from 'moment'
+import { weight700 } from '../../styles/typography'
 
 interface BannerProps {
   backgroundImageUrl: string
 }
 
-const Banner = styled.div`
-  background-image: url(${(props: BannerProps) => props.backgroundImageUrl || ''});
-  background-size: cover;
-  height: 400px;
+const Banner = styled.div<BannerProps>`
+  background-image: url(${({ backgroundImageUrl }) => backgroundImageUrl || ''});
+  background-position: center;
+  height: 30vh;
 `
 
 const Container = styled.div`
@@ -25,6 +26,10 @@ const Container = styled.div`
   justify-content: center;
   margin: 0 auto 100px;
   width: 65%;
+
+  @media ${device.mobileL} {
+    width: 85%;
+  }
 `
 
 export default function ClubDetail() {
@@ -47,24 +52,26 @@ export default function ClubDetail() {
   )
 }
 
-const IconContainer = styled.div`
-  margin-top: 30px;
+const BackArrow = styled.img`
+  margin-top: 64px;
 `
 
 const Logo = styled.img`
   border-radius: 100%;
   display: block;
-  margin-top: 20px;
+  margin-top: 40px;
+  height: 100px;
   width: 100px;
 `
 
 const ClubName = styled(PageTitle)`
-  margin-top: 30px;
+  margin-bottom: 0;
+  margin-top: 32px;
 `
 
 const Links = styled.div`
   display: flex;
-  margin-top: 20px;
+  margin-top: 16px;
 `
 
 const SocialLink = styled.div`
@@ -75,7 +82,7 @@ const ClubMetaData = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-top: 30px;
+  margin-top: 8px;
 `
 
 const MemberCount = styled.div`
@@ -83,7 +90,7 @@ const MemberCount = styled.div`
   font-weight: ${fontWeight.bold};
 `
 
-const Categories = styled.div`
+const CategoriesWrapper = styled.div`
   display: flex;
 `
 
@@ -100,7 +107,7 @@ const Category = styled.p`
 `
 
 const ClubDescription = styled.p`
-  margin-top: 30px;
+  margin-top: 24px;
 `
 
 interface ClubInfoProps {
@@ -109,30 +116,26 @@ interface ClubInfoProps {
 
 const ClubInfo = ({ club }: ClubInfoProps) => {
   const { name, description, iconURL, tags } = club
+  const links = [club.facebookLink, club.twitterLink, club.instagramLink, club.websiteLink]
+  const linksThatExist = links.filter((l) => l !== undefined)
 
   return (
     <div>
-      <IconContainer>
-        <FontAwesomeIcon icon={faLongArrowAltLeft} size="lg" />
-      </IconContainer>
+      <BackArrow src="/back-arrow.svg" width="28px" />
 
       <Logo src={iconURL} alt="" />
-      <ClubName>{name}</ClubName>
+      <ClubName> {name}</ClubName>
 
       <Links>
-        <SocialLink>techplusuw.ca</SocialLink>
-        <SocialLink style={{ marginLeft: '10px' }}>@techplusuw</SocialLink>
+        {linksThatExist.map((l) => (
+          <SocialLink>{l}</SocialLink>
+        ))}
       </Links>
 
       <ClubMetaData>
         <MemberCount>20-30 members</MemberCount>
-
+        <Categories tags={tags} />
         {/* TODO: color code the tags */}
-        <Categories>
-          {tags.map((t) => (
-            <Category>{t}</Category>
-          ))}
-        </Categories>
       </ClubMetaData>
 
       <ClubDescription>{description}</ClubDescription>
@@ -140,7 +143,17 @@ const ClubInfo = ({ club }: ClubInfoProps) => {
   )
 }
 
-const EventsTitle = styled.h2``
+const Categories = ({ tags }: { tags: Array<string> }) => (
+  <CategoriesWrapper>
+    {tags.map((t) => (
+      <Category>{t}</Category>
+    ))}
+  </CategoriesWrapper>
+)
+
+const EventsTitle = styled.h2`
+  margin-top: 32px;
+`
 
 const EventCardDetails = styled.div`
   margin: 0 20px 20px;
@@ -152,25 +165,21 @@ const EventCardDetails = styled.div`
 `
 
 const EventCardTitle = styled.p`
-  font-weight: 700;
+  font-weight: ${weight700};
   margin-bottom: 0;
 `
 
 // TODO: make box shadow cleaner
-const EventCard = styled.div`
+const EventCardWrapper = styled.div`
   box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05), 0 15px 100px rgba(166, 173, 201, 0.2);
   display: flex;
   margin-top: 10px;
-
-  @media ${device.mobileL} {
-    font-size: 10px;
-  }
 `
 
 const EventCardImg = styled.img`
-  width: 128px;
+  width: 256px;
   @media ${device.mobileL} {
-    width: 64px;
+    width: 128px;
   }
 `
 
@@ -191,38 +200,52 @@ const EventsHostedByClub = ({ events }: { events: Array<BasicEvent> }) => {
     <div>
       <EventsTitle>Upcoming Events</EventsTitle>
       {upcomingEvents.map((e) => {
-        return <p>h</p>
+        return <EventCard event={e} />
       })}
       <PastEventsTitle>Past Events</PastEventsTitle>
       {pastEvents.map((e) => {
-        return (
-          <EventCard>
-            <EventCardImg src={e.backgroundImageURL} alt="" />
-            <EventCardDetails>
-              <EventCardTitle>{e.name}</EventCardTitle>
-              <EventCardDate>
-                {device.mobileS ? (
-                  <p>
-                    {e.startTime.format('dddd')}, {e.startTime.format('LL')}
-                    <br />
-                    {e.startTime.format('LT')} - {e.endTime.format('LT')} ET
-                  </p>
-                ) : (
-                  <p>
-                    {e.startTime.format('dddd')}, {e.startTime.format('LL')} |{' '}
-                    {e.startTime.format('LT')} - {e.endTime.format('LT')} ET
-                  </p>
-                )}
-              </EventCardDate>
-              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                {e.tags.map((t) => {
-                  return <Category>{t}</Category>
-                })}
-              </div>
-            </EventCardDetails>
-          </EventCard>
-        )
+        return <EventCard event={e} />
       })}
     </div>
   )
 }
+
+const EventCard = ({ event }: { event: BasicEvent }) => (
+  <EventCardWrapper>
+    <EventCardImg src={event.backgroundImageURL} alt="" />
+    <EventCardDetails>
+      <EventCardTitle>{event.name}</EventCardTitle>
+      <EventCardDate>
+        {device.mobileS ? (
+          <p>
+            {event.startTime.format('dddd')}, {event.startTime.format('LL')}
+            <br />
+            {event.startTime.format('LT')} - {event.endTime.format('LT')} ET
+          </p>
+        ) : (
+          <p>
+            {event.startTime.format('dddd')}, {event.startTime.format('LL')} |{' '}
+            {event.startTime.format('LT')} - {event.endTime.format('LT')} ET
+          </p>
+        )}
+      </EventCardDate>
+      <EventCategories tags={event.tags} />
+    </EventCardDetails>
+  </EventCardWrapper>
+)
+
+const EventCategoriesWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  @media ${device.mobileL} {
+    justify-content: flex-start;
+  }
+`
+
+const EventCategories = ({ tags }: { tags: Array<string> }) => (
+  <EventCategoriesWrapper>
+    {tags.map((t) => {
+      return <Category>{t}</Category>
+    })}
+  </EventCategoriesWrapper>
+)

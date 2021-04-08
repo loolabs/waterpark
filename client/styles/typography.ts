@@ -16,10 +16,10 @@ const text12 = '12px'
 const text10 = '10px'
 
 // font weight
-const weight900 = '900'
-const weight700 = '700'
-const weight600 = '600'
-const weight400 = '400'
+export const weight900 = '900'
+export const weight700 = '700'
+export const weight600 = '600'
+export const weight400 = '400'
 
 // font style
 const fontInter = 'Inter'

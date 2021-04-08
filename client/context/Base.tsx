@@ -62,8 +62,8 @@ export const CLUBS: Array<Club> = [
     events: [
       {
         name: 'Mac and Chess',
-        startTime: moment('2021-03-26 12:00'),
-        endTime: moment('2021-03-26 12:00'),
+        startTime: moment('2022-03-26 12:00'),
+        endTime: moment('2022-03-26 12:00'),
         backgroundImageURL:
           'https://images.unsplash.com/photo-1580541832626-2a7131ee809f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1956&q=80',
         tags: ['Bored', 'Pasta'],
