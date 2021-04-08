@@ -10,12 +10,16 @@ interface EventProps {
 
 const ListCard = styled.div<any>`
   margin-bottom: 20px;
-  flex: 2 0 auto;
+  flex: 3 0 auto;
+  display: flex;
+  border-radius: 6px;
+  box-shadow: 0px 4px 4px 1px ${colours.neutralLight1};
 `
 
 const ListCardImageContainer = styled.div<any>`
   height: 160px;
   width: 225px;
+  cursor: pointer;
 `
 
 const ListCardImage = styled.img<any>`
@@ -25,18 +29,19 @@ const ListCardImage = styled.img<any>`
 
 const ListCardContent = styled.div<any>`
   padding: 20px;
+  flex-grow: 1
 `
 
 const ListCardName = styled.div<any>`
-  color: ${colours.neutralDark1};
   font-weight: bold;
   font-size: ${desktopFontSize.h3};
-  margin-bottom: 25px;
+  margin-bottom: 5px;
 `
 
 const ListCardTime = styled.div<any>`
-  font-size: ${desktopFontSize.subtitle1};
+  font-size: ${desktopFontSize.subtitle2};
   line-height: 120%;
+  margin-bottom: 20px;
 `
 
 const ListCardFooter = styled.div<any>`
@@ -45,7 +50,7 @@ const ListCardFooter = styled.div<any>`
 `
 
 const ListCardClub = styled.div<any>`
-  font-size: ${desktopFontSize.subtitle1};
+  font-size: ${desktopFontSize.subtitle2};
   font-weight: bold;
 `
 
@@ -56,10 +61,10 @@ const ListCardTags = styled.div<any>`
 const ListCardTag = styled.div<any>`
   margin-left: 12px;
   padding: 8px 16px;
-  background: red;
+  background: white;
   border-radius: 50px;
   ${(props: any) => `
-    background: ${colours.tagColours[props.tag]};
+    border: 2px solid ${colours.tagColours[props.tag]};
  `};
 `
 
@@ -76,14 +81,14 @@ export const EventListCard = ({ event }: EventProps) => {
   )
 
   const getFormattedTags = () => (
-    tags.map(tag => <ListCardTag tag={tag}>
+    tags.map(tag => <ListCardTag tag={tag} key={`tag-${tag}`}>
       {tag}
     </ListCardTag>)
   )
 
   return (
-    <ListCard onClick={handleClick}>
-      <ListCardImageContainer>
+    <ListCard>
+      <ListCardImageContainer onClick={handleClick}>
         <ListCardImage src={backgroundImageURL}/>
       </ListCardImageContainer>
       <ListCardContent>
@@ -95,7 +100,7 @@ export const EventListCard = ({ event }: EventProps) => {
         </ListCardTime>
         <ListCardFooter>
           <ListCardClub>
-            {club}
+            {club.name}
           </ListCardClub>
           <ListCardTags>
             {getFormattedTags()}
@@ -105,5 +110,3 @@ export const EventListCard = ({ event }: EventProps) => {
     </ListCard>
   )
 }
-
-export default EventListCard

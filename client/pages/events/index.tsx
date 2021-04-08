@@ -1,6 +1,10 @@
 import React from 'react'
 import { EventViewToggle } from '../../components/events'
+import { useAppContext } from '../../context'
 
 export default function Events() {
-  return <EventViewToggle />
+  const { events } = useAppContext()
+  const filteredEvents = [];
+  events.forEach(event => filteredEvents.push(event))
+  return <EventViewToggle filteredEvents={filteredEvents}/>
 }

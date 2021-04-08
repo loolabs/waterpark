@@ -2,7 +2,7 @@ import React from "react"
 import { Event } from '../../../context'
 import styled from 'styled-components'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
-import EventCalendarCard from './EventCalendarCard'
+import { EventCalendarCard } from './EventCalendarCard'
 
 interface EventViewProps {
   filteredEvents: Array<Event>
@@ -41,7 +41,7 @@ const CalendarColumnHeader = styled.h3<any>`
   margin-bottom: 25px;
 `
 
-const EventCalendarView = ({ filteredEvents }: EventViewProps) => {
+export const EventCalendarView = ({ filteredEvents }: EventViewProps) => {
 
   const getEventsOnDay = (dayNumber: Number) => (
     filteredEvents.filter(event => event.startDate.day() <= dayNumber && event.endDate.day() >= dayNumber)
@@ -68,7 +68,5 @@ const EventCalendarView = ({ filteredEvents }: EventViewProps) => {
     <CalendarView>
       {generateDayColumns()}
     </CalendarView>
-  );
-};
-
-export default EventCalendarView
+  )
+}

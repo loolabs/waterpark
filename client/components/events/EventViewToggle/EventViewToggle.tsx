@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import EventCalendarView from "../EventCalendarView/EventCalendarView"
-import EventListView from "../EventListView/EventListView"
+import { EventCalendarView } from "../EventCalendarView"
+import { EventListView } from "../EventListView/EventListView"
 import { Event } from '../../../context'
 import styled from 'styled-components'
 
@@ -16,13 +16,23 @@ export const EventViewToggle = ({ filteredEvents }: EventViewProps) => {
   const [activeView, setActiveView] = useState(LISTVIEW_ACTIVE);
 
   const EventViewToggle = styled.div<any>`
-    display: flex;
-    justify-content: center;
+    margin: 10%;
   `
 
+  const EventViewToggleButtonsContainer = styled.div<any>`
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+  `
+  
+  const EventViewToggleButtonsSpacer = styled.div<any>`
+    flex: 0 0 200px;
+  `
+  
   const EventViewToggleButtons = styled.div<any>`
     display: flex;
-    justify-content: flex-start;
+    margin-bottom: 50px;
+    cursor: pointer;
   `
 
   const ToggleText = styled.div<any>`
@@ -44,20 +54,24 @@ export const EventViewToggle = ({ filteredEvents }: EventViewProps) => {
   
   const getEventViewButton = (viewType) => (
     <ToggleText 
-      isActiveView={activeView===viewType}>
-      onClick={()=>setActiveView(viewType)}
+      isActiveView={activeView===viewType}
+      onClick={()=>setActiveView(viewType)}>
+        {viewType == LISTVIEW_ACTIVE ? "List View" : "Calendar View"}
     </ToggleText>
   )
 
   const getToggleButtons = () => (
-    <EventViewToggleButtons>
-      {getEventViewButton(LISTVIEW_ACTIVE)}
-      {getEventViewButton(CALENDARVIEW_ACTIVE)}
-    </EventViewToggleButtons>
+    <EventViewToggleButtonsContainer>
+      <EventViewToggleButtonsSpacer/>
+      <EventViewToggleButtons> 
+        {getEventViewButton(LISTVIEW_ACTIVE)}
+        {getEventViewButton(CALENDARVIEW_ACTIVE)}
+      </EventViewToggleButtons>
+    </EventViewToggleButtonsContainer>
   )
   
   return (
-    <EventViewToggle>
+    <EventViewToggle> 
       {getToggleButtons()}
       {renderActiveView()}
     </EventViewToggle>

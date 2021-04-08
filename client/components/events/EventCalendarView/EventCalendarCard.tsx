@@ -40,7 +40,7 @@ const CalendarCardEventClub = styled.p<any>`
   line-height: 120%;
 `
 
-const EventCalendarCard = ({ event }: EventProps) => {
+export const EventCalendarCard = ({ event }: EventProps) => {
   const { name, club, backgroundImageURL, startDate, endDate } = event
 
   const getFormattedTimeString = () => (
@@ -62,7 +62,5 @@ const EventCalendarCard = ({ event }: EventProps) => {
         </CalendarCardEventClub>
       </CalendarCardImageContainer>
     </CalendarCard>
-  );
-};
-
-export default EventCalendarCard
+  )
+}
