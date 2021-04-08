@@ -87,7 +87,7 @@ export const CLUBS: Array<Club> = [
     iconURL: 'https://avatars.githubusercontent.com/u/51551455',
     bannerImageURL: 'https://images.unsplash.com/photo-1528712306091-ed0763094c98',
     facebookLink: 'https://www.facebook.com/uwcookingclub/',
-    tags: ['Cooking'],
+    tags: ['Creative', 'Cooking', 'Community'],
     events: [
       {
         name: 'Mac and Chess',
@@ -105,7 +105,7 @@ export const CLUBS: Array<Club> = [
     description: '👩‍🔬',
     iconURL: 'https://avatars.githubusercontent.com/u/71415398',
     bannerImageURL: 'https://avatars.githubusercontent.com/u/71415398',
-    tags: ['Dev', 'Design', 'Product'],
+    tags: ['Tech', 'Engineering', 'Math', 'Dev', 'Design', 'Product'],
     events: [],
   },
 ]

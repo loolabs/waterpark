@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
+import { TAGS, Tag, TagGroup, TagRow } from './Tag'
 import { Club } from '../../context'
 import { colours } from '../../styles'
 
@@ -29,7 +30,6 @@ const ClubCardBanner = styled.div<{ bannerImageURL: string }>`
 `
 
 const ClubCardContent = styled.div`
-  height: 200px;
   margin: 30px;
 `
 
@@ -40,7 +40,7 @@ const ClubCardHeader = styled.div`
   justify-content: space-between;
 `
 
-const ClubCardName = styled.h2`
+const ClubCardName = styled.h3`
   display: -webkit-box;
   flex-grow: 1;
   margin: 0 20px 0 0;
@@ -50,14 +50,20 @@ const ClubCardName = styled.h2`
   -webkit-box-orient: vertical;
 `
 
-const ClubCardDescription = styled.p``
+const ClubCardDescription = styled.p`
+  line-height: 20px;
+  height: 60px;
+`
 
+const RightSpaceWrapper = styled.div`
+  margin-right: 16px;
+`
 interface ClubCardProps {
   club: Club
 }
 
 export const ClubCard = ({ club }: ClubCardProps) => {
-  const { id, name, description, iconURL, bannerImageURL } = club
+  const { id, name, description, iconURL, bannerImageURL, tags } = club
   const router = useRouter()
 
   const handleClick = () => {
@@ -73,6 +79,25 @@ export const ClubCard = ({ club }: ClubCardProps) => {
           <Icon src={iconURL} size="50px"></Icon>
         </ClubCardHeader>
         <ClubCardDescription>{description}</ClubCardDescription>
+        <TagRow>
+          <TagGroup>
+            {tags.map((tag) => {
+              if (!TAGS.has(tag)) {
+                return (
+                  <RightSpaceWrapper>
+                    <Tag>{tag}</Tag>
+                  </RightSpaceWrapper>
+                )
+              }
+              const { text, colour } = TAGS.get(tag)
+              return (
+                <RightSpaceWrapper>
+                  <Tag colour={colour}>{text}</Tag>
+                </RightSpaceWrapper>
+              )
+            })}
+          </TagGroup>
+        </TagRow>
       </ClubCardContent>
     </ClubCardContainer>
   )
