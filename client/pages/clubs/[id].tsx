@@ -1,14 +1,11 @@
-import { useRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
 import { useAppContext } from '../../context'
 import { colours, desktopFontSize, device, fontWeight, PageTitle } from '../../styles/'
 import { Club } from '../../context/'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import { BasicEvent } from '../../context/Base'
 import moment from 'moment'
-import { weight700 } from '../../styles/typography'
+import { useRouter } from 'next/router'
 
 interface BannerProps {
   backgroundImageUrl: string
@@ -58,6 +55,7 @@ export default function ClubDetail() {
 
 const BackArrow = styled.img`
   margin-top: 64px;
+  cursor: pointer;
 `
 
 const Logo = styled.img`
@@ -78,7 +76,7 @@ const Links = styled.div`
   margin-top: 16px;
 `
 
-const SocialLink = styled.div`
+const SocialLink = styled.a`
   text-decoration: underline;
 `
 
@@ -122,13 +120,15 @@ interface ClubInfoProps {
 }
 
 const ClubInfo = ({ club }: ClubInfoProps) => {
+  const router = useRouter()
+
   const { name, description, iconURL, tags } = club
   const links = [club.facebookLink, club.twitterLink, club.instagramLink, club.websiteLink]
   const linksThatExist = links.filter((l) => l !== undefined)
 
   return (
     <div>
-      <BackArrow src="/back-arrow.svg" width="28px" />
+      <BackArrow src="/back-arrow.svg" width="28px" onClick={() => router.back()} />
 
       <Logo src={iconURL} alt="" />
       <ClubName> {name}</ClubName>
@@ -164,16 +164,23 @@ const EventsTitle = styled.h2`
 `
 
 const EventCardDetails = styled.div`
-  margin: 0 20px 20px;
+  margin-top: 0;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+
   width: 100%;
 
   @media ${device.mobileS} {
-    margin: 0 10px 10px;
+    margin-top: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
   }
 `
 
 const EventCardTitle = styled.p`
-  font-weight: ${weight700};
+  font-weight: ${fontWeight.bold};
   margin-bottom: 0;
 `
 
@@ -221,29 +228,29 @@ const EventsHostedByClub = ({ events }: { events: Array<BasicEvent> }) => {
   )
 }
 
-const EventCard = ({ event }: { event: BasicEvent }) => (
-  <EventCardWrapper>
-    <EventCardImg src={event.backgroundImageURL} alt="" />
-    <EventCardDetails>
-      <EventCardTitle>{event.name}</EventCardTitle>
-      <EventCardDate>
-        {device.mobileS ? (
-          <p>
-            {event.startTime.format('dddd')}, {event.startTime.format('LL')}
-            <br />
-            {event.startTime.format('LT')} - {event.endTime.format('LT')} ET
-          </p>
-        ) : (
-          <p>
-            {event.startTime.format('dddd')}, {event.startTime.format('LL')} |{' '}
-            {event.startTime.format('LT')} - {event.endTime.format('LT')} ET
-          </p>
-        )}
-      </EventCardDate>
-      <EventCategories tags={event.tags} />
-    </EventCardDetails>
-  </EventCardWrapper>
-)
+const EventCard = ({ event }: { event: BasicEvent }) => {
+  const date = `${event.startTime.format('dddd')}, ${event.startTime.format('LL')}`
+  const time = `${event.startTime.format('LT')} - ${event.endTime.format('LT')}`
+
+  const dateTimeString = (
+    <p>
+      {date}
+      {device.mobileS ? <br /> : ' '}
+      {time}
+    </p>
+  )
+
+  return (
+    <EventCardWrapper>
+      <EventCardImg src={event.backgroundImageURL} alt="" />
+      <EventCardDetails>
+        <EventCardTitle>{event.name}</EventCardTitle>
+        <EventCardDate>{dateTimeString}</EventCardDate>
+        <EventCategories tags={event.tags} />
+      </EventCardDetails>
+    </EventCardWrapper>
+  )
+}
 
 const EventCategoriesWrapper = styled.div`
   display: flex;
