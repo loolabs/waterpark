@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
 import { useAppContext } from '../../context'
-import { desktopFontSize, device, fontWeight, PageTitle } from '../../styles/'
+import { colours, desktopFontSize, device, fontWeight, PageTitle } from '../../styles/'
 import { Club } from '../../context/'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
@@ -18,6 +18,10 @@ const Banner = styled.div<BannerProps>`
   background-image: url(${({ backgroundImageUrl }) => backgroundImageUrl || ''});
   background-position: center;
   height: 30vh;
+
+  @media ${device.mobileS} {
+    height: 20vh;
+  }
 `
 
 const Container = styled.div`
@@ -82,7 +86,7 @@ const ClubMetaData = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-top: 8px;
+  margin-top: 16px;
 `
 
 const MemberCount = styled.div`
@@ -92,22 +96,25 @@ const MemberCount = styled.div`
 
 const CategoriesWrapper = styled.div`
   display: flex;
+  margin-right: -4px;
 `
 
 const Category = styled.p`
   border: 1px solid black;
   border-radius: 15px;
-  font-size: 12px;
-  margin-left: 5px;
+  font-size: 16px;
+  margin: 0 4px;
 
-  padding: 5px 10px;
+  padding: 4px 10px;
   @media ${device.mobileS} {
-    padding: 2px 5px;
+    font-size: 14px;
   }
 `
 
 const ClubDescription = styled.p`
+  line-height: 1.3;
   margin-top: 24px;
+  margin-bottom: 24px;
 `
 
 interface ClubInfoProps {
@@ -152,7 +159,8 @@ const Categories = ({ tags }: { tags: Array<string> }) => (
 )
 
 const EventsTitle = styled.h2`
-  margin-top: 32px;
+  margin-top: 40px;
+  margin-bottom: 32px;
 `
 
 const EventCardDetails = styled.div`
@@ -171,15 +179,16 @@ const EventCardTitle = styled.p`
 
 // TODO: make box shadow cleaner
 const EventCardWrapper = styled.div`
-  box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05), 0 15px 100px rgba(166, 173, 201, 0.2);
+  box-shadow: 0px 4px 4px 1px ${colours.neutralLight1};
   display: flex;
   margin-top: 10px;
 `
 
 const EventCardImg = styled.img`
-  width: 256px;
+  width: 180px;
   @media ${device.mobileL} {
-    width: 128px;
+    object-fit: cover;
+    width: 80px;
   }
 `
 
@@ -189,6 +198,8 @@ const EventCardDate = styled.p`
 
 const PastEventsTitle = styled.p`
   font-size: ${desktopFontSize.subtitle1};
+  margin-top: 40px;
+  margin-bottom: 24px;
 `
 
 const EventsHostedByClub = ({ events }: { events: Array<BasicEvent> }) => {
@@ -237,8 +248,12 @@ const EventCard = ({ event }: { event: BasicEvent }) => (
 const EventCategoriesWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-right: -4px;
+
   @media ${device.mobileL} {
     justify-content: flex-start;
+    margin-right: 0;
+    margin-left: -4px;
   }
 `
 
