@@ -22,7 +22,8 @@ const weight600 = '600'
 const weight400 = '400'
 
 // font style
-const fontInter = 'Inter'
+export const fontInter =
+  'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif'
 
 export const desktopFontSize = Object.freeze({
   h1: text48,
@@ -57,7 +58,7 @@ export const PageTitle = styled.h1`
   font-size: ${desktopFontSize.h1};
   line-height: 120%;
   color: ${colours.black};
-  @media ${device.laptop} {
+  @media ${device.tablet} {
     font-size: ${mobileFontSize.h1};
   }
 `

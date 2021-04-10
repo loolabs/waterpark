@@ -39,13 +39,13 @@ const ClubCardHeader = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
+  height: 56px;
   justify-content: space-between;
 `
 
-const ClubCardName = styled.h3`
+const ClubCardName = styled.h2`
   flex-grow: 1;
-  line-height: 24px;
-  max-height: 2 * 24px;
+  font-size: 20px;
   margin-bottom: 0;
   margin-left: 0;
   margin-right: 16px;
@@ -60,15 +60,15 @@ const ClubCardName = styled.h3`
 `
 
 const ClubCardDescription = styled.p`
-  line-height: 1.2em;
-  height: 3.6em; // 3 lines
+  height: 64px;
   overflow: hidden;
   position: relative;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   margin-top: 16px;
 
   // Truncate overflowing text with an ellipse
   display: -webkit-box;
+  text-overflow: ellipsis;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 
@@ -125,7 +125,7 @@ export const ClubCard = ({ club }: ClubCardProps) => {
       <ClubCardContent>
         <ClubCardHeader>
           <ClubCardName>{name}</ClubCardName>
-          <Icon src={iconURL} size="48px"></Icon>
+          <Icon src={iconURL} size="56px"></Icon>
         </ClubCardHeader>
         <ClubCardDescription>{description}</ClubCardDescription>
         <TagRow>

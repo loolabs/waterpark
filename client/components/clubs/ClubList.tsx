@@ -1,10 +1,11 @@
 import { useSearch } from '../hooks'
-import { ClubCard } from './ClubCard'
 import { TAGS, Tag, TagGroup, TagRow, TagBubble } from './Tag'
 import { Id, Club } from '../../context'
 import { useMemo } from 'react'
 import styled from 'styled-components'
-import { colours, PageTitle } from '../../styles'
+import { ClubCard } from './ClubCard'
+import { PageTitle } from '../../styles'
+import { SearchInput } from './Search'
 
 const mobile = `425px`
 const tablet = `768px`
@@ -15,6 +16,7 @@ const largerThan = (size: string): string => `(min-width: ${size})`
 
 const ClubListPage = styled.div`
   margin-top: 65px;
+  margin-bottom: 24px;
 `
 
 const ClubListGrid = styled.div`
@@ -45,12 +47,13 @@ const ClubListHeaderContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 12px;
   margin-bottom: 16px;
 
   // Shrink the page's "forehead" on mobile
+  gap: 8px;
   margin-top: max(48px, 5vh);
   @media ${largerThan(tablet)} {
+    gap: 16px;
     margin-top: 10vh;
   }
 `
@@ -65,47 +68,6 @@ const ClubListTitleRow = styled.div`
 const ClubListTitle = styled(PageTitle)`
   margin: 0;
   white-space: nowrap;
-`
-
-const SearchInput = styled.input`
-  background-image: url(/search-24px.svg);
-  background-repeat: no-repeat;
-  border: none;
-  border-radius: 100vw; // arbitrarily large so that sides are fully rounded
-  margin-left: 8px;
-  padding-right: 8px;
-
-  background-color: none;
-  background-position: 8px 4px;
-  height: 40px;
-  margin-right: auto;
-  padding-left: 40px;
-  padding-right: 8px;
-  width: 32px;
-  @media ${largerThan(tablet)} {
-    background-color: ${colours.neutralLight1};
-    background-position: 12px 8px;
-    height: 48px;
-    margin-right: 0;
-    padding-left: 48px;
-    padding-right: 12px;
-    width: 240px;
-  }
-
-  @media ${smallerThan(tablet)} {
-    :focus {
-      background-color: ${colours.neutralLight1};
-      outline: none;
-
-      width: 100%;
-      transition: width 0.5s;
-    }
-  }
-  @media ${largerThan(tablet)} {
-    :focus {
-      outline: none;
-    }
-  }
 `
 
 const RightSpaceWrapper = styled.div`
@@ -127,7 +89,9 @@ const ClubListTags = ({ tags }: ClubListTagsProps) => {
       <TagGroup>
         {tags.map(({ text, colour }) => (
           <RightSpaceWrapper key={text}>
-            <TagBubble colour={colour}>{text}</TagBubble>
+            <TagBubble colour={colour} highlightOnHover>
+              {text}
+            </TagBubble>
           </RightSpaceWrapper>
         ))}
       </TagGroup>

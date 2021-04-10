@@ -120,6 +120,7 @@ export const TagBubble = styled.a<{
   colour?: string
   borderStyle?: string
   borderWidth?: string
+  highlightOnHover?: boolean
 }>`
   align-items: center;
   border-color: ${({ colour }) => colour || 'black'};
@@ -132,6 +133,7 @@ export const TagBubble = styled.a<{
   flex-shrink: 0;
   height: ${TAG_HEIGHT};
   justify-content: center;
+  line-height: ${TAG_HEIGHT};
   margin-bottom: 1px; // make space between rows of bubbles
   overflow: hidden;
   padding: 0 ${TAG_HORIZONTAL_PADDING};
@@ -139,6 +141,6 @@ export const TagBubble = styled.a<{
   white-space: nowrap;
 
   :hover {
-    background-color: ${({ colour }) => colour};
+    ${({ colour, highlightOnHover }) => highlightOnHover && `background-color: ${colour};`}
   }
 `
