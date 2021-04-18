@@ -1,10 +1,11 @@
-import psycopg2
-import yaml  # noqa
-import uuid
-import pprint
+from configparser import ConfigParser
 from datetime import datetime
 from os import path
-from configparser import ConfigParser
+import pprint
+import uuid
+
+import psycopg2
+import yaml  # noqa
 
 filepath = "clubs.yml"
 pp = pprint.PrettyPrinter(indent=2)
