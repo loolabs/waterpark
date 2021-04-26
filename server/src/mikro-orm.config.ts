@@ -34,8 +34,15 @@ class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrat
 }
 
 const clientUrl = process.env.DATABASE_URL
+// Heroku's postgres service self-signs SSL certificates (whatever that means),
+// and in production, the dyno complains with Error: self signed certificate.
+// This is probably the underlying PG driver complaining, so the temporary
+// workaround is to allow unauthorized SSL certificates, per below.
+// TODO: look into risk factors: https://stackoverflow.com/a/63914477/6113956
+const sslOptions = { rejectUnauthorized: false }
+
 const isDatabaseLocal = process.env.IS_DATABASE_LOCAL === 'true'
-const isDatabaseSSL = isDatabaseLocal ? false : true
+const isDatabaseSSL = isDatabaseLocal ? false : sslOptions
 
 // TODO: import connection-related properties from root .env
 const mikroORMConfig: Options = {
