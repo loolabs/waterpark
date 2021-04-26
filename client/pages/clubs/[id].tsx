@@ -7,17 +7,22 @@ import { BasicEvent } from '../../context/Base'
 import moment from 'moment'
 import { useRouter } from 'next/router'
 
+const mobile = `425px`
+const tablet = `768px`
+
 interface BannerProps {
   backgroundImageUrl: string
 }
 
+const largerThan = (size: string): string => `(min-width: ${size})`
+
 const Banner = styled.div<BannerProps>`
   background-image: url(${({ backgroundImageUrl }) => backgroundImageUrl || ''});
   background-position: center;
-  height: 30vh;
+  height: 20vh;
 
-  @media ${device.mobileS} {
-    height: 20vh;
+  @media ${largerThan(tablet)} {
+    height: 30vh;
   }
 `
 
@@ -26,10 +31,11 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   margin: 0 auto 100px;
-  width: 65%;
 
-  @media ${device.mobileL} {
-    width: 85%;
+  width: 85%;
+
+  @media ${largerThan(mobile)} {
+    width: 65%;
   }
 `
 
@@ -100,12 +106,13 @@ const CategoriesWrapper = styled.div`
 const Category = styled.p`
   border: 1px solid black;
   border-radius: 15px;
-  font-size: 16px;
   margin: 0 4px;
 
   padding: 4px 10px;
-  @media ${device.mobileS} {
-    font-size: 14px;
+  font-size: 14px;
+
+  @media ${largerThan(mobile)} {
+    font-size: 16px;
   }
 `
 
@@ -170,13 +177,6 @@ const EventCardDetails = styled.div`
   margin-bottom: 20px;
 
   width: 100%;
-
-  @media ${device.mobileS} {
-    margin-top: 0;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-  }
 `
 
 const EventCardTitle = styled.p`
@@ -192,10 +192,10 @@ const EventCardWrapper = styled.div`
 `
 
 const EventCardImg = styled.img`
-  width: 180px;
-  @media ${device.mobileL} {
-    object-fit: cover;
-    width: 80px;
+  width: 80px;
+
+  @media ${largerThan(mobile)} {
+    width: 180px;
   }
 `
 
@@ -253,14 +253,14 @@ const EventCard = ({ event }: { event: BasicEvent }) => {
 }
 
 const EventCategoriesWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-right: -4px;
+  justify-content: flex-start;
+  margin-right: 0;
+  margin-left: -4px;
 
-  @media ${device.mobileL} {
-    justify-content: flex-start;
-    margin-right: 0;
-    margin-left: -4px;
+  @media ${largerThan(mobile)} {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: -4px;
   }
 `
 
