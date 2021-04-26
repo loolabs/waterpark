@@ -25,7 +25,6 @@ const initializeORM = async (DBObject: typeof DB) => {
 }
 
 const bootstrap = async () => {
-  await initializeORM(DB)
   app.use(express.json())
 
   app.use((_req, _res, next) => RequestContext.create(DB.orm.em, next))
