@@ -6,6 +6,7 @@
 
 # Junk
 .DS_Store
+.vscode
 
 
 # standard Node .gitignore #####################################################

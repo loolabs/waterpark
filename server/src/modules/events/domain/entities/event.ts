@@ -7,6 +7,22 @@ import { EventId } from '../value-objects/eventId'
 interface EventProps {
   name: string
   description: string
+  url?: string
+  bannerImage: string
+  startTime: Date
+  endTime: Date
+  links: {
+    facebook?: string
+    twitter?: string
+    instagram?: string
+  }
+  tags: Array<string>
+  clubs: Array<BasicClub>
+}
+
+export type BasicClub = {
+  name: string
+  iconImage: string
 }
 
 export class Event extends AggregateRoot<EventProps> {
@@ -40,5 +56,41 @@ export class Event extends AggregateRoot<EventProps> {
 
   get description(): string {
     return this.props.description
+  }
+
+  get url(): string | undefined {
+    return this.props.url
+  }
+
+  get bannerImage(): string {
+    return this.props.bannerImage
+  }
+
+  get startTime(): Date {
+    return this.props.startTime
+  }
+
+  get endTime(): Date {
+    return this.props.endTime
+  }
+
+  get facebook(): string | undefined {
+    return this.props.links.facebook
+  }
+
+  get twitter(): string | undefined {
+    return this.props.links.twitter
+  }
+
+  get instagram(): string | undefined {
+    return this.props.links.instagram
+  }
+
+  get tags(): Array<string> {
+    return this.props.tags
+  }
+
+  get clubs(): Array<BasicClub> {
+    return this.props.clubs
   }
 }
