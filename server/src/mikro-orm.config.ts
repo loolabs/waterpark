@@ -40,7 +40,6 @@ const clientUrl = process.env.DATABASE_URL
 // workaround is to allow unauthorized SSL certificates, per below.
 // TODO: look into risk factors: https://stackoverflow.com/a/63914477/6113956
 const sslOptions = { rejectUnauthorized: false }
-
 const isDatabaseLocal = process.env.IS_DATABASE_LOCAL === 'true'
 const isDatabaseSSL = isDatabaseLocal ? false : sslOptions
 
