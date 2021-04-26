@@ -26,6 +26,7 @@ const port = process.env.PORT || 3001
 
 const bootstrap = async () => {
   // app.use(express.json())
+  // await initializeORM()
 
   // app.use((_req, _res, next) => RequestContext.create(DB.orm.em, next))
   app.use('/api/v1', v1Router)
