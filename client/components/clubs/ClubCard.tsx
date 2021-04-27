@@ -71,19 +71,6 @@ const ClubCardDescription = styled.p`
   text-overflow: ellipsis;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-
-  // Fade out overflowing text
-  /*
-  :after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 40%;
-    height: 1.2em;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 80%);
-  }
-  */
 `
 
 const RightSpaceWrapper = styled.div`
