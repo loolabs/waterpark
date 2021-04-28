@@ -4,7 +4,7 @@ import { useAppContext } from '../../context'
 import { colours, desktopFontSize, device, fontWeight, PageTitle } from '../../styles/'
 import { Club } from '../../context/'
 import { BasicEvent } from '../../context/Base'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import { useRouter } from 'next/router'
 
 const mobile = `425px`
@@ -229,8 +229,10 @@ const EventsHostedByClub = ({ events }: { events: Array<BasicEvent> }) => {
 }
 
 const EventCard = ({ event }: { event: BasicEvent }) => {
-  const date = `${event.startTime.format('dddd')}, ${event.startTime.format('LL')}`
-  const time = `${event.startTime.format('LT')} - ${event.endTime.format('LT')}`
+  const date = `${event.startTime.local().format('dddd')}, ${event.startTime
+    .local()
+    .format('LL z')}`
+  const time = `${event.startTime.format('ha z')} - ${event.endTime.format('ha z')}`
 
   const dateTimeString = (
     <p>

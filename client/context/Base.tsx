@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { indexData } from '../utils'
-import moment, { Moment } from 'moment'
+import moment, { Moment } from 'moment-timezone'
 
 export type Id = number
 
@@ -47,6 +47,8 @@ export interface BasicEvent {
   tags: Array<string>
 }
 
+const localZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+
 export const CLUBS: Array<Club> = [
   {
     id: 2932,
@@ -62,16 +64,16 @@ export const CLUBS: Array<Club> = [
     events: [
       {
         name: 'Mac and Chess',
-        startTime: moment('2022-03-26 12:00'),
-        endTime: moment('2022-03-26 12:00'),
+        startTime: moment.tz('2022-11-18 10:55', 'Asia/Tokyo').local().tz(localZone),
+        endTime: moment.tz('2022-11-18 11:55', 'Asia/Tokyo').local().tz(localZone),
         backgroundImageURL:
           'https://images.unsplash.com/photo-1580541832626-2a7131ee809f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1956&q=80',
         tags: ['Bored', 'Pasta'],
       },
       {
         name: 'Mac and Chess',
-        startTime: moment('2021-03-26 12:00'),
-        endTime: moment('2021-03-26 12:00'),
+        startTime: moment.tz('2022-11-18 10:55', 'Asia/Tokyo').local().tz(localZone),
+        endTime: moment.tz('2022-11-18 11:55', 'Asia/Tokyo').local().tz(localZone),
         backgroundImageURL:
           'https://images.unsplash.com/photo-1580541832626-2a7131ee809f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1956&q=80',
         tags: ['Bored', 'Pasta'],
@@ -89,8 +91,8 @@ export const CLUBS: Array<Club> = [
     events: [
       {
         name: 'Mac and Chess',
-        startTime: moment('2021-03-26 12:00'),
-        endTime: moment('2021-03-26 12:00'),
+        startTime: moment.tz('2022-11-18 10:55', 'Asia/Tokyo').local().tz(localZone),
+        endTime: moment.tz('2022-11-18 11:55', 'Asia/Tokyo').local().tz(localZone),
         backgroundImageURL:
           'https://images.unsplash.com/photo-1580541832626-2a7131ee809f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1956&q=80',
         tags: ['Bored Games', 'Pasta'],
@@ -118,9 +120,9 @@ export const EVENTS: Array<Event> = [
     },
     description: 'dancing in the dark',
     backgroundImageURL:
-      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80',
-    startDate: moment('2021-24-03 18:00'),
-    endDate: moment('2021-24-03 20:00'),
+      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlf0x8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80',
+    startDate: moment.tz('2022-11-18 10:55', 'Asia/Tokyo').local().tz(localZone),
+    endDate: moment.tz('2022-11-18 11:55', 'Asia/Tokyo').local().tz(localZone),
     tags: ['Tech', 'Community'],
   },
   {
@@ -133,9 +135,9 @@ export const EVENTS: Array<Event> = [
     },
     description: 'chef curry with the shot',
     backgroundImageURL:
-      'https://images.unsplash.com/photo-1616169201999-0d80789e41c3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    startDate: moment('2021-24-04 8:00'),
-    endDate: moment('2021-24-04 10:00'),
+      'https://images.unsplash.com/photo-1616169201999-0d80789e41c3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlf0x8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+    startDate: moment.tz('2022-11-18 10:55', 'Asia/Tokyo').local().tz(localZone),
+    endDate: moment.tz('2022-11-18 11:55', 'Asia/Tokyo').local().tz(localZone),
     tags: ['Arts'],
   },
   {
@@ -148,9 +150,9 @@ export const EVENTS: Array<Event> = [
     },
     description: '👩‍🔬',
     backgroundImageURL:
-      'https://images.unsplash.com/photo-1616256074022-3a20e0e8bf1b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=701&q=80',
-    startDate: moment('2021-24-05 10:00'),
-    endDate: moment('2021-24-05 12:00'),
+      'https://images.unsplash.com/photo-1616256074022-3a20e0e8bf1b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlf0x8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=701&q=80',
+    startDate: moment.tz('2022-11-18 10:55', 'Asia/Tokyo').local().tz(localZone),
+    endDate: moment.tz('2022-11-18 11:55', 'Asia/Tokyo').local().tz(localZone),
     tags: ['Science', 'Health'],
   },
 ]
