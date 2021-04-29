@@ -135,6 +135,7 @@ def connect():
         return conn
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
+    finally:
         if conn is not None:
             conn.close()
             print("Connection Closed")
