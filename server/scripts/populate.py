@@ -36,18 +36,12 @@ def insert_tags():
         conn.close()
 
 
-def club_generator(clubs):
-    for club in clubs:
-        yield club
-
-
 def read_clubs(filepath):
     with open(filepath) as file:
-        clubList = yaml.load(file, Loader=yaml.FullLoader)
-        for club in clubList:
-            if not verify(club, club_non_nullable, "club"):
-                return None
-        return club_generator(clubList)
+        club_dicts = yaml.load(file, Loader=yaml.FullLoader)
+    for club_dict in club_dicts:
+        club = # do something with club_dict - see my other comment
+        yield club
 
 
 def verify(entity, fields, typeof):
