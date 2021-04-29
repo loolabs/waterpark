@@ -1,7 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useAppContext } from '../../context'
-import { colours, desktopFontSize, device, fontWeight, PageTitle } from '../../styles/'
+import {
+  colours,
+  desktopFontSize,
+  device,
+  fontWeight,
+  mobileFontSize,
+  PageTitle,
+} from '../../styles/'
 import { Club } from '../../context/'
 import { BasicEvent } from '../../context/Base'
 import moment from 'moment-timezone'
@@ -109,10 +116,10 @@ const Category = styled.p`
   margin: 0 4px;
 
   padding: 4px 10px;
-  font-size: 14px;
+  font-size: ${mobileFontSize.body1};
 
   @media ${largerThan(mobile)} {
-    font-size: 16px;
+    font-size: ${desktopFontSize.body1};
   }
 `
 
@@ -141,8 +148,8 @@ const ClubInfo = ({ club }: ClubInfoProps) => {
       <ClubName> {name}</ClubName>
 
       <Links>
-        {linksThatExist.map((l) => (
-          <SocialLink>{l}</SocialLink>
+        {linksThatExist.map((l, i) => (
+          <SocialLink key={`social-link-${i}`}>{l}</SocialLink>
         ))}
       </Links>
 
@@ -159,8 +166,8 @@ const ClubInfo = ({ club }: ClubInfoProps) => {
 
 const Categories = ({ tags }: { tags: Array<string> }) => (
   <CategoriesWrapper>
-    {tags.map((t) => (
-      <Category>{t}</Category>
+    {tags.map((t, i) => (
+      <Category key={`category-tag-${i}`}>{t}</Category>
     ))}
   </CategoriesWrapper>
 )
@@ -217,12 +224,12 @@ const EventsHostedByClub = ({ events }: { events: Array<BasicEvent> }) => {
   return (
     <div>
       <EventsTitle>Upcoming Events</EventsTitle>
-      {upcomingEvents.map((e) => {
-        return <EventCard event={e} />
+      {upcomingEvents.map((e, i) => {
+        return <EventCard event={e} key={`event-card-${i}`} />
       })}
       <PastEventsTitle>Past Events</PastEventsTitle>
-      {pastEvents.map((e) => {
-        return <EventCard event={e} />
+      {pastEvents.map((e, i) => {
+        return <EventCard event={e} key={`past-event-card-${i}`} />
       })}
     </div>
   )
@@ -268,8 +275,8 @@ const EventCategoriesWrapper = styled.div`
 
 const EventCategories = ({ tags }: { tags: Array<string> }) => (
   <EventCategoriesWrapper>
-    {tags.map((t) => {
-      return <Category>{t}</Category>
+    {tags.map((t, i) => {
+      return <Category key={`tag-${i}`}>{t}</Category>
     })}
   </EventCategoriesWrapper>
 )
