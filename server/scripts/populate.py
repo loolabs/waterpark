@@ -81,42 +81,37 @@ def insert_clubs():
     if conn is None:
         return
     insert_tags()
-    try:
-        while True:
-            club = next(club_list)
-            club["id"] = str(uuid.uuid4())
-            # pp.pprint(club)
-            with conn.cursor() as cursor:
-                cursor.execute("INSERT INTO club VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
-                               (club.get("id"), datetime.now(), datetime.now(), club.get("name"),
-                                club.get("description"), club.get("size"), club.get(
-                                    "banner_image"), club.get("icon_image"),
-                                club.get("facebook"), club.get("twitter"), club.get("instagram"), club.get("website")))
-                events = club.get("events")
-                if (events is not None):
-                    for event in events:
-                        event["id"] = str(uuid.uuid4())
-                        cursor.execute(
-                            "INSERT INTO event VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
-                            (event.get("id"), datetime.now(), datetime.now(), event.get("name"), event.get("description"),
-                             event.get("url"), event.get("banner_image"),
-                             event.get("start_time"), event.get("end_time"),
-                             event.get("facebook"), event.get("twitter"), event.get("instagram")))
-                        cursor.execute(
-                            "INSERT INTO club_events VALUES (%s, %s);", (club.get("id"), event.get("id")))
-                        tags = event.get("tags")
-                        if tags is not None:
-                            for tag in tags:
-                                cursor.execute(
-                                    "INSERT INTO tag_events VALUES (%s, %s);", (tag_entities.get(tag), event.get("id")))
-                tags = club.get("tags")
-                if tags is not None:
-                    for tag in tags:
-                        cursor.execute(
-                            "INSERT INTO tag_clubs VALUES (%s, %s);", (tag_entities.get(tag), club.get("id")))
-    except StopIteration:
-        conn.commit()
-        print("Clubs Inserted")
+    for club in club_list:
+        club["id"] = str(uuid.uuid4())
+        # pp.pprint(club)
+        with conn.cursor() as cursor:
+            cursor.execute("INSERT INTO club VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
+                           (club.get("id"), datetime.now(), datetime.now(), club.get("name"),
+                            club.get("description"), club.get("size"), club.get(
+                                "banner_image"), club.get("icon_image"),
+                            club.get("facebook"), club.get("twitter"), club.get("instagram"), club.get("website")))
+            events = club.get("events")
+            if (events is not None):
+                for event in events:
+                    event["id"] = str(uuid.uuid4())
+                    cursor.execute(
+                        "INSERT INTO event VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
+                        (event.get("id"), datetime.now(), datetime.now(), event.get("name"), event.get("description"),
+                         event.get("url"), event.get("banner_image"),
+                         event.get("start_time"), event.get("end_time"),
+                         event.get("facebook"), event.get("twitter"), event.get("instagram")))
+                    cursor.execute(
+                        "INSERT INTO club_events VALUES (%s, %s);", (club.get("id"), event.get("id")))
+                    tags = event.get("tags")
+                    if tags is not None:
+                        for tag in tags:
+                            cursor.execute(
+                                "INSERT INTO tag_events VALUES (%s, %s);", (tag_entities.get(tag), event.get("id")))
+            tags = club.get("tags")
+            if tags is not None:
+                for tag in tags:
+                    cursor.execute(
+                        "INSERT INTO tag_clubs VALUES (%s, %s);", (tag_entities.get(tag), club.get("id")))
     finally:
         conn.close()
         print("Connection Closed")
