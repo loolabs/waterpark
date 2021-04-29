@@ -1,0 +1,15 @@
+{
+  "name": "@loolabs/waterpark-common",
+  "description": "Common types and utilities for Loo Labs' centralized clubs and events platform",
+  "author": "Loo Labs",
+  "version": "0.0.1",
+  "license": "ISC",
+  "private": true,
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "io-ts": "^2.2.16"
+  },
+  "devDependencies": {}
+}
