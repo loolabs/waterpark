@@ -109,7 +109,7 @@ export const EventListCard = ({ event }: EventProps) => {
   }
 
   const getFormattedTimeString = () => (
-    `${startDate.format('LT')} - ${endDate.format('LT')} ET`
+    `${startDate.format('LT')} - ${endDate.format('LT z')}`
   )
 
   const getFormattedTags = () => (

@@ -19,7 +19,8 @@ export abstract class AggregateRoot<T> extends Entity<T> {
   private logDomainEventAdded(domainEvent: DomainEvent): void {
     const thisClass = Reflect.getPrototypeOf(this)
     const domainEventClass = Reflect.getPrototypeOf(domainEvent)
-    if (thisClass != null && domainEventClass != null) { //TODO: fix hack; ts compiler complains about potential null
+    if (thisClass != null && domainEventClass != null) {
+      //TODO: fix hack; ts compiler complains about potential null
       console.info(
         `[Domain Event Created]:`,
         thisClass.constructor.name,
@@ -27,7 +28,7 @@ export abstract class AggregateRoot<T> extends Entity<T> {
         domainEventClass.constructor.name
       )
     } else {
-      throw new Error("Null class returned by Reflect.getProtoTypeOf")
+      throw new Error('Null class returned by Reflect.getProtoTypeOf')
     }
   }
 

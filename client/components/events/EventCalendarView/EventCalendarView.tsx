@@ -1,7 +1,7 @@
 import React from "react"
 import { Event } from '../../../context'
 import styled from 'styled-components'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
 import { EventCalendarCard } from './EventCalendarCard'
 
@@ -61,7 +61,7 @@ export const EventCalendarView = ({ filteredEvents }: EventViewProps) => {
   const getEventsOnDay = (dayNumber: Number) => {
     const beginningOfWeek = moment().startOf('isoWeek');
     const endOfWeek = moment().startOf('isoWeek').add(6, 'days');
-    //ensures events correspond to current week period starting at the last monday and ending at next sunday
+    //ensures events correspond to current week period starting at the last monday and ending at next sunday are selected
     return filteredEvents.filter(event => 
       event.startDate.isSameOrAfter(beginningOfWeek, 'day') 
       && event.startDate.isSameOrBefore(endOfWeek, 'day')
