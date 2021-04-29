@@ -21,8 +21,7 @@ const EventMetaData = styled.div`
   margin-top: 16px;
 `
 
-const MemberCount = styled.div`
-  font-style: italic;
+const Date = styled.div`
   font-weight: ${fontWeight.bold};
 `
 
@@ -44,7 +43,9 @@ interface EventInfoProps {
 export const EventInfo = ({ event }: EventInfoProps) => {
   const router = useRouter()
 
-  const { name, description, tags } = event
+  const { name, description, tags, startDate, endDate } = event
+  const date = `${startDate.local().format('dddd')}, ${event.startDate.local().format('LL z')}`
+  const time = `${startDate.format('ha z')} - ${event.endDate.format('ha z')}`
 
   return (
     <div>
@@ -53,7 +54,13 @@ export const EventInfo = ({ event }: EventInfoProps) => {
       <EventName> {name}</EventName>
 
       <EventMetaData>
-        <MemberCount>20-30 members</MemberCount>
+        <Date>
+          <p>
+            {date}
+            <br />
+            {time}
+          </p>
+        </Date>
         <Categories tags={tags} />
         {/* TODO: color code the tags */}
       </EventMetaData>

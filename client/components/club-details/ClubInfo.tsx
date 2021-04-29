@@ -79,7 +79,9 @@ export const ClubInfo = ({ club }: ClubInfoProps) => {
       </Links>
 
       <ClubMetaData>
-        <MemberCount>20-30 members</MemberCount>
+        <MemberCount>
+          <p>20-30 members</p>
+        </MemberCount>
         <Categories tags={tags} />
         {/* TODO: color code the tags */}
       </ClubMetaData>
