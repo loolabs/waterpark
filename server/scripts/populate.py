@@ -120,11 +120,8 @@ def insert_clubs():
 def connect():
     conn = None
     print("Connecting to PostgreSQL server...")
-    if not path.exists("db.ini"):
-        print("Missing configuration file.")
-        return None
-    parser = ConfigParser()
-    parser.read("db.ini")
+    with open("db.ini") as f:
+        parser.read_file(f)
     try:        
         conn = psycopg2.connect(
             host=parser["postgresql"].get("host"),
