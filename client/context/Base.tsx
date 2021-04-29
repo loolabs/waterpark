@@ -100,9 +100,9 @@ export const EVENTS: Array<Event> = [
     },
     description: 'dancing in the dark',
     backgroundImageURL: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80",
-    startDate: moment("2021-03-24 18:00"),
-    endDate: moment("2021-03-24 20:00"),
-    tags: ["Tech", "Community"]
+    startDate: moment("2021-04-29 18:00"),
+    endDate: moment("2021-04-29 20:00"),
+    tags: ["Tech", "Community","Arts","Arts","Arts","Arts","Arts"]
   },
   {
     id: 6787,
@@ -113,8 +113,8 @@ export const EVENTS: Array<Event> = [
     },
     description: 'chef curry with the shot',
     backgroundImageURL: "https://images.unsplash.com/photo-1616169201999-0d80789e41c3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
-    startDate: moment("2021-09-24 8:00"),
-    endDate: moment("2021-09-24 10:00"),
+    startDate: moment("2021-04-28 8:00"),
+    endDate: moment("2021-04-28 10:00"),
     tags: ["Arts"]
   },
   {
@@ -126,8 +126,8 @@ export const EVENTS: Array<Event> = [
     },
     description: '👩‍🔬',
     backgroundImageURL: "https://images.unsplash.com/photo-1616256074022-3a20e0e8bf1b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=701&q=80",
-    startDate: moment("2021-05-24 10:00"),
-    endDate: moment("2021-05-24 12:00"),
+    startDate: moment("2021-04-30 10:00"),
+    endDate: moment("2021-04-30 12:00"),
     tags: ["Science", "Health"]
   },
 ]

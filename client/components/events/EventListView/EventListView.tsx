@@ -13,6 +13,9 @@ const ListView = styled.div<any>`
 
 const ListViewRow = styled.div<any>`
   display: flex;
+  @media ${device.tablet} {
+    display: block;
+  }
 `
 
 const ListViewDate = styled.div<any>`
@@ -20,16 +23,15 @@ const ListViewDate = styled.div<any>`
   font-size: ${desktopFontSize.subtitle2};
   flex: 0 0 200px;
   color: ${colours.neutralDark1};
-`
-
-const ListViewSpacer = styled.div<any>`
-  flex: 0 0 100px;
+  @media ${device.tablet} {
+    margin-bottom: 15px;
+  }
 `
 
 export const EventListView = ({ filteredEvents }: EventViewProps) => {
   
   const getDateLabelIfNecessary = (index: number, allEvents: Event[]) => {
-    if(index == 0 || (allEvents[index-1].startDate != allEvents[index].startDate)){
+    if(index == 0 || !(allEvents[index-1].startDate.isSame(allEvents[index].startDate, 'day'))){
       return allEvents[index].startDate.format('ddd, MMM Do').toLocaleUpperCase();
     }
     return null;
@@ -37,12 +39,11 @@ export const EventListView = ({ filteredEvents }: EventViewProps) => {
 
   const getEventListCards = () => (
     filteredEvents.map((event, index, allEvents) => (
-      <ListViewRow>
+      <ListViewRow key={`list-view-row-${event.id}`}>
         <ListViewDate>
           {getDateLabelIfNecessary(index, allEvents)}
         </ListViewDate>
-        <EventListCard key={event.id} event={event} />
-        <ListViewSpacer/>
+        <EventListCard key={`event-list-card-${event.id}`} event={event} />
       </ListViewRow>
     ))
   )
