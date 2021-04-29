@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { Club } from '../../../context'
-import { desktopFontSize, fontWeight, mobileFontSize, PageTitle } from '../../../styles'
+import { Club } from '../../context'
+import { fontWeight, PageTitle } from '../../styles'
 import { Category } from './Category'
 
 const BackArrow = styled.img`

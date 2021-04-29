@@ -1,11 +1,10 @@
 import styled from 'styled-components'
-import { colours, desktopFontSize, device, fontWeight } from '../../../styles'
 import moment from 'moment-timezone'
-import { BasicEvent } from '../../../context/Base'
 import { Category } from './Category'
+import { colours, desktopFontSize, device, fontWeight } from '../../styles'
+import { BasicEvent } from '../../context/Base'
 
 const mobile = `425px`
-const tablet = `768px`
 
 const largerThan = (size: string): string => `(min-width: ${size})`
 

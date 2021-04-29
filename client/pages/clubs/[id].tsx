@@ -2,8 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useAppContext } from '../../context'
 import { useRouter } from 'next/router'
-import { ClubInfo } from './components/ClubInfo'
-import { EventsHostedByClub } from './components/EventsHostedByClub'
+import { ClubInfo, EventsHostedByClub } from '../../components/club-details'
 
 const mobile = `425px`
 const tablet = `768px`

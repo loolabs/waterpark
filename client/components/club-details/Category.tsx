@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { desktopFontSize, mobileFontSize } from '../../../styles'
+import { desktopFontSize, mobileFontSize } from '../../styles'
 
 const mobile = `425px`
 const largerThan = (size: string): string => `(min-width: ${size})`
