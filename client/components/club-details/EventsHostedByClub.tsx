@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import moment from 'moment-timezone'
-import { Category } from './Category'
+import { Category } from '../Category'
 import { colours, desktopFontSize, device, fontWeight } from '../../styles'
 import { BasicEvent } from '../../context/Base'
 

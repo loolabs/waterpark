@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { Club } from '../../context'
+import { Event } from '../../context'
 import { fontWeight, PageTitle } from '../../styles'
 import { Category } from '../Category'
 
@@ -9,29 +9,12 @@ const BackArrow = styled.img`
   cursor: pointer;
 `
 
-const Logo = styled.img`
-  border-radius: 100%;
-  display: block;
-  margin-top: 40px;
-  height: 100px;
-  width: 100px;
-`
-
-const ClubName = styled(PageTitle)`
+const EventName = styled(PageTitle)`
   margin-bottom: 0;
   margin-top: 32px;
 `
 
-const Links = styled.div`
-  display: flex;
-  margin-top: 16px;
-`
-
-const SocialLink = styled.a`
-  text-decoration: underline;
-`
-
-const ClubMetaData = styled.div`
+const EventMetaData = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
@@ -48,43 +31,34 @@ const CategoriesWrapper = styled.div`
   margin-right: -4px;
 `
 
-const ClubDescription = styled.p`
+const EventDescription = styled.p`
   line-height: 1.3;
   margin-top: 24px;
   margin-bottom: 24px;
 `
 
-interface ClubInfoProps {
-  club: Club
+interface EventInfoProps {
+  event: Event
 }
 
-export const ClubInfo = ({ club }: ClubInfoProps) => {
+export const EventInfo = ({ event }: EventInfoProps) => {
   const router = useRouter()
 
-  const { name, description, iconURL, tags } = club
-  const links = [club.facebookLink, club.twitterLink, club.instagramLink, club.websiteLink]
-  const linksThatExist = links.filter((l) => l !== undefined)
+  const { name, description, tags } = event
 
   return (
     <div>
       <BackArrow src="/back-arrow.svg" width="28px" onClick={() => router.back()} />
 
-      <Logo src={iconURL} alt="" />
-      <ClubName> {name}</ClubName>
+      <EventName> {name}</EventName>
 
-      <Links>
-        {linksThatExist.map((l, i) => (
-          <SocialLink key={`social-link-${i}`}>{l}</SocialLink>
-        ))}
-      </Links>
-
-      <ClubMetaData>
+      <EventMetaData>
         <MemberCount>20-30 members</MemberCount>
         <Categories tags={tags} />
         {/* TODO: color code the tags */}
-      </ClubMetaData>
+      </EventMetaData>
 
-      <ClubDescription>{description}</ClubDescription>
+      <EventDescription>{description}</EventDescription>
     </div>
   )
 }
