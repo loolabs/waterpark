@@ -1,8 +1,11 @@
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { Event } from '../../context'
-import { desktopFontSize, fontWeight, PageTitle } from '../../styles'
+import { desktopFontSize, mobileFontSize, fontWeight, PageTitle } from '../../styles'
 import { Category } from '../Category'
+
+const mobile = `425px`
+const largerThan = (size: string): string => `(min-width: ${size})`
 
 const BackArrow = styled.img`
   margin-top: 64px;
@@ -22,9 +25,13 @@ const EventMetaData = styled.div`
 `
 
 const Date = styled.p`
-  font-size: ${desktopFontSize.h3};
-  font-weight: ${fontWeight.semiBold};
   margin-bottom: 0;
+  font-size: ${mobileFontSize.body1};
+  font-weight: ${fontWeight.semiBold};
+
+  @media ${largerThan(mobile)} {
+    font-size: ${desktopFontSize.h3};
+  }
 `
 
 const CategoriesWrapper = styled.div`
@@ -51,9 +58,13 @@ const ClubIcon = styled.img`
 `
 
 const ClubName = styled.p`
-  font-size: ${desktopFontSize.h3};
   font-weight: ${fontWeight.semiBold};
-  margin-left: 16px;
+  margin-left: 8px;
+
+  @media ${largerThan(mobile)} {
+    margin-left: 16px;
+    font-size: ${desktopFontSize.h3};
+  }
 `
 
 interface EventInfoProps {
@@ -73,14 +84,12 @@ export const EventInfo = ({ event }: EventInfoProps) => {
 
       <EventName>{name}</EventName>
 
-      <EventMetaData>
-        <Date>
-          {date}
-          <br />
-          {time}
-        </Date>
-        {/* TODO: color code the tags */}
-      </EventMetaData>
+      <Date>
+        {date}
+        <br />
+        {time}
+      </Date>
+      {/* TODO: color code the tags */}
 
       <ClubInfo>
         <ClubIcon src={event.club.iconURL} />

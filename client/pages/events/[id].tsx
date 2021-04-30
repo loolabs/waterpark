@@ -4,6 +4,7 @@ import { useAppContext } from '../../context'
 import { Banner } from '../../components/Banner'
 import { Container } from '../../components/DetailContainer'
 import { EventInfo } from '../../components/event-details'
+import { SimilarEvents } from '../../components/event-details/SimilarEvents'
 
 // interface Event {
 //   id: Id
@@ -30,6 +31,7 @@ export default function EventDetail() {
       <Banner backgroundImageUrl={event.backgroundImageURL} />
       <Container>
         <EventInfo event={event} />
+        <SimilarEvents />
       </Container>
     </div>
   )
