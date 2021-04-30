@@ -1,12 +1,16 @@
-import psycopg2
-import yaml
-import uuid
-import pprint
+# Assumptions: each club has its own events. Many-to-many not supported
+# yet. See example clubs.yml file for example input. db.ini file must be
+# in same directory
+
+from configparser import ConfigParser
 from datetime import datetime
 from os import path
-from configparser import ConfigParser
 from enum import Enum
 from marshmallow import Schema, fields, validate
+import pprint
+import uuid
+import psycopg2
+import yaml
 
 filepath = "clubs.yml"
 pp = pprint.PrettyPrinter(indent=2)
@@ -15,22 +19,6 @@ club_non_nullable = ["name", "description",
 event_non_nullable = ["name", "description",
                       "banner_image", "start_time", "end_time"]
 tag_entities = {}
-
-
-class ClubSchema(Schema):
-    name = fields.Str(required=True, validate=validate.Length(min=1))
-    description = fields.Str(required=True, validate=validate.Length(min=1))
-    size = fields.Int(required=True, validate=validate.Range(min=1))
-    banner_image = fields.url(required=True, validate=validate.Length(min=1))
-    icon_image = fields.url(required=True, validate=validate.Length(min=1))
-
-
-class EventSchema(Schema):
-    name = fields.Str(required=True, validate=validate.Length(min=1))
-    description = fields.Str(required=True, validate=validate.Length(min=1))
-    banner_image = fields.url(required=True, validate=validate.Length(min=1))
-    start_time = fields.DateTime(required=True)
-    end_time = fields.DateTime(required=True)
 
 
 class Tags(str, Enum):
@@ -49,60 +37,56 @@ class Tags(str, Enum):
     health = "Health"
 
 
-# Assumptions: each club has its own events. Many-to-many not supported
-# yet. See example clubs.yml file for example input. db.ini file must be
-# in same directory
+class EventSchema(Schema):
+    name = fields.Str(required=True, validate=validate.Length(min=1))
+    description = fields.Str(required=True, validate=validate.Length(min=1))
+    url = fields.Url()
+    banner_image = fields.Url(required=True, validate=validate.Length(min=1))
+    start_time = fields.DateTime(required=True)
+    end_time = fields.DateTime(required=True)
+    facebook = fields.Url()
+    twitter = fields.Url()
+    instagram = fields.Url()
+    tags = fields.List(fields.Str(
+        validate=validate.OneOf([tag.value for tag in Tags])))
+
+
+class ClubSchema(Schema):
+    name = fields.Str(required=True, validate=validate.Length(min=1))
+    description = fields.Str(required=True, validate=validate.Length(min=1))
+    size = fields.Int(required=True, validate=validate.Range(min=1))
+    banner_image = fields.Url(required=True, validate=validate.Length(min=1))
+    icon_image = fields.Url(required=True, validate=validate.Length(min=1))
+    facebook = fields.Url()
+    twitter = fields.Url()
+    instagram = fields.Url()
+    website = fields.Url()
+    events = fields.List(fields.Nested(EventSchema))
+    tags = fields.List(fields.Str(
+        validate=validate.OneOf([tag.value for tag in Tags])))
+
 
 def insert_tags():
-    conn = connect()
-    try:
-        with conn.cursor() as cursor:
-            for tag in Tags:
-                _id = str(uuid.uuid4())
-                tag_entities[tag.value] = _id
-                cursor.execute("INSERT INTO tag VALUES (%s,%s,%s,%s);",
-                               (_id, datetime.now(), datetime.now(), tag.value))
+    tag_args = []
+    for tag in Tags:
+        _id = str(uuid.uuid4())
+        tag_entities[tag.value] = _id
+        tag_args.append((_id, datetime.now(), datetime.now(), tag.value))
+    with conn.cursor() as cursor:
+        cursor.execute("INSERT INTO tag VALUES" + ",".join(cursor.mogrify(
+            "(%s,%s,%s,%s)", x).decode("utf-8")
+            for x in tag_args))
         conn.commit()
-        print("Tags Inserted")
-    finally:
-        conn.close()
-
-
-def club_generator(clubs):
-    for club in clubs:
-        yield club
+    print("Tags Inserted")
 
 
 def read_clubs(filepath):
     with open(filepath) as file:
-        clubList = yaml.load(file, Loader=yaml.FullLoader)
-        for club in clubList:
-            if not verify(club, club_non_nullable, "club"):
-                return None
-        return club_generator(clubList)
+        club_dicts = yaml.load(file, Loader=yaml.FullLoader)
+    for club_dict in club_dicts:
+        club = ClubSchema().load(club_dict)
+        yield club
 
-
-def verify(entity, fields, typeof):
-    for field in fields:
-        if entity.get(field) is None:
-            name = "Untitled" if entity.get(
-                "name") is None else entity.get("name")
-            print("Error:", typeof, name,
-                  "is missing mandatory field", field)
-            return False
-        events = entity.get("events")
-        if events is not None:
-            for event in events:
-                if not verify(event, event_non_nullable, "event"):
-                    return False
-        tags = entity.get("tags")
-        if tags is not None:
-            for tag in tags:
-                if tag not in tags_enum:
-                    print("Error:", typeof, entity.get(
-                        "name"), "has illegal tag", tag)
-                    return False
-    return True
 
 
 def insert_clubs():
@@ -110,62 +94,68 @@ def insert_clubs():
     if club_list is None:
         print("Something failed; aborting...")
         return
-    
-    try:
-        while True:
-            club = next(club_list)
-            club["id"] = str(uuid.uuid4())
-            # pp.pprint(club)
-            with conn.cursor() as cursor:
-                cursor.execute("INSERT INTO club VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
-                               (club.get("id"), datetime.now(), datetime.now(), club.get("name"),
-                                club.get("description"), club.get("size"), club.get(
-                                    "banner_image"), club.get("icon_image"),
-                                club.get("facebook"), club.get("twitter"), club.get("instagram"), club.get("website")))
-                events = club.get("events")
-                if (events is not None):
-                    for event in events:
-                        event["id"] = str(uuid.uuid4())
-                        cursor.execute(
-                            "INSERT INTO event VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
-                            (event.get("id"), datetime.now(), datetime.now(), event.get("name"), event.get("description"),
-                             event.get("url"), event.get("banner_image"),
-                             event.get("start_time"), event.get("end_time"),
-                             event.get("facebook"), event.get("twitter"), event.get("instagram")))
-                        cursor.execute(
-                            "INSERT INTO club_events VALUES (%s, %s);", (club.get("id"), event.get("id")))
-                        tags = event.get("tags")
-                        if tags is not None:
-                            for tag in tags:
-                                cursor.execute(
-                                    "INSERT INTO tag_events VALUES (%s, %s);", (tag_entities.get(tag), event.get("id")))
-                tags = club.get("tags")
-                if tags is not None:
-                    for tag in tags:
-                        cursor.execute(
-                            "INSERT INTO tag_clubs VALUES (%s, %s);", (tag_entities.get(tag), club.get("id")))
-    except StopIteration:
+
+    club_values = []
+    event_values = []
+    club_events_values = []
+    tag_events_values = []
+    tag_clubs_values = []
+
+    for club in club_list:
+        club["id"] = str(uuid.uuid4())
+        pp.pprint(club)
+        club_values.append((club.get("id"), datetime.now(), datetime.now(), club.get("name"),
+                            club.get("description"), club.get("size"), club.get(
+                                "banner_image"), club.get("icon_image"),
+                            club.get("facebook"), club.get("twitter"), club.get("instagram"), club.get("website")))
+        for event in club.get("events", []):
+            event["id"] = str(uuid.uuid4())
+            event_values.append((event.get("id"), datetime.now(), datetime.now(), event.get("name"), event.get("description"),
+                                 event.get("url"), event.get("banner_image"),
+                                 event.get("start_time"), event.get(
+                                     "end_time"),
+                                 event.get("facebook"), event.get("twitter"), event.get("instagram")))
+            club_events_values.append((club.get("id"), event.get("id")))
+            for tag in event.get("tags", []):
+                tag_events_values.append(
+                    (tag_entities.get(tag), event.get("id")))
+        for tag in club.get("tags", []):
+            tag_clubs_values.append((tag_entities.get(tag), club.get("id")))
+    with conn.cursor() as cursor:
+        cursor.execute("INSERT INTO club VALUES " + ",".join(cursor.mogrify(
+            "(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", x).decode("utf-8")
+            for x in club_values))
+        cursor.execute("INSERT INTO event VALUES " + ",".join(cursor.mogrify(
+            "(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", x).decode("utf-8")
+            for x in event_values))
+        cursor.execute("INSERT INTO club_events VALUES" + ",".join(cursor.mogrify(
+            "(%s,%s)", x).decode("utf-8")
+            for x in club_events_values))
+        cursor.execute("INSERT INTO tag_events VALUES" + ",".join(cursor.mogrify(
+            "(%s,%s)", x).decode("utf-8")
+            for x in tag_events_values))
+        cursor.execute("INSERT INTO tag_clubs VALUES" + ",".join(cursor.mogrify(
+            "(%s,%s)", x).decode("utf-8")
+            for x in tag_clubs_values))
         conn.commit()
-        print("Clubs Inserted")
-    finally:
-        conn.close()
-        print("Connection Closed")
+    print("Clubs Inserted")
 
 
 def connect():
     conn = None
     print("Connecting to PostgreSQL server...")
-    if not path.exists("db.ini"):
-        print("Missing configuration file.")
-        return None
+
     parser = ConfigParser()
-    parser.read("db.ini")
+    with open("db.ini") as f:
+        parser.read_file(f)
+
+    keys = parser["postgresql"]
     try:
         conn = psycopg2.connect(
-            host=parser["postgresql"].get("host"),
-            database=parser["postgresql"].get("database"),
-            user=parser["postgresql"].get("user"),
-            password=parser["postgresql"].get("password"))
+            host=keys.get("host"),
+            database=keys.get("database"),
+            user=keys.get("user"),
+            password=keys.get("password"))
         print("Connection Successful")
         cursor = conn.cursor()
         cursor.execute("SELECT version()")
@@ -180,5 +170,12 @@ def connect():
 
 conn = connect()
 
+if conn is None:
+    exit()
+
+print(Tags.active.value)
 insert_tags()
 insert_clubs()
+
+conn.close()
+print("Connection Closed")
