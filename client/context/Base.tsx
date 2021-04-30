@@ -84,7 +84,7 @@ export const CLUBS: Array<Club> = [
     id: 8888,
     name: 'Cooking club with a really long name',
     description:
-      'Lorem ipsum dolor sit amet adpisicing and that is all I remember from lorem ipsum. Lorem ipsum dolor yet again advertising hi. Maybe this should be smaller? And so on and so forth',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     iconURL: 'https://avatars.githubusercontent.com/u/51551455',
     bannerImageURL: 'https://images.unsplash.com/photo-1528712306091-ed0763094c98',
     facebookLink: 'https://www.facebook.com/uwcookingclub/',

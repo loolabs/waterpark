@@ -57,7 +57,7 @@ export default function ClubDetail() {
 
   return (
     <div>
-      <Banner backgroundImageUrl={club.backgroundImageURL} />
+      <Banner backgroundImageUrl={club.bannerImageURL} />
       <Container>
         <ClubInfo club={club} />
         <EventsHostedByClub events={club.events} />
@@ -251,7 +251,7 @@ const EventCard = ({ event }: { event: BasicEvent }) => {
 
   return (
     <EventCardWrapper>
-      <EventCardImg src={event.backgroundImageURL} alt="" />
+      <EventCardImg src={event.bannerImageURL} alt="" />
       <EventCardDetails>
         <EventCardTitle>{event.name}</EventCardTitle>
         <EventCardDate>{dateTimeString}</EventCardDate>
