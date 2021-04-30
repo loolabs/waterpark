@@ -103,7 +103,6 @@ def insert_clubs():
 
     for club in club_list:
         club["id"] = str(uuid.uuid4())
-        pp.pprint(club)
         club_values.append((club.get("id"), datetime.now(), datetime.now(), club.get("name"),
                             club.get("description"), club.get("size"), club.get(
                                 "banner_image"), club.get("icon_image"),
