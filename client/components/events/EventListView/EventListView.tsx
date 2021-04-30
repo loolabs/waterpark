@@ -7,18 +7,18 @@ interface EventViewProps {
   filteredEvents: Array<Event>
 }
 
-const ListView = styled.div<any>`
+const ListView = styled.div`
   width: 100%;
 `
 
-const ListViewRow = styled.div<any>`
+const ListViewRow = styled.div`
   display: flex;
   @media ${device.tablet} {
     display: block;
   }
 `
 
-const ListViewDate = styled.div<any>`
+const ListViewDate = styled.div`
   font-weight: bold;
   font-size: ${desktopFontSize.subtitle2};
   flex: 0 0 200px;
@@ -32,6 +32,7 @@ export const EventListView = ({ filteredEvents }: EventViewProps) => {
   
   const getDateLabelIfNecessary = (index: number, allEvents: Event[]) => {
     if(index == 0 || !(allEvents[index-1].startDate.isSame(allEvents[index].startDate, 'day'))){
+      //Format: THU, NOV 17TH
       return allEvents[index].startDate.format('ddd, MMM Do').toLocaleUpperCase();
     }
     return null;

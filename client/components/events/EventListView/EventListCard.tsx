@@ -8,28 +8,29 @@ interface EventProps {
   event: Event
 }
 
-const ListCard = styled.div<any>`
+const ListCard = styled.div`
   margin-bottom: 20px;
   flex: 3 0 auto;
   display: flex;
-  width: 80%;
+  width: 100%;
   border-radius: 6px;
   box-shadow: 0px 4px 4px 1px ${colours.neutralLight1};
-  @media ${device.tablet} {
-    width: 100%;
+  @media not all and ${device.tablet} {
+    width: 80%;
+    
   }
 `
 
-const ListCardImageContainer = styled.div<any>`
+const ListCardImageContainer = styled.div`
   height: 160px;
-  flex 0 0 225px;
+  flex 0 0 80px;
   cursor: pointer;
-  @media ${device.tablet} {
-    flex 0 0 80px;
+  @media not all and ${device.tablet} {
+    flex 0 0 225px;
   }
 `
 
-const ListCardImage = styled.img<any>`
+const ListCardImage = styled.img`
   max-width: 100%;
   max-height: 100%;
   @media ${device.tablet} {
@@ -37,53 +38,54 @@ const ListCardImage = styled.img<any>`
   }
 `
 
-const ListCardContent = styled.div<any>`
+const ListCardContent = styled.div`
   padding: 20px;
   flex-grow: 1
 `
 
-const ListCardName = styled.div<any>`
+const ListCardName = styled.div`
   font-weight: bold;
-  font-size: ${desktopFontSize.h3};
-  @media ${device.tablet} {
-    font-size: ${mobileFontSize.h3};
+  font-size: ${mobileFontSize.h3};
+  @media not all and ${device.tablet} {
+    font-size: ${desktopFontSize.h3};
   }
   margin-bottom: 5px;
 `
 
-const ListCardTime = styled.div<any>`
-  font-size: ${desktopFontSize.subtitle2};
+const ListCardTime = styled.div`
+  font-size: ${mobileFontSize.subtitle2};
   line-height: 120%;
   margin-bottom: 20px;
-  @media ${device.tablet} {
-    font-size: ${mobileFontSize.subtitle2};
+  @media not all and ${device.tablet} {
+    font-size: ${desktopFontSize.subtitle2};
   }
 `
 
-const ListCardFooter = styled.div<any>`
-  display: flex;
+const ListCardFooter = styled.div`
+  display: block;
   justify-content: space-between;
-  @media ${device.tablet} {
-    display: block;
+  @media not all and ${device.tablet} {
+    display: flex;  
   }
 `
 
-const ListCardClub = styled.div<any>`
-  font-size: ${desktopFontSize.subtitle2};
+const ListCardClub = styled.div`
+  font-size: ${mobileFontSize.subtitle2};
   font-weight: bold;
   flex: 0 0 100px;
-  @media ${device.tablet} {
-    font-size: ${mobileFontSize.subtitle2};
+  @media not all and ${device.tablet} {
+    font-size: ${desktopFontSize.subtitle2};
   }
 `
 
-const ListCardTags = styled.div<any>`
+const ListCardTags = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
-  @media ${device.tablet} {
-    margin-top: 10px;
-    justify-content: flex-start;
+  justify-content: flex-start;
+  margin-top: 10px;
+  @media not all and ${device.tablet} {
+    margin-top: 0;
+    justify-content: flex-end;
   }
 `
 
@@ -109,6 +111,7 @@ export const EventListCard = ({ event }: EventProps) => {
   }
 
   const getFormattedTimeString = () => (
+     //Format: 8:55 PM - 9:55 PM EST
     `${startDate.format('LT')} - ${endDate.format('LT z')}`
   )
 

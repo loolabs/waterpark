@@ -11,45 +11,44 @@ interface EventViewProps {
 
 interface DaySignature {
   dayNumber: Number,
-  dayShortform: string
+  dayShortForm: string
 }
 
 const daysOfWeek: Array<DaySignature> = [
-  {dayNumber: 1, dayShortform: "Mon" },
-  {dayNumber: 2, dayShortform: "Tue" },
-  {dayNumber: 3, dayShortform: "Wed" },
-  {dayNumber: 4, dayShortform: "Thu" },
-  {dayNumber: 5, dayShortform: "Fri" },
-  {dayNumber: 6, dayShortform: "Sat" },
-  {dayNumber: 0, dayShortform: "Sun" },
+  { dayNumber: 1, dayShortForm: "Mon" },
+  { dayNumber: 2, dayShortForm: "Tue" },
+  { dayNumber: 3, dayShortForm: "Wed" },
+  { dayNumber: 4, dayShortForm: "Thu" },
+  { dayNumber: 5, dayShortForm: "Fri" },
+  { dayNumber: 6, dayShortForm: "Sat" },
+  { dayNumber: 0, dayShortForm: "Sun" },
 ]
 
-const CalendarView = styled.div<any>`
+const CalendarView = styled.div`
   display: flex; 
 `
 
-const CalendarColumnContainer = styled.div<any>`
+const CalendarColumnContainer = styled.div`
   display: flex; 
   justify-content: flex-start;
   flex-wrap: wrap;
 `
 
-const CalendarSpacer = styled.div<any>`
+const CalendarSpacer = styled.div`
   flex: 0 0 200px;
   @media ${device.laptop} {
     display: none;
   }
 `
 
-const CalendarColumn = styled.div<any>`
-  min-width: 180px;
-
-  @media ${device.mobileL} {
-    min-width: 120px;
+const CalendarColumn = styled.div`
+  min-width: 120px;
+  @media not all and ${device.mobileL} {
+    min-width: 180px;
   }
 `
 
-const CalendarColumnHeader = styled.h3<any>`
+const CalendarColumnHeader = styled.h3`
   color: ${colours.neutralDark1};
   font-weight: bold;
   font-size: ${desktopFontSize.h3};
@@ -78,7 +77,7 @@ export const EventCalendarView = ({ filteredEvents }: EventViewProps) => {
       const calendarCards = getCalendarCards(eventsOnDay);
       return <CalendarColumn key={`calendar-column-${day.dayNumber}`}>
         <CalendarColumnHeader>
-          {day.dayShortform.toLocaleUpperCase()}
+          {day.dayShortForm.toLocaleUpperCase()}
         </CalendarColumnHeader>
         {calendarCards}
       </CalendarColumn>
