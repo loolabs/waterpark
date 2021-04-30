@@ -38,9 +38,10 @@ const ClubMetaData = styled.div`
   margin-top: 16px;
 `
 
-const MemberCount = styled.div`
+const MemberCount = styled.p`
   font-style: italic;
   font-weight: ${fontWeight.bold};
+  margin-bottom: 0;
 `
 
 const CategoriesWrapper = styled.div`
@@ -79,9 +80,7 @@ export const ClubInfo = ({ club }: ClubInfoProps) => {
       </Links>
 
       <ClubMetaData>
-        <MemberCount>
-          <p>20-30 members</p>
-        </MemberCount>
+        <MemberCount>20-30 members</MemberCount>
         <Categories tags={tags} />
         {/* TODO: color code the tags */}
       </ClubMetaData>
