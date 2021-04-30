@@ -31,7 +31,7 @@ export default function EventDetail() {
       <Banner backgroundImageUrl={event.backgroundImageURL} />
       <Container>
         <EventInfo event={event} />
-        <SimilarEvents />
+        <SimilarEvents allEvents={events} event={event} />
       </Container>
     </div>
   )

@@ -4,7 +4,7 @@ import { Event } from '../../context'
 import { desktopFontSize, mobileFontSize, fontWeight, PageTitle } from '../../styles'
 import { Category } from '../Category'
 
-const mobile = `425px`
+const mobile = `768px`
 const largerThan = (size: string): string => `(min-width: ${size})`
 
 const BackArrow = styled.img`
@@ -15,13 +15,6 @@ const BackArrow = styled.img`
 const EventName = styled(PageTitle)`
   margin-bottom: 0;
   margin-top: 32px;
-`
-
-const EventMetaData = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 16px;
 `
 
 const Date = styled.p`

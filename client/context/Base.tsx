@@ -127,6 +127,22 @@ export const EVENTS: Array<Event> = [
     tags: ['Tech', 'Community'],
   },
   {
+    id: 12345,
+    name: 'Tech+ Mock Interview 2',
+    club: {
+      name: 'Tech + UW',
+      iconURL:
+        'https://avatars.githubusercontent.com/u/51551455?s=460&u=b397cbcdcc7f24a2c325784ad9333a4be316863b&v=4',
+    },
+    description:
+      'Everyone goes through tough times! Come listen to some of your mentors share their personal stories on how they overcame adversity and the most important lessons they learned along the way. Youll have the opportunity to ask questions and make new connections! ',
+    backgroundImageURL:
+      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlf0x8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80',
+    startDate: moment.tz('2022-11-18 10:55', 'Asia/Tokyo').local().tz(localZone),
+    endDate: moment.tz('2022-11-18 11:55', 'Asia/Tokyo').local().tz(localZone),
+    tags: ['Tech', 'Community'],
+  },
+  {
     id: 6787,
     name: 'ARBUS Society Movie Night',
     club: {
