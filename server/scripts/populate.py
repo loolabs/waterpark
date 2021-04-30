@@ -86,18 +86,13 @@ def read_clubs(filepath):
 
 
 def insert_clubs():
-    club_list = read_clubs(filepath)
-    if club_list is None:
-        print("Something failed; aborting...")
-        return
-
     club_values = []
     event_values = []
     club_events_values = []
     tag_events_values = []
     tag_clubs_values = []
 
-    for club in club_list:
+    for club in read_clubs(filepath):
         club["id"] = str(uuid.uuid4())
         club_values.append((club.get("id"), datetime.now(), datetime.now(), club.get("name"),
                             club.get("description"), club.get("size"), club.get(
