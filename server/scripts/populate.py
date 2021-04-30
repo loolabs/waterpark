@@ -172,7 +172,6 @@ conn = connect()
 if conn is None:
     exit()
 
-print(Tags.active.value)
 insert_tags()
 insert_clubs()
 
