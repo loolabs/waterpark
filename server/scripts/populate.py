@@ -14,10 +14,6 @@ import yaml
 
 filepath = "clubs.yml"
 pp = pprint.PrettyPrinter(indent=2)
-club_non_nullable = ["name", "description",
-                     "size", "banner_image", "icon_image"]
-event_non_nullable = ["name", "description",
-                      "banner_image", "start_time", "end_time"]
 tag_entities = {}
 
 
