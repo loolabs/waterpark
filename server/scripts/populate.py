@@ -1,10 +1,12 @@
 import psycopg2
-import yaml  # noqa
+import yaml
 import uuid
 import pprint
 from datetime import datetime
 from os import path
 from configparser import ConfigParser
+from enum import Enum
+from marshmallow import Schema, fields, validate
 
 filepath = "clubs.yml"
 pp = pprint.PrettyPrinter(indent=2)
@@ -12,23 +14,54 @@ club_non_nullable = ["name", "description",
                      "size", "banner_image", "icon_image"]
 event_non_nullable = ["name", "description",
                       "banner_image", "start_time", "end_time"]
-tags_enum = ["Community", "Tech", "Creative", "Active", "Volunteering", "Gaming",
-             "Career", "Engineering", "Science", "Environment", "Arts", "Math", "Health"]
 tag_entities = {}
+
+
+class ClubSchema(Schema):
+    name = fields.Str(required=True, validate=validate.Length(min=1))
+    description = fields.Str(required=True, validate=validate.Length(min=1))
+    size = fields.Int(required=True, validate=validate.Range(min=1))
+    banner_image = fields.url(required=True, validate=validate.Length(min=1))
+    icon_image = fields.url(required=True, validate=validate.Length(min=1))
+
+
+class EventSchema(Schema):
+    name = fields.Str(required=True, validate=validate.Length(min=1))
+    description = fields.Str(required=True, validate=validate.Length(min=1))
+    banner_image = fields.url(required=True, validate=validate.Length(min=1))
+    start_time = fields.DateTime(required=True)
+    end_time = fields.DateTime(required=True)
+
+
+class Tags(str, Enum):
+    community = "Community"
+    tech = "Tech"
+    creative = "Creative"
+    active = "Active"
+    volunteering = "Volunteering"
+    gaming = "Gaming"
+    career = "Career"
+    engineering = "Engineering"
+    science = "Science"
+    environment = "Environment"
+    arts = "Arts"
+    math = "Math"
+    health = "Health"
+
 
 # Assumptions: each club has its own events. Many-to-many not supported
 # yet. See example clubs.yml file for example input. db.ini file must be
 # in same directory
 
-def insert_tags(): 
+def insert_tags():
     conn = connect()
     try:
         with conn.cursor() as cursor:
-            for tag in tags_enum:
+            for tag in Tags:
                 _id = str(uuid.uuid4())
-                tag_entities[tag] = _id
+                tag_entities[tag.value] = _id
                 cursor.execute("INSERT INTO tag VALUES (%s,%s,%s,%s);",
-                               (_id, datetime.now(), datetime.now(), tag))
+                               (_id, datetime.now(), datetime.now(), tag.value))
         conn.commit()
         print("Tags Inserted")
     finally:
@@ -52,7 +85,8 @@ def read_clubs(filepath):
 def verify(entity, fields, typeof):
     for field in fields:
         if entity.get(field) is None:
-            name = "Untitled" if entity.get("name") is None else entity.get("name")
+            name = "Untitled" if entity.get(
+                "name") is None else entity.get("name")
             print("Error:", typeof, name,
                   "is missing mandatory field", field)
             return False
@@ -76,10 +110,7 @@ def insert_clubs():
     if club_list is None:
         print("Something failed; aborting...")
         return
-    conn = connect()
-    if conn is None:
-        return
-    insert_tags()
+    
     try:
         while True:
             club = next(club_list)
@@ -129,7 +160,7 @@ def connect():
         return None
     parser = ConfigParser()
     parser.read("db.ini")
-    try:        
+    try:
         conn = psycopg2.connect(
             host=parser["postgresql"].get("host"),
             database=parser["postgresql"].get("database"),
@@ -147,4 +178,7 @@ def connect():
             print("Connection Closed")
 
 
+conn = connect()
+
+insert_tags()
 insert_clubs()
