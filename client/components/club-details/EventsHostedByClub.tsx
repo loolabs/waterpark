@@ -53,6 +53,7 @@ const PastEventsTitle = styled.p`
 `
 
 export const EventsHostedByClub = ({ events }: { events: Array<BasicEvent> }) => {
+  console.log(events)
   const upcomingEvents = events.filter((e) => e.startTime.isAfter(moment()))
 
   const pastEvents = events.filter((e) => e.startTime.isBefore(moment()))
@@ -71,7 +72,7 @@ export const EventsHostedByClub = ({ events }: { events: Array<BasicEvent> }) =>
   )
 }
 
-const EventCard = ({ event }: { event: BasicEvent }) => {
+export const EventCard = ({ event }: { event: BasicEvent }) => {
   const date = `${event.startTime.local().format('dddd')}, ${event.startTime
     .local()
     .format('LL z')}`

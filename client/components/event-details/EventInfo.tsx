@@ -67,8 +67,8 @@ interface EventInfoProps {
 export const EventInfo = ({ event }: EventInfoProps) => {
   const router = useRouter()
 
-  const { name, description, tags, startDate, endDate } = event
-  const date = `${startDate.local().format('dddd')}, ${event.startDate.local().format('LL z')}`
+  const { name, description, tags, startTime: startDate, endTime: endDate } = event
+  const date = `${startDate.local().format('dddd')}, ${event.startTime.local().format('LL z')}`
   const time = `${startDate.format('ha z')} - ${endDate.format('ha z')}`
 
   return (

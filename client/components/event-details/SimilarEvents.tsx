@@ -1,15 +1,18 @@
 import styled from 'styled-components'
 import { Id, Event } from '../../context'
-import { desktopFontSize, fontWeight } from '../../styles'
+import { desktopFontSize, fontWeight, mobileFontSize } from '../../styles'
+import { EventCard } from '../../components/club-details'
 
-interface SimilarEventsProps {
-  allEvents: Map<Id, Event>
-  event: Event
-}
+const mobile = `768px`
+const largerThan = (size: string): string => `(min-width: ${size})`
 
 const Title = styled.p`
+  font-size: ${mobileFontSize.h2};
   font-weight: ${fontWeight.semiBold};
-  font-size: ${desktopFontSize.h2};
+
+  @media ${largerThan(mobile)} {
+    font-size: ${desktopFontSize.h2};
+  }
 `
 
 const tagsEqual = (a: Array<string>, b: Array<string>) => {
@@ -17,6 +20,11 @@ const tagsEqual = (a: Array<string>, b: Array<string>) => {
   const bSet = new Set(b)
 
   return aSet.size === bSet.size && [...aSet].every((value) => bSet.has(value))
+}
+
+interface SimilarEventsProps {
+  allEvents: Map<Id, Event>
+  event: Event
 }
 
 export const SimilarEvents = ({ allEvents, event }: SimilarEventsProps) => {
@@ -33,8 +41,16 @@ export const SimilarEvents = ({ allEvents, event }: SimilarEventsProps) => {
   return (
     <div>
       <Title>Similar Events</Title>
-      {similarEvents.map((e) => {
-        return <li>{e.name}</li>
+      <EventCards events={similarEvents} />
+    </div>
+  )
+}
+
+const EventCards = ({ events }: { events: Array<Event> }) => {
+  return (
+    <div>
+      {events.map((e, i) => {
+        return <EventCard event={e} key={`event-card-${i}`} />
       })}
     </div>
   )
