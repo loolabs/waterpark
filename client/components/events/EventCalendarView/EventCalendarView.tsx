@@ -15,13 +15,13 @@ interface DaySignature {
 }
 
 const daysOfWeek: Array<DaySignature> = [
-  {dayNumber: 1, dayShortform: "Mon" }, //Monday
-  {dayNumber: 2, dayShortform: "Tue" }, //Tuesday
-  {dayNumber: 3, dayShortform: "Wed" }, //Wednesday
-  {dayNumber: 4, dayShortform: "Thu" }, //Thursday
-  {dayNumber: 5, dayShortform: "Fri" }, //Friday
-  {dayNumber: 6, dayShortform: "Sat" }, //Saturday
-  {dayNumber: 0, dayShortform: "Sun" }, //Sunday
+  {dayNumber: 1, dayShortform: "Mon" },
+  {dayNumber: 2, dayShortform: "Tue" },
+  {dayNumber: 3, dayShortform: "Wed" },
+  {dayNumber: 4, dayShortform: "Thu" },
+  {dayNumber: 5, dayShortform: "Fri" },
+  {dayNumber: 6, dayShortform: "Sat" },
+  {dayNumber: 0, dayShortform: "Sun" },
 ]
 
 const CalendarView = styled.div<any>`

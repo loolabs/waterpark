@@ -37,20 +37,16 @@ export const EventListView = ({ filteredEvents }: EventViewProps) => {
     return null;
   }
 
-  const getEventListCards = () => (
-    filteredEvents.map((event, index, allEvents) => (
-      <ListViewRow key={`list-view-row-${event.id}`}>
-        <ListViewDate>
-          {getDateLabelIfNecessary(index, allEvents)}
-        </ListViewDate>
-        <EventListCard key={`event-list-card-${event.id}`} event={event} />
-      </ListViewRow>
-    ))
-  )
-
   return (
     <ListView> 
-      {getEventListCards()}
+      {filteredEvents.map((event, index, allEvents) => (
+        <ListViewRow key={`list-view-row-${event.id}`}>
+          <ListViewDate>
+            {getDateLabelIfNecessary(index, allEvents)}
+          </ListViewDate>
+          <EventListCard key={`event-list-card-${event.id}`} event={event} />
+        </ListViewRow>
+      ))}
     </ListView>
   )
 }

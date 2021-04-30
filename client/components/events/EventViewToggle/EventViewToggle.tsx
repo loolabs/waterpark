@@ -5,8 +5,7 @@ import { Event } from '../../../context'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
 import styled from 'styled-components'
 
-const LISTVIEW_ACTIVE = 0;
-const CALENDARVIEW_ACTIVE = 1;
+enum View { List, Calendar }
 
 interface EventViewProps {
   filteredEvents: Array<Event>
@@ -48,40 +47,28 @@ const ToggleText = styled.div<any>`
 
 export const EventViewToggle = ({ filteredEvents }: EventViewProps) => {
 
-  const [activeView, setActiveView] = useState(LISTVIEW_ACTIVE);
-
-  const renderActiveView = () => {
-    switch(activeView){
-      case CALENDARVIEW_ACTIVE:
-        return <EventCalendarView filteredEvents={filteredEvents}/>
-      case LISTVIEW_ACTIVE:
-      default:
-        return <EventListView filteredEvents={filteredEvents}/>
-    }
-  }
+  const [activeView, setActiveView] = useState(View.List);
   
   const getEventViewButton = (viewType) => (
     <ToggleText 
       isActiveView={activeView===viewType}
       onClick={()=>setActiveView(viewType)}>
-        {viewType == LISTVIEW_ACTIVE ? "List View" : "Calendar View"}
+        {viewType == View.List ? "List View" : "Calendar View"}
     </ToggleText>
   )
 
-  const getToggleButtons = () => (
-    <EventViewToggleButtonsContainer>
-      <EventViewToggleButtonsSpacer/>
-      <EventViewToggleButtons> 
-        {getEventViewButton(LISTVIEW_ACTIVE)}
-        {getEventViewButton(CALENDARVIEW_ACTIVE)}
-      </EventViewToggleButtons>
-    </EventViewToggleButtonsContainer>
-  )
-  
   return (
     <EventViewToggleContainer> 
-      {getToggleButtons()}
-      {renderActiveView()}
+      <EventViewToggleButtonsContainer>
+        <EventViewToggleButtonsSpacer/>
+        <EventViewToggleButtons> 
+          {getEventViewButton(View.List)}
+          {getEventViewButton(View.Calendar)}
+        </EventViewToggleButtons>
+      </EventViewToggleButtonsContainer>
+      {activeView === View.Calendar ? 
+      <EventCalendarView filteredEvents={filteredEvents}/> : 
+      <EventListView filteredEvents={filteredEvents}/>}
     </EventViewToggleContainer>
   );
 };
