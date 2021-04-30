@@ -1,11 +1,17 @@
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { Event } from '../../context'
-import { desktopFontSize, mobileFontSize, fontWeight, PageTitle } from '../../styles'
+import {
+  desktopFontSize,
+  mobileFontSize,
+  fontWeight,
+  PageTitle,
+  largerThan,
+  mobile,
+} from '../../styles'
 import { Category } from '../Category'
 
-const mobile = `768px`
-const largerThan = (size: string): string => `(min-width: ${size})`
+const tablet = `768px`
 
 const BackArrow = styled.img`
   margin-top: 64px;
@@ -17,7 +23,7 @@ const EventName = styled(PageTitle)`
   margin-top: 32px;
 `
 
-const Date = styled.p`
+const ClubDate = styled.p`
   margin-bottom: 0;
   font-size: ${mobileFontSize.body1};
   font-weight: ${fontWeight.semiBold};
@@ -77,11 +83,11 @@ export const EventInfo = ({ event }: EventInfoProps) => {
 
       <EventName>{name}</EventName>
 
-      <Date>
+      <ClubDate>
         {date}
         <br />
         {time}
-      </Date>
+      </ClubDate>
       {/* TODO: color code the tags */}
 
       <ClubInfo>

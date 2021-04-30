@@ -1,7 +1,7 @@
 import styled from 'styled-components'
+import { largerThan } from '../styles'
 
 const mobile = `425px`
-const largerThan = (size: string): string => `(min-width: ${size})`
 
 export const Container = styled.div`
   display: flex;

@@ -1,12 +1,8 @@
 import styled from 'styled-components'
 import moment from 'moment-timezone'
 import { Category } from '../Category'
-import { colours, desktopFontSize, device, fontWeight } from '../../styles'
+import { colours, desktopFontSize, device, fontWeight, largerThan, mobile } from '../../styles'
 import { BasicEvent } from '../../context/Base'
-
-const mobile = `425px`
-
-const largerThan = (size: string): string => `(min-width: ${size})`
 
 const EventsTitle = styled.h2`
   margin-top: 40px;
@@ -53,7 +49,6 @@ const PastEventsTitle = styled.p`
 `
 
 export const EventsHostedByClub = ({ events }: { events: Array<BasicEvent> }) => {
-  console.log(events)
   const upcomingEvents = events.filter((e) => e.startTime.isAfter(moment()))
 
   const pastEvents = events.filter((e) => e.startTime.isBefore(moment()))
@@ -76,6 +71,7 @@ export const EventCard = ({ event }: { event: BasicEvent }) => {
   const date = `${event.startTime.local().format('dddd')}, ${event.startTime
     .local()
     .format('LL z')}`
+  // format: 8:55 PM - 9:55 PM EST
   const time = `${event.startTime.format('ha z')} - ${event.endTime.format('ha z')}`
 
   const dateTimeString = (

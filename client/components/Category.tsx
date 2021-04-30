@@ -1,8 +1,5 @@
 import styled from 'styled-components'
-import { desktopFontSize, mobileFontSize } from '../styles'
-
-const mobile = `425px`
-const largerThan = (size: string): string => `(min-width: ${size})`
+import { desktopFontSize, largerThan, mobile, mobileFontSize } from '../styles'
 
 export const Category = styled.p`
   border: 1px solid black;

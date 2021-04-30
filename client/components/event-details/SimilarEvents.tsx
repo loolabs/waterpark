@@ -1,16 +1,13 @@
 import styled from 'styled-components'
 import { Id, Event } from '../../context'
-import { desktopFontSize, fontWeight, mobileFontSize } from '../../styles'
+import { desktopFontSize, fontWeight, largerThan, mobileFontSize, tablet } from '../../styles'
 import { EventCard } from '../../components/club-details'
-
-const mobile = `768px`
-const largerThan = (size: string): string => `(min-width: ${size})`
 
 const Title = styled.p`
   font-size: ${mobileFontSize.h2};
   font-weight: ${fontWeight.semiBold};
 
-  @media ${largerThan(mobile)} {
+  @media ${largerThan(tablet)} {
     font-size: ${desktopFontSize.h2};
   }
 `

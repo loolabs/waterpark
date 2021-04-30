@@ -1,7 +1,5 @@
 import styled from 'styled-components'
-
-const tablet = `768px`
-const largerThan = (size: string): string => `(min-width: ${size})`
+import { largerThan, tablet } from '../styles'
 
 interface BannerProps {
   backgroundImageUrl: string
