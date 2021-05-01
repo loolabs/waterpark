@@ -6,14 +6,13 @@ from configparser import ConfigParser
 from datetime import datetime
 from os import path
 from enum import Enum
-from marshmallow import Schema, fields, validate
-import pprint
+
 import uuid
 import psycopg2
 import yaml
+from marshmallow import Schema, fields, validate
 
 filepath = "clubs.yml"
-pp = pprint.PrettyPrinter(indent=2)
 tag_entities = {}
 
 
