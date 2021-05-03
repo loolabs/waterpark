@@ -11,5 +11,7 @@
   "dependencies": {
     "io-ts": "^2.2.16"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "ts-essentials": "^7.0.1"
+  }
 }

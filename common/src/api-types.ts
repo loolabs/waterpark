@@ -1,4 +1,5 @@
 import * as t from 'io-ts'
+import { DeepReadonly } from 'ts-essentials'
 
 type Field<
   Base,
@@ -14,32 +15,34 @@ type TypeOf<T> = T extends t.Any ? t.TypeOf<T> : {}
 
 export namespace Schema {
   export interface Request {
-    readonly parameters?: t.Any
-    readonly query?: t.Any
-    readonly body?: t.Any
+    parameters?: t.Any
+    query?: t.Any
+    body?: t.Any
   }
 
   export interface Response {
-    readonly body?: t.Any
+    body?: t.Any
   }
 
   export interface Method {
-    readonly request?: Request
-    readonly response?: Response
+    request?: Request
+    response?: Response
   }
 
   export type MethodName = 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head'
-  export type Methods = Readonly<Partial<Record<MethodName, Method>>>
+  export type Methods = DeepReadonly<Partial<Record<MethodName, Method>>>
 
   export type Path = `/${string}`
   export type RootPath = '/'
-  export type Children = Readonly<Partial<Record<Exclude<Path, RootPath>, Endpoint>>>
+  export type Children = DeepReadonly<Partial<Record<Exclude<Path, RootPath>, Endpoint>>>
 
   export interface Endpoint {
     readonly methods?: Methods
     readonly children?: Children
   }
-  export type API = Endpoint
+  export interface API {
+    readonly root: Endpoint
+  }
 }
 
 export namespace Get {
@@ -120,3 +123,12 @@ export namespace Get {
     >
   }
 }
+
+function compiler<Base extends object>() {
+  return function <T extends Base>(obj: T): DeepReadonly<T> {
+    // No point calling Object.freeze, just let Typescript enforce the immutability
+    return obj as DeepReadonly<T>
+  }
+}
+export const Endpoint = compiler<Schema.Endpoint>()
+export const API = compiler<Schema.API>()

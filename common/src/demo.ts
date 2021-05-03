@@ -1,20 +1,13 @@
 import * as t from 'io-ts'
 import { Router } from './express/router'
+import { API, Endpoint } from './api-types'
 
 const tClub = t.strict({
   id: t.string,
   name: t.string,
 })
 
-const rootMethods = {
-  get: {
-    response: {
-      body: t.literal('Water water water, loo loo loo'),
-    },
-  },
-}
-
-const clubsAPI = {
+const clubsEndpoint = Endpoint({
   methods: {
     get: {
       request: {
@@ -26,20 +19,35 @@ const clubsAPI = {
         body: t.array(tClub),
       },
     },
+    // not allowed because we can no longer pass the object into Endpoint
+    // post: 'Hi'
   },
-}
-const API = {
-  methods: rootMethods,
+})
+
+const rootEndpoint = Endpoint({
+  methods: {
+    get: {
+      response: {
+        body: t.literal('Water water water, loo loo loo'),
+      },
+    },
+  },
   children: {
-    '/clubs': clubsAPI,
+    '/clubs': clubsEndpoint,
   },
-}
+})
 
-const clubsRouter = new Router(clubsAPI)
+export const api = API({
+  root: rootEndpoint,
+})
 
-const router = new Router(API)
+// We can't do this, because `API` makes things immutable
+// clubsEndpoint.methods.get.request.query = t.string
 
-router.get('/clubs', (req, res) => {
+const clubsRouter = new Router(clubsEndpoint)
+const rootRouter = new Router(rootEndpoint)
+
+rootRouter.get('/clubs', (req, res) => {
   const { category } = req.query // Typescript knows that this is a string!
   console.log(category.length)
 
@@ -53,7 +61,7 @@ router.get('/clubs', (req, res) => {
 })
 
 // @ts-ignore unused
-router.get('/', (req, res) => {
+rootRouter.get('/', (req, res) => {
   // Argument of type '"hi"' is not assignable to parameter of type '"Water water water, loo loo loo"'.
   // res.json('hi')
   res.json('Water water water, loo loo loo')
@@ -62,7 +70,7 @@ router.get('/', (req, res) => {
 // This doesn't work because our router is meant for the base endpoint, not the '/clubs' endpoint
 // router.use('/clubs', router)
 // This works though!
-router.use('/clubs', clubsRouter)
+rootRouter.use('/clubs', clubsRouter)
 
 // This should raise a run-time error because the clubsRouter is frozen
 // TODO: check if it does
