@@ -23,7 +23,6 @@ const EventCardTitle = styled.p`
   margin-bottom: 0;
 `
 
-// TODO: make box shadow cleaner
 const EventCardWrapper = styled.div`
   box-shadow: 0px 4px 4px 1px ${colours.neutralLight1};
   display: flex;

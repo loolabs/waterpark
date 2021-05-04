@@ -6,17 +6,6 @@ import { Container } from '../../components/DetailContainer'
 import { EventInfo } from '../../components/event-details'
 import { SimilarEvents } from '../../components/event-details/SimilarEvents'
 
-// interface Event {
-//   id: Id
-//   name: string
-//   club: BasicClub
-//   description: string
-//   backgroundImageURL: string
-//   startDate: Moment
-//   endDate: Moment
-//   tags: Array<string>
-// }
-
 export default function EventDetail() {
   const { events } = useAppContext()
   const router = useRouter()
