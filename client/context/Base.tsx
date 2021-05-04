@@ -88,6 +88,7 @@ export const CLUBS: Array<Club> = [
     iconURL: 'https://avatars.githubusercontent.com/u/51551455',
     bannerImageURL: 'https://images.unsplash.com/photo-1528712306091-ed0763094c98',
     facebookLink: 'https://www.facebook.com/uwcookingclub/',
+    websiteLink: 'https://uwcookingclub.ca/',
     tags: ['Creative', 'Cooking', 'Community'],
     events: [
       {

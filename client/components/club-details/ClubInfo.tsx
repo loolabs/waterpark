@@ -28,6 +28,7 @@ const Links = styled.div`
 `
 
 const SocialLink = styled.a`
+  margin-right: 32px;
   text-decoration: underline;
 `
 
