@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { Id, Event } from '../../context'
 import { desktopFontSize, fontWeight, largerThan, mobileFontSize, tablet } from '../../styles'
 import { EventCard } from '../../components/club-details'
+import { useRouter } from 'next/router'
 
 const Title = styled.p`
   font-size: ${mobileFontSize.h2};
@@ -43,11 +44,29 @@ export const SimilarEvents = ({ allEvents, event }: SimilarEventsProps) => {
   )
 }
 
+const EventCardWrapper = styled.div`
+  cursor: pointer;
+`
+
 const EventCards = ({ events }: { events: Array<Event> }) => {
+  const router = useRouter()
+
+  const handleClick = (id: Id) => {
+    router.push({ pathname: `/events/${id}` })
+  }
+
   return (
     <div>
       {events.map((e, i) => {
-        return <EventCard event={e} key={`event-card-${i}`} />
+        return (
+          <EventCardWrapper
+            onClick={() => {
+              handleClick(e.id)
+            }}
+          >
+            <EventCard event={e} key={`event-card-${i}`} />
+          </EventCardWrapper>
+        )
       })}
     </div>
   )

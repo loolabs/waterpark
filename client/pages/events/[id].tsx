@@ -17,7 +17,7 @@ export default function EventDetail() {
 
   return (
     <div>
-      <Banner backgroundImageUrl={event.backgroundImageURL} />
+      <Banner backgroundImageUrl={event.bannerImageURL} />
       <Container>
         <EventInfo event={event} />
         <SimilarEvents allEvents={events} event={event} />

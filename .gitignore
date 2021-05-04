@@ -3,6 +3,7 @@
 
 # Database
 /db/
+/server/scripts/db.ini
 
 # Junk
 .DS_Store

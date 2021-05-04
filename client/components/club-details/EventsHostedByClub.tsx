@@ -83,7 +83,7 @@ export const EventCard = ({ event }: { event: BasicEvent }) => {
 
   return (
     <EventCardWrapper>
-      <EventCardImg src={event.backgroundImageURL} alt="" />
+      <EventCardImg src={event.bannerImageURL} alt="" />
       <EventCardDetails>
         <EventCardTitle>{event.name}</EventCardTitle>
         <EventCardDate>{dateTimeString}</EventCardDate>
