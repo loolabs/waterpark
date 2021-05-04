@@ -31,21 +31,20 @@ const CalendarView = styled.div`
 const CalendarColumnContainer = styled.div`
   display: flex; 
   justify-content: flex-start;
-  flex-wrap: wrap;
+  overflow: auto;
+  white-space: nowrap;
 `
 
 const CalendarSpacer = styled.div`
-  flex: 0 0 200px;
+  flex-shrink: 0;
+  flex-basis: 200px;
   @media ${device.laptop} {
     display: none;
   }
 `
 
-const CalendarColumn = styled.div`
-  min-width: 120px;
-  @media not all and ${device.mobileL} {
-    min-width: 180px;
-  }
+const CalendarColumnWrapper = styled.div`
+  min-width: 180px;
 `
 
 const CalendarColumnHeader = styled.h3`
@@ -67,20 +66,10 @@ export const EventCalendarView = ({ filteredEvents }: EventViewProps) => {
       && event.startDate.day() == dayNumber)
   }
 
-  const getCalendarCards = (events: Array<Event>) => (
-    events.map(event => <EventCalendarCard key={`event-calendar-card-${event.id}`} event={event}/>)
-  )
-
   const generateDayColumns = () => (
     daysOfWeek.map(day => {
       const eventsOnDay = getEventsOnDay(day.dayNumber);
-      const calendarCards = getCalendarCards(eventsOnDay);
-      return <CalendarColumn key={`calendar-column-${day.dayNumber}`}>
-        <CalendarColumnHeader>
-          {day.dayShortForm.toLocaleUpperCase()}
-        </CalendarColumnHeader>
-        {calendarCards}
-      </CalendarColumn>
+      return <CalendarColumn key={`calendar-column-${day.dayNumber}`} day={day} events={eventsOnDay}/>
     })
   )
 
@@ -93,3 +82,17 @@ export const EventCalendarView = ({ filteredEvents }: EventViewProps) => {
     </CalendarView>
   )
 }
+
+interface CalendarColumnProps {
+  day: DaySignature,
+  events: Array<Event>
+}
+
+export const CalendarColumn = ({day, events}: CalendarColumnProps) => (
+  <CalendarColumnWrapper>
+    <CalendarColumnHeader>
+      {day.dayShortForm.toLocaleUpperCase()}
+    </CalendarColumnHeader>
+    {events.map(event => <EventCalendarCard key={`event-calendar-card-${event.id}`} event={event}/>)}
+  </CalendarColumnWrapper>
+)

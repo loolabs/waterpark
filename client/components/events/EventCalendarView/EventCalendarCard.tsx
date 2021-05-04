@@ -9,11 +9,8 @@ interface EventProps {
 }
 
 const CalendarCard = styled.div`
-  width: 110px;
-  @media not all and ${device.mobileL} {
-    margin-bottom: 20px;
-    width: 170px;
-  }
+  width: 170px;
+  margin-bottom: 20px;
 `
 
 const CalendarCardImageContainer = styled.div`
@@ -36,6 +33,9 @@ const CalendarCardEventName = styled.p`
 `
 
 const CalendarCardTime = styled.p`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   font-size: ${desktopFontSize.body1};
   margin: 0;
 `

@@ -12,19 +12,21 @@ const ListView = styled.div`
 `
 
 const ListViewRow = styled.div`
-  display: flex;
-  @media ${device.tablet} {
-    display: block;
+  display: block;
+  @media not all and ${device.tablet} {
+    display: flex;
   }
 `
 
 const ListViewDate = styled.div`
   font-weight: bold;
   font-size: ${desktopFontSize.subtitle2};
-  flex: 0 0 200px;
+  flex-shrink: 0;
+  flex-basis: 200px;
   color: ${colours.neutralDark1};
-  @media ${device.tablet} {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
+  @media not all and ${device.tablet} {
+    margin-bottom: 0;
   }
 `
 

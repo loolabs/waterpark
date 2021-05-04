@@ -21,7 +21,7 @@ const greyDark1 = "#8C8C8C";
 const greyDark2 = "#666666";
 
 const tagColours = {
-    'Community': '#F1F1F1',
+    'Community': '#FCF4B1',
     'Tech': '#BCFEF2',
     'Creative': '#FCB8C6', 
     'Active': '#F9B5B5',

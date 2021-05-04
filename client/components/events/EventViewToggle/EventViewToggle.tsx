@@ -1,18 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useRouter } from 'next/router'
 import { EventCalendarView } from "../EventCalendarView"
 import { EventListView } from "../EventListView/EventListView"
 import { Event } from '../../../context'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
 import styled from 'styled-components'
 
-enum View { List, Calendar }
+enum View {
+  list = 'list',
+  calendar = 'calendar',
+}
 
 interface EventViewProps {
   filteredEvents: Array<Event>
 }
 
 const EventViewToggleContainer = styled.div<any>`
-  margin: 10%;
+  margin: 14px 24px;
+  @media not all and ${device.laptop} {
+    margin: 10%;
+  }
 `
 
 const EventViewToggleButtonsContainer = styled.div<any>`
@@ -25,8 +32,9 @@ const EventViewToggleButtonsContainer = styled.div<any>`
 `
 
 const EventViewToggleButtonsSpacer = styled.div<any>`
-  flex: 0 0 200px;
-  @media ${device.laptop} {
+  flex-shrink: 0;
+  flex-basis: 200px;
+  @media ${device.tablet} {
     display: none;
   }
 `
@@ -40,35 +48,85 @@ const EventViewToggleButtons = styled.div<any>`
 const ToggleText = styled.div<any>`
   ${(props: any) => props.isActiveView && `
     font-weight: bold;
-
   `};
   margin-right: 25px;
 `
 
 export const EventViewToggle = ({ filteredEvents }: EventViewProps) => {
+  const router = useRouter()
 
-  const [activeView, setActiveView] = useState(View.List);
+  const { view } = router.query;
+
+  useEffect(() => {
+    //refresh component whenever query param changes
+  }, [router.query.view])
+
+  const updateActiveView = (view) => {
+    router.push({query: {
+      view: view
+    }})
+  }
+
+  let formattedView = View.list
+  if(typeof view === 'string'){
+    formattedView = View[view]
+  }
   
-  const getEventViewButton = (viewType) => (
-    <ToggleText 
-      isActiveView={activeView===viewType}
-      onClick={()=>setActiveView(viewType)}>
-        {viewType == View.List ? "List View" : "Calendar View"}
-    </ToggleText>
-  )
-
   return (
     <EventViewToggleContainer> 
       <EventViewToggleButtonsContainer>
         <EventViewToggleButtonsSpacer/>
-        <EventViewToggleButtons> 
-          {getEventViewButton(View.List)}
-          {getEventViewButton(View.Calendar)}
+        <EventViewToggleButtons>
+          <EventViewToggleButton activeView={formattedView} viewType={View.list} updateActiveView={updateActiveView}/>
+          <EventViewToggleButton activeView={formattedView} viewType={View.calendar} updateActiveView={updateActiveView}/>
         </EventViewToggleButtons>
       </EventViewToggleButtonsContainer>
-      {activeView === View.Calendar ? 
-      <EventCalendarView filteredEvents={filteredEvents}/> : 
-      <EventListView filteredEvents={filteredEvents}/>}
+      <ActiveView activeView={formattedView} filteredEvents={filteredEvents}/>
     </EventViewToggleContainer>
   );
 };
+
+interface ActiveViewProps {
+  activeView: View,
+  filteredEvents: Array<Event>
+}
+
+const ActiveView = ({activeView, filteredEvents}: ActiveViewProps) => {
+  
+  const getActiveView = () => {
+    switch(activeView){
+      case View.calendar:
+        return <EventCalendarView filteredEvents={filteredEvents}/>
+      case View.list:
+      default:
+        return <EventListView filteredEvents={filteredEvents}/>
+    }
+  }
+
+  return getActiveView()
+}
+
+interface EventViewToggleButtonProps {
+  activeView: View,
+  viewType: View,
+  updateActiveView: Function
+}
+
+const EventViewToggleButton = ({activeView, viewType, updateActiveView}: EventViewToggleButtonProps) => {
+  
+  const getViewTypeText = () => {
+    switch(viewType){
+      case View.calendar:
+        return "Calendar View"
+      case View.list:
+      default:
+        return "List View"
+    }
+  }
+
+  return <ToggleText 
+    isActiveView={activeView===viewType}
+    onClick={()=>updateActiveView(viewType)}>
+    {getViewTypeText()}
+  </ToggleText>
+}

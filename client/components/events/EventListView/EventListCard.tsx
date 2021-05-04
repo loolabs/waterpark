@@ -12,30 +12,32 @@ const ListCard = styled.div`
   margin-bottom: 20px;
   flex: 3 0 auto;
   display: flex;
-  width: 100%;
+  width: auto;
   border-radius: 6px;
   box-shadow: 0px 4px 4px 1px ${colours.neutralLight1};
   @media not all and ${device.tablet} {
-    width: 80%;
-    
+    margin-right: 150px;
   }
 `
 
-const ListCardImageContainer = styled.div`
-  height: 160px;
+interface ListCardImageProps {
+  backgroundImageURL: string
+}
+
+const ListCardImage = styled.div<ListCardImageProps>`
+  height: auto;
   flex 0 0 80px;
   cursor: pointer;
-  @media not all and ${device.tablet} {
-    flex 0 0 225px;
+  @media not all and ${device.laptop} {
+    flex 0 0 200px;
   }
-`
-
-const ListCardImage = styled.img`
-  max-width: 100%;
-  max-height: 100%;
-  @media ${device.tablet} {
-    flex 0 0 80px;
-  }
+  
+  ${(props: ListCardImageProps) => `
+    background-image: url(${props.backgroundImageURL});
+ `};
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `
 
 const ListCardContent = styled.div`
@@ -73,6 +75,7 @@ const ListCardClub = styled.div`
   font-size: ${mobileFontSize.subtitle2};
   font-weight: bold;
   flex: 0 0 100px;
+  margin-bottom: 10px;
   @media not all and ${device.tablet} {
     font-size: ${desktopFontSize.subtitle2};
   }
@@ -100,6 +103,7 @@ const ListCardTag = styled.div<any>`
     border: 2px solid ${colours.tagColours[props.tag]};
  `};
 `
+const MAXIMUM_NUMBER_OF_VIEWABLE_TAGS = 3;
 
 export const EventListCard = ({ event }: EventProps) => {
   const { id, name, club, backgroundImageURL, startDate, endDate, tags } = event
@@ -115,17 +119,20 @@ export const EventListCard = ({ event }: EventProps) => {
     `${startDate.format('LT')} - ${endDate.format('LT z')}`
   )
 
-  const getFormattedTags = () => (
-    tags.map((tag, index) => <ListCardTag tag={tag} key={`list-card-tag-${index}-${tag}`}>
-      {tag}
-    </ListCardTag>)
-  )
+  const getFormattedTags = () => {
+    let formattedTags = [...tags];
+    if(tags.length > MAXIMUM_NUMBER_OF_VIEWABLE_TAGS){
+      formattedTags = formattedTags.slice(0, MAXIMUM_NUMBER_OF_VIEWABLE_TAGS);
+    }
+    return formattedTags.map((tag, index) => <ListCardTag tag={tag} key={`list-card-tag-${index}-${tag}`}>
+    {tag}
+  </ListCardTag>)
+  }
+
 
   return (
-    <ListCard>
-      <ListCardImageContainer onClick={handleEventClick}>
-        <ListCardImage src={backgroundImageURL}/>
-      </ListCardImageContainer>
+    <ListCard onClick={handleEventClick}>
+      <ListCardImage backgroundImageURL={backgroundImageURL}/>
       <ListCardContent>
         <ListCardName>
           {name}
