@@ -1,13 +1,9 @@
-import React from "react";
-import { useContext } from "react";
-import { AppContext } from "../_app";
-import { ClubList } from "../../components/clubs";
+import React from 'react'
+import { useAppContext } from '../../context'
+import { ClubList } from '../../components/clubs'
 
 export default function Clubs() {
-  const {clubs: clubListData} = useContext(AppContext);
-  
-  return (
-    <ClubList clubListData={clubListData}/>
-  );
-}
+  const { clubs } = useAppContext()
 
+  return <ClubList clubs={clubs} />
+}

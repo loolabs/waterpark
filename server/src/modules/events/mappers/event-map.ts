@@ -8,6 +8,17 @@ export class EventMap {
     return {
       name: event.name,
       description: event.description,
+      links: {
+        url: event.url,
+        bannerImage: event.bannerImage,
+        facebook: event.facebook,
+        twitter: event.twitter,
+        instagram: event.instagram,
+      },
+      startTime: event.startTime.toJSON(),
+      endTime: event.endTime.toJSON(),
+      tags: event.tags,
+      clubs: event.clubs,
     }
   }
 
@@ -16,6 +27,19 @@ export class EventMap {
       {
         name: eventEntity.name,
         description: eventEntity.description,
+        url: eventEntity.url,
+        bannerImage: eventEntity.bannerImage,
+        startTime: eventEntity.startTime,
+        endTime: eventEntity.endTime,
+        links: {
+          facebook: eventEntity.facebook,
+          twitter: eventEntity.twitter,
+          instagram: eventEntity.instagram,
+        },
+        tags: eventEntity.tags.getItems().map((tag) => tag.name),
+        clubs: eventEntity.clubs.getItems().map((club) => {
+          return { name: club.name, iconImage: club.iconImage }
+        }),
       },
       new UniqueEntityID(eventEntity.id)
     )

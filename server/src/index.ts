@@ -5,6 +5,7 @@ import mikroORMConfig from './mikro-orm.config'
 import { UserEntity } from './shared/infra/db/entities/user.entity'
 import { ClubEntity } from './shared/infra/db/entities/club.entity'
 import { EventEntity } from './shared/infra/db/entities/event.entity'
+import { TagEntity } from './shared/infra/db/entities/tags/tag.entity'
 import { MikroUserRepo } from './modules/users/infra/repos/implementations/mikro-user-repo'
 import { MikroEventRepo } from './modules/events/infra/repos/implementations/mikro-event-repo'
 import { MikroClubRepo } from './modules/clubs/infra/repos/implementations/mikro-club-repo'
@@ -29,6 +30,7 @@ const setup = async () => {
   const usersEntityRepo = entityManager.getRepository(UserEntity)
   const clubsEntityRepo = entityManager.getRepository(ClubEntity)
   const eventsEntityRepo = entityManager.getRepository(EventEntity)
+  const tagsEntityRepo = entityManager.getRepository(TagEntity)
   const migrator = orm.getMigrator()
   await migrator.up()
 
@@ -57,7 +59,7 @@ const setup = async () => {
   app.use('/api/v1', v1apiRouter)
   app.use((_req, res) => res.status(404).json({ message: 'No route found' }))
   app.listen(port, () => {
-    console.log(`Waterpark REST API server running on port ${port} 🦆`)
+    console.log(`Waterpark REST API server running on http://localhost:${port}/api/v1 🦆`)
   })
 }
 
