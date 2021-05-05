@@ -10,7 +10,7 @@ const BackArrow = styled.img`
 `
 
 const Logo = styled.img`
-  border-radius: 100%;
+  border-radius: 4px;
   display: block;
   margin-top: 40px;
   height: 100px;
