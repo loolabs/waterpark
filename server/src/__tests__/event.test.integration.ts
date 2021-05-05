@@ -1,16 +1,15 @@
-import express from 'express'
+import { environment, Variables } from './utils/environment'
 import request from 'supertest'
-import { v1Router } from '../shared/infra/http/routes'
-import { populate, teardown } from './utils/setup'
-
-const app = express()
-app.use(express.json())
-app.use('/api/v1', v1Router)
 
 describe('Event Router', () => {
-  beforeAll(populate)
-
-  afterAll(teardown)
+  let app: Variables['app']
+  beforeAll(async () => {
+    const variables = await environment.setup()
+    app = variables.app
+  })
+  afterAll(async () => {
+    await environment.teardown()
+  })
 
   test('When a GET req is fired to /events, it should return all events', async () => {
     const res = await request(app).get('/api/v1/events').set('Accept', 'application/json')

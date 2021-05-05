@@ -1,9 +1,9 @@
 import { Club } from '../../../../domain/entities/club'
-import { MikroClubRepo } from '../../../../infra/repos/implementations/mikro-club-repo'
-import { GetAllClubsUseCase } from '../get-all-clubs-use-case'
+import { MockClubRepo } from '../../../../infra/repos/implementations/mock-club-repo'
 import { createMockClubs } from '../test-utils/create-clubs'
 import { createMockClubDTOs } from '../test-utils/create-club-dtos'
 import { ClubDTO } from '../../../../mappers/club-dto'
+import { setup } from '../test-utils/setup'
 import { AppError } from '../../../../../../shared/core/app-error'
 import { Result } from '../../../../../../shared/core/result'
 
@@ -18,13 +18,12 @@ describe('GetAllClubsUseCase', () => {
   })
 
   test('When executed, should return all clubs and an Ok', async () => {
-    jest.spyOn(MikroClubRepo.prototype, 'getAllClubs').mockResolvedValue(mockClubs)
-    const fakeMikroClubRepo = new MikroClubRepo()
-    const getAllClubsUseCase = new GetAllClubsUseCase(fakeMikroClubRepo)
+    jest.spyOn(MockClubRepo.prototype, 'getAllClubs').mockResolvedValue(mockClubs)
+    const { clubRepo, getAllClubsUseCase } = setup()
 
     const getAllClubsResult = await getAllClubsUseCase.execute()
 
-    expect(fakeMikroClubRepo.getAllClubs).toBeCalled()
+    expect(clubRepo.getAllClubs).toBeCalled()
     expect(getAllClubsResult.isOk()).toBe(true)
     if (getAllClubsResult.isOk()) {
       expect(getAllClubsResult.value.length).toBe(3)
@@ -36,13 +35,12 @@ describe('GetAllClubsUseCase', () => {
 
   test('When repo throws error, should return AppError.UnexpectedError', async () => {
     jest
-      .spyOn(MikroClubRepo.prototype, 'getAllClubs')
+      .spyOn(MockClubRepo.prototype, 'getAllClubs')
       .mockResolvedValue(Result.err(new AppError.UnexpectedError('Pretend something failed.')))
-    const fakeMikroClubRepo = new MikroClubRepo()
-    const getAllClubsUseCase = new GetAllClubsUseCase(fakeMikroClubRepo)
+    const { clubRepo, getAllClubsUseCase } = setup()
 
     const getAllClubsResult = await getAllClubsUseCase.execute()
-    expect(fakeMikroClubRepo.getAllClubs).toBeCalled()
+    expect(clubRepo.getAllClubs).toBeCalled()
     expect(getAllClubsResult.isErr()).toBe(true)
   })
 })

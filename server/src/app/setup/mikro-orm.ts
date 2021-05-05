@@ -1,8 +1,9 @@
-import path from 'path'
+import * as types from '../types'
+import { MikroORM as ORM, AbstractNamingStrategy, NamingStrategy, Options } from '@mikro-orm/core'
 import { PostgreSqlDriver } from '@mikro-orm/postgresql'
-import { AbstractNamingStrategy, NamingStrategy, Options } from '@mikro-orm/core'
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection'
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter'
+import path from 'path'
 
 class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrategy {
   classToTableName(entityName: string) {
@@ -44,7 +45,7 @@ const isDatabaseLocal = process.env.IS_DATABASE_LOCAL === 'true'
 const isDatabaseSSL = isDatabaseLocal ? false : sslOptions
 
 // TODO: import connection-related properties from root .env
-const mikroORMConfig: Options = {
+const baseOptions: Options = {
   // debug: process.env.NODE_ENV !== 'production',
   clientUrl,
   driver: PostgreSqlDriver,
@@ -67,4 +68,6 @@ const mikroORMConfig: Options = {
   type: 'postgresql',
 }
 
-export default mikroORMConfig
+export const MikroORM = async (options: Options = {}): Promise<types.MikroORM> => {
+  return await ORM.init({ ...baseOptions, ...options })
+}

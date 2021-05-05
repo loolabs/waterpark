@@ -25,4 +25,3 @@ export class MikroClubRepo implements ClubRepo {
     }
   }
 }
- 

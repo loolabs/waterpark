@@ -4,7 +4,7 @@ import { ClubDTO } from '../../../../mappers/club-dto'
 import { createMockClubDTOs } from '../test-utils/create-club-dtos'
 import { Result } from '../../../../../../shared/core/result'
 import { GetAllClubsUseCase } from '../get-all-clubs-use-case'
-import { buildController } from '../test-utils/build-controller'
+import { setup } from '../test-utils/setup'
 import { AppError } from '../../../../../../shared/core/app-error'
 
 jest.mock('../../../../infra/repos/implementations/mikro-club-repo')
@@ -20,7 +20,7 @@ describe('GetAllClubsController', () => {
     const mockResponse = httpMocks.createResponse()
     jest.spyOn(GetAllClubsUseCase.prototype, 'execute').mockResolvedValue(Result.ok(mockClubDTOs))
 
-    const getAllClubsController = buildController()
+    const { getAllClubsController } = setup()
 
     const result: httpMocks.MockResponse<any> = await getAllClubsController.execute(
       mockRequest,
@@ -42,7 +42,7 @@ describe('GetAllClubsController', () => {
       .spyOn(GetAllClubsUseCase.prototype, 'execute')
       .mockResolvedValue(Result.err(new AppError.UnexpectedError('Pretend something failed.')))
 
-    const getAllClubsController = buildController()
+    const { getAllClubsController } = setup()
 
     const result = await getAllClubsController.execute(mockRequest, mockResponse)
 

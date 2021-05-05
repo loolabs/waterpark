@@ -1,31 +1,18 @@
-import express from 'express'
+import { environment, Variables } from './utils/environment'
 import request from 'supertest'
-import { MikroORM } from '@mikro-orm/core'
-import mikroORMConfig from '../mikro-orm.config'
-import { v1Router } from '../shared/infra/http/routes'
-import { DB } from '../shared/infra/db'
-import { UserEntity } from '../shared/infra/db/entities/user.entity'
-
-const app = express()
-app.use(express.json())
-app.use('/api/v1', v1Router)
 
 // must set environment variable DATABASE_URL to postgresql://loolabs:loolabs@localhost/clubs
 // to access postgres container on Docker
 // TODO: fix integration testing
 
 describe('User Router', () => {
+  let app: Variables['app']
   beforeAll(async () => {
-    DB.orm = await MikroORM.init({
-      ...mikroORMConfig,
-      debug: false,
-    })
-    DB.em = DB.orm.em
-    DB.usersEntityRepo = DB.orm.em.getRepository(UserEntity)
+    const variables = await environment.setup()
+    app = variables.app
   })
-
   afterAll(async () => {
-    await DB.orm.close()
+    await environment.teardown()
   })
 
   test('When a POST req is fired to /users, it should create a user', async () => {
