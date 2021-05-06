@@ -1,4 +1,4 @@
-import { environment, Variables } from './utils/environment'
+import environment, { Variables } from './utils/mikro-integration-test-environment'
 import request from 'supertest'
 
 describe('Event Router', () => {

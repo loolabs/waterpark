@@ -7,7 +7,7 @@ export class GetAllEventsController extends ControllerWithoutDTO<GetAllEventsUse
     super(useCase)
   }
 
-  async execute(_req: express.Request, res: express.Response): Promise<express.Response> {
+  async execute<Res extends express.Response>(_req: express.Request, res: Res): Promise<Res> {
     const result = await this.useCase.execute()
     if (result.isOk()) {
       return this.ok(res, result.value)

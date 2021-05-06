@@ -1,4 +1,4 @@
-import { environment, Variables } from './utils/environment'
+import environment, { Variables } from './utils/mikro-integration-test-environment'
 import request from 'supertest'
 
 // must set environment variable DATABASE_URL to postgresql://loolabs:loolabs@localhost/clubs

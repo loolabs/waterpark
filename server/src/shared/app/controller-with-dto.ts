@@ -22,7 +22,7 @@ export abstract class ControllerWithDTO<
     return error === undefined ? Result.ok(obj as T) : Result.err(error)
   }
 
-  public async execute(req: express.Request, res: express.Response): Promise<express.Response> {
+  public async execute<Res extends express.Response>(req: express.Request, res: Res): Promise<Res> {
     try {
       const dtoResult = this.buildDTO(req)
       if (dtoResult.isOk()) {
@@ -38,8 +38,8 @@ export abstract class ControllerWithDTO<
     }
   }
 
-  protected abstract executeImpl(
+  protected abstract executeImpl<Res extends express.Response>(
     dto: extractDTO<UseCase>,
-    res: express.Response
-  ): Promise<express.Response | void | any>
+    res: Res
+  ): Promise<Res | void | any>
 }

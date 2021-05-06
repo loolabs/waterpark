@@ -1,51 +1,35 @@
-import httpMocks from 'node-mocks-http'
-import { DecodedExpressRequest } from '../../../../../../shared/infra/http/routes/decoded-request'
-import { ClubDTO } from '../../../../mappers/club-dto'
-import { createMockClubDTOs } from '../test-utils/create-club-dtos'
-import { Result } from '../../../../../../shared/core/result'
-import { GetAllClubsUseCase } from '../get-all-clubs-use-case'
-import { setup } from '../test-utils/setup'
+import { mocks } from '../../../../../../test-utils'
 import { AppError } from '../../../../../../shared/core/app-error'
+import { Result } from '../../../../../../shared/core/result'
+import { ClubDTO } from '../../../../mappers/club-dto'
 
-jest.mock('../../../../infra/repos/implementations/mikro-club-repo')
+jest.mock('../../../../infra/repos/implementations/mock-club-repo')
 
 describe('GetAllClubsController', () => {
-  let mockClubDTOs: Array<ClubDTO>
-  beforeAll(() => {
-    mockClubDTOs = createMockClubDTOs()
-  })
+  const ids: Array<string> = [1, 2, 3].map(String)
+  const mockClubDTOs: Array<ClubDTO> = ids.map(mocks.mockClubDTO)
+  const { getAllClubsUseCase, getAllClubsController } = mocks.mockGetAllClubs()
 
   test('When executed, the GetAllClubsController returns 200 OK', async () => {
-    const mockRequest = httpMocks.createRequest() as DecodedExpressRequest
-    const mockResponse = httpMocks.createResponse()
-    jest.spyOn(GetAllClubsUseCase.prototype, 'execute').mockResolvedValue(Result.ok(mockClubDTOs))
+    jest.spyOn(getAllClubsUseCase, 'execute').mockResolvedValue(Result.ok(mockClubDTOs))
 
-    const { getAllClubsController } = setup()
+    const { req, res } = mocks.mockHandlerParams()
+    await getAllClubsController.execute(req, res)
+    expect(res.statusCode).toBe(200)
 
-    const result: httpMocks.MockResponse<any> = await getAllClubsController.execute(
-      mockRequest,
-      mockResponse
-    ) //TODO: find proper type for result so that ._getData() property is found by compiler
-
-    expect(result.statusCode).toBe(200)
-
-    const body = JSON.parse(result._getData())
+    const body = JSON.parse(res._getData())
     for (const mockClubDTO of mockClubDTOs) {
       expect(body).toContainEqual(mockClubDTO)
     }
   })
 
   test('If use case throws error, the GetAllClubsController responds 500', async () => {
-    const mockRequest = httpMocks.createRequest() as DecodedExpressRequest
-    const mockResponse = httpMocks.createResponse()
     jest
-      .spyOn(GetAllClubsUseCase.prototype, 'execute')
+      .spyOn(getAllClubsUseCase, 'execute')
       .mockResolvedValue(Result.err(new AppError.UnexpectedError('Pretend something failed.')))
 
-    const { getAllClubsController } = setup()
-
-    const result = await getAllClubsController.execute(mockRequest, mockResponse)
-
-    expect(result.statusCode).toBe(500)
+    const { req, res } = mocks.mockHandlerParams()
+    await getAllClubsController.execute(req, res)
+    expect(res.statusCode).toBe(500)
   })
 })

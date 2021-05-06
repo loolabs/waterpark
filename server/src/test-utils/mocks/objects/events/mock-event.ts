@@ -1,6 +1,6 @@
-import { Event } from '../../../../domain/entities/event'
+import { Event } from '../../../../modules/events/domain/entities/event'
 
-const createMockEvent = (id: any): Event => {
+const mockEvent = (id: string): Event => {
   const eventResult = Event.create({
     name: `Event Name ${id}`,
     description: `Event Description ${id}`,
@@ -21,4 +21,4 @@ const createMockEvent = (id: any): Event => {
   return eventResult.value
 }
 
-export { createMockEvent }
+export { mockEvent }

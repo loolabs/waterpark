@@ -1,22 +1,19 @@
-import { Event } from '../../../../domain/entities/event'
-import { createMockEvent } from '../test-utils/create-mock-event'
-import { createMockEventDTO } from '../test-utils/create-mock-event-dto'
-import { EventDTO } from '../../../../mappers/event-dto'
+import { mocks } from '../../../../../../test-utils'
 import { AppError } from '../../../../../../shared/core/app-error'
 import { Result } from '../../../../../../shared/core/result'
-import { setup } from '../test-utils/setup'
-import { MockEventRepo } from '../../../../infra/repos/implementations/mock-event-repo'
+import { Event } from '../../../../domain/entities/event'
+import { EventDTO } from '../../../../mappers/event-dto'
 
 jest.mock('../../../../infra/repos/implementations/mock-event-repo')
 
 describe('GetAllEventsUseCase', () => {
-  const ids = [1, 2, 3]
-  const mockEvents: Array<Event> = ids.map(createMockEvent)
-  const mockEventDTOs: Array<EventDTO> = ids.map(createMockEventDTO)
+  const ids: Array<string> = [1, 2, 3].map(String)
+  const mockEvents: Array<Event> = ids.map(mocks.mockEvent)
+  const mockEventDTOs: Array<EventDTO> = ids.map(mocks.mockEventDTO)
+  const { eventRepo, getAllEventsUseCase } = mocks.mockGetAllEvents()
 
   test('When executed, should return all events and an Ok', async () => {
-    jest.spyOn(MockEventRepo.prototype, 'getAllEvents').mockResolvedValue(Result.ok(mockEvents))
-    const { eventRepo, getAllEventsUseCase } = setup()
+    jest.spyOn(eventRepo, 'getAllEvents').mockResolvedValue(Result.ok(mockEvents))
 
     const getAllEventsResult = await getAllEventsUseCase.execute()
 
@@ -32,11 +29,11 @@ describe('GetAllEventsUseCase', () => {
 
   test('When repo throws error, should return AppError.UnexpectedError', async () => {
     jest
-      .spyOn(MockEventRepo.prototype, 'getAllEvents')
+      .spyOn(eventRepo, 'getAllEvents')
       .mockResolvedValue(Result.err(new AppError.UnexpectedError('Pretend something failed.')))
-    const { eventRepo, getAllEventsUseCase } = setup()
 
     const getAllEventsResult = await getAllEventsUseCase.execute()
+
     expect(eventRepo.getAllEvents).toBeCalled()
     expect(getAllEventsResult.isErr()).toBe(true)
   })

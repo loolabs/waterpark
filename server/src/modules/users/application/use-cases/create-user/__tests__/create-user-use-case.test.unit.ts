@@ -1,15 +1,24 @@
+import { mocks } from '../../../../../../test-utils'
 import { Err } from '../../../../../../shared/core/result'
 import { User } from '../../../../domain/entities/user'
+import { UserRepo } from '../../../../infra/repos/user-repo'
 import { UserValueObjectErrors } from '../../../../domain/value-objects/errors'
-import { MockUserRepo } from '../../../../infra/repos/implementations/mock-user-repo'
 import { CreateUserDTO } from '../create-user-dto'
 import { CreateUserErrors } from '../create-user-errors'
-import { setup } from '../test-utils/setup'
+import { CreateUserUseCase } from '../create-user-use-case'
 
 jest.mock('../../../../infra/repos/implementations/mock-user-repo')
 
 describe('CreateUserUseCase', () => {
   let createUserDTO: CreateUserDTO
+  let userRepo: UserRepo
+  let createUserUseCase: CreateUserUseCase
+
+  beforeAll(async () => {
+    const createUser = await mocks.mockCreateUser()
+    userRepo = createUser.userRepo
+    createUserUseCase = createUser.createUserUseCase
+  })
 
   beforeEach(() => {
     createUserDTO = {
@@ -19,8 +28,6 @@ describe('CreateUserUseCase', () => {
   })
 
   test('When executed with valid DTO, should save the user and return an Ok', async () => {
-    const { userRepo, createUserUseCase } = await setup()
-
     const createUserResult = await createUserUseCase.execute(createUserDTO)
 
     expect(userRepo.save).toBeCalled()
@@ -29,7 +36,6 @@ describe('CreateUserUseCase', () => {
 
   test('When executed with invalid email, should return UserValueObjectErrors.InvalidEmail', async () => {
     createUserDTO.email = 'john.doe@mail.utoronto.ca'
-    const { createUserUseCase } = await setup()
 
     const createUserResult = await createUserUseCase.execute(createUserDTO)
 
@@ -40,7 +46,6 @@ describe('CreateUserUseCase', () => {
 
   test('When executed with invalid password, should return UserValueObjectErrors.InvalidPassword', async () => {
     createUserDTO.password = '2shrt'
-    const { createUserUseCase } = await setup()
 
     const createUserResult = await createUserUseCase.execute(createUserDTO)
 
@@ -50,8 +55,7 @@ describe('CreateUserUseCase', () => {
   })
 
   test('When executed with email that already exists, should return CreateUserErrors.EmailAlreadyExistsError', async () => {
-    jest.spyOn(MockUserRepo.prototype, 'exists').mockResolvedValue(true)
-    const { createUserUseCase } = await setup()
+    jest.spyOn(userRepo, 'exists').mockResolvedValue(true)
 
     const createUserResult = await createUserUseCase.execute(createUserDTO)
 

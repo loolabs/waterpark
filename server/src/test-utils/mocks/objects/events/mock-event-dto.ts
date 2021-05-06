@@ -1,6 +1,6 @@
-import { EventDTO } from '../../../../mappers/event-dto'
+import { EventDTO } from '../../../../modules/events/mappers/event-dto'
 
-const createMockEventDTO = (id: any): EventDTO => {
+const mockEventDTO = (id: string): EventDTO => {
   return {
     name: `Event Name ${id}`,
     description: `Event Description ${id}`,
@@ -18,4 +18,4 @@ const createMockEventDTO = (id: any): EventDTO => {
   }
 }
 
-export { createMockEventDTO }
+export { mockEventDTO }
