@@ -7,6 +7,7 @@ import { colours } from '../../styles'
 
 // Shared styled components that can probably be factored out later
 const Icon = styled.img<{ size: string }>`
+  border-radius: 4px;
   height: ${({ size }) => size};
   object-fit: cover;
   width: ${({ size }) => size};

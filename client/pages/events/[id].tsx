@@ -1,22 +1,27 @@
-import React from "react";
-import { useRouter } from "next/router";
-import { useAppContext } from "../../context";
+import React from 'react'
+import { useRouter } from 'next/router'
+import { useAppContext } from '../../context'
+import { Banner } from '../../components/Banner'
+import { Container } from '../../components/DetailContainer'
+import { EventInfo } from '../../components/event-details'
+import { SimilarEvents } from '../../components/event-details/SimilarEvents'
 
 export default function EventDetail() {
-  const { events } = useAppContext();
-  const router = useRouter();
+  const { events } = useAppContext()
+  const router = useRouter()
 
-  const { id } = router.query;
-  if (typeof id !== 'string') return null;
+  const { id } = router.query
+  if (typeof id !== 'string') return null
 
-  const { name, description } = events.get(parseInt(id));
+  const event = events.get(parseInt(id))
 
   return (
     <div>
-      <h1>Event Details</h1>
-      <p>{id}</p>
-      <p>{name}</p>
-      <p>{description}</p>
+      <Banner backgroundImageUrl={event.bannerImageURL} />
+      <Container>
+        <EventInfo event={event} />
+        <SimilarEvents allEvents={events} event={event} />
+      </Container>
     </div>
-  );
+  )
 }
