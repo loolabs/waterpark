@@ -16,6 +16,7 @@ const NavBarContainer = styled.div`
   box-shadow: 0px 2px 10px rgba(34, 34, 34, 0.1);
   position: fixed;
   top: 0;
+  z-index: 1;
 `
 
 const NavBarOption = styled.a<any>`

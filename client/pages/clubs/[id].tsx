@@ -1,50 +1,9 @@
 import React from 'react'
-import styled from 'styled-components'
 import { useAppContext } from '../../context'
-import {
-  colours,
-  desktopFontSize,
-  device,
-  fontWeight,
-  mobileFontSize,
-  PageTitle,
-} from '../../styles/'
-import { Club } from '../../context/'
-import { BasicEvent } from '../../context/Base'
-import moment from 'moment-timezone'
 import { useRouter } from 'next/router'
-
-const mobile = `425px`
-const tablet = `768px`
-
-interface BannerProps {
-  backgroundImageUrl: string
-}
-
-const largerThan = (size: string): string => `(min-width: ${size})`
-
-const Banner = styled.div<BannerProps>`
-  background-image: url(${({ backgroundImageUrl }) => backgroundImageUrl || ''});
-  background-position: center;
-  height: 20vh;
-
-  @media ${largerThan(tablet)} {
-    height: 30vh;
-  }
-`
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0 auto 100px;
-
-  width: 85%;
-
-  @media ${largerThan(mobile)} {
-    width: 65%;
-  }
-`
+import { ClubInfo, EventsHostedByClub } from '../../components/club-details'
+import { Banner } from '../../components/Banner'
+import { Container } from '../../components/DetailContainer'
 
 export default function ClubDetail() {
   const { clubs } = useAppContext()
@@ -57,7 +16,7 @@ export default function ClubDetail() {
 
   return (
     <div>
-      <Banner backgroundImageUrl={club.backgroundImageURL} />
+      <Banner backgroundImageUrl={club.bannerImageURL} />
       <Container>
         <ClubInfo club={club} />
         <EventsHostedByClub events={club.events} />
@@ -65,6 +24,7 @@ export default function ClubDetail() {
     </div>
   )
 }
+<<<<<<< HEAD
 
 const BackArrow = styled.img`
   margin-top: 64px;
@@ -280,3 +240,5 @@ const EventCategories = ({ tags }: { tags: Array<string> }) => (
     })}
   </EventCategoriesWrapper>
 )
+=======
+>>>>>>> main

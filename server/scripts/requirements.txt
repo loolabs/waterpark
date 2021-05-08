@@ -1,0 +1,10 @@
+autopep8==1.5.6
+certifi==2020.12.5
+marshmallow==3.11.1
+pip==20.2.4
+psycopg2==2.8.5
+pycodestyle==2.7.0
+PyYAML==5.4.1
+setuptools==50.3.0.post20201006
+toml==0.10.2
+wheel==0.35.1
