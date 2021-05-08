@@ -121,8 +121,8 @@ export const EVENTS: Array<Event> = [
     description: 'dancing in the dark',
     backgroundImageURL:
       'https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlf0x8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80',
-    startDate: moment.tz('2022-11-18 10:55', 'Asia/Tokyo').local().tz(localZone),
-    endDate: moment.tz('2022-11-18 11:55', 'Asia/Tokyo').local().tz(localZone),
+    startDate: moment.tz('2021-05-06 10:55', 'Asia/Tokyo').local().tz(localZone),
+    endDate: moment.tz('2021-05-06 11:55', 'Asia/Tokyo').local().tz(localZone),
     tags: ['Tech', 'Community'],
   },
   {
@@ -136,8 +136,8 @@ export const EVENTS: Array<Event> = [
     description: 'chef curry with the shot',
     backgroundImageURL:
       'https://images.unsplash.com/photo-1616169201999-0d80789e41c3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlf0x8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    startDate: moment.tz('2022-11-18 10:55', 'Asia/Tokyo').local().tz(localZone),
-    endDate: moment.tz('2022-11-18 11:55', 'Asia/Tokyo').local().tz(localZone),
+    startDate: moment.tz('2021-05-09 10:55', 'Asia/Tokyo').local().tz(localZone),
+    endDate: moment.tz('2021-05-09 11:55', 'Asia/Tokyo').local().tz(localZone),
     tags: ['Arts'],
   },
   {
@@ -151,8 +151,8 @@ export const EVENTS: Array<Event> = [
     description: '👩‍🔬',
     backgroundImageURL:
       'https://images.unsplash.com/photo-1616256074022-3a20e0e8bf1b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlf0x8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=701&q=80',
-    startDate: moment.tz('2022-11-18 10:55', 'Asia/Tokyo').local().tz(localZone),
-    endDate: moment.tz('2022-11-18 11:55', 'Asia/Tokyo').local().tz(localZone),
+    startDate: moment.tz('2021-05-09 10:55', 'Asia/Tokyo').local().tz(localZone),
+    endDate: moment.tz('2021-05-09 11:55', 'Asia/Tokyo').local().tz(localZone),
     tags: ['Science', 'Health'],
   },
 ]

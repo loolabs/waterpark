@@ -5,6 +5,7 @@ import { EventListView } from "../EventListView/EventListView"
 import { Event } from '../../../context'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
 import styled from 'styled-components'
+import { FilteredEvents } from "../../../pages/events";
 
 enum View {
   list = 'list',
@@ -12,7 +13,7 @@ enum View {
 }
 
 interface EventViewProps {
-  filteredEvents: Array<Event>
+  filteredEvents: FilteredEvents
 }
 
 const EventViewToggleContainer = styled.div<any>`
@@ -49,7 +50,7 @@ const ToggleText = styled.div<any>`
   ${(props: any) => props.isActiveView && `
     font-weight: bold;
   `};
-  margin-right: 25px;
+  margin-right: 24px;
 `
 
 export const EventViewToggle = ({ filteredEvents }: EventViewProps) => {
@@ -88,13 +89,13 @@ export const EventViewToggle = ({ filteredEvents }: EventViewProps) => {
 
 interface ActiveViewProps {
   activeView: View,
-  filteredEvents: Array<Event>
+  filteredEvents: FilteredEvents
 }
 
-const ActiveView = ({activeView, filteredEvents}: ActiveViewProps) => {
+const ActiveView = ({activeView, filteredEvents }: ActiveViewProps) => {
   
   const getActiveView = () => {
-    switch(activeView){
+    switch (activeView){
       case View.calendar:
         return <EventCalendarView filteredEvents={filteredEvents}/>
       case View.list:
@@ -115,7 +116,7 @@ interface EventViewToggleButtonProps {
 const EventViewToggleButton = ({activeView, viewType, updateActiveView}: EventViewToggleButtonProps) => {
   
   const getViewTypeText = () => {
-    switch(viewType){
+    switch (viewType){
       case View.calendar:
         return "Calendar View"
       case View.list:

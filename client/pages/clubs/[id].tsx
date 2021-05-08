@@ -112,7 +112,7 @@ const CategoriesWrapper = styled.div`
 
 const Category = styled.p`
   border: 1px solid black;
-  border-radius: 15px;
+  border-radius: 16px;
   margin: 0 4px;
 
   padding: 4px 10px;
@@ -207,7 +207,7 @@ const EventCardImg = styled.img`
 `
 
 const EventCardDate = styled.p`
-  margin-top: 5px;
+  margin-top: 8px;
 `
 
 const PastEventsTitle = styled.p`

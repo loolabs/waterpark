@@ -2,20 +2,26 @@ import  { EventListCard } from './EventListCard'
 import { Id, Event } from '../../../context'
 import styled from 'styled-components'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
+import { FilteredEvents } from '../../../pages/events'
+import moment from 'moment'
 
 interface EventViewProps {
-  filteredEvents: Array<Event>
+  filteredEvents: FilteredEvents
 }
 
 const ListView = styled.div`
   width: 100%;
 `
 
-const ListViewRow = styled.div`
+const ListViewSection = styled.div`
   display: block;
   @media not all and ${device.tablet} {
     display: flex;
   }
+`
+
+const ListViewItems = styled.div`
+  width: 100%;
 `
 
 const ListViewDate = styled.div`
@@ -24,7 +30,7 @@ const ListViewDate = styled.div`
   flex-shrink: 0;
   flex-basis: 200px;
   color: ${colours.neutralDark1};
-  margin-bottom: 15px;
+  margin-bottom: 16px;
   @media not all and ${device.tablet} {
     margin-bottom: 0;
   }
@@ -32,23 +38,24 @@ const ListViewDate = styled.div`
 
 export const EventListView = ({ filteredEvents }: EventViewProps) => {
   
-  const getDateLabelIfNecessary = (index: number, allEvents: Event[]) => {
-    if(index == 0 || !(allEvents[index-1].startDate.isSame(allEvents[index].startDate, 'day'))){
-      //Format: THU, NOV 17TH
-      return allEvents[index].startDate.format('ddd, MMM Do').toLocaleUpperCase();
-    }
-    return null;
+  const getDateLabel = (date: string) => {
+    //Format: THU, NOV 17TH
+    return moment(date).format('ddd, MMM Do').toLocaleUpperCase();
   }
 
   return (
     <ListView> 
-      {filteredEvents.map((event, index, allEvents) => (
-        <ListViewRow key={`list-view-row-${event.id}`}>
+      {filteredEvents.dateOrder.map((date) => (
+        <ListViewSection key={`list-view-row-${date}`}>
           <ListViewDate>
-            {getDateLabelIfNecessary(index, allEvents)}
+            {getDateLabel(date)}
           </ListViewDate>
-          <EventListCard key={`event-list-card-${event.id}`} event={event} />
-        </ListViewRow>
+          <ListViewItems>
+            {filteredEvents.filteredEventsDateMap[date].map((event) => 
+              <EventListCard key={`event-list-card-${event.id}`} event={event} />
+            )}
+          </ListViewItems>
+        </ListViewSection>
       ))}
     </ListView>
   )

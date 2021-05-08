@@ -28,10 +28,12 @@ interface ListCardImageProps {
 
 const ListCardImage = styled.div<ListCardImageProps>`
   height: auto;
-  flex 0 0 80px;
+  flex-shrink: 0;
+  flex-basis: 80px;
   cursor: pointer;
   @media not all and ${device.laptop} {
-    flex 0 0 200px;
+    flex-shrink: 0;
+    flex-basis: 200px;
   }
   
   ${(props: ListCardImageProps) => `
@@ -53,7 +55,7 @@ const ListCardName = styled.div`
   @media not all and ${device.tablet} {
     font-size: ${desktopFontSize.h3};
   }
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 `
 
 const ListCardTime = styled.div`
@@ -76,7 +78,8 @@ const ListCardFooter = styled.div`
 const ListCardClub = styled.div`
   font-size: ${mobileFontSize.subtitle2};
   font-weight: bold;
-  flex: 0 0 100px;
+  flex-shrink: 0;
+  flex-basis: 100px;
   margin-bottom: 10px;
   @media not all and ${device.tablet} {
     font-size: ${desktopFontSize.subtitle2};
@@ -94,16 +97,23 @@ const ListCardTags = styled.div`
   }
 `
 
-const ListCardTag = styled.div<any>`
+interface ListCardTagProps {
+  tag: string
+}
+
+const ListCardTag = styled.div<ListCardTagProps>`
   margin-right: 12px;
   margin-bottom: 10px;
   padding: 8px 16px;
   background: white;
-  flex: 0 0 50px;
+  flex-shrink: 0;
+  flex-basis: 50px;
   border-radius: 50px;
-  ${(props: any) => `
-    border: 2px solid ${colours.tagColours[props.tag]};
- `};
+  ${(props: ListCardTagProps) => `
+    border-color: ${colours.tagColours[props.tag]};
+  `};
+  border-style: solid;
+  border-width: 2px;
 `
 const MAXIMUM_NUMBER_OF_VIEWABLE_TAGS = 3;
 

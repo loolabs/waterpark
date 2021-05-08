@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
 
 interface EventProps {
-    event: Event
+  event: Event
 }
 
 const CalendarCard = styled.div`
@@ -54,10 +54,8 @@ export const EventCalendarCard = ({ event }: EventProps) => {
     router.push({ pathname: `/events/${id}` })
   }
 
-  const getFormattedTimeString = () => (
-    //Format: 8:55 PM - 9:55 PM EST
-    `${startDate.format('LT')} - ${endDate.format('LT z')}`
-  )
+  //Format: 8:55 PM - 9:55 PM EST
+  const formattedTimeString = `${startDate.format('LT')} - ${endDate.format('LT z')}`
 
   return (
     <CalendarCard>
@@ -68,7 +66,7 @@ export const EventCalendarCard = ({ event }: EventProps) => {
           {name}
         </CalendarCardEventName>
         <CalendarCardTime>
-          {getFormattedTimeString()}
+          {formattedTimeString}
         </CalendarCardTime>
         <CalendarCardEventClub>
           {club.name}

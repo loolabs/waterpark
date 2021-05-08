@@ -4,24 +4,25 @@ import styled from 'styled-components'
 import moment from 'moment-timezone'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
 import { EventCalendarCard } from './EventCalendarCard'
+import { EVENT_MAP_KEY_FORMAT, FilteredEvents } from "../../../pages/events"
 
 interface EventViewProps {
-  filteredEvents: Array<Event>
+  filteredEvents: FilteredEvents
 }
 
 interface DaySignature {
-  dayNumber: Number,
+  dayNumber: number,
   dayShortForm: string
 }
 
 const daysOfWeek: Array<DaySignature> = [
-  { dayNumber: 1, dayShortForm: "Mon" },
-  { dayNumber: 2, dayShortForm: "Tue" },
-  { dayNumber: 3, dayShortForm: "Wed" },
-  { dayNumber: 4, dayShortForm: "Thu" },
-  { dayNumber: 5, dayShortForm: "Fri" },
-  { dayNumber: 6, dayShortForm: "Sat" },
-  { dayNumber: 0, dayShortForm: "Sun" },
+  { dayNumber: 0, dayShortForm: "Mon" },
+  { dayNumber: 1, dayShortForm: "Tue" },
+  { dayNumber: 2, dayShortForm: "Wed" },
+  { dayNumber: 3, dayShortForm: "Thu" },
+  { dayNumber: 4, dayShortForm: "Fri" },
+  { dayNumber: 5, dayShortForm: "Sat" },
+  { dayNumber: 6, dayShortForm: "Sun" },
 ]
 
 const CalendarView = styled.div`
@@ -51,19 +52,15 @@ const CalendarColumnHeader = styled.h3`
   color: ${colours.neutralDark1};
   font-weight: bold;
   font-size: ${desktopFontSize.h3};
-  margin-bottom: 25px;
+  margin-bottom: 24px;
 `
 
 export const EventCalendarView = ({ filteredEvents }: EventViewProps) => {
 
-  const getEventsOnDay = (dayNumber: Number) => {
-    const beginningOfWeek = moment().startOf('isoWeek');
-    const endOfWeek = moment().startOf('isoWeek').add(6, 'days');
+  const getEventsOnDay = (dayNumber: number) => {
+    const weekDay = moment().startOf('isoWeek').add(dayNumber, 'days');
     //ensures events correspond to current week period starting at the last monday and ending at next sunday are selected
-    return filteredEvents.filter(event => 
-      event.startDate.isSameOrAfter(beginningOfWeek, 'day') 
-      && event.startDate.isSameOrBefore(endOfWeek, 'day')
-      && event.startDate.day() == dayNumber)
+    return filteredEvents.filteredEventsDateMap[weekDay.format(EVENT_MAP_KEY_FORMAT)]
   }
 
   const generateDayColumns = () => (
@@ -93,6 +90,6 @@ export const CalendarColumn = ({day, events}: CalendarColumnProps) => (
     <CalendarColumnHeader>
       {day.dayShortForm.toLocaleUpperCase()}
     </CalendarColumnHeader>
-    {events.map(event => <EventCalendarCard key={`event-calendar-card-${event.id}`} event={event}/>)}
+    {events && events.map(event => <EventCalendarCard key={`event-calendar-card-${event.id}`} event={event}/>)}
   </CalendarColumnWrapper>
 )
