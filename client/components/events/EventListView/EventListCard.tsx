@@ -10,7 +10,9 @@ interface EventProps {
 
 const ListCard = styled.div`
   margin-bottom: 20px;
-  flex: 3 0 auto;
+  flex-grow: 3;
+  flex-shrink: 0;
+  flex-basis: auto;
   display: flex;
   width: auto;
   border-radius: 6px;
