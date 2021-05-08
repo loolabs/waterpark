@@ -118,7 +118,7 @@ const ListCardTag = styled.div<ListCardTagProps>`
 const MAXIMUM_NUMBER_OF_VIEWABLE_TAGS = 3;
 
 export const EventListCard = ({ event }: EventProps) => {
-  const { id, name, club, backgroundImageURL, startDate, endDate, tags } = event
+  const { id, name, club, bannerImageURL, startTime, endTime, tags } = event
 
   const router = useRouter()
 
@@ -128,7 +128,7 @@ export const EventListCard = ({ event }: EventProps) => {
 
   const getFormattedTimeString = () => (
      //Format: 8:55 PM - 9:55 PM EST
-    `${startDate.format('LT')} - ${endDate.format('LT z')}`
+    `${startTime.format('LT')} - ${endTime.format('LT z')}`
   )
 
   const getFormattedTags = () => {
@@ -144,7 +144,7 @@ export const EventListCard = ({ event }: EventProps) => {
 
   return (
     <ListCard onClick={handleEventClick}>
-      <ListCardImage backgroundImageURL={backgroundImageURL}/>
+      <ListCardImage backgroundImageURL={bannerImageURL}/>
       <ListCardContent>
         <ListCardName>
           {name}

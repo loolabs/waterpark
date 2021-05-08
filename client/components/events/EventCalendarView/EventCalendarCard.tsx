@@ -46,7 +46,7 @@ const CalendarCardEventClub = styled.p`
 `
 
 export const EventCalendarCard = ({ event }: EventProps) => {
-  const { id, name, club, backgroundImageURL, startDate, endDate } = event
+  const { id, name, club, bannerImageURL, startTime, endTime } = event
 
   const router = useRouter()
 
@@ -55,12 +55,12 @@ export const EventCalendarCard = ({ event }: EventProps) => {
   }
 
   //Format: 8:55 PM - 9:55 PM EST
-  const formattedTimeString = `${startDate.format('LT')} - ${endDate.format('LT z')}`
+  const formattedTimeString = `${startTime.format('LT')} - ${endTime.format('LT z')}`
 
   return (
     <CalendarCard>
       <CalendarCardImageContainer onClick={handleEventClick}>
-        <CalendarCardImage src={backgroundImageURL}/>
+        <CalendarCardImage src={bannerImageURL}/>
         </CalendarCardImageContainer>
         <CalendarCardEventName>
           {name}
