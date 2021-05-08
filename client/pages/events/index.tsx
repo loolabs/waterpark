@@ -19,7 +19,7 @@ export default function Events() {
   const dateOrder: Array<string> = []
   for (const event of filteredEventsArray){
     const formattedEventDate = event.startDate.format(EVENT_MAP_KEY_FORMAT)
-    if(filteredEventsDateMap[formattedEventDate]){
+    if (filteredEventsDateMap[formattedEventDate]){
       filteredEventsDateMap[formattedEventDate].push(event)
     } else {
       filteredEventsDateMap[formattedEventDate] = [event];
