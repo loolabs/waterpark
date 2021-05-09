@@ -6,7 +6,7 @@ import { FilteredEvents } from '../../../pages/events'
 import moment from 'moment'
 
 interface EventViewProps {
-  filteredEvents: FilteredEvents
+  events: Map<string, Array<Event>>
 }
 
 const ListView = styled.div`
@@ -36,22 +36,31 @@ const ListViewDate = styled.div`
   }
 `
 
-export const EventListView = ({ filteredEvents }: EventViewProps) => {
+export const EventListView = ({ events }: EventViewProps) => {
   
   const getDateLabel = (date: string) => {
     //Format: THU, NOV 17TH
     return moment(date).format('ddd, MMM Do').toLocaleUpperCase();
   }
 
+  //sort the dates in ascending order
+  const datesArray = Array.from(events.keys()).sort((firstDate, secondDate) => {
+    if(moment(firstDate) > moment(secondDate)){
+      return 1
+    } else {
+      return -1
+    }
+  })
+
   return (
     <ListView> 
-      {filteredEvents.dateOrder.map((date) => (
+      {datesArray.map((date) => (
         <ListViewSection key={`list-view-row-${date}`}>
           <ListViewDate>
             {getDateLabel(date)}
           </ListViewDate>
           <ListViewItems>
-            {filteredEvents.filteredEventsDateMap[date].map((event) => 
+            {events.get(date).map((event) => 
               <EventListCard key={`event-list-card-${event.id}`} event={event} />
             )}
           </ListViewItems>

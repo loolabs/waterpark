@@ -16,20 +16,17 @@ export default function Events() {
 
   //this requires that filteredEventsArray is in sorted order (with respect to event startDate)
   const filteredEventsDateMap: Map<string, Array<Event>> = new Map()
-  const dateOrder: Array<string> = []
+
   for (const event of filteredEventsArray){
     const formattedEventDate = event.startTime.format(EVENT_MAP_KEY_FORMAT)
-    if (filteredEventsDateMap[formattedEventDate]){
-      filteredEventsDateMap[formattedEventDate].push(event)
+    if (filteredEventsDateMap.has(formattedEventDate)){
+      filteredEventsDateMap.get(formattedEventDate).push(event)
     } else {
-      filteredEventsDateMap[formattedEventDate] = [event];
-      dateOrder.push(formattedEventDate)
+      filteredEventsDateMap.set(formattedEventDate, [event]);
     }
   }
 
-  const filteredEvents: FilteredEvents = {
-    filteredEventsDateMap, dateOrder
-  }
-  
-  return <EventViewToggle filteredEvents={filteredEvents}/>
+  const filteredEvents: Map<string, Array<Event>> = filteredEventsDateMap
+
+  return <EventViewToggle events={filteredEvents}/>
 }

@@ -1,1 +1,1 @@
-export { EventViewToggle } from "./EventViewToggle/EventViewToggle";
+export { EventViewToggle } from "./EventViewToggle";
