@@ -6,9 +6,9 @@ import { Result } from '../../../../../shared/core/result'
 import { AppError } from '../../../../../shared/core/app-error'
 
 export class MockClubRepo implements ClubRepo {
-  constructor(protected eventEntities: Array<ClubEntity> = []) {}
+  constructor(protected clubEntities: Array<ClubEntity> = []) {}
 
   async getAllClubs(): Promise<Result<Array<Club>, AppError.UnexpectedError>> {
-    return Result.ok(this.eventEntities.map(ClubMap.toDomain))
+    return Result.ok(this.clubEntities.map(ClubMap.toDomain))
   }
 }

@@ -1,9 +1,23 @@
-import * as types from '../types'
-import { MikroORM as ORM, AbstractNamingStrategy, NamingStrategy, Options } from '@mikro-orm/core'
+import {
+  MikroORM,
+  EntityRepository,
+  AbstractNamingStrategy,
+  NamingStrategy,
+  Options,
+} from '@mikro-orm/core'
 import { PostgreSqlDriver } from '@mikro-orm/postgresql'
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection'
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter'
 import path from 'path'
+import { DB } from './db'
+import { Repos } from './repos'
+import { ClubEntity } from '../../shared/infra/db/entities/club.entity'
+import { EventEntity } from '../../shared/infra/db/entities/event.entity'
+import { TagEntity } from '../../shared/infra/db/entities/tags/tag.entity'
+import { UserEntity } from '../../shared/infra/db/entities/user.entity'
+import { MikroClubRepo } from '../../modules/clubs/infra/repos/implementations/mikro-club-repo'
+import { MikroEventRepo } from '../../modules/events/infra/repos/implementations/mikro-event-repo'
+import { MikroUserRepo } from '../../modules/users/infra/repos/implementations/mikro-user-repo'
 
 class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrategy {
   classToTableName(entityName: string) {
@@ -68,6 +82,53 @@ const baseOptions: Options = {
   type: 'postgresql',
 }
 
-export const MikroORM = async (options: Options = {}): Promise<types.MikroORM> => {
-  return await ORM.init({ ...baseOptions, ...options })
+const setupMikroORM = async (options: Options = {}): Promise<MikroORM> => {
+  return await MikroORM.init({ ...baseOptions, ...options })
 }
+
+interface MikroEntityRepos {
+  club: EntityRepository<ClubEntity>
+  event: EntityRepository<EventEntity>
+  tag: EntityRepository<TagEntity>
+  user: EntityRepository<UserEntity>
+}
+const setupMikroEntityRepos = ({ em: entityManager }: MikroORM): MikroEntityRepos => {
+  return {
+    club: entityManager.getRepository(ClubEntity),
+    event: entityManager.getRepository(EventEntity),
+    tag: entityManager.getRepository(TagEntity),
+    user: entityManager.getRepository(UserEntity),
+  }
+}
+
+interface MikroRepos extends Repos {
+  club: MikroClubRepo
+  event: MikroEventRepo
+  user: MikroUserRepo
+}
+const setupMikroRepos = (mikroEntityRepos: MikroEntityRepos): MikroRepos => {
+  return {
+    club: new MikroClubRepo(mikroEntityRepos.club),
+    event: new MikroEventRepo(mikroEntityRepos.event),
+    user: new MikroUserRepo(mikroEntityRepos.user),
+  }
+}
+
+interface MikroDB extends DB {
+  orm: MikroORM
+  entityRepos: MikroEntityRepos
+  repos: MikroRepos
+}
+const setupMikroDB = async (options: Options = {}): Promise<MikroDB> => {
+  const orm = await setupMikroORM(options)
+  const entityRepos = setupMikroEntityRepos(orm)
+  const repos = setupMikroRepos(entityRepos)
+
+  return {
+    orm,
+    entityRepos,
+    repos,
+  }
+}
+
+export { MikroORM, MikroEntityRepos, MikroRepos, MikroDB, setupMikroDB }

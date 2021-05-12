@@ -1,22 +1,24 @@
-import { setup } from './app'
+import { setupMikroDB } from './setup/db'
+import { setupApplication } from './setup/application'
+import { setupWaterparkExpress } from './setup/http/express'
 
-const app = async (port: string) => {
-  const entities = setup.Entities()
-  const orm = await setup.MikroORM()
-  const mikroEntityRepos = setup.MikroEntityRepos(entities, orm)
+interface WaterparkOptions {
+  port: string
+}
+
+const waterpark = async (options: WaterparkOptions) => {
+  const { orm, repos } = await setupMikroDB()
   const migrator = orm.getMigrator()
   await migrator.up()
-  const repos = setup.MikroRepos(mikroEntityRepos)
 
-  const useCases = setup.UseCases(repos)
-  const controllers = setup.Controllers(useCases)
+  const { controllers } = setupApplication(repos)
 
-  const apiExpressRouter = setup.VersionedAPIExpressRouter(controllers)
-  const expressApp = setup.BasicExpressApp(apiExpressRouter, orm)
-  expressApp.listen(port, () => {
+  const { app } = setupWaterparkExpress(controllers, { mikroORM: orm })
+  app.listen(options.port, () => {
     console.log(`Waterpark REST API server running on http://localhost:${port}/api/v1 🦆`)
   })
 }
 
 const port = process.env.PORT || '3001'
-app(port)
+const options = { port }
+waterpark(options)
