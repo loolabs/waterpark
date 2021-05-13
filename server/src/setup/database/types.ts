@@ -7,3 +7,7 @@ export interface Repos {
   event: EventRepo
   user: UserRepo
 }
+
+export interface DB {
+  repos: Repos
+}

@@ -1,3 +1,4 @@
-export { Controllers, setupControllers } from './controllers'
-export { UseCases, setupUseCases } from './use-cases'
-export { Application, setupApplication } from './application'
+export { UseCases, Controllers, Application } from './types'
+export { setupControllers } from './controllers'
+export { setupUseCases } from './use-cases'
+export { setupApplication } from './application'

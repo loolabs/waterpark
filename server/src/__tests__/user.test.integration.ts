@@ -6,10 +6,10 @@ import request from 'supertest'
 // TODO: fix integration testing
 
 describe('User Router', () => {
-  let app: Variables['app']
+  let webServer: Variables['webServer']
   beforeAll(async () => {
     const variables = await environment.setup()
-    app = variables.app
+    webServer = variables.webServer
   })
   afterAll(async () => {
     await environment.teardown()
@@ -18,7 +18,7 @@ describe('User Router', () => {
   test('When a POST req is fired to /users, it should create a user', async () => {
     const validEmail = `${Date.now()}@uwaterloo.ca`
     const validPassword = 'secret'
-    const res = await request(app)
+    const res = await request(webServer)
       .post('/api/v1/users')
       .send({
         email: validEmail,

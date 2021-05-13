@@ -1,5 +1,4 @@
-import { Repos } from './repos'
-import { DB } from './db'
+import { Repos, DB } from './types'
 import { MockClubRepo } from '../../modules/clubs/infra/repos/implementations/mock-club-repo'
 import { MockEventRepo } from '../../modules/events/infra/repos/implementations/mock-event-repo'
 import { MockUserRepo } from '../../modules/users/infra/repos/implementations/mock-user-repo'

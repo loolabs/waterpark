@@ -1,11 +1,7 @@
-import { Repos } from '../db'
-import { Controllers, setupControllers } from './controllers'
-import { UseCases, setupUseCases } from './use-cases'
-
-export interface Application {
-  useCases: UseCases
-  controllers: Controllers
-}
+import { Application } from './types'
+import { Repos } from '../database'
+import { setupControllers } from './controllers'
+import { setupUseCases } from './use-cases'
 
 export const setupApplication = (repos: Repos): Application => {
   const useCases = setupUseCases(repos)
