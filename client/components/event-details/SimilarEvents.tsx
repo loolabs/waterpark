@@ -60,11 +60,12 @@ const EventCards = ({ events }: { events: Array<Event> }) => {
       {events.map((e, i) => {
         return (
           <EventCardWrapper
+            key={`event-card-${i}`}
             onClick={() => {
               handleClick(e.id)
             }}
           >
-            <EventCard event={e} key={`event-card-${i}`} />
+            <EventCard event={e} />
           </EventCardWrapper>
         )
       })}

@@ -100,7 +100,7 @@ interface ClubCardProps {
 }
 
 export const ClubCard = ({ club }: ClubCardProps) => {
-  const { id, name, description, iconURL, bannerImageURL, tags } = club
+  const { id, name, description, links, tags } = club
   const router = useRouter()
 
   const handleClick = () => {
@@ -109,11 +109,11 @@ export const ClubCard = ({ club }: ClubCardProps) => {
 
   return (
     <ClubCardContainer onClick={handleClick}>
-      <ClubCardBanner bannerImageURL={bannerImageURL}></ClubCardBanner>
+      <ClubCardBanner bannerImageURL={links.bannerImage}></ClubCardBanner>
       <ClubCardContent>
         <ClubCardHeader>
           <ClubCardName>{name}</ClubCardName>
-          <Icon src={iconURL} size="56px"></Icon>
+          <Icon src={links.iconImage} size="56px"></Icon>
         </ClubCardHeader>
         <ClubCardDescription>{description}</ClubCardDescription>
         <TagRow>

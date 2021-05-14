@@ -37,7 +37,7 @@ const EventCardImg = styled.img`
   }
 `
 
-const EventCardDate = styled.p`
+const EventCardDate = styled.div`
   margin-top: 5px;
 `
 
