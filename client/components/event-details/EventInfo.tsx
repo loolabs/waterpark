@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { Event } from '../../context'
+import { Event } from '../../utils'
 import {
   desktopFontSize,
   mobileFontSize,

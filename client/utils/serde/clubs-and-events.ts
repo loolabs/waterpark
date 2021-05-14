@@ -1,5 +1,5 @@
 import moment from 'moment-timezone'
-import { Club, Event } from '../../context' // TODO: extract these into a types file instead of them living in context
+import { Club, Event } from '../../utils'
 
 // TODO: remove these duplicated types from the backend with shared api types
 export interface BasicEventDTO {

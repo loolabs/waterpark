@@ -1,6 +1,6 @@
-import React from "react"
+import React from 'react'
 import { useRouter } from 'next/router'
-import { Event } from '../../../context'
+import { Event } from '../../../utils'
 import styled from 'styled-components'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
 
@@ -60,17 +60,11 @@ export const EventCalendarCard = ({ event }: EventProps) => {
   return (
     <CalendarCard>
       <CalendarCardImageContainer onClick={handleEventClick}>
-        <CalendarCardImage src={bannerImageURL}/>
-        </CalendarCardImageContainer>
-        <CalendarCardEventName>
-          {name}
-        </CalendarCardEventName>
-        <CalendarCardTime>
-          {formattedTimeString}
-        </CalendarCardTime>
-        <CalendarCardEventClub>
-          {club.name}
-        </CalendarCardEventClub>
+        <CalendarCardImage src={bannerImageURL} />
+      </CalendarCardImageContainer>
+      <CalendarCardEventName>{name}</CalendarCardEventName>
+      <CalendarCardTime>{formattedTimeString}</CalendarCardTime>
+      <CalendarCardEventClub>{club.name}</CalendarCardEventClub>
     </CalendarCard>
   )
 }

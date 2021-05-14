@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Id, Event } from '../../context'
+import { Event, Id } from '../../utils'
 import { desktopFontSize, fontWeight, largerThan, mobileFontSize, tablet } from '../../styles'
 import { EventCard } from '../../components/club-details'
 import { useRouter } from 'next/router'

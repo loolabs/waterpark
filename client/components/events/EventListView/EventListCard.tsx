@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { Event } from '../../../context'
+import { Event } from '../../../utils'
 import styled from 'styled-components'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
 
@@ -35,7 +35,7 @@ const ListCardImage = styled.div<ListCardImageProps>`
     flex-shrink: 0;
     flex-basis: 200px;
   }
-  
+
   ${(props: ListCardImageProps) => `
     background-image: url(${props.backgroundImageURL});
  `};
@@ -46,7 +46,7 @@ const ListCardImage = styled.div<ListCardImageProps>`
 
 const ListCardContent = styled.div`
   padding: 20px;
-  flex-grow: 1
+  flex-grow: 1;
 `
 
 const ListCardName = styled.div`
@@ -71,7 +71,7 @@ const ListCardFooter = styled.div`
   display: block;
   justify-content: space-between;
   @media not all and ${device.tablet} {
-    display: flex;  
+    display: flex;
   }
 `
 
@@ -115,7 +115,7 @@ const ListCardTag = styled.div<ListCardTagProps>`
   border-style: solid;
   border-width: 2px;
 `
-const MAXIMUM_NUMBER_OF_VIEWABLE_TAGS = 3;
+const MAXIMUM_NUMBER_OF_VIEWABLE_TAGS = 3
 
 export const EventListCard = ({ event }: EventProps) => {
   const { id, name, club, bannerImageURL, startTime, endTime, tags } = event
@@ -126,39 +126,31 @@ export const EventListCard = ({ event }: EventProps) => {
     router.push({ pathname: `/events/${id}` })
   }
 
-  const getFormattedTimeString = () => (
-     //Format: 8:55 PM - 9:55 PM EST
+  const getFormattedTimeString = () =>
+    //Format: 8:55 PM - 9:55 PM EST
     `${startTime.format('LT')} - ${endTime.format('LT z')}`
-  )
 
   const getFormattedTags = () => {
-    let formattedTags = [...tags];
-    if(tags.length > MAXIMUM_NUMBER_OF_VIEWABLE_TAGS){
-      formattedTags = formattedTags.slice(0, MAXIMUM_NUMBER_OF_VIEWABLE_TAGS);
+    let formattedTags = [...tags]
+    if (tags.length > MAXIMUM_NUMBER_OF_VIEWABLE_TAGS) {
+      formattedTags = formattedTags.slice(0, MAXIMUM_NUMBER_OF_VIEWABLE_TAGS)
     }
-    return formattedTags.map((tag, index) => <ListCardTag tag={tag} key={`list-card-tag-${index}-${tag}`}>
-    {tag}
-  </ListCardTag>)
+    return formattedTags.map((tag, index) => (
+      <ListCardTag tag={tag} key={`list-card-tag-${index}-${tag}`}>
+        {tag}
+      </ListCardTag>
+    ))
   }
-
 
   return (
     <ListCard onClick={handleEventClick}>
-      <ListCardImage backgroundImageURL={bannerImageURL}/>
+      <ListCardImage backgroundImageURL={bannerImageURL} />
       <ListCardContent>
-        <ListCardName>
-          {name}
-        </ListCardName>
-        <ListCardTime>
-          {getFormattedTimeString()}
-        </ListCardTime>
+        <ListCardName>{name}</ListCardName>
+        <ListCardTime>{getFormattedTimeString()}</ListCardTime>
         <ListCardFooter>
-          <ListCardClub>
-            {club.name}
-          </ListCardClub>
-          <ListCardTags>
-            {getFormattedTags()}
-          </ListCardTags>
+          <ListCardClub>{club.name}</ListCardClub>
+          <ListCardTags>{getFormattedTags()}</ListCardTags>
         </ListCardFooter>
       </ListCardContent>
     </ListCard>

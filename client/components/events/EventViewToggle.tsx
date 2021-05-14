@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { EventCalendarView } from "./EventCalendarView"
-import { EventListView } from "./EventListView/EventListView"
-import { Event } from '../../context'
+import { EventCalendarView } from './EventCalendarView'
+import { EventListView } from './EventListView/EventListView'
+import { Event } from '../../utils'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../styles'
 import styled from 'styled-components'
-import { FilteredEvents } from "../../pages/events";
+import { FilteredEvents } from '../../pages/events'
 
 enum View {
   list = 'list',
@@ -47,7 +47,9 @@ const EventViewToggleButtons = styled.div<any>`
 `
 
 const ToggleText = styled.div<any>`
-  ${(props: any) => props.isActiveView && `
+  ${(props: any) =>
+    props.isActiveView &&
+    `
     font-weight: bold;
   `};
   margin-right: 24px;
@@ -56,73 +58,86 @@ const ToggleText = styled.div<any>`
 export const EventViewToggle = ({ events }: EventViewProps) => {
   const router = useRouter()
 
-  const { view } = router.query;
+  const { view } = router.query
 
   useEffect(() => {
     //refresh component whenever query param changes
   }, [router.query.view])
 
   const updateActiveView = (view) => {
-    router.push({query: {
-      view: view
-    }})
+    router.push({
+      query: {
+        view: view,
+      },
+    })
   }
 
   let formattedView = View.list
-  if(typeof view === 'string'){
+  if (typeof view === 'string') {
     formattedView = View[view]
   }
-  
+
   return (
-    <EventViewToggleContainer> 
+    <EventViewToggleContainer>
       <EventViewToggleButtonsContainer>
-        <EventViewToggleButtonsSpacer/>
+        <EventViewToggleButtonsSpacer />
         <EventViewToggleButtons>
-          <EventViewToggleButton activeView={formattedView} viewType={View.list} updateActiveView={updateActiveView}/>
-          <EventViewToggleButton activeView={formattedView} viewType={View.calendar} updateActiveView={updateActiveView}/>
+          <EventViewToggleButton
+            activeView={formattedView}
+            viewType={View.list}
+            updateActiveView={updateActiveView}
+          />
+          <EventViewToggleButton
+            activeView={formattedView}
+            viewType={View.calendar}
+            updateActiveView={updateActiveView}
+          />
         </EventViewToggleButtons>
       </EventViewToggleButtonsContainer>
-      <ActiveView activeView={formattedView} events={events}/>
+      <ActiveView activeView={formattedView} events={events} />
     </EventViewToggleContainer>
-  );
-};
+  )
+}
 
 interface ActiveViewProps {
-  activeView: View,
+  activeView: View
   events: Map<string, Array<Event>>
 }
 
-const ActiveView = ({activeView, events }: ActiveViewProps) => {
-  switch (activeView){
+const ActiveView = ({ activeView, events }: ActiveViewProps) => {
+  switch (activeView) {
     case View.calendar:
-      return <EventCalendarView events={events}/>
+      return <EventCalendarView events={events} />
     case View.list:
     default:
-      return <EventListView events={events}/>
+      return <EventListView events={events} />
   }
 }
 
 interface EventViewToggleButtonProps {
-  activeView: View,
-  viewType: View,
+  activeView: View
+  viewType: View
   updateActiveView: Function
 }
 
-const EventViewToggleButton = ({activeView, viewType, updateActiveView}: EventViewToggleButtonProps) => {
-  
+const EventViewToggleButton = ({
+  activeView,
+  viewType,
+  updateActiveView,
+}: EventViewToggleButtonProps) => {
   const getViewTypeText = () => {
-    switch (viewType){
+    switch (viewType) {
       case View.calendar:
-        return "Calendar View"
+        return 'Calendar View'
       case View.list:
       default:
-        return "List View"
+        return 'List View'
     }
   }
 
-  return <ToggleText 
-    isActiveView={activeView===viewType}
-    onClick={()=>updateActiveView(viewType)}>
-    {getViewTypeText()}
-  </ToggleText>
+  return (
+    <ToggleText isActiveView={activeView === viewType} onClick={() => updateActiveView(viewType)}>
+      {getViewTypeText()}
+    </ToggleText>
+  )
 }

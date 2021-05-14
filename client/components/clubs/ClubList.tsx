@@ -1,6 +1,6 @@
 import { useSearch } from '../hooks'
 import { TAGS, Tag, TagGroup, TagRow, TagBubble } from './Tag'
-import { Id, Club } from '../../context'
+import { Club, Id } from '../../utils'
 import { useMemo } from 'react'
 import styled from 'styled-components'
 import { ClubCard } from './ClubCard'
