@@ -1,51 +1,36 @@
-import httpMocks from 'node-mocks-http'
-import { DecodedExpressRequest } from '../../../../../../shared/infra/http/routes/decoded-request'
+import { mocks } from '../../../../../../test-utils'
 import { EventDTO } from '../../../../mappers/event-dto'
-import { createMockEventDTOs } from '../test-utils/create-event-dtos'
 import { Result } from '../../../../../../shared/core/result'
 import { GetAllEventsUseCase } from '../get-all-events-use-case'
-import { buildController } from '../test-utils/build-controller'
 import { AppError } from '../../../../../../shared/core/app-error'
 
-jest.mock('../../../../infra/repos/implementations/mikro-event-repo')
+jest.mock('../../../../infra/repos/implementations/mock-event-repo')
 
 describe('GetAllEventsController', () => {
-  let mockEventDTOs: Array<EventDTO>
-  beforeAll(() => {
-    mockEventDTOs = createMockEventDTOs()
-  })
+  const ids: Array<string> = [1, 2, 3].map(String)
+  const mockEventDTOs: Array<EventDTO> = ids.map(mocks.mockEventDTO)
+  const { getAllEventsController } = mocks.mockGetAllEvents()
 
   test('When executed, the GetAllEventsController returns 200 OK', async () => {
-    const mockRequest = httpMocks.createRequest() as DecodedExpressRequest
-    const mockResponse = httpMocks.createResponse()
     jest.spyOn(GetAllEventsUseCase.prototype, 'execute').mockResolvedValue(Result.ok(mockEventDTOs))
 
-    const getAllEventsController = buildController()
+    const { req, res } = mocks.mockHandlerParams()
+    await getAllEventsController.execute(req, res)
+    expect(res.statusCode).toBe(200)
 
-    const result: httpMocks.MockResponse<any> = await getAllEventsController.execute(
-      mockRequest,
-      mockResponse
-    ) //TODO: find proper type for result so that ._getData() property is found by compiler
-
-    expect(result.statusCode).toBe(200)
-
-    const body = JSON.parse(result._getData())
+    const body = JSON.parse(res._getData())
     for (const mockEventDTO of mockEventDTOs) {
       expect(body).toContainEqual(mockEventDTO)
     }
   })
 
   test('If use case throws error, the GetAllEventsController responds 500', async () => {
-    const mockRequest = httpMocks.createRequest() as DecodedExpressRequest
-    const mockResponse = httpMocks.createResponse()
     jest
       .spyOn(GetAllEventsUseCase.prototype, 'execute')
       .mockResolvedValue(Result.err(new AppError.UnexpectedError('Pretend something failed.')))
 
-    const getAllEventsController = buildController()
-
-    const result = await getAllEventsController.execute(mockRequest, mockResponse)
-
-    expect(result.statusCode).toBe(500)
+    const { req, res } = mocks.mockHandlerParams()
+    await getAllEventsController.execute(req, res)
+    expect(res.statusCode).toBe(500)
   })
 })

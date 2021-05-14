@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 
 services:
   server:
@@ -11,7 +11,9 @@ services:
       - /usr/src/app/node_modules # isolate container's node_modules from local node_modules (different OS versions)
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
-    command: npm run start:dev
+    # command: npm run test:unit
+    command: npm run test:integration
+    # command: npm run start:dev
     env_file:
       - .env
     # networks:
