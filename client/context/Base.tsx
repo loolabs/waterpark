@@ -192,7 +192,7 @@ export const AppProvider = ({ children }) => {
   const [events, setEvents] = useState<Map<Id, Event>>(indexData())
 
   const fetchClubs = async () => {
-    const response = await fetch('https://waterpark-staging.herokuapp.com/api/v1/clubs')
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/clubs`)
 
     if (!response.ok) {
       throw new Error('Network response was not ok')
