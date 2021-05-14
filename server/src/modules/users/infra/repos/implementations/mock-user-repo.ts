@@ -12,7 +12,6 @@ export class MockUserRepo implements UserRepo {
   }
 
   async exists(userEmail: UserEmail): Promise<boolean> {
-    console.log('exists ' + userEmail.value)
     for (const userEntity of this.userEntities.values()) {
       if (userEntity.email === userEmail.value) return true
     }

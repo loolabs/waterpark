@@ -1,18 +1,16 @@
-import environment, { Variables } from './utils/mikro-integration-test-environment'
+import { environments } from '../test-utils'
 import request from 'supertest'
 
-// must set environment variable DATABASE_URL to postgresql://loolabs:loolabs@localhost/clubs
-// to access postgres container on Docker
-// TODO: fix integration testing
+const env = new environments.MockEntityMikroTestEnvironment([1, 2, 3])
 
-describe('User Router', () => {
-  let webServer: Variables['webServer']
+describe('Club Router', () => {
+  let webServer: environments.MikroEnvironmentVariables['webServer']
   beforeAll(async () => {
-    const variables = await environment.setup()
+    const variables = await env.setup()
     webServer = variables.webServer
   })
   afterAll(async () => {
-    await environment.teardown()
+    await env.teardown()
   })
 
   test('When a POST req is fired to /users, it should create a user', async () => {
