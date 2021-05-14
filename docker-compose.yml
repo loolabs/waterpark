@@ -12,8 +12,8 @@ services:
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
     # command: npm run test:unit
-    command: npm run test:integration
-    # command: npm run start:dev
+    # command: npm run test:integration
+    command: npm run start:dev
     env_file:
       - .env
     # networks:

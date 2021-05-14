@@ -2,6 +2,7 @@ import { RequestContext } from '@mikro-orm/core'
 import express from 'express'
 import { APIRouter, WebServer } from './types'
 import { MikroORM } from '../../database'
+import cors from 'cors'
 
 interface BasicWebServerOptions {
   mikroORM?: MikroORM
@@ -10,6 +11,7 @@ interface BasicWebServerOptions {
 const setupBasicWebServer = (apiRouter: APIRouter, options: BasicWebServerOptions): WebServer => {
   const server = express()
   server.use(express.json())
+  server.use(cors())
 
   const entityManager = options?.mikroORM?.em
   if (entityManager !== undefined) {
