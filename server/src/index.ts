@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import { RequestContext } from '@mikro-orm/core'
 import { MikroORM } from '@mikro-orm/core/MikroORM'
 import { v1Router } from './shared/infra/http/routes'
@@ -24,9 +24,20 @@ const initializeORM = async (DBObject: typeof DB) => {
   await migrator.up()
 }
 
+const enableCorsMiddleware = (_req: Request, res: Response, next: NextFunction) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json'
+  )
+  next()
+}
+
 const bootstrap = async () => {
   await initializeORM(DB)
+
   app.use(express.json())
+  app.use(enableCorsMiddleware)
 
   app.use((_req, _res, next) => RequestContext.create(DB.orm.em, next))
   app.use('/api/v1', v1Router)
