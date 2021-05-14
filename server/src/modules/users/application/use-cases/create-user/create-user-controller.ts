@@ -24,7 +24,7 @@ export class CreateUserController extends ControllerWithDTO<CreateUserUseCase> {
     }
   }
 
-  async executeImpl(dto: CreateUserDTO, res: express.Response): Promise<express.Response> {
+  async executeImpl<Res extends express.Response>(dto: CreateUserDTO, res: Res): Promise<Res> {
     try {
       const result = await this.useCase.execute(dto)
 
