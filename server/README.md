@@ -18,6 +18,7 @@ DB_USERNAME=loolabs
 DB_PASSWORD=loolabs
 DB_PORT=5432
 DATABASE_URL=postgresql://loolabs:loolabs@db/clubs
+IS_DATABASE_LOCAL=true
 ```
 
 ### Installing
