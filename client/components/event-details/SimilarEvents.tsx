@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Id, Event } from '../../context'
+import { Event, Id } from '../../utils'
 import { desktopFontSize, fontWeight, largerThan, mobileFontSize, tablet } from '../../styles'
 import { EventCard } from '../../components/club-details'
 import { useRouter } from 'next/router'
@@ -60,11 +60,12 @@ const EventCards = ({ events }: { events: Array<Event> }) => {
       {events.map((e, i) => {
         return (
           <EventCardWrapper
+            key={`event-card-${i}`}
             onClick={() => {
               handleClick(e.id)
             }}
           >
-            <EventCard event={e} key={`event-card-${i}`} />
+            <EventCard event={e} />
           </EventCardWrapper>
         )
       })}

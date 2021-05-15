@@ -16,7 +16,7 @@ export default function ClubDetail() {
 
   return (
     <div>
-      <Banner backgroundImageUrl={club.bannerImageURL} />
+      <Banner backgroundImageUrl={club.links.bannerImage} />
       <Container>
         <ClubInfo club={club} />
         <EventsHostedByClub events={club.events} />

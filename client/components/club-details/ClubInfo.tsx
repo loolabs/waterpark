@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { Club } from '../../context'
 import { fontWeight, PageTitle } from '../../styles'
+import { Club } from '../../utils'
 import { Category } from '../Category'
 
 const BackArrow = styled.img`
@@ -63,15 +63,15 @@ interface ClubInfoProps {
 export const ClubInfo = ({ club }: ClubInfoProps) => {
   const router = useRouter()
 
-  const { name, description, iconURL, tags } = club
-  const links = [club.facebookLink, club.twitterLink, club.instagramLink, club.websiteLink]
-  const linksThatExist = links.filter((l) => l !== undefined)
+  const { name, description, links, tags } = club
+  const potentialLinks = [links.facebook, links.twitter, links.instagram, links.website]
+  const linksThatExist = potentialLinks.filter((link) => link !== undefined)
 
   return (
     <div>
       <BackArrow src="/back-arrow.svg" width="28px" onClick={() => router.back()} />
 
-      <Logo src={iconURL} alt="" />
+      <Logo src={links.iconImage} alt="" />
       <ClubName> {name}</ClubName>
 
       <Links>

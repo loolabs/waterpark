@@ -1,5 +1,5 @@
-import  { EventListCard } from './EventListCard'
-import { Id, Event } from '../../../context'
+import { EventListCard } from './EventListCard'
+import { Id, Event } from '../../../utils'
 import styled from 'styled-components'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
 import { FilteredEvents } from '../../../pages/events'
@@ -37,15 +37,14 @@ const ListViewDate = styled.div`
 `
 
 export const EventListView = ({ events }: EventViewProps) => {
-  
   const getDateLabel = (date: string) => {
     //Format: THU, NOV 17TH
-    return moment(date).format('ddd, MMM Do').toLocaleUpperCase();
+    return moment(date).format('ddd, MMM Do').toLocaleUpperCase()
   }
 
   //sort the dates in ascending order
   const datesArray = Array.from(events.keys()).sort((firstDate, secondDate) => {
-    if(moment(firstDate) > moment(secondDate)){
+    if (moment(firstDate) > moment(secondDate)) {
       return 1
     } else {
       return -1
@@ -53,16 +52,14 @@ export const EventListView = ({ events }: EventViewProps) => {
   })
 
   return (
-    <ListView> 
+    <ListView>
       {datesArray.map((date) => (
         <ListViewSection key={`list-view-row-${date}`}>
-          <ListViewDate>
-            {getDateLabel(date)}
-          </ListViewDate>
+          <ListViewDate>{getDateLabel(date)}</ListViewDate>
           <ListViewItems>
-            {events.get(date).map((event) => 
+            {events.get(date).map((event) => (
               <EventListCard key={`event-list-card-${event.id}`} event={event} />
-            )}
+            ))}
           </ListViewItems>
         </ListViewSection>
       ))}

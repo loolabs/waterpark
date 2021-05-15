@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import moment from 'moment-timezone'
 import { Category } from '../Category'
 import { colours, desktopFontSize, device, fontWeight, largerThan, mobile } from '../../styles'
-import { BasicEvent } from '../../context/Base'
+import { BasicEvent } from '../../utils'
 
 const EventsTitle = styled.h2`
   margin-top: 40px;
@@ -37,7 +37,7 @@ const EventCardImg = styled.img`
   }
 `
 
-const EventCardDate = styled.p`
+const EventCardDate = styled.div`
   margin-top: 5px;
 `
 
