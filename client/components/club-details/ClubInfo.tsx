@@ -65,7 +65,7 @@ export const ClubInfo = ({ club }: ClubInfoProps) => {
 
   const { name, description, links, tags } = club
   const potentialLinks = [links.facebook, links.twitter, links.instagram, links.website]
-  const linksThatExist = potentialLinks.filter((l) => l !== undefined)
+  const linksThatExist = potentialLinks.filter((link) => link !== undefined)
 
   return (
     <div>

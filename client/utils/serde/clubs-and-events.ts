@@ -40,7 +40,6 @@ export const deserializeClubsAndEvents = (
     }
   }
 
-  let eventId = 0
   const deserializedEvents: Array<Event> = []
 
   const deserializedClubs = serializedClubs.map((club, clubId) => {
@@ -48,7 +47,7 @@ export const deserializeClubsAndEvents = (
       ...club,
       id: clubId,
       events: club.events.map((event) => {
-        const deserializedEvent = deserializeEvent(event, eventId++, club)
+        const deserializedEvent = deserializeEvent(event, deserializedEvents.length, club)
         deserializedEvents.push(deserializedEvent)
 
         return deserializedEvent
@@ -72,8 +71,8 @@ const deserializeEvent = (
   return {
     ...serializedEvent,
     id: eventId,
-    startTime: moment.tz('2022-11-18 10:55', 'Asia/Tokyo').local().tz(localZone),
-    endTime: moment.tz('2022-11-18 10:55', 'Asia/Tokyo').local().tz(localZone),
+    startTime: moment.tz(serializedEvent.startTime, 'Asia/Tokyo').local().tz(localZone),
+    endTime: moment.tz(serializedEvent.endTime, 'Asia/Tokyo').local().tz(localZone),
     club: {
       name: club.name,
       iconURL: club.links.iconImage,
