@@ -49,6 +49,7 @@
   "mikro-orm": {
     "useTsNode": true,
     "configPaths": [
+      "./src/setup/database/mikro-db.ts",
       "./src/mikro-orm.config.ts",
       "./dist/mikro-orm.config.js"
     ]
