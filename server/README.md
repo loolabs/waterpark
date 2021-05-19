@@ -14,10 +14,10 @@ These instructions will get you a copy of the project up and running on your loc
 ```
 SERVER_PORT=3001
 DB_DATABASE_NAME=clubs
-DB_USERNAME=loolabs
-DB_PASSWORD=loolabs
+DB_USERNAME=waterpark
+DB_PASSWORD=waterpark
 DB_PORT=5432
-DATABASE_URL=postgresql://loolabs:loolabs@db/clubs
+DATABASE_URL=postgresql://waterpark:waterpark@db/clubs
 ```
 
 ### Installing
