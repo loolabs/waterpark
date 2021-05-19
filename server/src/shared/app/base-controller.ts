@@ -1,9 +1,11 @@
-import * as express from 'express'
-
+import express from 'express'
 export abstract class BaseController {
-  public abstract execute(req: express.Request, res: express.Response): Promise<express.Response>
+  public abstract execute<Res extends express.Response>(
+    req: express.Request,
+    res: Res
+  ): Promise<Res>
 
-  public ok<T>(res: express.Response, dto?: T): express.Response {
+  public ok<Res extends express.Response, T>(res: Res, dto?: T): Res {
     if (dto) {
       res.type('application/json')
       return res.status(200).json(dto)
@@ -12,50 +14,66 @@ export abstract class BaseController {
     }
   }
 
-  public fail(res: express.Response, error: Error | string): express.Response {
+  public fail<Res extends express.Response>(res: Res, error: Error | string): Res {
     console.log(error)
     return res.status(500).json({
       message: error.toString(),
     })
   }
 
-  public static jsonResponse(res: express.Response, code: number, message: string) {
+  public static jsonResponse<Res extends express.Response>(
+    res: Res,
+    code: number,
+    message: string
+  ): Res {
     return res.status(code).json({ message })
   }
 
-  public created(res: express.Response) {
+  public created<Res extends express.Response>(res: Res): Res {
     return res.sendStatus(201)
   }
 
-  public clientError(res: express.Response, message: string = 'Unauthorized') {
+  public clientError<Res extends express.Response>(
+    res: Res,
+    message: string = 'Unauthorized'
+  ): Res {
     return BaseController.jsonResponse(res, 400, message)
   }
 
-  public unauthorized(res: express.Response, message: string = 'Unauthorized') {
+  public unauthorized<Res extends express.Response>(
+    res: Res,
+    message: string = 'Unauthorized'
+  ): Res {
     return BaseController.jsonResponse(res, 401, message)
   }
 
-  public paymentRequired(res: express.Response, message: string = 'Payment required') {
+  public paymentRequired<Res extends express.Response>(
+    res: Res,
+    message: string = 'Payment required'
+  ): Res {
     return BaseController.jsonResponse(res, 402, message)
   }
 
-  public forbidden(res: express.Response, message: string = 'Forbidden') {
+  public forbidden<Res extends express.Response>(res: Res, message: string = 'Forbidden'): Res {
     return BaseController.jsonResponse(res, 403, message)
   }
 
-  public notFound(res: express.Response, message: string = 'Not found') {
+  public notFound<Res extends express.Response>(res: Res, message: string = 'Not found'): Res {
     return BaseController.jsonResponse(res, 404, message)
   }
 
-  public conflict(res: express.Response, message: string = 'Conflict') {
+  public conflict<Res extends express.Response>(res: Res, message: string = 'Conflict'): Res {
     return BaseController.jsonResponse(res, 409, message)
   }
 
-  public tooMany(res: express.Response, message: string = 'Too many requests') {
+  public tooMany<Res extends express.Response>(
+    res: Res,
+    message: string = 'Too many requests'
+  ): Res {
     return BaseController.jsonResponse(res, 429, message)
   }
 
-  public todo(res: express.Response, message: string = 'TODO') {
+  public todo<Res extends express.Response>(res: Res, message: string = 'TODO'): Res {
     return BaseController.jsonResponse(res, 400, message)
   }
 }

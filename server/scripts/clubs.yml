@@ -1,0 +1,37 @@
+- name: Loolabs # All possible club fields listed
+  description: Connecting Waterloo students with projects
+  size: 10
+  banner_image: https://banner.com
+  icon_image: https://icon.com
+  facebook: https://facebook.com
+  twitter: https://twitter.com
+  instagram: https://instagram.com
+  website: https://website.com
+  events:
+    - name: Wednesday Work Session # All possible event fields listed
+      description: Building some stuff
+      url: https://github.com/loolabs/waterpark
+      banner_image: https://banner.com
+      start_time: '2021-01-01 00:00:00+00'
+      end_time: '2021-01-01 00:00:00+00'
+      facebook: https://facebook.com
+      twitter: https://twitter.com
+      instagram: https://instagram.com
+      tags:
+        - Engineering
+    - name: Saturday Work Session # All non-nullable event fields listed
+      description: Building more stuff
+      banner_image: https://banner.com
+      start_time: '2021-02-02 00:00:00+00'
+      end_time: '2021-02-02 00:00:00+00'
+  tags:
+    - Tech
+    - Community
+- name: Tech+ # All non-nullable club fields listed
+  description: >-
+    Tech+ Mentorship Program connects 1st- and 2nd-year UWaterloo students with experienced
+    and passionate upper-years from different domains in tech, and fosters this community
+    through events that bring everyone together.
+  size: 30
+  banner_image: https://banner.com
+  icon_image: https://icon.com

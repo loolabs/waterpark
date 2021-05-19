@@ -1,61 +1,27 @@
 import React from 'react'
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
+import { AppProvider } from '../context'
+import dynamic from 'next/dynamic'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
-interface AppData {
-  clubs: Map<ClubId, ClubInfo>
-}
-export const AppContext = React.createContext<AppData>(null)
-
-export interface ClubInfo {
-  name: string
-  description: string
-}
-
-export interface EventInfo {
-  name: string
-  description: string
-}
-
-export type ClubId = number
-
-interface AppData {
-  clubs: Map<ClubId, ClubInfo>
-}
-
-export const clubs = new Map([
-  [
-    2932,
-    {
-      name: 'UW Ballroom',
-      description: 'dancing in the dark',
-    },
-  ],
-  [
-    8888,
-    {
-      name: 'Cooking club',
-      description: 'chef curry with the shot',
-    },
-  ],
-  [
-    111,
-    {
-      name: 'Loo Labs',
-      description: '👩‍🔬',
-    },
-  ],
-])
+const DynamicNavBar = dynamic(() => import('../components/NavBar').then((mod) => mod.NavBar), {
+  ssr: false,
+})
 
 function App({ Component, pageProps }: AppProps) {
+  const queryClientRef = React.useRef<QueryClient>()
+  if (!queryClientRef.current) {
+    queryClientRef.current = new QueryClient()
+  }
+
   return (
-    <AppContext.Provider
-      value={{
-        clubs,
-      }}
-    >
-      <Component {...pageProps} />
-    </AppContext.Provider>
+    <QueryClientProvider client={queryClientRef.current}>
+      <AppProvider>
+        <DynamicNavBar />
+        <Component {...pageProps} />
+      </AppProvider>
+    </QueryClientProvider>
   )
 }
 

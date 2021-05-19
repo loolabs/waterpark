@@ -26,11 +26,7 @@ export type CreateUserSuccess = {
 export type CreateUserUseCaseResponse = Result<CreateUserSuccess, CreateUserUseCaseError>
 
 export class CreateUserUseCase implements UseCaseWithDTO<CreateUserDTO, CreateUserUseCaseResponse> {
-  private userRepo: UserRepo
-
-  constructor(userRepo: UserRepo) {
-    this.userRepo = userRepo
-  }
+  constructor(private userRepo: UserRepo) {}
 
   async execute(dto: CreateUserDTO): Promise<CreateUserUseCaseResponse> {
     const emailResult = UserEmail.create(dto.email)

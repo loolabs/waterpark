@@ -11,8 +11,8 @@
     "start": "node -r dotenv/config dist/index.js",
     "start:dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
     "test:all": "jest --maxWorkers =1",
-    "test:unit": "jest --testPathPattern=unit.ts$ --maxWorkers=1",
-    "test:integration": "jest --testPathPattern=integration.ts$ --maxWorkers=1"
+    "test:unit": "jest --testPathPattern=unit.ts$ --runInBand",
+    "test:integration": "jest --testPathPattern=integration.ts$ --runInBand"
   },
   "dependencies": {
     "@mikro-orm/cli": "^4.3.4",
@@ -21,6 +21,7 @@
     "@mikro-orm/reflection": "^4.3.4",
     "@mikro-orm/sql-highlighter": "^1.0.1",
     "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "graphql": "^15.4.0",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
+    "@types/cors": "^2.8.10",
     "@types/express": "^4.17.9",
     "@types/hapi__joi": "^17.1.6",
     "@types/jest": "^26.0.19",
@@ -54,6 +56,7 @@
   "mikro-orm": {
     "useTsNode": true,
     "configPaths": [
+      "./src/setup/database/mikro-db.ts",
       "./src/mikro-orm.config.ts",
       "./dist/mikro-orm.config.js"
     ]

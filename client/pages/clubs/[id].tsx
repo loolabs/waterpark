@@ -1,23 +1,26 @@
-import React from "react";
-import { useRouter } from "next/router";
-import { useContext } from "react";
-import { AppContext } from "../_app";
+import React from 'react'
+import { useAppContext } from '../../context'
+import { useRouter } from 'next/router'
+import { ClubInfo, EventsHostedByClub } from '../../components/club-details'
+import { Banner } from '../../components/Banner'
+import { Container } from '../../components/DetailContainer'
 
 export default function ClubDetail() {
-  const appData = useContext(AppContext);
-  const router = useRouter();
+  const { clubs } = useAppContext()
+  const router = useRouter()
 
-  const { id } = router.query;
-  if (typeof id !== 'string') return null;
+  const { id } = router.query
+  if (typeof id !== 'string') return null
 
-  const { name, description } = appData.clubs.get(parseInt(id));
+  const club = clubs.get(parseInt(id))
 
   return (
     <div>
-      <h1>Club Details</h1>
-      <p>{id}</p>
-      <p>{name}</p>
-      <p>{description}</p>
+      <Banner backgroundImageUrl={club.links.bannerImage} />
+      <Container>
+        <ClubInfo club={club} />
+        <EventsHostedByClub events={club.events} />
+      </Container>
     </div>
-  );
+  )
 }

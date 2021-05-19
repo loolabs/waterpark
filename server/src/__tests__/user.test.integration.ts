@@ -1,33 +1,22 @@
-import express from 'express'
+import { environments } from '../test-utils'
 import request from 'supertest'
-import { MikroORM } from '@mikro-orm/core'
-import mikroORMConfig from '../mikro-orm.config'
-import { v1Router } from '../shared/infra/http/routes'
-import { DB } from '../shared/infra/db'
-import { UserEntity } from '../shared/infra/db/entities/user.entity'
 
-const app = express()
-app.use(express.json())
-app.use('/api/v1', v1Router)
+const env = new environments.MockEntityMikroTestEnvironment([1, 2, 3])
 
-describe('User Router', () => {
+describe('Club Router', () => {
+  let webServer: environments.MikroEnvironmentVariables['webServer']
   beforeAll(async () => {
-    DB.orm = await MikroORM.init({
-      ...mikroORMConfig,
-      debug: false,
-    })
-    DB.em = DB.orm.em
-    DB.usersEntityRepo = DB.orm.em.getRepository(UserEntity)
+    const variables = await env.setup()
+    webServer = variables.webServer
   })
-
-  afterAll(() => {
-    DB.orm.close()
+  afterAll(async () => {
+    await env.teardown()
   })
 
   test('When a POST req is fired to /users, it should create a user', async () => {
     const validEmail = `${Date.now()}@uwaterloo.ca`
     const validPassword = 'secret'
-    const res = await request(app)
+    const res = await request(webServer)
       .post('/api/v1/users')
       .send({
         email: validEmail,

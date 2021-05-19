@@ -1,33 +1,26 @@
-import { Club } from '../../../../domain/entities/club'
-import { MikroClubRepo } from '../../../../infra/repos/implementations/mikro-club-repo'
-import { GetAllClubsUseCase } from '../get-all-clubs-use-case'
-import { createMockClubs } from '../test-utils/create-clubs'
-import { createMockClubDTOs } from '../test-utils/create-club-dtos'
-import { ClubDTO } from '../../../../mappers/club-dto'
+import { mocks } from '../../../../../../test-utils'
 import { AppError } from '../../../../../../shared/core/app-error'
 import { Result } from '../../../../../../shared/core/result'
+import { Club } from '../../../../domain/entities/club'
+import { ClubDTO } from '../../../../mappers/club-dto'
 
-jest.mock('../../../../infra/repos/implementations/mikro-club-repo')
+jest.mock('../../../../infra/repos/implementations/mock-club-repo')
 
 describe('GetAllClubsUseCase', () => {
-  let mockClubs: Result<Array<Club>, AppError.UnexpectedError>
-  let mockClubDTOs: Array<ClubDTO>
-  beforeAll(() => {
-    mockClubs = createMockClubs()
-    mockClubDTOs = createMockClubDTOs()
-  })
+  const ids: Array<string> = [1, 2, 3].map(String)
+  const mockClubs: Array<Club> = ids.map(mocks.mockClub)
+  const mockClubDTOs: Array<ClubDTO> = ids.map(mocks.mockClubDTO)
+  const { clubRepo, getAllClubsUseCase } = mocks.mockGetAllClubs()
 
   test('When executed, should return all clubs and an Ok', async () => {
-    jest.spyOn(MikroClubRepo.prototype, 'getAllClubs').mockResolvedValue(mockClubs)
-    const fakeMikroClubRepo = new MikroClubRepo()
-    const getAllClubsUseCase = new GetAllClubsUseCase(fakeMikroClubRepo)
+    jest.spyOn(clubRepo, 'getAllClubs').mockResolvedValue(Result.ok(mockClubs))
 
     const getAllClubsResult = await getAllClubsUseCase.execute()
 
-    expect(fakeMikroClubRepo.getAllClubs).toBeCalled()
+    expect(clubRepo.getAllClubs).toBeCalled()
     expect(getAllClubsResult.isOk()).toBe(true)
     if (getAllClubsResult.isOk()) {
-      expect(getAllClubsResult.value.length).toBe(3)
+      expect(getAllClubsResult.value.length).toBe(ids.length)
       for (const mockClubDTO of mockClubDTOs) {
         expect(getAllClubsResult.value).toContainEqual(mockClubDTO)
       }
@@ -36,13 +29,12 @@ describe('GetAllClubsUseCase', () => {
 
   test('When repo throws error, should return AppError.UnexpectedError', async () => {
     jest
-      .spyOn(MikroClubRepo.prototype, 'getAllClubs')
+      .spyOn(clubRepo, 'getAllClubs')
       .mockResolvedValue(Result.err(new AppError.UnexpectedError('Pretend something failed.')))
-    const fakeMikroClubRepo = new MikroClubRepo()
-    const getAllClubsUseCase = new GetAllClubsUseCase(fakeMikroClubRepo)
 
     const getAllClubsResult = await getAllClubsUseCase.execute()
-    expect(fakeMikroClubRepo.getAllClubs).toBeCalled()
+
+    expect(clubRepo.getAllClubs).toBeCalled()
     expect(getAllClubsResult.isErr()).toBe(true)
   })
 })
