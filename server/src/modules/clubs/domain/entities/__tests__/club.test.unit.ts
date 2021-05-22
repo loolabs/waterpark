@@ -13,6 +13,7 @@ describe('Club AggregateRoot', () => {
     clubResult = Club.create({
       name: 'Club Name',
       description: 'Club Description',
+      size: 30,
       bannerImage: 'Banner URL',
       iconImage: 'Icon',
       links: {

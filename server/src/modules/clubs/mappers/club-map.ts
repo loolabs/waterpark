@@ -22,6 +22,7 @@ export class ClubMap {
     return {
       name: club.name,
       description: club.description,
+      size: club.size,
       links: {
         bannerImage: club.bannerImage,
         iconImage: club.iconImage,
@@ -46,6 +47,7 @@ export class ClubMap {
       {
         name: clubEntity.name,
         description: clubEntity.description,
+        size: clubEntity.size,
         iconImage: clubEntity.iconImage,
         bannerImage: clubEntity.bannerImage,
         links: {
