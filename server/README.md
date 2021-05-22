@@ -18,6 +18,7 @@ DB_USERNAME=waterpark
 DB_PASSWORD=waterpark
 DB_PORT=5432
 DATABASE_URL=postgresql://waterpark:waterpark@db/clubs
+IS_DATABASE_LOCAL=true
 ```
 
 ### Installing
