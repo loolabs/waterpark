@@ -4,7 +4,7 @@ import  '../../../../../shared/auth/user-auth-handler'
 import { LoginUserDTO } from './login-user-dto'
 
 export class LoginUserUseCase
-  implements UseCaseWithDTO<LoginUserDTO, Promise<UserAuthHandlerLoginResponse>> {
+  implements UseCaseWithDTO<LoginUserDTO, UserAuthHandlerLoginResponse> {
   private userAuthHandler: UserAuthHandler
 
   constructor(userAuthHandler: UserAuthHandler) {

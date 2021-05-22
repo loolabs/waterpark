@@ -10,7 +10,7 @@ import { CreateUserDTO } from './create-user-dto'
 import { CreateUserErrors } from './create-user-errors'
 import { UserMap } from '../../../mappers/user-map'
 import { UserDTO } from '../../../mappers/user-dto'
-import { UserAuthHandler } from '../../../../../shared/auth/user-auth-handler'
+import { PassportUserAuthHandler } from '../../../../../shared/auth/implementations/passport-user-auth-handler'
 
 export type CreateUserUseCaseError =
   | UserValueObjectErrors.InvalidEmail
@@ -62,7 +62,7 @@ export class CreateUserUseCase implements UseCaseWithDTO<CreateUserDTO, CreateUs
       if(updatedUser.isErr())
         return Result.err(new AppError.UnexpectedError(updatedUser.error.message))
       
-        const tokenResponse = await new UserAuthHandler().create(updatedUser.value.id.toString())
+        const tokenResponse = await new PassportUserAuthHandler().create(updatedUser.value.id.toString())
 
       if(tokenResponse.isErr())
         return tokenResponse

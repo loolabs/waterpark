@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import passport from "passport";
-import "../../../../auth";
+import "../../../../setup/http/express/auth";
 import { GetUserUseCaseResponse } from "../../../../modules/users/application/use-cases/get-user/get-user-use-case";
 import { BaseController } from "../../../app/base-controller";
 

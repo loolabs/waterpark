@@ -13,7 +13,7 @@ export type GetUserUseCaseError =
 export type GetUserUseCaseResponse = Result<User, GetUserUseCaseError>
 
 export class GetUserUseCase
-  implements UseCaseWithDTO<GetUserDTO, Promise<GetUserUseCaseResponse>> {
+  implements UseCaseWithDTO<GetUserDTO, GetUserUseCaseResponse> {
   private userRepo: UserRepo
 
   constructor(userRepo: UserRepo) {

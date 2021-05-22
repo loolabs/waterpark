@@ -15,17 +15,17 @@ type AuthenticateUserUseCaseError =
 export type AuthenticateUserUseCaseResponse = Result<User, AuthenticateUserUseCaseError>
 
 export class AuthenticateUserUseCase
-  implements UseCaseWithDTO<AuthenticateUserDTO, Promise<AuthenticateUserUseCaseResponse>> {
+  implements UseCaseWithDTO<AuthenticateUserDTO, AuthenticateUserUseCaseResponse> {
   private userRepo: UserRepo
 
   constructor(userRepo: UserRepo) {
     this.userRepo = userRepo
   }
 
-  async execute(request: AuthenticateUserDTO): Promise<AuthenticateUserUseCaseResponse> {
-    const emailResult = UserEmail.create(request.email)
+  async execute(dto: AuthenticateUserDTO): Promise<AuthenticateUserUseCaseResponse> {
+    const emailResult = UserEmail.create(dto.email)
     const passwordResult = UserPassword.create({
-      value: request.password,
+      value: dto.password,
       hashed: false,
     })
 

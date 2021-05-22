@@ -43,7 +43,7 @@ export class LoginUserController extends ControllerWithDTO<LoginUserUseCase> {
           case UserValueObjectErrors.InvalidPassword:
             return this.clientError(res, error.message)
           case LoginUserErrors.IncorrectPasswordError:
-            return this.conflict(res, error.message)
+            return this.clientError(res, error.message)
           default:
             return this.fail(res, error.message)
         }

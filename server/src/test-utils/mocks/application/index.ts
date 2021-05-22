@@ -1,3 +1,6 @@
 export { mockCreateUser } from './mock-create-user'
+export { mockGetUser } from './mock-get-user'
+export { mockLoginUser } from './mock-login-user'
+export { mockProtectedUser } from './mock-protected-user'
 export { mockGetAllClubs } from './mock-get-all-clubs'
 export { mockGetAllEvents } from './mock-get-all-events'

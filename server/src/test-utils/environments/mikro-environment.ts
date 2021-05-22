@@ -18,9 +18,9 @@ export class MikroTestEnvironment extends TestEnvironment<MikroEnvironmentVariab
     const { orm, repos } = this.mikroDB
 
     this.application = app.setupApplication(repos)
-    const { controllers } = this.application
+    const { controllers, useCases } = this.application
 
-    this.waterparkExpress = http.setupWaterparkExpress(controllers, { mikroORM: orm })
+    this.waterparkExpress = http.setupWaterparkExpress(controllers, useCases, { mikroORM: orm })
     const { webServer } = this.waterparkExpress
 
     return { webServer }

@@ -5,7 +5,8 @@ import { UserValueObjectErrors } from '../../../../domain/value-objects/errors'
 import { CreateUserController } from '../create-user-controller'
 import { CreateUserDTO } from '../create-user-dto'
 import { CreateUserErrors } from '../create-user-errors'
-import { CreateUserUseCase } from '../create-user-use-case'
+import { CreateUserSuccess, CreateUserUseCase } from '../create-user-use-case'
+import { UserMap } from '../../../../mappers/user-map'
 
 // TODO: how to show developer these mocks are necessary when building a controller? aka must be synced with buildController()
 jest.mock('../create-user-use-case')
@@ -23,7 +24,13 @@ describe('CreateUserController', () => {
 
   test('When the CreateUserUseCase returns Ok, the CreateUserController returns 200 OK', async () => {
     const user = mocks.mockUser(createUserDTO)
-    jest.spyOn(CreateUserUseCase.prototype, 'execute').mockResolvedValue(Result.ok(user))
+
+    const useCaseResolvedValue: CreateUserSuccess = {
+      user: UserMap.toDTO(user),
+      token: "testtoken"
+    }
+    
+    jest.spyOn(CreateUserUseCase.prototype, 'execute').mockResolvedValue(Result.ok(useCaseResolvedValue))
 
     const { req, res } = mocks.mockHandlerParams(createUserDTO)
     await createUserController.execute(req, res)

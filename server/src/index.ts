@@ -9,9 +9,9 @@ const waterpark = async (options: WaterparkOptions) => {
   const migrator = orm.getMigrator()
   await migrator.up()
 
-  const { controllers } = app.setupApplication(repos)
+  const { useCases, controllers } = app.setupApplication(repos)
 
-  const { webServer } = http.setupWaterparkExpress(controllers, { mikroORM: orm })
+  const { webServer } = http.setupWaterparkExpress(controllers, useCases, { mikroORM: orm })
   webServer.listen(options.port, () => {
     console.log(`Waterpark REST API server running on http://localhost:${port}/api/v1 🦆`)
   })

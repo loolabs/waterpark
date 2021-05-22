@@ -1,15 +1,15 @@
-import { Strategy, StrategyOptions, ExtractJwt } from 'passport-jwt'
+/*import { Strategy, StrategyOptions, ExtractJwt } from 'passport-jwt'
 import passport from 'passport'
 import LocalStrategy from 'passport-local'
-import { JWT_SECRET } from './shared/core/secret'
-import { authenticateUserUseCase } from './modules/users/application/use-cases/authenticate-user'
+import { JWT_SECRET } from '../../../shared/core/secret'
+import { AuthenticateUserUseCase } from '../../../modules/users/application/use-cases/authenticate-user/authenticate-user-use-case'
 import { getUserUseCase } from './modules/users/application/use-cases/get-user'
 
 passport.use(new LocalStrategy.Strategy({
     usernameField: 'email',
     passwordField: 'password',
 }, function (email, password, cb) {
-    authenticateUserUseCase.execute({email, password})
+    AuthenticateUserUseCase.execute({email, password})
         .then(result => {
             return cb(null, result);
         })
@@ -30,3 +30,4 @@ passport.use(
         })
     })
 );
+*/
