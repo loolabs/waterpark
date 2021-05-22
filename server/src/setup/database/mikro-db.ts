@@ -74,7 +74,7 @@ const baseOptions: Options = {
   metadataProvider: TsMorphMetadataProvider,
   migrations: {
     disableForeignKeys: false,
-    path: path.join(__dirname, './migrations'), // path to the folder with migrations
+    path: path.join(__dirname, '../../migrations'), // path to the folder with migrations
     pattern: /^[\w-]+\d+\.[tj]s$/, // regex pattern for the migration files
   },
   namingStrategy: CustomNamingStrategy,
@@ -131,3 +131,4 @@ const setupMikroDB = async (options: Options = {}): Promise<MikroDB> => {
 }
 
 export { MikroORM, MikroEntityRepos, MikroRepos, MikroDB, setupMikroDB }
+export default baseOptions; // migrations CLI requires that these options be the default export
