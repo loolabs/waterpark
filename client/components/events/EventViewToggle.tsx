@@ -26,7 +26,6 @@ const EventViewToggleContainer = styled.div<any>`
   }
 `
 
-
 const EventViewToggleButtons = styled.div<any>`
   display: flex;
   margin-bottom: 60px;
@@ -70,18 +69,18 @@ export const EventViewToggle = ({ events }: EventViewProps) => {
 
   return (
     <EventViewToggleContainer>
-        <EventViewToggleButtons>
-          <EventViewToggleButton
-            activeView={formattedView}
-            viewType={View.list}
-            updateActiveView={updateActiveView}
-          />
-          <EventViewToggleButton
-            activeView={formattedView}
-            viewType={View.calendar}
-            updateActiveView={updateActiveView}
-          />
-        </EventViewToggleButtons>
+      <EventViewToggleButtons>
+        <EventViewToggleButton
+          activeView={formattedView}
+          viewType={View.list}
+          updateActiveView={updateActiveView}
+        />
+        <EventViewToggleButton
+          activeView={formattedView}
+          viewType={View.calendar}
+          updateActiveView={updateActiveView}
+        />
+      </EventViewToggleButtons>
       <ActiveView activeView={formattedView} events={events} />
     </EventViewToggleContainer>
   )
