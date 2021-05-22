@@ -144,7 +144,7 @@ def connect():
             host=keys.get("host"),
             database=keys.get("database"),
             user=keys.get("user"),
-            password="waterpark")
+            password=keys.get("password"))
         print("Connection Successful")
         cursor = conn.cursor()
         cursor.execute("SELECT version()")
