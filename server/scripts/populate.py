@@ -139,12 +139,13 @@ def connect():
         parser.read_file(f)
 
     keys = parser["postgresql"]
+    print(keys.get("host"))
     try:
         conn = psycopg2.connect(
             host=keys.get("host"),
             database=keys.get("database"),
             user=keys.get("user"),
-            password=keys.get("password"))
+            password="waterpark")
         print("Connection Successful")
         cursor = conn.cursor()
         cursor.execute("SELECT version()")
