@@ -139,7 +139,6 @@ def connect():
         parser.read_file(f)
 
     keys = parser["postgresql"]
-    print(keys.get("host"))
     try:
         conn = psycopg2.connect(
             host=keys.get("host"),

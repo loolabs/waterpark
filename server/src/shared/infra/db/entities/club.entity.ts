@@ -23,7 +23,7 @@ export class ClubEntity extends BaseEntity {
   iconImage!: string
 
   @Property({ nullable: true })
-  facebook?: string 
+  facebook?: string
 
   @Property({ nullable: true })
   twitter?: string
