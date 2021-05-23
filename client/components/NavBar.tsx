@@ -1,7 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../styles'
-import { useViewport } from './hooks'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -44,26 +43,45 @@ const NavBarOption = styled.a<any>`
   }
 `
 
-const Logo = styled.img`
+const LogoContainer = styled.div`
   &:hover {
     cursor: pointer;
   }
 `
 
+const LogoW = styled.img`
+  display: none;
+  @media (max-width: 425px) {
+    display: block;
+  }
+`
+LogoW.defaultProps = {
+  src: "/W.svg",
+  alt: "Waterpark logo"
+}
+
+const LogoWaterpark = styled.img`
+  display: block;  
+  @media (max-width: 425px) {
+    display: none;
+  }
+`
+LogoWaterpark.defaultProps = {
+  src: "/Waterpark.svg",
+  alt: "Waterpark logo"
+}
+
 export const NavBar = () => {
-  const { width } = useViewport()
   const router = useRouter()
 
   return (
     <NavBarContainer>
       <Link href="/">
-        {width > 425 ? (
-          <Logo src="/Waterpark.svg" alt="Waterpark logo" />
-        ) : (
-          <Logo src="/W.svg" alt="Waterpark logo" />
-        )}
+        <LogoContainer>
+          <LogoWaterpark/>
+          <LogoW/>
+        </LogoContainer>
       </Link>
-
       <div>
         <Link href="/events">
           <NavBarOption isActive={router.pathname == '/events' || router.pathname == '/'}>
