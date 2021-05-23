@@ -4,6 +4,7 @@ const mockClubDTO = (id: string): ClubDTO => {
   return {
     name: `Club Name ${id}`,
     description: `Club Description ${id}`,
+    size: 30,
     links: {
       bannerImage: `Club Banner ${id}`,
       iconImage: `Club Icon ${id}`,

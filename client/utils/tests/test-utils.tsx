@@ -13,6 +13,7 @@ const CLUBS: Array<Club> = [
     name: 'UW Ballroom',
     description:
       'Tech+ Mentorship Program connects 1st- and 2nd-year UWaterloo students with experienced and passionate upper-years from different domains in tech, and fosters this community through events that bring everyone together.',
+    size: 30,
     links: {
       bannerImage:
         'https://images.unsplash.com/photo-1569949237615-e2defbeb5d0a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1960&q=80',
@@ -45,6 +46,7 @@ const CLUBS: Array<Club> = [
     name: 'Cooking club with a really long name',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    size: 30,
     links: {
       iconImage: 'https://avatars.githubusercontent.com/u/51551455',
       bannerImage: 'https://images.unsplash.com/photo-1528712306091-ed0763094c98',
@@ -67,6 +69,7 @@ const CLUBS: Array<Club> = [
     id: 111,
     name: 'Loo Labs',
     description: '👩‍🔬',
+    size: 30,
     links: {
       iconImage: 'https://avatars.githubusercontent.com/u/71415398',
       bannerImage: 'https://avatars.githubusercontent.com/u/71415398',

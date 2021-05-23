@@ -13,6 +13,7 @@ export interface BasicEventDTO {
 export interface ClubDTO {
   name: string
   description: string
+  size: number
   links: {
     bannerImage: string
     iconImage: string

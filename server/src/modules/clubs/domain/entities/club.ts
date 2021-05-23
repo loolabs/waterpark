@@ -7,6 +7,7 @@ import { ClubId } from '../value-objects/clubId'
 interface ClubProps {
   name: string
   description: string
+  size: number
   iconImage: string
   bannerImage: string
   links: {
@@ -58,6 +59,10 @@ export class Club extends AggregateRoot<ClubProps> {
 
   get description(): string {
     return this.props.description
+  }
+
+  get size(): number {
+    return this.props.size
   }
 
   get iconImage(): string {

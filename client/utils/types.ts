@@ -6,6 +6,7 @@ export interface Club {
   id: Id
   name: string
   description: string
+  size: number
   links: {
     bannerImage: string
     iconImage: string

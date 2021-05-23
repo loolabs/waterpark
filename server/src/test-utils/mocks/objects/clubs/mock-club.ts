@@ -4,6 +4,7 @@ const mockClub = (id: string): Club => {
   const clubResult = Club.create({
     name: `Club Name ${id}`,
     description: `Club Description ${id}`,
+    size: 30,
     bannerImage: `Club Banner ${id}`,
     iconImage: `Club Icon ${id}`,
     links: {
