@@ -21,29 +21,19 @@ const EventViewToggleContainer = styled.div<any>`
   @media not all and ${device.laptop} {
     margin: 10%;
   }
-`
-
-const EventViewToggleButtonsContainer = styled.div<any>`
-  display: flex;
-  width: 100%;
-  margin-bottom: 10px;
   @media ${device.laptop} {
     margin-top: 100px;
   }
 `
 
-const EventViewToggleButtonsSpacer = styled.div<any>`
-  flex-shrink: 0;
-  flex-basis: 200px;
-  @media ${device.tablet} {
-    display: none;
-  }
-`
-
 const EventViewToggleButtons = styled.div<any>`
   display: flex;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
   cursor: pointer;
+  margin-left: 200px;
+  @media ${device.tablet} {
+    margin-left: 0px;
+  }
 `
 
 const ToggleText = styled.div<any>`
@@ -79,21 +69,18 @@ export const EventViewToggle = ({ events }: EventViewProps) => {
 
   return (
     <EventViewToggleContainer>
-      <EventViewToggleButtonsContainer>
-        <EventViewToggleButtonsSpacer />
-        <EventViewToggleButtons>
-          <EventViewToggleButton
-            activeView={formattedView}
-            viewType={View.list}
-            updateActiveView={updateActiveView}
-          />
-          <EventViewToggleButton
-            activeView={formattedView}
-            viewType={View.calendar}
-            updateActiveView={updateActiveView}
-          />
-        </EventViewToggleButtons>
-      </EventViewToggleButtonsContainer>
+      <EventViewToggleButtons>
+        <EventViewToggleButton
+          activeView={formattedView}
+          viewType={View.list}
+          updateActiveView={updateActiveView}
+        />
+        <EventViewToggleButton
+          activeView={formattedView}
+          viewType={View.calendar}
+          updateActiveView={updateActiveView}
+        />
+      </EventViewToggleButtons>
       <ActiveView activeView={formattedView} events={events} />
     </EventViewToggleContainer>
   )
