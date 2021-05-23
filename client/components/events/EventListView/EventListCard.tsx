@@ -20,6 +20,7 @@ const ListCard = styled.div`
   @media not all and ${device.tablet} {
     margin-right: 150px;
   }
+  cursor: pointer;
 `
 
 interface ListCardImageProps {

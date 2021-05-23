@@ -17,6 +17,7 @@ const ClubCardContainer = styled.div`
   border-radius: 8px;
   overflow: hidden;
   width: 100%;
+  cursor: pointer;
 
   // A subtle shadow around the card
   box-shadow: 0px 4px 4px 1px ${colours.neutralLight1};
