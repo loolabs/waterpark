@@ -91,6 +91,9 @@ export const NavBar = () => {
         <Link href="/clubs">
           <NavBarOption isActive={router.pathname == '/clubs'}>Clubs</NavBarOption>
         </Link>
+        <Link href="/login">
+          <NavBarOption isActive={router.pathname == '/login'}>Login</NavBarOption>
+        </Link>
       </div>
     </NavBarContainer>
   )
