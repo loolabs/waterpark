@@ -1,6 +1,10 @@
-import { BasicClub } from '../domain/entities/event'
-
+export interface BasicClubDTO {
+  id: string
+  name: string
+  iconImage: string
+}
 export interface EventDTO {
+  id: string
   name: string
   description: string
   startTime: string
@@ -13,5 +17,5 @@ export interface EventDTO {
     instagram?: string
   }
   tags: Array<string>
-  clubs: Array<BasicClub>
+  clubs: Array<BasicClubDTO>
 }

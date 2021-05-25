@@ -6,19 +6,13 @@ import { EventDTO } from './event-dto'
 export class EventMap {
   public static toDTO(event: Event): EventDTO {
     return {
-      name: event.name,
-      description: event.description,
-      links: {
-        url: event.url,
-        bannerImage: event.bannerImage,
-        facebook: event.facebook,
-        twitter: event.twitter,
-        instagram: event.instagram,
-      },
+      ...event.props,
+      id: event.id.toString(),
       startTime: event.startTime.toJSON(),
       endTime: event.endTime.toJSON(),
-      tags: event.tags,
-      clubs: event.clubs,
+      clubs: event.clubs.map((club) => {
+        return { ...club, id: club.id.toString() }
+      }),
     }
   }
 
@@ -27,18 +21,18 @@ export class EventMap {
       {
         name: eventEntity.name,
         description: eventEntity.description,
-        url: eventEntity.url,
-        bannerImage: eventEntity.bannerImage,
         startTime: eventEntity.startTime,
         endTime: eventEntity.endTime,
         links: {
+          url: eventEntity.url,
+          bannerImage: eventEntity.bannerImage,
           facebook: eventEntity.facebook,
           twitter: eventEntity.twitter,
           instagram: eventEntity.instagram,
         },
         tags: eventEntity.tags.getItems().map((tag) => tag.name),
         clubs: eventEntity.clubs.getItems().map((club) => {
-          return { name: club.name, iconImage: club.iconImage }
+          return { id: new UniqueEntityID(club.id), name: club.name, iconImage: club.iconImage }
         }),
       },
       new UniqueEntityID(eventEntity.id)

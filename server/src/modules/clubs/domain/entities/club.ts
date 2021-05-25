@@ -2,15 +2,14 @@ import { Result } from '../../../../shared/core/result'
 import { AggregateRoot } from '../../../../shared/domain/aggregate-root'
 import { UniqueEntityID } from '../../../../shared/domain/unique-entity-id'
 import { ClubCreated } from '../events/club-created'
-import { ClubId } from '../value-objects/clubId'
 
 interface ClubProps {
   name: string
   description: string
   size: number
-  iconImage: string
-  bannerImage: string
   links: {
+    iconImage: string
+    bannerImage: string
     facebook?: string
     twitter?: string
     instagram?: string
@@ -21,6 +20,7 @@ interface ClubProps {
 }
 
 export type BasicEvent = {
+  id: UniqueEntityID
   name: string
   startTime: Date
   endTime: Date
@@ -47,12 +47,6 @@ export class Club extends AggregateRoot<ClubProps> {
     super(props, id)
   }
 
-  get clubId(): ClubId {
-    const clubIdResult = ClubId.create(this._id)
-    if (clubIdResult.isOk()) return clubIdResult.value
-    else throw new Error('Could not create ClubId instance')
-  }
-
   get name(): string {
     return this.props.name
   }
@@ -66,11 +60,11 @@ export class Club extends AggregateRoot<ClubProps> {
   }
 
   get iconImage(): string {
-    return this.props.iconImage
+    return this.props.links.iconImage
   }
 
   get bannerImage(): string {
-    return this.props.bannerImage
+    return this.props.links.bannerImage
   }
 
   get facebook(): string | undefined {

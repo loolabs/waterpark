@@ -1,4 +1,5 @@
 export interface BasicEventDTO {
+  id: string
   name: string
   startTime: string
   endTime: string
@@ -7,6 +8,7 @@ export interface BasicEventDTO {
 }
 
 export interface ClubDTO {
+  id: string
   name: string
   description: string
   size: number

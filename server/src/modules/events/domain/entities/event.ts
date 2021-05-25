@@ -1,17 +1,16 @@
+import { UniqueEntityID } from './../../../../shared/domain/unique-entity-id'
 import { Result } from '../../../../shared/core/result'
 import { AggregateRoot } from '../../../../shared/domain/aggregate-root'
-import { UniqueEntityID } from '../../../../shared/domain/unique-entity-id'
 import { EventCreated } from '../events/event-created'
-import { EventId } from '../value-objects/eventId'
 
 interface EventProps {
   name: string
   description: string
-  url?: string
-  bannerImage: string
   startTime: Date
   endTime: Date
   links: {
+    url?: string
+    bannerImage: string
     facebook?: string
     twitter?: string
     instagram?: string
@@ -21,6 +20,7 @@ interface EventProps {
 }
 
 export type BasicClub = {
+  id: UniqueEntityID
   name: string
   iconImage: string
 }
@@ -44,12 +44,6 @@ export class Event extends AggregateRoot<EventProps> {
     super(props, id)
   }
 
-  get eventId(): EventId {
-    const eventIdResult = EventId.create(this._id)
-    if (eventIdResult.isOk()) return eventIdResult.value
-    else throw new Error('Could not create EventId instance')
-  }
-
   get name(): string {
     return this.props.name
   }
@@ -58,20 +52,20 @@ export class Event extends AggregateRoot<EventProps> {
     return this.props.description
   }
 
-  get url(): string | undefined {
-    return this.props.url
-  }
-
-  get bannerImage(): string {
-    return this.props.bannerImage
-  }
-
   get startTime(): Date {
     return this.props.startTime
   }
 
   get endTime(): Date {
     return this.props.endTime
+  }
+
+  get url(): string | undefined {
+    return this.props.links.url
+  }
+
+  get bannerImage(): string {
+    return this.props.links.bannerImage
   }
 
   get facebook(): string | undefined {
