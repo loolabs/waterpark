@@ -9,6 +9,9 @@
 .DS_Store
 .vscode
 
+#package-lock.json
+package-lock.json
+
 
 # standard Node .gitignore #####################################################
 # https://github.com/github/gitignore/blob/master/Node.gitignore
