@@ -1,5 +1,6 @@
 import React from 'react'
 import { EventViewToggle } from '../../components/events'
+import { useSearch } from '../../components/hooks'
 import { useAppContext } from '../../context'
 import { Event } from '../../utils'
 
@@ -12,7 +13,7 @@ export interface FilteredEvents {
 
 export default function Events() {
   const { events } = useAppContext()
-  const filteredEventsArray = Array.from(events.values())
+  const [filteredEventsArray, setSearchValue] = useSearch(Array.from(events.values()), ['name'])
 
   //this requires that filteredEventsArray is in sorted order (with respect to event startDate)
   const filteredEventsDateMap: Map<string, Array<Event>> = new Map()
@@ -28,5 +29,5 @@ export default function Events() {
 
   const filteredEvents: Map<string, Array<Event>> = filteredEventsDateMap
 
-  return <EventViewToggle events={filteredEvents} />
+  return <EventViewToggle events={filteredEvents} onSearch={setSearchValue} />
 }

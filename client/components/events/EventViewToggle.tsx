@@ -2,10 +2,11 @@ import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { EventCalendarView } from './EventCalendarView'
 import { EventListView } from './EventListView/EventListView'
+import { EventsHeader } from './EventsHeader'
 import { Event } from '../../utils'
-import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../styles'
+import { device } from '../../styles'
 import styled from 'styled-components'
-import { FilteredEvents } from '../../pages/events'
+import { useSearch } from '../hooks'
 
 enum View {
   list = 'list',
@@ -13,6 +14,7 @@ enum View {
 }
 
 interface EventViewProps {
+  onSearch: (search: string) => any
   events: Map<string, Array<Event>>
 }
 
@@ -45,7 +47,7 @@ const ToggleText = styled.div<any>`
   margin-right: 24px;
 `
 
-export const EventViewToggle = ({ events }: EventViewProps) => {
+export const EventViewToggle = ({ events, onSearch }: EventViewProps) => {
   const router = useRouter()
 
   const { view } = router.query
@@ -69,6 +71,7 @@ export const EventViewToggle = ({ events }: EventViewProps) => {
 
   return (
     <EventViewToggleContainer>
+      <EventsHeader onSearch={onSearch} />
       <EventViewToggleButtons>
         <EventViewToggleButton
           activeView={formattedView}
