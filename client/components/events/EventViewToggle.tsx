@@ -31,8 +31,9 @@ const EventViewToggleContainer = styled.div<any>`
 const EventViewToggleButtons = styled.div<any>`
   display: flex;
   margin-bottom: 60px;
-  cursor: pointer;
   margin-left: 200px;
+  margin-top: 40px;
+  cursor: pointer;
   @media ${device.tablet} {
     margin-left: 0px;
   }
