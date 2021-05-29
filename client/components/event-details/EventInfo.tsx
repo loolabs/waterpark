@@ -10,7 +10,7 @@ import {
   largerThan,
   mobile,
 } from '../../styles'
-import { TagBubble } from '../common/Tag'
+import { TagBubble } from '../common/TagBubble'
 
 const tablet = `768px`
 

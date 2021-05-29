@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { colours, fontWeight, PageTitle } from '../../styles'
 import { Club } from '../../utils'
-import { TagBubble } from '../common/Tag'
+import { TagBubble } from '../common/TagBubble'
 
 const BackArrow = styled.img`
   margin-top: 64px;

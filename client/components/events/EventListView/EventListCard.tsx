@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { Event } from '../../../utils'
 import styled from 'styled-components'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
-import { TagBubble } from '../../common/Tag'
+import { TagBubble } from '../../common/TagBubble'
 
 interface EventProps {
   event: Event

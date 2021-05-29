@@ -1,6 +1,6 @@
 import { useSearch } from '../hooks'
 import { Tag, TagGroup, TagRow } from './Tag'
-import { TagBubble } from '../common/Tag'
+import { TagBubble } from '../common/TagBubble'
 import { Club, Id } from '../../utils'
 import { useMemo } from 'react'
 import styled from 'styled-components'

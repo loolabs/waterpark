@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { TagGroup, TagRow } from './Tag'
-import { TagBubble } from '../common/Tag'
+import { TagBubble } from '../common/TagBubble'
 import { Club } from '../../utils'
 import { colours } from '../../styles'
 
