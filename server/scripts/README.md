@@ -22,8 +22,8 @@ This script populates a PostgreSQL database with initial objects defined in `clu
 [postgresql]
 host=localhost
 database=clubs
-user=loolabs
-password=loolabs
+user=waterpark
+password=waterpark
 ```
 
 `clubs.yml` should be updated to keep up with schema changes and new data.
