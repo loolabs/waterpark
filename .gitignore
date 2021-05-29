@@ -1,15 +1,11 @@
 # Secrets
 .env
 
-# Database
-/db/
-/server/scripts/db.ini
-
 # Junk
 .DS_Store
 .vscode
 
-#package-lock.json
+# package-lock.json
 package-lock.json
 
 
