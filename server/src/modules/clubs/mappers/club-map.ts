@@ -4,7 +4,7 @@ import { EventEntity } from '../../../shared/infra/db/entities/event.entity'
 import { BasicEvent, Club } from '../domain/entities/club'
 import { ClubDTO } from './club-dto'
 
-const basicEventToDomain = (eventEntities: Array<EventEntity>): Array<BasicEvent> =>
+const basicEventsToDomain = (eventEntities: Array<EventEntity>): Array<BasicEvent> =>
   eventEntities.map((eventEntity) => {
     return {
       id: new UniqueEntityID(eventEntity.id),
