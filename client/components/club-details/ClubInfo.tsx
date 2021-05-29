@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { fontWeight, PageTitle } from '../../styles'
+import { colours, fontWeight, PageTitle } from '../../styles'
 import { Club } from '../../utils'
-import { Category } from '../Category'
+import { TagBubble } from '../common/Tag'
 
 const BackArrow = styled.img`
   margin-top: 64px;
@@ -94,7 +94,7 @@ export const ClubInfo = ({ club }: ClubInfoProps) => {
 const Categories = ({ tags }: { tags: Array<string> }) => (
   <CategoriesWrapper>
     {tags.map((t, i) => (
-      <Category key={`category-tag-${i}`}>{t}</Category>
+      <TagBubble key={`category-tag-${i}`} colour={colours.tagColours[t]}>{t}</TagBubble>
     ))}
   </CategoriesWrapper>
 )

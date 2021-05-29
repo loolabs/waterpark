@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { Event } from '../../utils'
 import {
+  colours,
   desktopFontSize,
   mobileFontSize,
   fontWeight,
@@ -9,7 +10,7 @@ import {
   largerThan,
   mobile,
 } from '../../styles'
-import { Category } from '../Category'
+import { TagBubble } from '../common/Tag'
 
 const tablet = `768px`
 
@@ -88,8 +89,6 @@ export const EventInfo = ({ event }: EventInfoProps) => {
         <br />
         {time}
       </ClubDate>
-      {/* TODO: color code the tags */}
-
       <ClubInfo>
         <ClubIcon src={event.club.iconURL} />
         <ClubName>{event.club.name}</ClubName>
@@ -104,7 +103,7 @@ export const EventInfo = ({ event }: EventInfoProps) => {
 const Categories = ({ tags }: { tags: Array<string> }) => (
   <CategoriesWrapper>
     {tags.map((t, i) => (
-      <Category key={`category-tag-${i}`}>{t}</Category>
+      <TagBubble key={`category-tag-${i}`} colour={colours.tagColours[t]}>{t}</TagBubble>
     ))}
   </CategoriesWrapper>
 )

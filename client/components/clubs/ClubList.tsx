@@ -1,10 +1,11 @@
 import { useSearch } from '../hooks'
-import { TAGS, Tag, TagGroup, TagRow, TagBubble } from './Tag'
+import { Tag, TagGroup, TagRow } from './Tag'
+import { TagBubble } from '../common/Tag'
 import { Club, Id } from '../../utils'
 import { useMemo } from 'react'
 import styled from 'styled-components'
 import { ClubCard } from './ClubCard'
-import { PageTitle } from '../../styles'
+import { colours, PageTitle } from '../../styles'
 import { SearchInput } from './SearchInput'
 
 const mobile = `425px`
@@ -71,7 +72,6 @@ const ClubListTitle = styled(PageTitle)`
 `
 
 const RightSpaceWrapper = styled.div`
-  padding-right: 16px;
   margin-right: auto;
 `
 
@@ -83,13 +83,17 @@ interface ClubListTagsProps {
   tags: Array<Tag>
 }
 
-const ClubListTags = ({ tags }: ClubListTagsProps) => {
+const ClubListTags = () => {
   return (
     <TagRow>
       <TagGroup>
-        {tags.map(({ text, colour }) => (
+        {Object.keys(colours.tagColours).map((text, index) => (
           <RightSpaceWrapper key={text}>
-            <TagBubble colour={colour} highlightOnHover>
+            <TagBubble
+              colour={colours.tagColours[text]}
+              highlightOnHover
+              key={`club-card-tag-${index}-${text}`}
+            >
               {text}
             </TagBubble>
           </RightSpaceWrapper>
@@ -109,7 +113,7 @@ const ClubListHeader = ({ onSearch }: ClubListHeaderProps) => {
         <ClubListTitle>Explore Clubs</ClubListTitle>
         <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
       </ClubListTitleRow>
-      <ClubListTags tags={Array.from(TAGS.values())}></ClubListTags>
+      <ClubListTags></ClubListTags>
     </ClubListHeaderContainer>
   )
 }
