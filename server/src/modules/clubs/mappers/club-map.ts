@@ -4,9 +4,10 @@ import { EventEntity } from '../../../shared/infra/db/entities/event.entity'
 import { BasicEvent, Club } from '../domain/entities/club'
 import { ClubDTO } from './club-dto'
 
-const basicEventMap = (eventEntities: Array<EventEntity>): Array<BasicEvent> => {
-  const events = eventEntities.map((eventEntity) => {
+const basicEventsToDomain = (eventEntities: Array<EventEntity>): Array<BasicEvent> =>
+  eventEntities.map((eventEntity) => {
     return {
+      id: new UniqueEntityID(eventEntity.id),
       name: eventEntity.name,
       startTime: eventEntity.startTime,
       endTime: eventEntity.endTime,
@@ -14,27 +15,16 @@ const basicEventMap = (eventEntities: Array<EventEntity>): Array<BasicEvent> => 
       tags: eventEntity.tags.getItems().map((tag) => tag.name),
     }
   })
-  return events
-}
 
 export class ClubMap {
   public static toDTO(club: Club): ClubDTO {
     return {
-      name: club.name,
-      description: club.description,
-      size: club.size,
-      links: {
-        bannerImage: club.bannerImage,
-        iconImage: club.iconImage,
-        facebook: club.facebook,
-        twitter: club.twitter,
-        instagram: club.instagram,
-        website: club.website,
-      },
-      tags: club.tags,
+      ...club.props,
+      id: club.id.toString(),
       events: club.events.map((event) => {
         return {
           ...event,
+          id: event.id.toString(),
           startTime: event.startTime.toJSON(),
           endTime: event.endTime.toJSON(),
         }
@@ -48,16 +38,16 @@ export class ClubMap {
         name: clubEntity.name,
         description: clubEntity.description,
         size: clubEntity.size,
-        iconImage: clubEntity.iconImage,
-        bannerImage: clubEntity.bannerImage,
         links: {
+          iconImage: clubEntity.iconImage,
+          bannerImage: clubEntity.bannerImage,
           facebook: clubEntity.facebook,
           twitter: clubEntity.twitter,
           instagram: clubEntity.instagram,
           website: clubEntity.website,
         },
         tags: clubEntity.tags.getItems().map((tag) => tag.name),
-        events: basicEventMap(clubEntity.events.getItems()),
+        events: basicEventToDomain(clubEntity.events.getItems()),
       },
       new UniqueEntityID(clubEntity.id)
     )
