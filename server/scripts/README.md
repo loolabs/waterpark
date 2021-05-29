@@ -6,7 +6,7 @@ This directory contains backend scripts that do things outside the normal user f
 
 Unlike the rest of this repository, the scripts are written in Python, so special setup is needed:
 
-1. Install [Python 3](https://www.python.org/downloads/).
+1. Install Python 3. Follow the instructions for your operating system [here](https://realpython.com/installing-python/).
 1. From this directory, run `python -m venv env` to set up a virtual environment called `env`.
 1. Run `pip install -r requirements.txt` to install the dependencies.
    > If you install any new packages, please run `pip freeze > requirements.txt` in this directory to update the list of dependencies.
