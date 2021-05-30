@@ -27,50 +27,35 @@ const ModalContainer = styled.div`
 export default function Clubs() {
   const { clubs } = useAppContext()
 
-  const allClubs: Array<Club> = useMemo(() => Array.from(clubs.values()), [clubs])
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const [filteredClubs, filterTags, setSearchValue, setFilterTags] = useSearch(allClubs, ['name'])
+  // const allClubs: Array<Club> = useMemo(() => Array.from(clubs.values()), [clubs])
+  // const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  // const [filteredClubs, filterTags, setSearchValue, setFilterTags] = useSearch(allClubs, ['name'])
 
-  const allTags = useMemo(
-    () =>
-      Array.from(filterTags.keys()).map((id) => ({
-        id: id,
-        ...filterTags.get(id),
-      })),
-    [filterTags]
-  )
+  // const allTags = useMemo(
+  //   () =>
+  //     Array.from(filterTags.keys()).map((id) => ({
+  //       id: id,
+  //       ...filterTags.get(id),
+  //     })),
+  //   [filterTags]
+  // )
 
-  const handleModalOpen = () => {
-    setIsModalOpen(!isModalOpen)
-  }
+  // const handleModalOpen = () => {
+  //   setIsModalOpen(!isModalOpen)
+  // }
 
-  const handleFilterChipClick = (id: number) => {
-    let newTags = filterTags
-    newTags.set(id, {
-      ...filterTags.get(id),
-      isActive: !filterTags.get(id).isActive,
-    })
-    setFilterTags(new Map(newTags))
-  }
+  // const handleFilterChipClick = (id: number) => {
+  //   let newTags = filterTags
+  //   newTags.set(id, {
+  //     ...filterTags.get(id),
+  //     isActive: !filterTags.get(id).isActive,
+  //   })
+  //   setFilterTags(new Map(newTags))
+  // }
 
   return (
     <PageContainer>
-      <FilterBar
-        isModalOpen={isModalOpen}
-        handleModalOpen={handleModalOpen}
-        filterTags={allTags}
-        handleFilterChipClick={handleFilterChipClick}
-      />
-      <ClubList clubs={clubs} filteredClubs={filteredClubs} setSearchValue={setSearchValue} />
-      {isModalOpen && (
-        <ModalContainer>
-          <MoreFiltersModal
-            handleModalOpen={handleModalOpen}
-            filterTags={allTags}
-            handleFilterChipClick={handleFilterChipClick}
-          />
-        </ModalContainer>
-      )}
+      <ClubList clubs={clubs} />
     </PageContainer>
   )
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../styles'
 import { PageTitle } from '../../styles/typography'
-import { FilterChip } from './'
+import { tagColours, TagBubble } from '../filters/FilterBar'
 
 const Background = styled.div`
   height: 100vh;
@@ -107,12 +107,14 @@ export const MoreFiltersModal = ({
           {filterTags.map((tag) => {
             return (
               tag.category === 'General' && (
-                <FilterChip
-                  filterChipId={tag.id}
-                  filterChipText={tag.name}
+                <TagBubble
+                  colour={tagColours[tag.name]}
+                  highlightOnHover
+                  onClick={() => handleFilterChipClick(tag.id)}
                   isSelected={tag.isActive}
-                  handleClick={handleFilterChipClick}
-                />
+                >
+                  {tag.name}
+                </TagBubble>
               )
             )
           })}
@@ -124,12 +126,14 @@ export const MoreFiltersModal = ({
           {filterTags.map((tag) => {
             return (
               tag.category === 'Faculty' && (
-                <FilterChip
-                  filterChipId={tag.id}
-                  filterChipText={tag.name}
+                <TagBubble
+                  colour={tagColours[tag.name]}
+                  highlightOnHover
+                  onClick={() => handleFilterChipClick(tag.id)}
                   isSelected={tag.isActive}
-                  handleClick={handleFilterChipClick}
-                />
+                >
+                  {tag.name}
+                </TagBubble>
               )
             )
           })}

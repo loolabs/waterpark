@@ -1,11 +1,13 @@
 import { useSearch } from '../hooks'
-import { TAGS, Tag, TagGroup, TagRow, TagBubble } from './Tag'
+import { TagGroup, TagRow, TagBubble } from '../filters/FilterBar'
 import { Club, Id } from '../../utils'
 import styled from 'styled-components'
 import { ClubCard } from './ClubCard'
 import { PageTitle } from '../../styles'
 import { SearchInput } from './SearchInput'
-import { useMemo, Dispatch, SetStateAction } from 'react'
+import { useMemo, useState } from 'react'
+import { FilterBar, MoreFiltersModal } from '../filters'
+import { Tag } from '../../context'
 
 const mobile = `425px`
 const tablet = `768px`
@@ -17,6 +19,16 @@ const largerThan = (size: string): string => `(min-width: ${size})`
 const ClubListPage = styled.div`
   margin-top: 65px;
   margin-bottom: 24px;
+`
+
+const ModalContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
 `
 
 const ClubListGrid = styled.div`
@@ -75,62 +87,117 @@ const RightSpaceWrapper = styled.div`
   margin-right: auto;
 `
 
-interface ClubListHeaderProps {
-  onSearch: (search: string) => any
-}
-
 interface ClubListTagsProps {
   tags: Array<Tag>
 }
 
-const ClubListTags = ({ tags }: ClubListTagsProps) => {
-  return (
-    <TagRow>
-      <TagGroup>
-        {tags.map(({ text, colour }) => (
-          <RightSpaceWrapper key={text}>
-            <TagBubble colour={colour} highlightOnHover>
-              {text}
-            </TagBubble>
-          </RightSpaceWrapper>
-        ))}
-      </TagGroup>
-      <TagBubble borderStyle="dashed" borderWidth="2px">
-        + More
-      </TagBubble>
-    </TagRow>
-  )
+// const ClubListTags = ({ tags }: ClubListTagsProps) => {
+//   return (
+//     <TagRow>
+//       <TagGroup>
+//         {tags.map(({ text, colour }) => (
+//           <RightSpaceWrapper key={text}>
+//             <TagBubble colour={colour} highlightOnHover>
+//               {text}
+//             </TagBubble>
+//           </RightSpaceWrapper>
+//         ))}
+//       </TagGroup>
+//       <TagBubble borderStyle="dashed" borderWidth="2px">
+//         + More
+//       </TagBubble>
+//     </TagRow>
+//   )
+// }
+
+interface ClubListHeaderProps {
+  onSearch: (search: string) => any
+  isModalOpen: boolean
+  handleModalOpen: () => void
+  handleFilterChipClick: (id: number) => void
+  filterTags: Tag[]
 }
 
-const ClubListHeader = ({ onSearch }: ClubListHeaderProps) => {
+const ClubListHeader = ({
+  onSearch,
+  isModalOpen,
+  handleModalOpen,
+  filterTags,
+  handleFilterChipClick,
+}: ClubListHeaderProps) => {
   return (
     <ClubListHeaderContainer>
       <ClubListTitleRow>
         <ClubListTitle>Explore Clubs</ClubListTitle>
         <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
       </ClubListTitleRow>
-      <ClubListTags tags={Array.from(TAGS.values())}></ClubListTags>
+      <FilterBar
+        isModalOpen={isModalOpen}
+        handleModalOpen={handleModalOpen}
+        filterTags={filterTags}
+        handleFilterChipClick={handleFilterChipClick}
+      />
+      {/* <ClubListTags tags={Array.from(TAGS.values())}></ClubListTags> */}
     </ClubListHeaderContainer>
   )
 }
 
 interface ClubListProps {
   clubs: Map<Id, Club>
-  filteredClubs: Array<Club>
-  setSearchValue: Dispatch<SetStateAction<string>>
 }
 
-export const ClubList = ({ clubs, filteredClubs, setSearchValue }: ClubListProps) => {
+export const ClubList = ({ clubs }: ClubListProps) => {
   const allClubs: Array<Club> = useMemo(() => Array.from(clubs.values()), [clubs])
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [filteredClubs, filterTags, setSearchValue, setFilterTags] = useSearch(allClubs, ['name'])
+
+  const allTags = useMemo(
+    () =>
+      Array.from(filterTags.keys()).map((id) => ({
+        id: id,
+        ...filterTags.get(id),
+      })),
+    [filterTags]
+  )
+
+  const handleModalOpen = () => {
+    setIsModalOpen(!isModalOpen)
+  }
+
+  const handleFilterChipClick = (id: number) => {
+    let newTags = filterTags
+    newTags.set(id, {
+      ...filterTags.get(id),
+      isActive: !filterTags.get(id).isActive,
+    })
+    setFilterTags(new Map(newTags))
+  }
 
   return (
-    <ClubListPage>
-      <ClubListGrid>
-        <ClubListHeader onSearch={setSearchValue} />
-        {filteredClubs.map((club) => (
-          <ClubCard key={club.id} club={club} />
-        ))}
-      </ClubListGrid>
-    </ClubListPage>
+    <>
+      <ClubListPage>
+        <ClubListGrid>
+          <ClubListHeader
+            onSearch={setSearchValue}
+            isModalOpen={isModalOpen}
+            handleModalOpen={handleModalOpen}
+            handleFilterChipClick={handleFilterChipClick}
+            filterTags={allTags}
+          />
+          {filteredClubs.map((club) => (
+            <ClubCard key={club.id} club={club} />
+          ))}
+        </ClubListGrid>
+      </ClubListPage>
+      {isModalOpen && (
+        <ModalContainer>
+          <MoreFiltersModal
+            handleModalOpen={handleModalOpen}
+            filterTags={allTags}
+            handleFilterChipClick={handleFilterChipClick}
+          />
+        </ModalContainer>
+      )}
+    </>
   )
 }

@@ -24,6 +24,7 @@ export const useSearch = <T extends object>(
     })
   }, [items, keys])
 
+  // only fuzzy search on the items that match the selected tags
   const searchResult: Array<T> = searchValue
     ? fuse.search(searchValue).map(({ item }: Fuse.FuseResult<T>) => item)
     : items

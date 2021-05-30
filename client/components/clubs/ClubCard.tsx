@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-import { TAGS, TagGroup, TagRow, TagBubble } from './Tag'
+import { TAGS, TagGroup, TagRow, TagBubble } from '../filters/FilterBar'
 import { Club } from '../../utils'
 import { colours } from '../../styles'
 
@@ -74,7 +74,7 @@ const ClubCardDescription = styled.p`
   -webkit-line-clamp: 3;
 `
 
-const RightSpaceWrapper = styled.div`
+export const RightSpaceWrapper = styled.div`
   margin-right: 16px;
 `
 
