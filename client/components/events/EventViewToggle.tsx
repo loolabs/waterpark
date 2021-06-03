@@ -42,6 +42,13 @@ const ToggleText = styled.div<any>`
     `
     font-weight: bold;
   `};
+  ${(props: any) =>
+    props.hideOnMobile &&
+    `
+    @media ${device.mobile} {
+      display: none;
+    }
+  `};
   margin-right: 24px;
 `
 
@@ -76,6 +83,7 @@ export const EventViewToggle = ({ events }: EventViewProps) => {
           updateActiveView={updateActiveView}
         />
         <EventViewToggleButton
+          hideOnMobile={true}
           activeView={formattedView}
           viewType={View.calendar}
           updateActiveView={updateActiveView}
@@ -102,12 +110,14 @@ const ActiveView = ({ activeView, events }: ActiveViewProps) => {
 }
 
 interface EventViewToggleButtonProps {
+  hideOnMobile?: boolean
   activeView: View
   viewType: View
   updateActiveView: Function
 }
 
 const EventViewToggleButton = ({
+  hideOnMobile,
   activeView,
   viewType,
   updateActiveView,
@@ -123,7 +133,11 @@ const EventViewToggleButton = ({
   }
 
   return (
-    <ToggleText isActiveView={activeView === viewType} onClick={() => updateActiveView(viewType)}>
+    <ToggleText
+      hideOnMobile={hideOnMobile}
+      isActiveView={activeView === viewType}
+      onClick={() => updateActiveView(viewType)}
+    >
       {getViewTypeText()}
     </ToggleText>
   )
