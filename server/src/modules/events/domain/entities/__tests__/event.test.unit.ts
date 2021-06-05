@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '../../../../../shared/domain/unique-entity-id'
 import { DomainEvents } from '../../../../../shared/domain/events/domain-events'
 import { Result } from '../../../../../shared/core/result'
 import { EventCreated } from '../../events/event-created'
@@ -13,17 +14,17 @@ describe('Event AggregateRoot', () => {
     eventResult = Event.create({
       name: 'Event Name',
       description: 'Event Description',
-      url: 'Event URL',
-      bannerImage: 'Banner URL',
       startTime: new Date('2021-01-01'),
       endTime: new Date('2021-01-01'),
       links: {
+        url: 'Event URL',
+        bannerImage: 'Banner URL',
         facebook: 'Facebook',
         twitter: 'Twitter',
         instagram: 'Instagram',
       },
       tags: ['tag1', 'tag2', 'tag3'],
-      clubs: [{ name: 'Club Name 1', iconImage: '' }],
+      clubs: [{ id: new UniqueEntityID('1'), name: 'Club Name 1', iconImage: '' }],
     })
   })
 

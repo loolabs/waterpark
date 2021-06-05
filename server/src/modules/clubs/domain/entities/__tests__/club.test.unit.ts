@@ -1,7 +1,9 @@
 import { DomainEvents } from '../../.././../../shared/domain/events/domain-events'
+import { UniqueEntityID } from '../../../../../shared/domain/unique-entity-id'
 import { Result } from '../../../../../shared/core/result'
 import { ClubCreated } from '../../events/club-created'
 import { Club } from '../club'
+
 
 jest.mock('../../events/club-created')
 jest.mock('../../../../../shared/domain/events/domain-events')
@@ -14,9 +16,9 @@ describe('Club AggregateRoot', () => {
       name: 'Club Name',
       description: 'Club Description',
       size: 30,
-      bannerImage: 'Banner URL',
-      iconImage: 'Icon',
       links: {
+        bannerImage: 'Banner URL',
+        iconImage: 'Icon',
         facebook: 'Facebook',
         twitter: 'Twitter',
         instagram: 'Instagram',
@@ -25,6 +27,7 @@ describe('Club AggregateRoot', () => {
       tags: ['tag1', 'tag2', 'tag3'],
       events: [
         {
+          id: new UniqueEntityID(),
           name: 'Club Name 1',
           startTime: new Date('2021-01-01'),
           endTime: new Date('2021-01-01'),

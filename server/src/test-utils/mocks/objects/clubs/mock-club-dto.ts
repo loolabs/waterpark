@@ -2,6 +2,7 @@ import { ClubDTO } from '../../../../modules/clubs/mappers/club-dto'
 
 const mockClubDTO = (id: string): ClubDTO => {
   return {
+    id: id,
     name: `Club Name ${id}`,
     description: `Club Description ${id}`,
     size: 30,
@@ -16,6 +17,7 @@ const mockClubDTO = (id: string): ClubDTO => {
     tags: ['tag1', 'tag2', 'tag3'],
     events: [
       {
+        id: id,
         name: 'Event Name 1',
         startTime: '2021-01-01T00:00:00.000Z',
         endTime: '2021-01-01T00:00:00.000Z',
