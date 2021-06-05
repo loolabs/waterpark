@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colours, fontWeight, fontInter } from '../../styles'
+import { colours, fontWeight, fontInter } from '../styles'
 
 const mobile = `425px`
 const tablet = `768px`
