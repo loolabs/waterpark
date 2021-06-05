@@ -5,7 +5,7 @@ export type Tag = {
   colour: string
 }
 
-const TAG_HEIGHT = '38px'
+export const TAG_HEIGHT = '38px'
 const TAG_HORIZONTAL_PADDING = '16px'
 
 export const TagBubble = styled.a<{
@@ -27,7 +27,6 @@ export const TagBubble = styled.a<{
   justify-content: center;
   line-height: ${TAG_HEIGHT};
   margin-right: 16px;
-  margin-bottom: 1px; // make space between rows of bubbles
   overflow: hidden;
   padding: 0 ${TAG_HORIZONTAL_PADDING};
   text-align: center;

@@ -113,7 +113,7 @@ const ClubListHeader = ({ onSearch }: ClubListHeaderProps) => {
         <ClubListTitle>Explore Clubs</ClubListTitle>
         <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
       </ClubListTitleRow>
-      <ClubListTags></ClubListTags>
+      <ClubListTags />
     </ClubListHeaderContainer>
   )
 }

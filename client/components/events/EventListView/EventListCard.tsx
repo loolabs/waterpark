@@ -138,7 +138,9 @@ export const EventListCard = ({ event }: EventProps) => {
       formattedTags = formattedTags.slice(0, MAXIMUM_NUMBER_OF_VIEWABLE_TAGS)
     }
     return formattedTags.map((tag, index) => (
-      <TagBubble key={`list-card-tag-${index}-${tag}`} colour={colours.tagColours[tag]}>{tag}</TagBubble>
+      <TagBubble key={`list-card-tag-${index}-${tag}`} colour={colours.tagColours[tag]}>
+        {tag}
+      </TagBubble>
     ))
   }
 

@@ -79,12 +79,12 @@ const ClubCardDescription = styled.p`
 const ClubCardTag = (tag: string) => {
   if (tag in colours.tagColours) {
     return (
-        <TagBubble colour={colours.tagColours[tag]} key={`club-card-tag-${tag}`}>{tag}</TagBubble>
+      <TagBubble colour={colours.tagColours[tag]} key={`club-card-tag-${tag}`}>
+        {tag}
+      </TagBubble>
     )
   } else {
-    return (
-        <TagBubble>{tag}</TagBubble>
-    )
+    return <TagBubble key={`club-card-tag-${tag}`}>{tag}</TagBubble>
   }
 }
 

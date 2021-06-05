@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import moment from 'moment-timezone'
+import { TagBubble } from '../common/TagBubble'
 import { colours, desktopFontSize, device, fontWeight, largerThan, mobile } from '../../styles'
 import { BasicEvent } from '../../utils'
 

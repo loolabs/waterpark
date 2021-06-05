@@ -1,11 +1,9 @@
 import styled from 'styled-components'
-
+import {TAG_HEIGHT} from '../common/TagBubble';
 export type Tag = {
   text: string
   colour: string
 }
-
-const TAG_HEIGHT = '38px'
 
 export const TagRow = styled.div`
   align-items: center;
