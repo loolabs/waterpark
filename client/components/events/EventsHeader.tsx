@@ -1,13 +1,13 @@
-import { TAGS, Tag, TagGroup, TagRow, TagBubble } from '../clubs/Tag' // TODO: rearrange our dependencies to avoid this
+import { Tag, TagGroup, TagRow } from '../clubs/Tag' // TODO: rearrange our dependencies to avoid this
+import { TagBubble } from '../common/TagBubble'
 import styled from 'styled-components'
-import { PageTitle } from '../../styles'
+import { colours, PageTitle } from '../../styles'
 import { SearchInput } from '../SearchInput'
 
 const mobile = `425px`
 const tablet = `768px`
 const laptop = `1024px`
 
-const smallerThan = (size: string): string => `(max-width: ${size})`
 const largerThan = (size: string): string => `(min-width: ${size})`
 
 const EventListHeaderContainer = styled.div`
@@ -50,13 +50,17 @@ interface EventListTagsProps {
   tags: Array<Tag>
 }
 
-const ClubListTags = ({ tags }: EventListTagsProps) => {
+const ClubListTags = () => {
   return (
     <TagRow>
       <TagGroup>
-        {tags.map(({ text, colour }) => (
+        {Object.keys(colours.tagColours).map((text, index) => (
           <RightSpaceWrapper key={text}>
-            <TagBubble colour={colour} highlightOnHover>
+            <TagBubble
+              colour={colours.tagColours[text]}
+              highlightOnHover
+              key={`club-card-tag-${index}-${text}`}
+            >
               {text}
             </TagBubble>
           </RightSpaceWrapper>
@@ -76,7 +80,7 @@ export const EventsHeader = ({ onSearch }: EventListHeaderProps) => {
         <EventListTitle>Explore Events</EventListTitle>
         <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
       </EventListTitleRow>
-      <ClubListTags tags={Array.from(TAGS.values())}></ClubListTags>
+      <ClubListTags />
     </EventListHeaderContainer>
   )
 }
