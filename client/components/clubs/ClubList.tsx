@@ -6,7 +6,7 @@ import { useMemo } from 'react'
 import styled from 'styled-components'
 import { ClubCard } from './ClubCard'
 import { colours, PageTitle } from '../../styles'
-import { SearchInput } from './SearchInput'
+import { SearchInput } from '../SearchInput'
 
 const mobile = `425px`
 const tablet = `768px`
