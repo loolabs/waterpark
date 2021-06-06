@@ -1,5 +1,4 @@
 import { useSearch } from '../hooks'
-import { TagGroup, TagRow, TagBubble } from '../filters/FilterBar'
 import { Club, Id } from '../../utils'
 import styled from 'styled-components'
 import { ClubCard } from './ClubCard'
@@ -82,34 +81,6 @@ const ClubListTitle = styled(PageTitle)`
   white-space: nowrap;
 `
 
-const RightSpaceWrapper = styled.div`
-  padding-right: 16px;
-  margin-right: auto;
-`
-
-interface ClubListTagsProps {
-  tags: Array<Tag>
-}
-
-// const ClubListTags = ({ tags }: ClubListTagsProps) => {
-//   return (
-//     <TagRow>
-//       <TagGroup>
-//         {tags.map(({ text, colour }) => (
-//           <RightSpaceWrapper key={text}>
-//             <TagBubble colour={colour} highlightOnHover>
-//               {text}
-//             </TagBubble>
-//           </RightSpaceWrapper>
-//         ))}
-//       </TagGroup>
-//       <TagBubble borderStyle="dashed" borderWidth="2px">
-//         + More
-//       </TagBubble>
-//     </TagRow>
-//   )
-// }
-
 interface ClubListHeaderProps {
   onSearch: (search: string) => any
   isModalOpen: boolean
@@ -137,7 +108,6 @@ const ClubListHeader = ({
         filterTags={filterTags}
         handleFilterChipClick={handleFilterChipClick}
       />
-      {/* <ClubListTags tags={Array.from(TAGS.values())}></ClubListTags> */}
     </ClubListHeaderContainer>
   )
 }

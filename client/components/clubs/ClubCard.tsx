@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-import { TAGS, TagGroup, TagRow, TagBubble } from '../filters/FilterBar'
+import { TagRow } from '../filters/FilterBar'
 import { Club } from '../../utils'
 import { colours } from '../../styles'
 
@@ -78,22 +78,22 @@ export const RightSpaceWrapper = styled.div`
   margin-right: 16px;
 `
 
-const ClubCardTag = (tag: string) => {
-  if (TAGS.has(tag)) {
-    const { text, colour } = TAGS.get(tag)
-    return (
-      <RightSpaceWrapper key={text}>
-        <TagBubble colour={colour}>{text}</TagBubble>
-      </RightSpaceWrapper>
-    )
-  } else {
-    return (
-      <RightSpaceWrapper key={tag}>
-        <TagBubble>{tag}</TagBubble>
-      </RightSpaceWrapper>
-    )
-  }
-}
+// const ClubCardTag = (tag: string) => {
+//   if (TAGS.has(tag)) {
+//     const { text, colour } = TAGS.get(tag)
+//     return (
+//       <RightSpaceWrapper key={text}>
+//         <TagBubble colour={colour}>{text}</TagBubble>
+//       </RightSpaceWrapper>
+//     )
+//   } else {
+//     return (
+//       <RightSpaceWrapper key={tag}>
+//         <TagBubble>{tag}</TagBubble>
+//       </RightSpaceWrapper>
+//     )
+//   }
+// }
 
 interface ClubCardProps {
   club: Club
@@ -116,9 +116,7 @@ export const ClubCard = ({ club }: ClubCardProps) => {
           <Icon src={links.iconImage} size="56px"></Icon>
         </ClubCardHeader>
         <ClubCardDescription>{description}</ClubCardDescription>
-        <TagRow>
-          <TagGroup>{tags.map(ClubCardTag)}</TagGroup>
-        </TagRow>
+        <TagRow>{/* <TagGroup>{tags.map(ClubCardTag)}</TagGroup> */}</TagRow>
       </ClubCardContent>
     </ClubCardContainer>
   )
