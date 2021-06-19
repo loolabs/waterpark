@@ -47,7 +47,7 @@ export class ClubMap {
           website: clubEntity.website,
         },
         tags: clubEntity.tags.getItems().map((tag) => tag.name),
-        events: basicEventToDomain(clubEntity.events.getItems()),
+        events: basicEventsToDomain(clubEntity.events.getItems()),
       },
       new UniqueEntityID(clubEntity.id)
     )
