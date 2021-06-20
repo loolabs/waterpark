@@ -2,6 +2,7 @@ import {
   AfterCreate,
   Collection,
   Entity,
+  EventArgs,
   LoadStrategy,
   ManyToMany,
   Property,
@@ -47,9 +48,8 @@ export class EventEntity extends BaseEntity {
   @ManyToMany({ entity: () => TagEntity, mappedBy: 'events', strategy: LoadStrategy.JOINED })
   tags = new Collection<TagEntity>(this)
 
-  // TODO: fix any type
   @AfterCreate()
-  afterCreate(target: any) {
+  afterCreate(target: EventArgs<EventEntity>) {
     const id = target.entity.id
     const aggregateId = new UniqueEntityID(id)
     DomainEvents.dispatchEventsForAggregate(aggregateId)
