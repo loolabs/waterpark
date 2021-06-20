@@ -18,28 +18,28 @@ export class ClubEntity extends BaseEntity {
   @Property()
   name!: string
 
-  @Property()
+  @Property({ columnType: 'text' })
   description!: string
 
   @Property()
   size!: number
 
-  @Property()
+  @Property({ columnType: 'text' })
   bannerImage!: string
 
-  @Property()
+  @Property({ columnType: 'text' })
   iconImage!: string
 
-  @Property({ nullable: true })
+  @Property({ columnType: 'text', nullable: true })
   facebook?: string
 
-  @Property({ nullable: true })
+  @Property({ columnType: 'text', nullable: true })
   twitter?: string
 
-  @Property({ nullable: true })
+  @Property({ columnType: 'text', nullable: true })
   instagram?: string
 
-  @Property({ nullable: true })
+  @Property({ columnType: 'text', nullable: true })
   website?: string
 
   @ManyToMany({

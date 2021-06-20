@@ -1,34 +1,82 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Waterpark Client
 
-## Getting Started
+The web app for Waterpark.
 
-First, run the development server:
+## Developer Quick Start
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+1. Copy the following into a file named `.env.local` in this directory.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```
+   NEXT_PUBLIC_API_URL=https://waterpark-staging.herokuapp.com/api/v1
+   ```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+   See [configuration](#Configuration) for how to customize the frontend environment.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+1. Run the development server.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+   ```bash
+   npm run dev
+   ```
 
-## Learn More
+1. Open [http://localhost:3000](http://localhost:3000) with your browser to see the Waterpark client.
 
-To learn more about Next.js, take a look at the following resources:
+1. You are ready to work on the Waterpark client! While the development server is still running, the browser page auto-updates to match any changes you save in this directory.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Configuration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The Waterpark client requires the following environment variables:
 
-## Deploy on Vercel
+| Variable              | Description                  | Example Value                                                                          |
+| --------------------- | ---------------------------- | -------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_API_URL` | the URL of the Waterpark API | `http://localhost:3001/api/v1`<br/>(full-stack developers will find this value useful) |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### TypeScript
+
+Almost every code file in the Waterpark client has `.ts` or `.tsx` as its extension, meaning that it is written in TypeScript. In a nutshell, TypeScript is a superset of JavaScript that adds types.
+
+- [TypeScript documentation](https://www.typescriptlang.org/docs)
+
+Beyond our Prettier configuration, Loo Labs does not have a style guide for writing TypeScript. However, here are some practices we look out for in code review:
+
+- [Daniel Bartholomae - 10 bad TypeScript habits to break this year](https://startup-cto.net/10-bad-typescript-habits-to-break-this-year/)
+
+### React / Next.js
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). Next.js is a wrapper over the [React](https://reactjs.org/) UI library that makes it easy to do things that are considered standard in most web apps.
+
+- [React documentation](https://reactjs.org/docs)
+- [React tutorial](https://reactjs.org/tutorial)
+- [Next.js documentation](https://nextjs.org/docs)
+- [Next.js tutorial](https://nextjs.org/learn)
+
+Like most modern React teams, Loo Labs uses exclusively functional components and hooks.
+
+### CSS / `styled-components`
+
+[`styled-components`](https://styled-components.com) allows CSS styles to be written directly in the same `.tsx` files where React components are defined.
+
+- [DevDocs - CSS documentation](https://devdocs.io/css/)
+- [Mozilla - CSS documentation](https://developer.mozilla.org/docs/Web/CSS)
+- [Flexbox Froggy](https://flexboxfroggy.com/)
+- [`styled-components` documentation](https://styled-components.com/docs)
+- see the _Frontend Styling_ spike in the Loo Labs Notion for why we chose `styled-components`
+
+There are often many ways to implement the same style in CSS. However, here are some practices we look out for in code review:
+
+- [Mozilla - Responsive Design](https://developer.mozilla.org/docs/Learn/CSS/CSS_layout/Responsive_Design)
+- [mickey - Mobile First CSS](https://www.mightyminnow.com/2013/11/what-is-mobile-first-css-and-why-does-it-rock/)
+
+### React Query
+
+To communicate with the Waterpark API, the client uses [React Query](https://react-query.tanstack.com/).
+
+- [React Query documentation](https://react-query.tanstack.com/overview)
+- see the _HTTP Client_ spike in the Loo Labs Notion for why we chose styled components
+
+## Deployment
+
+The Waterpark client is deployed with [Vercel](https://vercel.com), the creators of Next.js. The deployment of `main` can be found at https://waterpark-loo-labs.vercel.app/.
+
+For pull request preview deployments, the obscure [`vercel-is-pull-request`](https://www.npmjs.com/package/vercel-is-pull-request) npm package augments the environment variables of the deployment to include the PR number. The history of this hacky workaround can be found in [issue #40](https://github.com/loolabs/waterpark/issues/40).

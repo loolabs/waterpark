@@ -18,13 +18,13 @@ export class EventEntity extends BaseEntity {
   @Property()
   name!: string
 
-  @Property()
+  @Property({ columnType: 'text' })
   description!: string
 
-  @Property({ nullable: true })
+  @Property({ columnType: 'text', nullable: true })
   url?: string
 
-  @Property()
+  @Property({ columnType: 'text' })
   bannerImage!: string
 
   @Property()
@@ -33,13 +33,13 @@ export class EventEntity extends BaseEntity {
   @Property()
   endTime!: Date
 
-  @Property({ nullable: true })
+  @Property({ columnType: 'text', nullable: true })
   facebook?: string
 
-  @Property({ nullable: true })
+  @Property({ columnType: 'text', nullable: true })
   twitter?: string
 
-  @Property({ nullable: true })
+  @Property({ columnType: 'text', nullable: true })
   instagram?: string
 
   @ManyToMany({ entity: () => ClubEntity, mappedBy: 'events', strategy: LoadStrategy.JOINED })
