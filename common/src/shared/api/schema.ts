@@ -1,12 +1,16 @@
 import * as t from 'io-ts'
 import { DeepReadonly } from 'ts-essentials'
 
-type Field<Base, T extends Base | undefined, K extends keyof Base, Fallback = undefined> =
-  T extends {
-    [k in K]: Base[K]
-  }
-    ? T[K]
-    : Fallback
+type Field<
+  Base,
+  T extends Base | undefined,
+  K extends keyof Base,
+  Fallback = undefined
+> = T extends {
+  [k in K]: Base[K]
+}
+  ? T[K]
+  : Fallback
 type TypeOf<T> = T extends t.Any ? t.TypeOf<T> : {}
 
 export namespace Schema {
@@ -77,15 +81,19 @@ export namespace Get {
     return paths
   }
 
-  export type Method<Endpoint extends Schema.Endpoint, MethodName extends Schema.MethodName> =
-    MethodName extends keyof Endpoint['methods'] ? Endpoint['methods'][MethodName] : never
+  export type Method<
+    Endpoint extends Schema.Endpoint,
+    MethodName extends Schema.MethodName
+  > = MethodName extends keyof Endpoint['methods'] ? Endpoint['methods'][MethodName] : never
 
-  export type Child<Endpoint extends Schema.Endpoint, Path extends Get.Path<Endpoint>> =
-    Path extends Schema.RootPath
-      ? Endpoint
-      : Path extends keyof Endpoint['children']
-      ? Endpoint['children'][Path]
-      : never
+  export type Child<
+    Endpoint extends Schema.Endpoint,
+    Path extends Get.Path<Endpoint>
+  > = Path extends Schema.RootPath
+    ? Endpoint
+    : Path extends keyof Endpoint['children']
+    ? Endpoint['children'][Path]
+    : never
 
   export type ChildMethod<
     Endpoint extends Schema.Endpoint,

@@ -6,8 +6,9 @@ import { UserValueObjectErrors } from '../../../domain/value-objects/errors'
 import { UserEmail } from '../../../domain/value-objects/user-email'
 import { UserPassword } from '../../../domain/value-objects/user-password'
 import { UserRepo } from '../../../infra/repos/user-repo'
-import { CreateUserDTO } from './create-user-dto'
 import { CreateUserErrors } from './create-user-errors'
+import { dto } from '@loolabs/waterpark-common'
+import { UserMap } from '../../../mappers/user-map'
 
 type CreateUserUseCaseError =
   | UserValueObjectErrors.InvalidEmail
@@ -15,12 +16,14 @@ type CreateUserUseCaseError =
   | CreateUserErrors.EmailAlreadyExistsError
   | AppError.UnexpectedError
 
-type CreateUserUseCaseResponse = Result<User, CreateUserUseCaseError>
+type CreateUserUseCaseResponse = Result<dto.User, CreateUserUseCaseError>
 
-export class CreateUserUseCase implements UseCaseWithDTO<CreateUserDTO, CreateUserUseCaseResponse> {
+export class CreateUserUseCase
+  implements UseCaseWithDTO<dto.CreateUser, CreateUserUseCaseResponse>
+{
   constructor(private userRepo: UserRepo) {}
 
-  async execute(dto: CreateUserDTO): Promise<CreateUserUseCaseResponse> {
+  async execute(dto: dto.CreateUser): Promise<CreateUserUseCaseResponse> {
     const emailResult = UserEmail.create(dto.email)
     const passwordResult = UserPassword.create({
       value: dto.password,
@@ -49,7 +52,7 @@ export class CreateUserUseCase implements UseCaseWithDTO<CreateUserDTO, CreateUs
       const user = userResult.value
       await this.userRepo.save(user)
 
-      return Result.ok(user)
+      return Result.ok(UserMap.toDTO(user))
     } catch (err) {
       return Result.err(new AppError.UnexpectedError(err))
     }

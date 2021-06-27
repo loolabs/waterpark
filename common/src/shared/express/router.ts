@@ -1,4 +1,4 @@
-import { Schema, Get } from '../api-types'
+import { Schema, Get } from '../api'
 import { PathParams } from 'express-serve-static-core'
 import express from 'express'
 import { TypedHandler, TypedRouter } from './types'

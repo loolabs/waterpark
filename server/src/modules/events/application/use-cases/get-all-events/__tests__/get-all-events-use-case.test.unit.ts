@@ -2,14 +2,14 @@ import { mocks } from '../../../../../../test-utils'
 import { AppError } from '../../../../../../shared/core/app-error'
 import { Result } from '../../../../../../shared/core/result'
 import { Event } from '../../../../domain/entities/event'
-import { EventDTO } from '../../../../mappers/event-dto'
+import { dto } from '@loolabs/waterpark-common'
 
 jest.mock('../../../../infra/repos/implementations/mock-event-repo')
 
 describe('GetAllEventsUseCase', () => {
   const ids: Array<string> = [1, 2, 3].map(String)
   const mockEvents: Array<Event> = ids.map(mocks.mockEvent)
-  const mockEventDTOs: Array<EventDTO> = ids.map(mocks.mockEventDTO)
+  const mockEventDTOs: Array<dto.Event> = ids.map(mocks.mockEventDTO)
   const { eventRepo, getAllEventsUseCase } = mocks.mockGetAllEvents()
 
   test('When executed, should return all events and an Ok', async () => {

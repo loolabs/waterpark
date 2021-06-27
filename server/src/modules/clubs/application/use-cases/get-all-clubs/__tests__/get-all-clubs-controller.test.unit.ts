@@ -1,13 +1,13 @@
 import { mocks } from '../../../../../../test-utils'
 import { AppError } from '../../../../../../shared/core/app-error'
 import { Result } from '../../../../../../shared/core/result'
-import { ClubDTO } from '../../../../mappers/club-dto'
+import { dto } from '@loolabs/waterpark-common'
 
 jest.mock('../../../../infra/repos/implementations/mock-club-repo')
 
 describe('GetAllClubsController', () => {
   const ids: Array<string> = [1, 2, 3].map(String)
-  const mockClubDTOs: Array<ClubDTO> = ids.map(mocks.mockClubDTO)
+  const mockClubDTOs: Array<dto.Club> = ids.map(mocks.mockClubDTO)
   const { getAllClubsUseCase, getAllClubsController } = mocks.mockGetAllClubs()
 
   test('When executed, the GetAllClubsController returns 200 OK', async () => {

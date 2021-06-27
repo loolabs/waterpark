@@ -1,6 +1,6 @@
 import * as t from 'io-ts'
-import { Router } from './express/router'
-import { API, Endpoint } from './api-types'
+import { typexpress } from './shared'
+import { API, Endpoint } from './shared/api'
 
 const tClub = t.strict({
   id: t.string,
@@ -44,8 +44,8 @@ export const api = API({
 // We can't do this, because `API` makes things immutable
 // clubsEndpoint.methods.get.request.query = t.string
 
-const clubsRouter = new Router(clubsEndpoint)
-const rootRouter = new Router(rootEndpoint)
+const clubsRouter = new typexpress.Router(clubsEndpoint)
+const rootRouter = new typexpress.Router(rootEndpoint)
 
 rootRouter.get('/clubs', (req, res) => {
   const { category } = req.query // Typescript knows that this is a string!

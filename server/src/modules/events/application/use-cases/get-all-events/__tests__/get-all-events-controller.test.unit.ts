@@ -1,14 +1,14 @@
 import { mocks } from '../../../../../../test-utils'
-import { EventDTO } from '../../../../mappers/event-dto'
 import { Result } from '../../../../../../shared/core/result'
 import { GetAllEventsUseCase } from '../get-all-events-use-case'
 import { AppError } from '../../../../../../shared/core/app-error'
+import { dto } from '@loolabs/waterpark-common'
 
 jest.mock('../../../../infra/repos/implementations/mock-event-repo')
 
 describe('GetAllEventsController', () => {
   const ids: Array<string> = [1, 2, 3].map(String)
-  const mockEventDTOs: Array<EventDTO> = ids.map(mocks.mockEventDTO)
+  const mockEventDTOs: Array<dto.Event> = ids.map(mocks.mockEventDTO)
   const { getAllEventsController } = mocks.mockGetAllEvents()
 
   test('When executed, the GetAllEventsController returns 200 OK', async () => {
