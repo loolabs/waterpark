@@ -6,7 +6,7 @@ import { Banner } from '../../components/Banner'
 import { Container } from '../../components/DetailContainer'
 
 export default function ClubDetail() {
-  const { clubs } = useAppContext()
+  const { houses } = useAppContext()
   const router = useRouter()
 
   const { id } = router.query

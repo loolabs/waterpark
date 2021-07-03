@@ -1,40 +1,77 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Club, Event, Id, indexData } from '../utils'
+import { Id, indexData, House, StudySpot, Washroom, deserializeClubsAndEvents } from '../utils'
 import { useQuery } from 'react-query'
-import { deserializeClubsAndEvents } from '../utils'
 
 interface AppData {
-  clubs: Map<Id, Club>
-  events: Map<Id, Event>
+  houses: Map<Id, House>
+  studySpots: Map<Id, StudySpot>
+  washrooms: Map<Id, Washroom>
 }
 
 export const AppContext = createContext<AppData>(null)
 
 export const AppProvider = ({ children }) => {
-  const [clubs, setClubs] = useState<Map<Id, Club>>(indexData())
-  const [events, setEvents] = useState<Map<Id, Event>>(indexData())
-
-  const fetchClubs = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/clubs`)
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok')
-    }
-    return response.json()
-  }
-  const result = useQuery('clubs', fetchClubs)
-
-  useEffect(() => {
-    const { deserializedClubs, deserializedEvents } = deserializeClubsAndEvents(result.data)
-    setClubs(indexData(deserializedClubs))
-    setEvents(indexData(deserializedEvents))
-  }, [result.data])
+  const [houses, setClubs] = useState<Map<Id, House>>(
+    new Map([
+      [
+        1,
+        {
+          id: 1,
+          name: 'House1',
+          description: 'cool house',
+          location: '123 Street',
+          // links: {
+          //   bannerImage: string
+          //   iconImage: string
+          // }
+          overallRating: 8,
+          review: [
+            {
+              comment: 'comment',
+              rating: 8,
+            },
+            {
+              comment: 'comment2',
+              rating: 9,
+            },
+          ],
+        },
+      ],
+      [
+        2,
+        {
+          id: 2,
+          name: 'House2',
+          description: 'cool house 2',
+          location: '123 Street',
+          // links: {
+          //   bannerImage: string
+          //   iconImage: string
+          // }
+          overallRating: 8,
+          review: [
+            {
+              comment: 'comment',
+              rating: 8,
+            },
+            {
+              comment: 'comment2',
+              rating: 9,
+            },
+          ],
+        },
+      ],
+    ])
+  )
+  const [studySpots, setStudySpots] = useState<Map<Id, StudySpot>>()
+  const [washrooms, setWashrooms] = useState<Map<Id, Washroom>>()
 
   return (
     <AppContext.Provider
       value={{
-        clubs,
-        events,
+        houses,
+        studySpots,
+        washrooms,
       }}
     >
       {children}

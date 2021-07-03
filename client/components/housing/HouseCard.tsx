@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { TAGS, TagGroup, TagRow, TagBubble } from './Tag'
-import { Club } from '../../utils'
+import { House } from '../../utils'
 import { colours } from '../../styles'
 
 // Shared styled components that can probably be factored out later
@@ -13,7 +13,7 @@ const Icon = styled.img<{ size: string }>`
   width: ${({ size }) => size};
 `
 
-const ClubCardContainer = styled.div`
+const HouseCardContainer = styled.div`
   border-radius: 8px;
   overflow: hidden;
   width: 100%;
@@ -23,7 +23,7 @@ const ClubCardContainer = styled.div`
   box-shadow: 0px 4px 4px 1px ${colours.neutralLight1};
 `
 
-const ClubCardBanner = styled.div<{ bannerImageURL: string }>`
+const HouseCardBanner = styled.div<{ bannerImageURL: string }>`
   background-image: url(${({ bannerImageURL }) => bannerImageURL});
   background-position: center;
   background-repeat: no-repeat;
@@ -33,11 +33,11 @@ const ClubCardBanner = styled.div<{ bannerImageURL: string }>`
   width: 100%;
 `
 
-const ClubCardContent = styled.div`
+const HouseCardContent = styled.div`
   margin: 24px;
 `
 
-const ClubCardHeader = styled.div`
+const HouseCardHeader = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -45,7 +45,7 @@ const ClubCardHeader = styled.div`
   justify-content: space-between;
 `
 
-const ClubCardName = styled.h2`
+const HouseCardName = styled.h2`
   flex-grow: 1;
   font-size: 20px;
   margin-bottom: 0;
@@ -61,7 +61,7 @@ const ClubCardName = styled.h2`
   -webkit-box-orient: vertical;
 `
 
-const ClubCardDescription = styled.p`
+const HouseCardDescription = styled.p`
   height: 64px;
   overflow: hidden;
   position: relative;
@@ -79,7 +79,7 @@ const RightSpaceWrapper = styled.div`
   margin-right: 16px;
 `
 
-const ClubCardTag = (tag: string) => {
+const HouseCardTag = (tag: string) => {
   if (TAGS.has(tag)) {
     const { text, colour } = TAGS.get(tag)
     return (
@@ -96,31 +96,31 @@ const ClubCardTag = (tag: string) => {
   }
 }
 
-interface ClubCardProps {
-  club: Club
+interface HouseCardProps {
+  House: House
 }
 
-export const ClubCard = ({ club }: ClubCardProps) => {
-  const { id, name, description, links, tags } = club
+export const HouseCard = ({ House }: HouseCardProps) => {
+  const { id, name, description } = House
   const router = useRouter()
 
   const handleClick = () => {
-    router.push({ pathname: `/clubs/${id}` })
+    router.push({ pathname: `/Houses/${id}` })
   }
 
   return (
-    <ClubCardContainer onClick={handleClick}>
-      <ClubCardBanner bannerImageURL={links.bannerImage}></ClubCardBanner>
-      <ClubCardContent>
-        <ClubCardHeader>
-          <ClubCardName>{name}</ClubCardName>
-          <Icon src={links.iconImage} size="56px"></Icon>
-        </ClubCardHeader>
-        <ClubCardDescription>{description}</ClubCardDescription>
-        <TagRow>
-          <TagGroup>{tags.map(ClubCardTag)}</TagGroup>
-        </TagRow>
-      </ClubCardContent>
-    </ClubCardContainer>
+    <HouseCardContainer onClick={handleClick}>
+      {/* <HouseCardBanner bannerImageURL={links.bannerImage}></HouseCardBanner> */}
+      <HouseCardContent>
+        <HouseCardHeader>
+          <HouseCardName>{name}</HouseCardName>
+          {/* <Icon src={links.iconImage} size="56px"></Icon> */}
+        </HouseCardHeader>
+        <HouseCardDescription>{description}</HouseCardDescription>
+        {/* <TagRow>
+          <TagGroup>{tags.map(HouseCardTag)}</TagGroup>
+        </TagRow> */}
+      </HouseCardContent>
+    </HouseCardContainer>
   )
 }
