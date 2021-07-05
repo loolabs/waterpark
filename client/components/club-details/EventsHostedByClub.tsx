@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import moment from 'moment-timezone'
-import { Category } from '../Category'
+import { TagBubble } from '../common/TagBubble'
 import { colours, desktopFontSize, device, fontWeight, largerThan, mobile } from '../../styles'
 import { BasicEvent } from '../../utils'
 
@@ -108,7 +108,7 @@ const EventCategoriesWrapper = styled.div`
 const EventCategories = ({ tags }: { tags: Array<string> }) => (
   <EventCategoriesWrapper>
     {tags.map((t, i) => {
-      return <Category key={`tag-${i}`}>{t}</Category>
+      <TagBubble key={`category-tag-${i}`} colour={colours.tagColours[t]}>{t}</TagBubble>
     })}
   </EventCategoriesWrapper>
 )

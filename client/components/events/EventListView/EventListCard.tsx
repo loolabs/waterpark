@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { Event } from '../../../utils'
 import styled from 'styled-components'
 import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../../../styles'
+import { TagBubble } from '../../common/TagBubble'
 
 interface EventProps {
   event: Event
@@ -137,9 +138,9 @@ export const EventListCard = ({ event }: EventProps) => {
       formattedTags = formattedTags.slice(0, MAXIMUM_NUMBER_OF_VIEWABLE_TAGS)
     }
     return formattedTags.map((tag, index) => (
-      <ListCardTag tag={tag} key={`list-card-tag-${index}-${tag}`}>
+      <TagBubble key={`list-card-tag-${index}-${tag}`} colour={colours.tagColours[tag]}>
         {tag}
-      </ListCardTag>
+      </TagBubble>
     ))
   }
 
