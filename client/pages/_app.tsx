@@ -17,11 +17,11 @@ function App({ Component, pageProps }: AppProps) {
   }
 
   return (
-    <div>
+    <>
       <Head>
         <title>Waterpark</title>
-        <meta name="keywords" content="Waterpark, Waterloo"/>
-        <meta name="author" content="Loo Labs"/>
+        <meta name="keywords" content="Waterpark, Waterloo" />
+        <meta name="author" content="Loo Labs" />
       </Head>
       <QueryClientProvider client={queryClientRef.current}>
         <AppProvider>
@@ -29,7 +29,7 @@ function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </AppProvider>
       </QueryClientProvider>
-    </div>
+    </>
   )
 }
 
