@@ -1,10 +1,11 @@
 import { useSearch } from '../hooks'
-import { TAGS, Tag, TagGroup, TagRow, TagBubble } from './Tag'
+import { Tag, TagGroup, TagRow } from './Tag'
+import { TagBubble } from '../common/TagBubble'
 import { House, Id } from '../../utils'
 import { useMemo } from 'react'
 import styled from 'styled-components'
 import { HouseCard } from './HouseCard'
-import { PageTitle } from '../../styles'
+import { colours, PageTitle } from '../../styles'
 import { SearchInput } from '../SearchInput'
 
 const mobile = `425px`
@@ -71,7 +72,6 @@ const HouseListTitle = styled(PageTitle)`
 `
 
 const RightSpaceWrapper = styled.div`
-  padding-right: 16px;
   margin-right: auto;
 `
 
@@ -83,13 +83,17 @@ interface HouseListTagsProps {
   tags: Array<Tag>
 }
 
-const HouseListTags = ({ tags }: HouseListTagsProps) => {
+const ClubListTags = () => {
   return (
     <TagRow>
       <TagGroup>
-        {tags.map(({ text, colour }) => (
+        {Object.keys(colours.tagColours).map((text, index) => (
           <RightSpaceWrapper key={text}>
-            <TagBubble colour={colour} highlightOnHover>
+            <TagBubble
+              colour={colours.tagColours[text]}
+              highlightOnHover
+              key={`club-card-tag-${index}-${text}`}
+            >
               {text}
             </TagBubble>
           </RightSpaceWrapper>
@@ -109,7 +113,7 @@ const HouseListHeader = ({ onSearch }: HouseListHeaderProps) => {
         <HouseListTitle>Explore Houses</HouseListTitle>
         <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
       </HouseListTitleRow>
-      <HouseListTags tags={Array.from(TAGS.values())}></HouseListTags>
+      <HouseListTags />
     </HouseListHeaderContainer>
   )
 }

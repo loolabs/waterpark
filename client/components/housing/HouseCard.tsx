@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-import { TAGS, TagGroup, TagRow, TagBubble } from './Tag'
+import { TagGroup, TagRow } from './Tag'
+import { TagBubble } from '../common/TagBubble'
 import { House } from '../../utils'
 import { colours } from '../../styles'
 
@@ -75,24 +76,15 @@ const HouseCardDescription = styled.p`
   -webkit-line-clamp: 3;
 `
 
-const RightSpaceWrapper = styled.div`
-  margin-right: 16px;
-`
-
-const HouseCardTag = (tag: string) => {
-  if (TAGS.has(tag)) {
-    const { text, colour } = TAGS.get(tag)
+const ClubCardTag = (tag: string) => {
+  if (tag in colours.tagColours) {
     return (
-      <RightSpaceWrapper key={text}>
-        <TagBubble colour={colour}>{text}</TagBubble>
-      </RightSpaceWrapper>
+      <TagBubble colour={colours.tagColours[tag]} key={`club-card-tag-${tag}`}>
+        {tag}
+      </TagBubble>
     )
   } else {
-    return (
-      <RightSpaceWrapper key={tag}>
-        <TagBubble>{tag}</TagBubble>
-      </RightSpaceWrapper>
-    )
+    return <TagBubble key={`club-card-tag-${tag}`}>{tag}</TagBubble>
   }
 }
 
