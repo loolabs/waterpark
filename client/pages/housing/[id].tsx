@@ -1,25 +1,24 @@
 import React from 'react'
 import { useAppContext } from '../../context'
 import { useRouter } from 'next/router'
-import { ClubInfo, EventsHostedByClub } from '../../components/club-details'
+import { ResourceInfo, EventsHostedByClub } from '../../components/club-details'
 import { Banner } from '../../components/Banner'
 import { Container } from '../../components/DetailContainer'
 
-export default function ClubDetail() {
+export default function HouseDetail() {
   const { houses } = useAppContext()
   const router = useRouter()
 
   const { id } = router.query
   if (typeof id !== 'string') return null
 
-  const club = clubs.get(parseInt(id))
+  const house = houses.get(parseInt(id))
 
   return (
     <div>
-      <Banner backgroundImageUrl={club.links.bannerImage} />
+      <Banner backgroundImageUrl={house.links.bannerImage} />
       <Container>
-        <ClubInfo club={club} />
-        <EventsHostedByClub events={club.events} />
+        <ResourceInfo resource={house} />
       </Container>
     </div>
   )

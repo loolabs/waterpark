@@ -1,9 +1,9 @@
 import React from 'react'
 import { useAppContext } from '../../context'
-import { HousingList } from '../../components/housing'
+import { ResourceList } from '../../components/resource'
 
 export default function Housing() {
   const { houses } = useAppContext()
 
-  return <HousingList houses={houses} />
+  return <ResourceList resources={houses} />
 }

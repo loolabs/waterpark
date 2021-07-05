@@ -1,14 +1,17 @@
 import { Moment } from 'moment-timezone'
 
-interface Resource {
+type URL = string
+
+export interface Resource {
   id: Id
   name: string
   description: string
   location: string
-  // links: {
-  //   bannerImage: string
-  //   iconImage: string
-  // }
+  links: {
+    bannerImage: URL
+    iconImage: URL
+  }
+  gallery: Array<URL>
   overallRating: number
   review: Array<{
     comment: string
@@ -23,3 +26,9 @@ export interface StudySpot extends Resource {}
 export interface Washroom extends Resource {}
 
 export type Id = number
+
+export interface Review {
+  avatarImage: string
+  comment: string
+  rating: number
+}

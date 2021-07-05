@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { TagGroup, TagRow } from './Tag'
 import { TagBubble } from '../common/TagBubble'
-import { House } from '../../utils'
+import { Resource } from '../../utils'
 import { colours } from '../../styles'
 
 // Shared styled components that can probably be factored out later
@@ -14,7 +14,7 @@ const Icon = styled.img<{ size: string }>`
   width: ${({ size }) => size};
 `
 
-const HouseCardContainer = styled.div`
+const ResourceCardContainer = styled.div`
   border-radius: 8px;
   overflow: hidden;
   width: 100%;
@@ -24,7 +24,7 @@ const HouseCardContainer = styled.div`
   box-shadow: 0px 4px 4px 1px ${colours.neutralLight1};
 `
 
-const HouseCardBanner = styled.div<{ bannerImageURL: string }>`
+const ResourceCardBanner = styled.div<{ bannerImageURL: string }>`
   background-image: url(${({ bannerImageURL }) => bannerImageURL});
   background-position: center;
   background-repeat: no-repeat;
@@ -34,11 +34,11 @@ const HouseCardBanner = styled.div<{ bannerImageURL: string }>`
   width: 100%;
 `
 
-const HouseCardContent = styled.div`
+const ResourceCardContent = styled.div`
   margin: 24px;
 `
 
-const HouseCardHeader = styled.div`
+const ResourceCardHeader = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -46,7 +46,7 @@ const HouseCardHeader = styled.div`
   justify-content: space-between;
 `
 
-const HouseCardName = styled.h2`
+const ResourceCardName = styled.h2`
   flex-grow: 1;
   font-size: 20px;
   margin-bottom: 0;
@@ -62,7 +62,7 @@ const HouseCardName = styled.h2`
   -webkit-box-orient: vertical;
 `
 
-const HouseCardDescription = styled.p`
+const ResourceCardDescription = styled.p`
   height: 64px;
   overflow: hidden;
   position: relative;
@@ -88,31 +88,31 @@ const ClubCardTag = (tag: string) => {
   }
 }
 
-interface HouseCardProps {
-  House: House
+interface ResourceCardProps {
+  Resource: Resource
 }
 
-export const HouseCard = ({ House }: HouseCardProps) => {
-  const { id, name, description } = House
+export const ResourceCard = ({ Resource }: ResourceCardProps) => {
+  const { id, name, description, links } = Resource
   const router = useRouter()
 
   const handleClick = () => {
-    router.push({ pathname: `/Houses/${id}` })
+    router.push({ pathname: `/housing/${id}` })
   }
 
   return (
-    <HouseCardContainer onClick={handleClick}>
-      {/* <HouseCardBanner bannerImageURL={links.bannerImage}></HouseCardBanner> */}
-      <HouseCardContent>
-        <HouseCardHeader>
-          <HouseCardName>{name}</HouseCardName>
-          {/* <Icon src={links.iconImage} size="56px"></Icon> */}
-        </HouseCardHeader>
-        <HouseCardDescription>{description}</HouseCardDescription>
+    <ResourceCardContainer onClick={handleClick}>
+      <ResourceCardBanner bannerImageURL={links.bannerImage}></ResourceCardBanner>
+      <ResourceCardContent>
+        <ResourceCardHeader>
+          <ResourceCardName>{name}</ResourceCardName>
+          <Icon src={links.iconImage} size="56px"></Icon>
+        </ResourceCardHeader>
+        <ResourceCardDescription>{description}</ResourceCardDescription>
         {/* <TagRow>
-          <TagGroup>{tags.map(HouseCardTag)}</TagGroup>
+          <TagGroup>{tags.map(ResourceCardTag)}</TagGroup>
         </TagRow> */}
-      </HouseCardContent>
-    </HouseCardContainer>
+      </ResourceCardContent>
+    </ResourceCardContainer>
   )
 }

@@ -1,2 +1,2 @@
-export { ClubInfo } from './ClubInfo'
+export { ResourceInfo } from './ResourceInfo'
 export { EventsHostedByClub, EventCard } from './EventsHostedByClub'
