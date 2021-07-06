@@ -1,5 +1,7 @@
 # Waterpark
 
+![](assets/banner.jpeg)
+
 ## Quick Start
 
 1. install Node v15, Docker, Docker Compose
@@ -11,4 +13,7 @@
 1. run `npm run dev` to start client
 
 ## Documentation
-- [Server architecture](server/ARCHITECTURE.md)
+
+- [Client README.md](client/README.md)
+- [Server README.md](server/README.md)
+- [Server ARCHITECTURE.md](server/ARCHITECTURE.md)
