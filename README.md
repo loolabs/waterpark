@@ -14,6 +14,6 @@
 
 ## Documentation
 
-- [Client README.md](client/README.md)
-- [Server README.md](server/README.md)
-- [Server ARCHITECTURE.md](server/ARCHITECTURE.md)
+- [Client README](client/README.md)
+- [Server README](server/README.md)
+- [Server ARCHITECTURE](server/ARCHITECTURE.md)
