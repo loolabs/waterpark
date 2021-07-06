@@ -79,7 +79,7 @@ export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
         <AggregateRating />
       </div>
 
-      <Name> {name}</Name>
+      <Name>{name}</Name>
 
       {/* <Links>
         {linksThatExist.map((l, i) => (

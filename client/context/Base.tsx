@@ -27,6 +27,9 @@ export const AppProvider = ({ children }) => {
             iconImage:
               'https://i.pinimg.com/originals/a6/02/c1/a602c159ab8e0bcac0093805240597ed.png',
           },
+          gallery: [
+            'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
+          ],
           overallRating: 8,
           review: [
             {
@@ -54,6 +57,9 @@ export const AppProvider = ({ children }) => {
             iconImage:
               'https://i.pinimg.com/originals/a6/02/c1/a602c159ab8e0bcac0093805240597ed.png',
           },
+          gallery: [
+            'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
+          ],
           overallRating: 8,
           review: [
             {
