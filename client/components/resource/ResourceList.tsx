@@ -130,8 +130,8 @@ export const ResourceList = ({ resources }: ResourceListProps) => {
     <ResourceListPage>
       <ResourceListGrid>
         <ResourceListHeader onSearch={setSearchValue} />
-        {filteredResources.map((Resource) => (
-          <ResourceCard key={Resource.id} Resource={Resource} />
+        {filteredResources.map((resource) => (
+          <ResourceCard key={resource.id} Resource={resource} />
         ))}
       </ResourceListGrid>
     </ResourceListPage>

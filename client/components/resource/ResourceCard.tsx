@@ -93,11 +93,11 @@ interface ResourceCardProps {
 }
 
 export const ResourceCard = ({ Resource }: ResourceCardProps) => {
-  const { id, name, description, links } = Resource
+  const { id, name, description, links, resourceSlug } = Resource
   const router = useRouter()
 
   const handleClick = () => {
-    router.push({ pathname: `/housing/${id}` })
+    router.push({ pathname: `/${resourceSlug}/${id}` })
   }
 
   return (

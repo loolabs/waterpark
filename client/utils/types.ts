@@ -4,6 +4,7 @@ type URL = string
 
 export interface Resource {
   id: Id
+  resourceSlug: 'housing' | 'study-spots' | 'washrooms'
   name: string
   description: string
   location: string
