@@ -1,10 +1,10 @@
 import { useSearch } from '../hooks'
 import { Tag, TagGroup, TagRow } from './Tag'
 import { TagBubble } from '../common/TagBubble'
-import { Club, Id } from '../../utils'
+import { Resource, Id } from '../../utils'
 import { useMemo } from 'react'
 import styled from 'styled-components'
-import { ClubCard } from './ClubCard'
+import { ResourceCard } from './ResourceCard'
 import { colours, PageTitle } from '../../styles'
 import { SearchInput } from '../SearchInput'
 
@@ -15,16 +15,15 @@ const laptop = `1024px`
 const smallerThan = (size: string): string => `(max-width: ${size})`
 const largerThan = (size: string): string => `(min-width: ${size})`
 
-const ClubListPage = styled.div`
+const ResourceListPage = styled.div`
   margin-top: 65px;
   margin-bottom: 24px;
 `
 
-const ClubListGrid = styled.div`
+const ResourceListGrid = styled.div`
   display: grid;
   grid-gap: 16px;
   justify-content: center;
-
   // Expand the number of columns with the width of the screen
   grid-template-columns: repeat(1, minmax(150px, 450px));
   margin-left: 12px;
@@ -41,7 +40,7 @@ const ClubListGrid = styled.div`
   }
 `
 
-const ClubListHeaderContainer = styled.div`
+const ResourceListHeaderContainer = styled.div`
   // Use both ways of making things full-width because CSS can't be trusted
   column-span: all;
   grid-column: 1/-1;
@@ -59,14 +58,14 @@ const ClubListHeaderContainer = styled.div`
   }
 `
 
-const ClubListTitleRow = styled.div`
+const ResourceListTitleRow = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
   height: 64px;
 `
 
-const ClubListTitle = styled(PageTitle)`
+const ResourceListTitle = styled(PageTitle)`
   margin: 0;
   white-space: nowrap;
 `
@@ -75,15 +74,15 @@ const RightSpaceWrapper = styled.div`
   margin-right: auto;
 `
 
-interface ClubListHeaderProps {
+interface ResourceListHeaderProps {
   onSearch: (search: string) => any
 }
 
-interface ClubListTagsProps {
+interface ResourceListTagsProps {
   tags: Array<Tag>
 }
 
-const ClubListTags = () => {
+const ResourceListTags = () => {
   return (
     <TagRow>
       <TagGroup>
@@ -106,35 +105,35 @@ const ClubListTags = () => {
   )
 }
 
-const ClubListHeader = ({ onSearch }: ClubListHeaderProps) => {
+const ResourceListHeader = ({ onSearch }: ResourceListHeaderProps) => {
   return (
-    <ClubListHeaderContainer>
-      <ClubListTitleRow>
-        <ClubListTitle>Explore Clubs</ClubListTitle>
+    <ResourceListHeaderContainer>
+      <ResourceListTitleRow>
+        <ResourceListTitle>Explore Resources</ResourceListTitle>
         <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
-      </ClubListTitleRow>
-      <ClubListTags />
-    </ClubListHeaderContainer>
+      </ResourceListTitleRow>
+      <ResourceListTags />
+    </ResourceListHeaderContainer>
   )
 }
 
-interface ClubListProps {
-  clubs: Map<Id, Club>
+interface ResourceListProps {
+  resources: Map<Id, Resource>
 }
 
-export const ClubList = ({ clubs }: ClubListProps) => {
-  const allClubs: Array<Club> = useMemo(() => Array.from(clubs.values()), [clubs])
+export const ResourceList = ({ resources }: ResourceListProps) => {
+  const allResources: Array<Resource> = useMemo(() => Array.from(resources.values()), [resources])
 
-  const [filteredClubs, setSearchValue] = useSearch(allClubs, ['name'])
+  const [filteredResources, setSearchValue] = useSearch(allResources, ['name'])
 
   return (
-    <ClubListPage>
-      <ClubListGrid>
-        <ClubListHeader onSearch={setSearchValue} />
-        {filteredClubs.map((club) => (
-          <ClubCard key={club.id} club={club} />
+    <ResourceListPage>
+      <ResourceListGrid>
+        <ResourceListHeader onSearch={setSearchValue} />
+        {filteredResources.map((resource) => (
+          <ResourceCard key={resource.id} Resource={resource} />
         ))}
-      </ClubListGrid>
-    </ClubListPage>
+      </ResourceListGrid>
+    </ResourceListPage>
   )
 }

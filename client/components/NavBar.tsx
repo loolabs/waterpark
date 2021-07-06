@@ -56,19 +56,19 @@ const LogoW = styled.img`
   }
 `
 LogoW.defaultProps = {
-  src: "/W.svg",
-  alt: "Waterpark logo"
+  src: '/W.svg',
+  alt: 'Waterpark logo',
 }
 
 const LogoWaterpark = styled.img`
-  display: block;  
+  display: block;
   @media (max-width: 425px) {
     display: none;
   }
 `
 LogoWaterpark.defaultProps = {
-  src: "/Waterpark.svg",
-  alt: "Waterpark logo"
+  src: '/Waterpark.svg',
+  alt: 'Waterpark logo',
 }
 
 export const NavBar = () => {
@@ -78,18 +78,21 @@ export const NavBar = () => {
     <NavBarContainer>
       <Link href="/">
         <LogoContainer>
-          <LogoWaterpark/>
-          <LogoW/>
+          <LogoWaterpark />
+          <LogoW />
         </LogoContainer>
       </Link>
       <div>
-        <Link href="/events">
-          <NavBarOption isActive={router.pathname == '/events' || router.pathname == '/'}>
-            Events
+        <Link href="/housing">
+          <NavBarOption isActive={router.pathname == '/housing' || router.pathname == '/'}>
+            Housing
           </NavBarOption>
         </Link>
-        <Link href="/clubs">
-          <NavBarOption isActive={router.pathname == '/clubs'}>Clubs</NavBarOption>
+        <Link href="/study-spots">
+          <NavBarOption isActive={router.pathname == '/study-spots'}>Study Spots</NavBarOption>
+        </Link>
+        <Link href="/washrooms">
+          <NavBarOption isActive={router.pathname == '/washrooms'}>Washrooms</NavBarOption>
         </Link>
       </div>
     </NavBarContainer>

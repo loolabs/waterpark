@@ -1,3 +1,3 @@
 export { indexData } from './IndexUtils'
-export { deserializeClubsAndEvents } from './serde'
-export type { Id, Club, BasicClub, Event, BasicEvent } from './types'
+// export { deserializeClubsAndEvents } from './serde'
+export type { Id, Resource, House, StudySpot, Washroom } from './types'

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { TagGroup, TagRow } from './Tag'
 import { TagBubble } from '../common/TagBubble'
-import { Club } from '../../utils'
+import { Resource } from '../../utils'
 import { colours } from '../../styles'
 
 // Shared styled components that can probably be factored out later
@@ -14,7 +14,7 @@ const Icon = styled.img<{ size: string }>`
   width: ${({ size }) => size};
 `
 
-const ClubCardContainer = styled.div`
+const ResourceCardContainer = styled.div`
   border-radius: 8px;
   overflow: hidden;
   width: 100%;
@@ -24,7 +24,7 @@ const ClubCardContainer = styled.div`
   box-shadow: 0px 4px 4px 1px ${colours.neutralLight1};
 `
 
-const ClubCardBanner = styled.div<{ bannerImageURL: string }>`
+const ResourceCardBanner = styled.div<{ bannerImageURL: string }>`
   background-image: url(${({ bannerImageURL }) => bannerImageURL});
   background-position: center;
   background-repeat: no-repeat;
@@ -34,11 +34,11 @@ const ClubCardBanner = styled.div<{ bannerImageURL: string }>`
   width: 100%;
 `
 
-const ClubCardContent = styled.div`
+const ResourceCardContent = styled.div`
   margin: 24px;
 `
 
-const ClubCardHeader = styled.div`
+const ResourceCardHeader = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -46,7 +46,7 @@ const ClubCardHeader = styled.div`
   justify-content: space-between;
 `
 
-const ClubCardName = styled.h2`
+const ResourceCardName = styled.h2`
   flex-grow: 1;
   font-size: 20px;
   margin-bottom: 0;
@@ -62,7 +62,7 @@ const ClubCardName = styled.h2`
   -webkit-box-orient: vertical;
 `
 
-const ClubCardDescription = styled.p`
+const ResourceCardDescription = styled.p`
   height: 64px;
   overflow: hidden;
   position: relative;
@@ -88,31 +88,31 @@ const ClubCardTag = (tag: string) => {
   }
 }
 
-interface ClubCardProps {
-  club: Club
+interface ResourceCardProps {
+  Resource: Resource
 }
 
-export const ClubCard = ({ club }: ClubCardProps) => {
-  const { id, name, description, links, tags } = club
+export const ResourceCard = ({ Resource }: ResourceCardProps) => {
+  const { id, name, description, links, resourceSlug } = Resource
   const router = useRouter()
 
   const handleClick = () => {
-    router.push({ pathname: `/clubs/${id}` })
+    router.push({ pathname: `/${resourceSlug}/${id}` })
   }
 
   return (
-    <ClubCardContainer onClick={handleClick}>
-      <ClubCardBanner bannerImageURL={links.bannerImage}></ClubCardBanner>
-      <ClubCardContent>
-        <ClubCardHeader>
-          <ClubCardName>{name}</ClubCardName>
+    <ResourceCardContainer onClick={handleClick}>
+      <ResourceCardBanner bannerImageURL={links.bannerImage}></ResourceCardBanner>
+      <ResourceCardContent>
+        <ResourceCardHeader>
+          <ResourceCardName>{name}</ResourceCardName>
           <Icon src={links.iconImage} size="56px"></Icon>
-        </ClubCardHeader>
-        <ClubCardDescription>{description}</ClubCardDescription>
-        <TagRow>
-          <TagGroup>{tags.map(ClubCardTag)}</TagGroup>
-        </TagRow>
-      </ClubCardContent>
-    </ClubCardContainer>
+        </ResourceCardHeader>
+        <ResourceCardDescription>{description}</ResourceCardDescription>
+        {/* <TagRow>
+          <TagGroup>{tags.map(ResourceCardTag)}</TagGroup>
+        </TagRow> */}
+      </ResourceCardContent>
+    </ResourceCardContainer>
   )
 }
