@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Id, indexData, House, StudySpot, Washroom, deserializeClubsAndEvents } from '../utils'
+import { Id, indexData, House, StudySpot, Washroom } from '../utils'
 import { useQuery } from 'react-query'
 
 interface AppData {
