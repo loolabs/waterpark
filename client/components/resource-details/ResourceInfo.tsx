@@ -4,6 +4,7 @@ import { colours, fontWeight, PageTitle } from '../../styles'
 import { Resource } from '../../utils'
 import { Review } from '../../utils/types'
 import { TagBubble } from '../common/TagBubble'
+import ImageGallery from 'react-image-gallery'
 
 const BackArrow = styled.img`
   margin-top: 64px;
@@ -109,11 +110,31 @@ const Categories = ({ tags }: { tags: Array<string> }) => (
   </CategoriesWrapper>
 )
 
+const images = [
+  {
+    original: 'https://picsum.photos/id/1018/1000/600/',
+    thumbnail: 'https://picsum.photos/id/1018/250/150/',
+    originalWidth: 'slkadjf',
+  },
+  {
+    original: 'https://picsum.photos/id/1015/1000/600/',
+    thumbnail: 'https://picsum.photos/id/1015/250/150/',
+  },
+  {
+    original: 'https://picsum.photos/id/1019/1000/600/',
+    thumbnail: 'https://picsum.photos/id/1019/250/150/',
+  },
+]
+
+const GalleryWrapper = styled.div`
+  width: 50%;
+`
+
 const Gallery = () => {
   return (
-    <div>
-      <h1>Gallery</h1>
-    </div>
+    <GalleryWrapper>
+      <ImageGallery items={images} />
+    </GalleryWrapper>
   )
 }
 
