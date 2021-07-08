@@ -66,7 +66,7 @@ interface ResourceInfoProps {
 export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
   const router = useRouter()
 
-  const { name, description, links } = resource
+  const { name, description, links, reviews } = resource
   // const potentialLinks = [links.facebook, links.twitter, links.instagram, links.website]
   // const linksThatExist = potentialLinks.filter((link) => link !== undefined)
 
@@ -94,7 +94,7 @@ export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
 
       <Description>{description}</Description>
       <Gallery></Gallery>
-      <Reviews reviews={[]} />
+      <Reviews reviews={reviews} />
     </div>
   )
 }
@@ -125,8 +125,8 @@ const Reviews = ({ reviews }: ReviewsProps) => {
   return (
     <div>
       <h1>Reviews</h1>
-      {reviews.map((review) => {
-        return <ReviewEntry review={review} />
+      {reviews.map((review, index) => {
+        return <ReviewEntry key={index} review={review} />
       })}
     </div>
   )
@@ -140,14 +140,26 @@ const Avatar = styled.img`
   width: 100px;
 `
 
-const Rating = styled.p``
+const ReviewCard = styled.div`
+  margin: 10px;
+`
 
 const ReviewEntry = ({ review }: { review: Review }) => {
   return (
+    <ReviewCard>
+      <Avatar src={review.avatarImage}></Avatar>
+      <Description>{review.comment}</Description>
+      {Object.entries(review.ratings).map((rating) => {
+        return <Rating rating={rating} key={rating[0]}></Rating>
+      })}
+    </ReviewCard>
+  )
+}
+
+const Rating = ({rating} : {rating: [string, number]}) => {
+  return (
     <>
-      <Avatar></Avatar>
-      <Description></Description>
-      <Rating></Rating>
+      <p>{rating[0]}: {rating[1]}</p>
     </>
   )
 }

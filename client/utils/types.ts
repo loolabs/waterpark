@@ -14,6 +14,7 @@ export interface Resource {
   }
   gallery: Array<URL>
   overallRating: number
+  reviews: Array <Review>
 }
 
 export interface House extends Resource {
@@ -36,6 +37,7 @@ export type Id = number
 export interface Review {
   avatarImage: string
   comment: string
+  ratings: {[name: string]: number}
 }
 
 export interface HousingReview extends Review {
