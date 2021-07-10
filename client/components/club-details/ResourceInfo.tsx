@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { colours, fontWeight, PageTitle } from '../../styles'
+import { colours, fontWeight, PageTitle, laptop, largerThan, smallerThan } from '../../styles'
 import { Resource } from '../../utils'
 import { Review } from '../../utils/types'
 import { TagBubble } from '../common/TagBubble'
+import ReactStars from "react-stars";
 
 const BackArrow = styled.img`
   margin-top: 64px;
@@ -57,6 +58,8 @@ const Description = styled.p`
   line-height: 1.3;
   margin-top: 24px;
   margin-bottom: 24px;
+  margin-left: 24px;
+  margin-right: 24px;
 `
 
 interface ResourceInfoProps {
@@ -132,34 +135,97 @@ const Reviews = ({ reviews }: ReviewsProps) => {
   )
 }
 
+const ReviewCard = styled.div`
+margin-top: 15px;
+margin-bottom: 15px;
+border-radius: 8px;
+overflow: hidden;
+width: 100%;
+
+// A subtle shadow around the card
+box-shadow: 0px 4px 3px 2px ${colours.neutralLight1};
+`
 const Avatar = styled.img`
-  border-radius: 4px;
+  border-radius: 50%;
   display: block;
-  margin-top: 40px;
-  height: 100px;
-  width: 100px;
+  margin-left: 24px;
+  margin-top: 24px;
+  height: 80px;
+  width: 80px;
 `
 
-const ReviewCard = styled.div`
-  margin: 10px;
+const RatingList = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  margin: 24px;
+  margin-left: auto;
+  align-self: flex-start;
+`
+
+const ReviewTopRow = styled.div`
+  display: flex;
+`
+
+const ShowOnLaptop = styled.div`
+  @media ${smallerThan(laptop)} {
+    display: none;
+  }
+`
+
+const HideOnLaptop = styled.div`
+  @media ${largerThan(laptop)} {
+    display: none;
+  }
 `
 
 const ReviewEntry = ({ review }: { review: Review }) => {
   return (
     <ReviewCard>
-      <Avatar src={review.avatarImage}></Avatar>
-      <Description>{review.comment}</Description>
-      {Object.entries(review.ratings).map((rating) => {
-        return <Rating rating={rating} key={rating[0]}></Rating>
-      })}
+      <ReviewTopRow>
+        <Avatar src={review.avatarImage}></Avatar>
+        <ShowOnLaptop>
+          <Description>{review.comment}</Description>
+        </ShowOnLaptop>
+        <RatingList>
+          {Object.entries(review.ratings).map((rating) => {
+            return <Rating rating={rating} key={rating[0]}></Rating>
+          })}
+        </RatingList>
+      </ReviewTopRow>
+      <HideOnLaptop>
+        <Description>{review.comment}</Description>
+      </HideOnLaptop>
     </ReviewCard>
   )
 }
 
+const RatingLabel = styled.p`
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-right: 5px;
+`
+
+const RatingFormat = styled.div`
+  @media ${smallerThan(laptop)} {
+    display: flex;
+    margin-left: auto;
+    margin-right: 0;
+    flex-wrap: wrap;
+  }
+`
+
 const Rating = ({rating} : {rating: [string, number]}) => {
   return (
-    <>
-      <p>{rating[0]}: {rating[1]}</p>
-    </>
+    <RatingFormat>
+      <RatingLabel>{rating[0].toUpperCase()}:</RatingLabel>
+      <ReactStars
+      count={5}
+      value={rating[1]/2}
+      size={24}
+      color2={'#ffd700'}
+      edit={false}
+      />
+    </RatingFormat>
   )
 }
