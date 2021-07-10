@@ -5,6 +5,7 @@ import { Resource } from '../../utils'
 import { Review } from '../../utils/types'
 import { TagBubble } from '../common/TagBubble'
 import ReactStars from 'react-stars'
+import ImageGallery from 'react-image-gallery'
 
 const BackArrow = styled.img`
   margin-top: 64px;
@@ -64,8 +65,7 @@ interface ResourceInfoProps {
 
 export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
   const router = useRouter()
-
-  const { name, description, links, reviews } = resource
+  const { name, description, links, galleryImages, reviews } = resource
   // const potentialLinks = [links.facebook, links.twitter, links.instagram, links.website]
   // const linksThatExist = potentialLinks.filter((link) => link !== undefined)
 
@@ -92,7 +92,7 @@ export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
       </Metadata>
 
       <Description>{description}</Description>
-      <Gallery></Gallery>
+      <Gallery links={galleryImages} />
       <Reviews reviews={reviews} />
     </div>
   )
@@ -108,11 +108,29 @@ const Categories = ({ tags }: { tags: Array<string> }) => (
   </CategoriesWrapper>
 )
 
-const Gallery = () => {
+const GalleryWrapper = styled.div`
+  width: 50%;
+`
+
+const Gallery = ({ links }: { links: Array<string> }) => {
+  const images = links.map((link) => {
+    return {
+      original: link,
+      thumbnail: 'https://picsum.photos/id/1018/250/150/',
+    }
+  })
+
   return (
-    <div>
+    <GalleryWrapper>
       <h1>Gallery</h1>
-    </div>
+
+      <ImageGallery
+        items={images}
+        showPlayButton={false}
+        showFullscreenButton={false}
+        showThumbnails={false}
+      />
+    </GalleryWrapper>
   )
 }
 
