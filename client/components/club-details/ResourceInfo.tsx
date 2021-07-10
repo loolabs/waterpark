@@ -204,6 +204,8 @@ const RatingLabel = styled.p`
   margin-bottom: 5px;
   margin-top: 5px;
   margin-right: 5px;
+  font-weight: 600;
+  color: ${colours.neutralDark2};
 `
 
 const RatingFormat = styled.div`
@@ -223,7 +225,8 @@ const Rating = ({rating} : {rating: [string, number]}) => {
       count={5}
       value={rating[1]/2}
       size={24}
-      color2={'#ffd700'}
+      color1={'#DDDDDD'}
+      color2={colours.primary1}
       edit={false}
       />
     </RatingFormat>
