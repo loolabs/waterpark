@@ -14,22 +14,22 @@ export interface Resource {
   }
   gallery: Array<URL>
   overallRating: number
-  reviews: Array <Review>
+  reviews: Array<Review>
 }
 
 export interface House extends Resource {
   resourceSlug: 'housing'
-  reviews: Array <HousingReview>
+  reviews: Array<HousingReview>
 }
 
 export interface StudySpot extends Resource {
   resourceSlug: 'study-spots'
-  reviews: Array <StudySpotReview>
+  reviews: Array<StudySpotReview>
 }
 
 export interface Washroom extends Resource {
   resourceSlug: 'washrooms'
-  reviews: Array <WashroomReview>
+  reviews: Array<WashroomReview>
 }
 
 export type Id = number
@@ -37,7 +37,7 @@ export type Id = number
 export interface Review {
   avatarImage: string
   comment: string
-  ratings: {[name: string]: number}
+  ratings: { [name: string]: number }
 }
 
 export interface HousingReview extends Review {
@@ -60,4 +60,3 @@ export interface WashroomReview extends Review {
     cleaniness: number
   }
 }
-

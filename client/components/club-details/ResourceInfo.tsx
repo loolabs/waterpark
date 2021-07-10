@@ -4,7 +4,7 @@ import { colours, fontWeight, PageTitle, laptop, largerThan, smallerThan } from 
 import { Resource } from '../../utils'
 import { Review } from '../../utils/types'
 import { TagBubble } from '../common/TagBubble'
-import ReactStars from "react-stars";
+import ReactStars from 'react-stars'
 
 const BackArrow = styled.img`
   margin-top: 64px;
@@ -132,14 +132,14 @@ const Reviews = ({ reviews }: ReviewsProps) => {
 }
 
 const ReviewCard = styled.div`
-margin-top: 15px;
-margin-bottom: 15px;
-border-radius: 8px;
-overflow: hidden;
-width: 100%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
 
-// A subtle shadow around the card
-box-shadow: 0px 4px 3px 2px ${colours.neutralLight1};
+  // A subtle shadow around the card
+  box-shadow: 0px 4px 3px 2px ${colours.neutralLight1};
 `
 const Avatar = styled.img`
   border-radius: 50%;
@@ -230,17 +230,17 @@ const RatingFormat = styled.div`
   }
 `
 
-const Rating = ({rating} : {rating: [string, number]}) => {
+const Rating = ({ rating }: { rating: [string, number] }) => {
   return (
     <RatingFormat>
       <RatingLabel>{rating[0].toUpperCase()}:</RatingLabel>
       <ReactStars
-      count={5}
-      value={rating[1]/2}
-      size={24}
-      color1={'#DDDDDD'}
-      color2={colours.primary1}
-      edit={false}
+        count={5}
+        value={rating[1] / 2}
+        size={24}
+        color1={'#DDDDDD'}
+        color2={colours.primary1}
+        edit={false}
       />
     </RatingFormat>
   )
