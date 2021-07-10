@@ -112,7 +112,6 @@ const ResourceListHeader = ({ onSearch }: ResourceListHeaderProps) => {
         <ResourceListTitle>Explore Resources</ResourceListTitle>
         <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
       </ResourceListTitleRow>
-      <ResourceListTags />
     </ResourceListHeaderContainer>
   )
 }
