@@ -56,10 +56,6 @@ const CategoriesWrapper = styled.div`
 
 const Description = styled.p`
   line-height: 1.3;
-  margin-top: 24px;
-  margin-bottom: 24px;
-  margin-left: 24px;
-  margin-right: 24px;
 `
 
 interface ResourceInfoProps {
@@ -179,13 +175,27 @@ const HideOnLaptop = styled.div`
   }
 `
 
+const AuthorInfo = styled.div`
+  font-style: italic;
+`
+
+const Comment = styled.div`
+  margin-top: 24px;
+  margin-bottom: 24px;
+  margin-left: 24px;
+  margin-right: 24px;
+`
+
 const ReviewEntry = ({ review }: { review: Review }) => {
   return (
     <ReviewCard>
       <ReviewTopRow>
         <Avatar src={review.avatarImage}></Avatar>
         <ShowOnLaptop>
-          <Description>{review.comment}</Description>
+          <Comment>
+            <Description>{review.comment}</Description>
+            <AuthorInfo>- A student</AuthorInfo>
+          </Comment>
         </ShowOnLaptop>
         <RatingList>
           {Object.entries(review.ratings).map((rating) => {
@@ -194,7 +204,10 @@ const ReviewEntry = ({ review }: { review: Review }) => {
         </RatingList>
       </ReviewTopRow>
       <HideOnLaptop>
-        <Description>{review.comment}</Description>
+        <Comment>
+          <Description>{review.comment}</Description>
+          <AuthorInfo>- Student</AuthorInfo>
+        </Comment>
       </HideOnLaptop>
     </ReviewCard>
   )
