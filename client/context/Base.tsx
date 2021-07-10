@@ -28,7 +28,9 @@ export const AppProvider = ({ children }) => {
             iconImage:
               'https://i.pinimg.com/originals/a6/02/c1/a602c159ab8e0bcac0093805240597ed.png',
           },
-          gallery: [
+          galleryImages: [
+            'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
+            'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
             'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
           ],
           overallRating: 8,
@@ -59,7 +61,9 @@ export const AppProvider = ({ children }) => {
             iconImage:
               'https://i.pinimg.com/originals/a6/02/c1/a602c159ab8e0bcac0093805240597ed.png',
           },
-          gallery: [
+          galleryImages: [
+            'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
+            'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
             'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
           ],
           overallRating: 8,
@@ -94,7 +98,9 @@ export const AppProvider = ({ children }) => {
             iconImage:
               'https://fastly.4sqi.net/img/general/200x200/14304374_cec48Yq6o2iJQJJFybNDlOUBf0h2KEgtE47Ls_DDemo.jpg',
           },
-          gallery: [
+          galleryImages: [
+            'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
+            'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
             'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
           ],
           overallRating: 8,
@@ -124,7 +130,9 @@ export const AppProvider = ({ children }) => {
             iconImage:
               'https://i.pinimg.com/280x280_RS/8f/96/6c/8f966cf7eb441261f1e280274bf8a727.jpg',
           },
-          gallery: [
+          galleryImages: [
+            'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
+            'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
             'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
           ],
           overallRating: 8,
@@ -159,7 +167,9 @@ export const AppProvider = ({ children }) => {
             iconImage:
               'https://i.pinimg.com/originals/a6/02/c1/a602c159ab8e0bcac0093805240597ed.png',
           },
-          gallery: [
+          galleryImages: [
+            'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
+            'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
             'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
           ],
           overallRating: 8,
@@ -189,7 +199,9 @@ export const AppProvider = ({ children }) => {
             iconImage:
               'https://uwaterloo.ca/environment/sites/ca.environment/files/uploads/images/ev3_bright_sunny_day.jpg',
           },
-          gallery: [
+          galleryImages: [
+            'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
+            'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
             'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
           ],
           overallRating: 8,

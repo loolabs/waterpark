@@ -12,7 +12,7 @@ export interface Resource {
     bannerImage: URL
     iconImage: URL
   }
-  gallery: Array<URL>
+  galleryImages: Array<URL>
   overallRating: number
   review: Array<{
     comment: string

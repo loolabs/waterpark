@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAppContext } from '../../context'
 import { useRouter } from 'next/router'
-import { ResourceInfo } from '../../components/club-details'
+import { ResourceInfo } from '../../components/resource-details'
 import { Banner } from '../../components/Banner'
 import { Container } from '../../components/DetailContainer'
 
