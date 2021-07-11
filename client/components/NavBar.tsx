@@ -32,8 +32,8 @@ const NavBarOption = styled.a<any>`
     `};
   margin: 0px 32px;
 
-  @media ${device.mobileL} {
-    font-size: ${mobileFontSize.subtitle1};
+  @media ${device.tablet} {
+    font-size: ${mobileFontSize.subtitle2};
     margin: 0px 13px;
   }
 
@@ -51,7 +51,7 @@ const LogoContainer = styled.div`
 
 const LogoW = styled.img`
   display: none;
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: block;
   }
 `
@@ -62,7 +62,7 @@ LogoW.defaultProps = {
 
 const LogoWaterpark = styled.img`
   display: block;
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `
@@ -70,6 +70,12 @@ LogoWaterpark.defaultProps = {
   src: '/Waterpark.svg',
   alt: 'Waterpark logo',
 }
+
+const NavbarItems = styled.div`
+  display: flex;
+  justify-content: space-between;
+  min-width: 300px;
+`
 
 export const NavBar = () => {
   const router = useRouter()
@@ -82,7 +88,7 @@ export const NavBar = () => {
           <LogoW />
         </LogoContainer>
       </Link>
-      <div>
+      <NavbarItems>
         <Link href="/housing">
           <NavBarOption isActive={router.pathname == '/housing' || router.pathname == '/'}>
             Housing
@@ -94,7 +100,7 @@ export const NavBar = () => {
         <Link href="/washrooms">
           <NavBarOption isActive={router.pathname == '/washrooms'}>Washrooms</NavBarOption>
         </Link>
-      </div>
+      </NavbarItems>
     </NavBarContainer>
   )
 }
