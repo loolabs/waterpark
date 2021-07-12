@@ -167,7 +167,7 @@ export const NavBar = () => {
         </HideOnMobile>
         <ShowOnMobile>
           <HamburgerMenu
-            src="hamburger-menu.svg"
+            src="./hamburger-menu.svg"
             alt="dropdown"
             height="27"
             width="27"
