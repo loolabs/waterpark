@@ -5,15 +5,8 @@ import { Resource, Id } from '../../utils'
 import { useMemo } from 'react'
 import styled from 'styled-components'
 import { ResourceCard } from './ResourceCard'
-import { colours, PageTitle } from '../../styles'
+import { colours, PageTitle, width, smallerThan, largerThan } from '../../styles'
 import { SearchInput } from '../SearchInput'
-
-const mobile = `425px`
-const tablet = `768px`
-const laptop = `1024px`
-
-const smallerThan = (size: string): string => `(max-width: ${size})`
-const largerThan = (size: string): string => `(min-width: ${size})`
 
 const ResourceListPage = styled.div`
   margin-top: 65px;
@@ -28,12 +21,12 @@ const ResourceListGrid = styled.div`
   grid-template-columns: repeat(1, minmax(150px, 450px));
   margin-left: 12px;
   margin-right: 12px;
-  @media ${largerThan(tablet)} and ${smallerThan(laptop)} {
+  @media ${largerThan(width.tablet)} and ${smallerThan(width.laptop)} {
     grid-template-columns: repeat(2, minmax(300px, 450px));
     margin-left: 24px;
     margin-right: 24px;
   }
-  @media ${largerThan(laptop)} {
+  @media ${largerThan(width.laptop)} {
     margin: auto;
     max-width: 80%;
     grid-template-columns: 450px repeat(auto-fit, 450px);
@@ -52,7 +45,7 @@ const ResourceListHeaderContainer = styled.div`
   // Shrink the page's "forehead" on mobile
   gap: 8px;
   margin-top: max(48px, 5vh);
-  @media ${largerThan(tablet)} {
+  @media ${largerThan(width.laptop)} {
     gap: 16px;
     margin-top: 10vh;
   }
