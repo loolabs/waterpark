@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
-import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../styles'
+import {
+  colours,
+  device,
+  fontWeight,
+  desktopFontSize,
+  mobileFontSize,
+  largerThan,
+  mobile,
+} from '../styles'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-const NavBarContainer = styled.div`
+const NavBarRow = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -12,10 +20,6 @@ const NavBarContainer = styled.div`
   align-items: center;
   background: ${colours.white};
   padding: 14px 24px;
-  box-shadow: 0px 2px 10px rgba(34, 34, 34, 0.1);
-  position: fixed;
-  top: 0;
-  z-index: 1;
 `
 
 const NavBarOption = styled.a<any>`
@@ -34,7 +38,12 @@ const NavBarOption = styled.a<any>`
 
   @media ${device.tablet} {
     font-size: ${mobileFontSize.subtitle2};
-    margin: 0px 13px;
+    margin: 0px 8px;
+  }
+
+  @media ${device.mobileL} {
+    font-size: ${mobileFontSize.subtitle1};
+    margin: 8px 12px;
   }
 
   &:hover {
@@ -71,36 +80,105 @@ LogoWaterpark.defaultProps = {
   alt: 'Waterpark logo',
 }
 
-const NavbarItems = styled.div`
+const NavbarItemsStyling = styled.div`
   display: flex;
   justify-content: space-between;
-  min-width: 300px;
+
+  @media ${device.mobileL} {
+    flex-direction: column;
+  }
+`
+
+const NavBarContainer = styled.div`
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  box-shadow: 0px 2px 10px rgba(34, 34, 34, 0.1);
+  background-color: white;
+`
+
+// There is a hardcoded drop-down max-height value. It is equal to 38 * (number of navigation elements).
+const NavBarDropdown = styled.div<{ openDrawer: boolean }>`
+  overflow: hidden;
+  transition-property: max-height;
+  transition: 0.2s ease-in-out;
+  max-height: 0px;
+  &.dropped-down {
+    max-height: 114px;
+  }
+`
+
+const HideOnMobile = styled.div`
+  @media ${device.mobileL} {
+    display: none;
+  }
+`
+
+const ShowOnMobile = styled.div`
+  @media ${largerThan(mobile)} {
+    display: none;
+  }
+`
+
+const NavbarItems = () => {
+  const router = useRouter()
+  return (
+    <NavbarItemsStyling>
+      <Link href="/housing">
+        <NavBarOption isActive={router.pathname == '/housing' || router.pathname == '/'}>
+          Housing
+        </NavBarOption>
+      </Link>
+      <Link href="/study-spots">
+        <NavBarOption isActive={router.pathname == '/study-spots'}>Study Spots</NavBarOption>
+      </Link>
+      <Link href="/washrooms">
+        <NavBarOption isActive={router.pathname == '/washrooms'}>Washrooms</NavBarOption>
+      </Link>
+    </NavbarItemsStyling>
+  )
+}
+
+const HamburgerMenu = styled.img`
+  padding: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 5px;
 `
 
 export const NavBar = () => {
-  const router = useRouter()
+  let [openDrawer, setOpenDrawer] = useState(false)
 
   return (
     <NavBarContainer>
-      <Link href="/">
-        <LogoContainer>
-          <LogoWaterpark />
-          <LogoW />
-        </LogoContainer>
-      </Link>
-      <NavbarItems>
-        <Link href="/housing">
-          <NavBarOption isActive={router.pathname == '/housing' || router.pathname == '/'}>
-            Housing
-          </NavBarOption>
+      <NavBarRow>
+        <Link href="/">
+          <LogoContainer>
+            <LogoWaterpark />
+            <LogoW />
+          </LogoContainer>
         </Link>
-        <Link href="/study-spots">
-          <NavBarOption isActive={router.pathname == '/study-spots'}>Study Spots</NavBarOption>
-        </Link>
-        <Link href="/washrooms">
-          <NavBarOption isActive={router.pathname == '/washrooms'}>Washrooms</NavBarOption>
-        </Link>
-      </NavbarItems>
+        <HideOnMobile>
+          <NavbarItems />
+        </HideOnMobile>
+        <ShowOnMobile>
+          <HamburgerMenu
+            src="hamburger-menu.svg"
+            alt="dropdown"
+            height="27"
+            width="27"
+            onClick={() => {
+              setOpenDrawer(!openDrawer)
+            }}
+          />
+        </ShowOnMobile>
+      </NavBarRow>
+      <ShowOnMobile>
+        <NavBarDropdown openDrawer={openDrawer} className={openDrawer ? 'dropped-down' : ''}>
+          <NavbarItems />
+        </NavBarDropdown>
+      </ShowOnMobile>
     </NavBarContainer>
   )
 }
