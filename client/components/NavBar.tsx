@@ -43,7 +43,7 @@ const NavBarOption = styled.a<any>`
 
   @media ${device.mobileL} {
     font-size: ${mobileFontSize.subtitle1};
-    margin: 8px 12px;
+    margin: 12px 12px;
   }
 
   &:hover {
@@ -86,6 +86,7 @@ const NavbarItemsStyling = styled.div`
 
   @media ${device.mobileL} {
     flex-direction: column;
+    align-items: flex-end;
   }
 `
 
@@ -105,7 +106,7 @@ const NavBarDropdown = styled.div<{ openDrawer: boolean }>`
   transition: 0.2s ease-in-out;
   max-height: 0px;
   &.dropped-down {
-    max-height: 114px;
+    max-height: 138px;
   }
 `
 
