@@ -19,7 +19,6 @@ const NavBarRow = styled.div`
   justify-content: space-between;
   align-items: center;
   background: ${colours.white};
-  padding: 14px 24px;
 `
 
 const NavBarOption = styled.a<any>`
@@ -63,6 +62,7 @@ const LogoW = styled.img`
   @media ${smallerThan(width.tablet)} {
     display: block;
   }
+  padding: 14px 24px;
 `
 LogoW.defaultProps = {
   src: '/W.svg',
@@ -74,6 +74,7 @@ const LogoWaterpark = styled.img`
   @media ${smallerThan(width.tablet)} {
     display: none;
   }
+  padding: 14px 24px;
 `
 LogoWaterpark.defaultProps = {
   src: '/Waterpark.svg',
@@ -102,6 +103,7 @@ const NavBarContainer = styled.div`
 // There is a hardcoded drop-down max-height value. It is equal to 46 * (number of navigation elements, currently 3).
 // 46 = Height of nav text + height of top and bottom margins.
 // Why hardcoded: CSS transitions cannot accept auto values. So, we need to calculate the height before animating.
+// TODO: fix hardcode animation
 const NavBarDropdown = styled.div`
   overflow: hidden;
   transition-property: max-height;
@@ -145,6 +147,7 @@ const NavbarItems = () => {
 
 const HamburgerMenu = styled.img<{ active: boolean }>`
   padding: 5px;
+  margin-right: 14px;
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
@@ -170,8 +173,8 @@ export const NavBar = () => {
           <HamburgerMenu
             src={window.location.origin + '/hamburger-menu.svg'}
             alt="dropdown"
-            height="27"
-            width="27"
+            height="35"
+            width="35"
             onClick={() => {
               setOpenDrawer(!openDrawer)
             }}
