@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { colours } from './colours'
-import { device } from './device'
+import { width, smallerThan } from './device'
 
 // font size
 const text48 = '48px'
@@ -58,7 +58,7 @@ export const PageTitle = styled.h1`
   font-size: ${desktopFontSize.h1};
   line-height: 120%;
   color: ${colours.black};
-  @media ${device.tablet} {
+  @media ${smallerThan(width.tablet)} {
     font-size: ${mobileFontSize.h1};
   }
 `

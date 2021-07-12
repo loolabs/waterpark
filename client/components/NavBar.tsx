@@ -1,14 +1,6 @@
 import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
-import {
-  colours,
-  device,
-  fontWeight,
-  desktopFontSize,
-  mobileFontSize,
-  largerThan,
-  mobile,
-} from '../styles'
+import { colours, fontWeight, desktopFontSize, mobileFontSize, width, smallerThan, largerThan } from '../styles'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -36,12 +28,12 @@ const NavBarOption = styled.a<any>`
     `};
   margin: 0px 32px;
 
-  @media ${device.tablet} {
+  @media ${smallerThan(width.tablet)} {
     font-size: ${mobileFontSize.subtitle2};
     margin: 0px 8px;
   }
 
-  @media ${device.mobileL} {
+  @media ${smallerThan(width.mobileL)} {
     font-size: ${mobileFontSize.subtitle1};
     margin: 12px 12px;
   }
@@ -60,7 +52,7 @@ const LogoContainer = styled.div`
 
 const LogoW = styled.img`
   display: none;
-  @media ${device.tablet} {
+  @media ${smallerThan(width.tablet)} {
     display: block;
   }
 `
@@ -71,7 +63,7 @@ LogoW.defaultProps = {
 
 const LogoWaterpark = styled.img`
   display: block;
-  @media ${device.tablet} {
+  @media ${smallerThan(width.tablet)} {
     display: none;
   }
 `
@@ -84,7 +76,7 @@ const NavbarItemsStyling = styled.div`
   display: flex;
   justify-content: space-between;
 
-  @media ${device.mobileL} {
+  @media ${smallerThan(width.mobileL)} {
     flex-direction: column;
     align-items: flex-end;
   }
@@ -113,13 +105,13 @@ const NavBarDropdown = styled.div<{ openDrawer: boolean }>`
 `
 
 const HideOnMobile = styled.div`
-  @media ${device.mobileL} {
+  @media ${smallerThan(width.mobileL)} {
     display: none;
   }
 `
 
 const ShowOnMobile = styled.div`
-  @media ${largerThan(mobile)} {
+  @media ${largerThan(width.mobileL)} {
     display: none;
   }
 `

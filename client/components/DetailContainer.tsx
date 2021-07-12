@@ -1,7 +1,5 @@
 import styled from 'styled-components'
-import { largerThan } from '../styles'
-
-const mobile = `425px`
+import { largerThan, width } from '../styles'
 
 export const Container = styled.div`
   display: flex;
@@ -11,7 +9,7 @@ export const Container = styled.div`
 
   width: 85%;
 
-  @media ${largerThan(mobile)} {
+  @media ${largerThan(width.mobileL)} {
     width: 65%;
   }
 `
