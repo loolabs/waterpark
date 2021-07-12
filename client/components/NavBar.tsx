@@ -99,7 +99,9 @@ const NavBarContainer = styled.div`
   background-color: white;
 `
 
-// There is a hardcoded drop-down max-height value. It is equal to 38 * (number of navigation elements).
+// There is a hardcoded drop-down max-height value. It is equal to 46 * (number of navigation elements, currently 3).
+// "Why 46?" Height of nav text + height of top and bottom margins.
+// "Why is it hardcoded?" CSS transitions cannot accept auto values. So, we need to calculate the height before animating.
 const NavBarDropdown = styled.div<{ openDrawer: boolean }>`
   overflow: hidden;
   transition-property: max-height;
