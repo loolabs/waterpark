@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { largerThan, tablet } from '../styles'
+import { largerThan, width } from '../styles'
 
 interface BannerProps {
   backgroundImageUrl: string
@@ -10,7 +10,7 @@ export const Banner = styled.div<BannerProps>`
   background-position: center;
   height: 20vh;
 
-  @media ${largerThan(tablet)} {
+  @media ${largerThan(width.tablet)} {
     height: 30vh;
   }
 `

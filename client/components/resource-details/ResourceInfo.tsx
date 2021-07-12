@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { colours, fontWeight, PageTitle, laptop, largerThan, smallerThan, tablet, mobileS } from '../../styles'
+import { colours, fontWeight, PageTitle, largerThan, smallerThan, width } from '../../styles'
 import { Resource } from '../../utils'
 import { Review } from '../../utils/types'
 import { TagBubble } from '../common/TagBubble'
@@ -177,26 +177,26 @@ const RatingList = styled.div`
   margin: 24px;
   margin-left: auto;
   align-self: flex-start;
-  @media ${smallerThan(mobileS)} {
+  @media ${smallerThan(width.mobileS)} {
     margin-left: 24px;
   }
 `
 
 const ReviewTopRow = styled.div`
   display: flex;
-  @media ${smallerThan(laptop)} {
+  @media ${smallerThan(width.laptop)} {
     flex-wrap: wrap;
   }
 `
 
 const ShowOnLaptop = styled.div`
-  @media ${smallerThan(laptop)} {
+  @media ${smallerThan(width.laptop)} {
     display: none;
   }
 `
 
 const HideOnLaptop = styled.div`
-  @media ${largerThan(laptop)} {
+  @media ${largerThan(width.laptop)} {
     display: none;
   }
 `
@@ -252,13 +252,13 @@ const RatingLabel = styled.p`
 `
 
 const RatingFormat = styled.div`
-  @media ${smallerThan(laptop)} {
+  @media ${smallerThan(width.laptop)} {
     display: flex;
     margin-right: 0;
     flex-wrap: wrap;
   }
 
-  @media ${smallerThan(tablet)} {
+  @media ${smallerThan(width.tablet)} {
     width: 120px;
   }
 `
