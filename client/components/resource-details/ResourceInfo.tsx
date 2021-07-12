@@ -159,6 +159,7 @@ const ReviewCard = styled.div`
   // A subtle shadow around the card
   box-shadow: 0px 4px 3px 2px ${colours.neutralLight1};
 `
+
 const Avatar = styled.img`
   border-radius: 50%;
   display: block;
@@ -171,7 +172,6 @@ const Avatar = styled.img`
 
 const RatingList = styled.div`
   display: flex;
-  
   justify-content: flex-end;
   flex-direction: column;
   margin: 24px;
@@ -269,7 +269,7 @@ const Rating = ({ rating }: { rating: [string, number] }) => {
       <RatingLabel>{rating[0].toUpperCase()}:</RatingLabel>
       <ReactStars
         count={5}
-        char={"●"}
+        char={'●'}
         value={rating[1] / 2}
         size={24}
         color1={'#DDDDDD'}
