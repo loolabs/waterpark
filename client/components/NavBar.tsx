@@ -143,11 +143,12 @@ const NavbarItems = () => {
   )
 }
 
-const HamburgerMenu = styled.img`
+const HamburgerMenu = styled.img<{ active: boolean }>`
   padding: 5px;
   border-style: solid;
-  border-width: 2px;
+  border-width: 1px;
   border-radius: 5px;
+  background-color: ${(props) => (props.active ? colours.neutralLight1 : colours.white)};
 `
 
 export const NavBar = () => {
@@ -174,6 +175,7 @@ export const NavBar = () => {
             onClick={() => {
               setOpenDrawer(!openDrawer)
             }}
+            active={openDrawer}
           />
         </ShowOnMobile>
       </NavBarRow>
