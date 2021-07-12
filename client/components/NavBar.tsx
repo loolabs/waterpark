@@ -60,7 +60,7 @@ const LogoContainer = styled.div`
 
 const LogoW = styled.img`
   display: none;
-  @media (max-width: 768px) {
+  @media ${device.tablet} {
     display: block;
   }
 `
@@ -71,7 +71,7 @@ LogoW.defaultProps = {
 
 const LogoWaterpark = styled.img`
   display: block;
-  @media (max-width: 768px) {
+  @media ${device.tablet} {
     display: none;
   }
 `
