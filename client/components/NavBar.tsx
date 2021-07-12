@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { colours, device, fontWeight, desktopFontSize, mobileFontSize } from '../styles'
+import { colours, fontWeight, desktopFontSize, mobileFontSize, width, smallerThan } from '../styles'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -32,7 +32,7 @@ const NavBarOption = styled.a<any>`
     `};
   margin: 0px 32px;
 
-  @media ${device.mobileL} {
+  @media ${smallerThan(width.mobileL)} {
     font-size: ${mobileFontSize.subtitle1};
     margin: 0px 13px;
   }

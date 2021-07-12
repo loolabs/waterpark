@@ -1,12 +1,5 @@
 import styled from 'styled-components'
-import { colours, fontWeight, fontInter } from '../styles'
-
-const mobile = `425px`
-const tablet = `768px`
-const laptop = `1024px`
-
-const smallerThan = (size: string): string => `(max-width: ${size})`
-const largerThan = (size: string): string => `(min-width: ${size})`
+import { colours, fontWeight, fontInter, width, smallerThan, largerThan } from '../styles'
 
 export const SearchInput = styled.input`
   background-image: url(/search-24px.svg);
@@ -25,7 +18,7 @@ export const SearchInput = styled.input`
   padding-left: 32px;
   padding-right: 0;
   width: 32px;
-  @media ${largerThan(tablet)} {
+  @media ${largerThan(width.tablet)} {
     background-color: ${colours.neutralLight1};
     background-position: 12px 8px;
     background-size: 32px 32px;
@@ -40,7 +33,7 @@ export const SearchInput = styled.input`
   :not(:placeholder-shown) {
     outline: none;
 
-    @media ${smallerThan(tablet)} {
+    @media ${smallerThan(width.tablet)} {
       background-color: ${colours.neutralLight1};
       background-position: 8px 4px;
       padding-left: 36px;
