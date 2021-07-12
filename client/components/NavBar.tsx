@@ -1,6 +1,14 @@
 import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
-import { colours, fontWeight, desktopFontSize, mobileFontSize, width, smallerThan, largerThan } from '../styles'
+import {
+  colours,
+  fontWeight,
+  desktopFontSize,
+  mobileFontSize,
+  width,
+  smallerThan,
+  largerThan,
+} from '../styles'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -92,9 +100,9 @@ const NavBarContainer = styled.div`
 `
 
 // There is a hardcoded drop-down max-height value. It is equal to 46 * (number of navigation elements, currently 3).
-// "Why 46?" Height of nav text + height of top and bottom margins.
-// "Why is it hardcoded?" CSS transitions cannot accept auto values. So, we need to calculate the height before animating.
-const NavBarDropdown = styled.div<{ openDrawer: boolean }>`
+// 46 = Height of nav text + height of top and bottom margins.
+// Why hardcoded: CSS transitions cannot accept auto values. So, we need to calculate the height before animating.
+const NavBarDropdown = styled.div`
   overflow: hidden;
   transition-property: max-height;
   transition: 0.2s ease-in-out;
@@ -159,7 +167,7 @@ export const NavBar = () => {
         </HideOnMobile>
         <ShowOnMobile>
           <HamburgerMenu
-            src={window.location.origin + "/hamburger-menu.svg"}
+            src={window.location.origin + '/hamburger-menu.svg'}
             alt="dropdown"
             height="27"
             width="27"
@@ -170,7 +178,7 @@ export const NavBar = () => {
         </ShowOnMobile>
       </NavBarRow>
       <ShowOnMobile>
-        <NavBarDropdown openDrawer={openDrawer} className={openDrawer ? 'dropped-down' : ''}>
+        <NavBarDropdown className={openDrawer ? 'dropped-down' : ''}>
           <NavbarItems />
         </NavBarDropdown>
       </ShowOnMobile>
