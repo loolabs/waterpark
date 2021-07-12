@@ -21,6 +21,7 @@ export const device = Object.freeze({
   desktopL: `(min-width: ${width.desktop})`,
 })
 
+export const mobileS = '320px'
 export const mobile = '425px'
 export const tablet = `768px`
 export const laptop = '1024px'

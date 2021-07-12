@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { colours, fontWeight, PageTitle, laptop, largerThan, smallerThan } from '../../styles'
+import { colours, fontWeight, PageTitle, laptop, largerThan, smallerThan, tablet, mobileS } from '../../styles'
 import { Resource } from '../../utils'
 import { Review } from '../../utils/types'
 import { TagBubble } from '../common/TagBubble'
@@ -163,6 +163,7 @@ const Avatar = styled.img`
   border-radius: 50%;
   display: block;
   margin-left: 24px;
+  margin-right: 24px;
   margin-top: 24px;
   height: 80px;
   width: 80px;
@@ -170,15 +171,22 @@ const Avatar = styled.img`
 
 const RatingList = styled.div`
   display: flex;
+  
   justify-content: flex-end;
   flex-direction: column;
   margin: 24px;
   margin-left: auto;
   align-self: flex-start;
+  @media ${smallerThan(mobileS)} {
+    margin-left: 24px;
+  }
 `
 
 const ReviewTopRow = styled.div`
   display: flex;
+  @media ${smallerThan(laptop)} {
+    flex-wrap: wrap;
+  }
 `
 
 const ShowOnLaptop = styled.div`
@@ -235,16 +243,23 @@ const RatingLabel = styled.p`
   margin-bottom: 5px;
   margin-top: 5px;
   margin-right: 5px;
+  padding-left: auto;
+  flex: 1;
+  flex-grow: 1;
   font-weight: 600;
+  width: auto;
   color: ${colours.neutralDark2};
 `
 
 const RatingFormat = styled.div`
   @media ${smallerThan(laptop)} {
     display: flex;
-    margin-left: auto;
     margin-right: 0;
     flex-wrap: wrap;
+  }
+
+  @media ${smallerThan(tablet)} {
+    width: 120px;
   }
 `
 
@@ -254,6 +269,7 @@ const Rating = ({ rating }: { rating: [string, number] }) => {
       <RatingLabel>{rating[0].toUpperCase()}:</RatingLabel>
       <ReactStars
         count={5}
+        char={"●"}
         value={rating[1] / 2}
         size={24}
         color1={'#DDDDDD'}
