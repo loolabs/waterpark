@@ -206,11 +206,37 @@ const AuthorInfo = styled.div`
 `
 
 const Comment = styled.div`
-  margin-top: 24px;
-  margin-bottom: 24px;
-  margin-left: 24px;
-  margin-right: 24px;
+  margin: 24px;
 `
+
+//https://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site
+function timeSince( date: Date ): string {
+
+  var seconds = Math.floor((Date.now() - Number(date)) / 1000);
+
+  var interval = seconds / 31536000;
+
+  if (interval > 2) {
+    return Math.floor(interval) + " years";
+  }
+  interval = seconds / 2592000;
+  if (interval > 2) {
+    return Math.floor(interval) + " months";
+  }
+  interval = seconds / 86400;
+  if (interval > 2) {
+    return Math.floor(interval) + " days";
+  }
+  interval = seconds / 3600;
+  if (interval > 2) {
+    return Math.floor(interval) + " hours";
+  }
+  interval = seconds / 60;
+  if (interval > 2) {
+    return Math.floor(interval) + " minutes";
+  }
+  return Math.floor(seconds) + 2 + " seconds";
+}
 
 const ReviewEntry = ({ review }: { review: Review }) => {
   return (
@@ -220,7 +246,7 @@ const ReviewEntry = ({ review }: { review: Review }) => {
         <ShowOnLaptop>
           <Comment>
             <Description>{review.comment}</Description>
-            <AuthorInfo>- A student</AuthorInfo>
+            <AuthorInfo>— {review.faculty} Student, {timeSince(review.timestamp)} ago</AuthorInfo>
           </Comment>
         </ShowOnLaptop>
         <RatingList>
@@ -232,7 +258,7 @@ const ReviewEntry = ({ review }: { review: Review }) => {
       <HideOnLaptop>
         <Comment>
           <Description>{review.comment}</Description>
-          <AuthorInfo>- Student</AuthorInfo>
+          <AuthorInfo>— {review.faculty} Student, {timeSince(review.timestamp)} ago</AuthorInfo>
         </Comment>
       </HideOnLaptop>
     </ReviewCard>
@@ -270,7 +296,7 @@ const Rating = ({ rating }: { rating: [string, number] }) => {
       <ReactStars
         count={5}
         char={'●'}
-        value={rating[1] / 2}
+        value={rating[1] / 20}
         size={24}
         color1={'#DDDDDD'}
         color2={colours.primary1}

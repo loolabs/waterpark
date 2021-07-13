@@ -37,6 +37,8 @@ export type Id = number
 export interface Review {
   avatarImage: string
   comment: string
+  timestamp: Date
+  faculty: 'Math' | 'Engineering' | 'Environment' | 'Science' | 'Arts' | 'Health'
   ratings: { [name: string]: number }
 }
 
