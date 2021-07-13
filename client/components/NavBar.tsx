@@ -47,7 +47,7 @@ const NavBarOption = styled.a<any>`
     margin: 0px 8px;
   }
 
-  @media ${smallerThan(width.mobileL)} {
+  @media ${smallerThan(width.mobile)} {
     font-size: ${NavBarMobileFontSize}px;
     margin: ${NavBarMobileVertMargin}px 12px;
   }
@@ -94,7 +94,7 @@ const NavbarItemsStyling = styled.div`
   display: flex;
   justify-content: space-between;
 
-  @media ${smallerThan(width.mobileL)} {
+  @media ${smallerThan(width.mobile)} {
     flex-direction: column;
     align-items: flex-end;
   }
@@ -110,13 +110,13 @@ const NavBarContainer = styled.div`
 `
 
 const HideOnMobile = styled.div`
-  @media ${smallerThan(width.mobileL)} {
+  @media ${smallerThan(width.mobile)} {
     display: none;
   }
 `
 
 const ShowOnMobile = styled.div`
-  @media ${largerThan(width.mobileL)} {
+  @media ${largerThan(width.mobile)} {
     display: none;
   }
 `
