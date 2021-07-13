@@ -9,7 +9,7 @@ export const Container = styled.div`
 
   width: 85%;
 
-  @media ${largerThan(width.mobileL)} {
+  @media ${largerThan(width.mobile)} {
     width: 65%;
   }
 `

@@ -32,7 +32,7 @@ const NavBarOption = styled.a<any>`
     `};
   margin: 0px 32px;
 
-  @media ${smallerThan(width.mobileL)} {
+  @media ${smallerThan(width.mobile)} {
     font-size: ${mobileFontSize.subtitle1};
     margin: 0px 13px;
   }
