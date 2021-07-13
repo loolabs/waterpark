@@ -21,11 +21,18 @@ const NavBarRow = styled.div`
   background: ${colours.white};
 `
 
+// Constants declared for animation purposes
+const NavBarHeightSpacing = 4
+const NavBarMobileFontSize = 18
+const NavBarMobileVertMargin = 12
+const NavBarOptionHeight = 2 * NavBarMobileVertMargin + NavBarMobileFontSize + NavBarHeightSpacing
+const NumberOfNavbarItems = 3
+
 const NavBarOption = styled.a<any>`
   font-style: normal;
   font-weight: ${fontWeight.bold};
   font-size: ${desktopFontSize.subtitle1};
-  line-height: 120%;
+  line-height: ${NavBarHeightSpacing + NavBarMobileFontSize}px;
   text-transform: uppercase;
   color: ${colours.neutralDark1};
   ${(props: any) =>
@@ -41,8 +48,8 @@ const NavBarOption = styled.a<any>`
   }
 
   @media ${smallerThan(width.mobileL)} {
-    font-size: ${mobileFontSize.subtitle1};
-    margin: 12px 12px;
+    font-size: ${NavBarMobileFontSize}px;
+    margin: ${NavBarMobileVertMargin}px 12px;
   }
 
   &:hover {
@@ -64,6 +71,7 @@ const LogoW = styled.img`
   }
   padding: 14px 24px;
 `
+
 LogoW.defaultProps = {
   src: '/W.svg',
   alt: 'Waterpark logo',
@@ -76,6 +84,7 @@ const LogoWaterpark = styled.img`
   }
   padding: 14px 24px;
 `
+
 LogoWaterpark.defaultProps = {
   src: '/Waterpark.svg',
   alt: 'Waterpark logo',
@@ -98,20 +107,6 @@ const NavBarContainer = styled.div`
   width: 100%;
   box-shadow: 0px 2px 10px rgba(34, 34, 34, 0.1);
   background-color: white;
-`
-
-// There is a hardcoded drop-down max-height value. It is equal to 46 * (number of navigation elements, currently 3).
-// 46 = Height of nav text + height of top and bottom margins.
-// Why hardcoded: CSS transitions cannot accept auto values. So, we need to calculate the height before animating.
-// TODO: fix hardcode animation
-const NavBarDropdown = styled.div`
-  overflow: hidden;
-  transition-property: max-height;
-  transition: 0.2s ease-in-out;
-  max-height: 0px;
-  &.dropped-down {
-    max-height: 138px;
-  }
 `
 
 const HideOnMobile = styled.div`
@@ -152,6 +147,20 @@ const HamburgerMenu = styled.img<{ active: boolean }>`
   border-width: 1px;
   border-radius: 5px;
   background-color: ${(props) => (props.active ? colours.neutralLight1 : colours.white)};
+`
+
+// There is a hardcoded drop-down max-height value. It is equal to 46 * (number of navigation elements, currently 3).
+// 46 = Height of nav text + height of top and bottom margins.
+// Why hardcoded: CSS transitions cannot accept auto values. So, we need to calculate the height before animating.
+// TODO: fix hardcode animation
+const NavBarDropdown = styled.div`
+  overflow: hidden;
+  transition-property: max-height;
+  transition: 0.2s ease-in-out;
+  max-height: 0px;
+  &.dropped-down {
+    max-height: ${NumberOfNavbarItems * NavBarOptionHeight}px;
+  }
 `
 
 export const NavBar = () => {
