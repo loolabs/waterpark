@@ -34,11 +34,20 @@ export interface Washroom extends Resource {
 
 export type Id = number
 
+export enum Faculty {
+  Math,
+  Engineering,
+  Arts,
+  Health,
+  Science,
+  Environment
+}
+
 export interface Review {
   avatarImage: string
   comment: string
   timestamp: Date
-  faculty: 'Math' | 'Engineering' | 'Environment' | 'Science' | 'Arts' | 'Health'
+  faculty: Faculty
   ratings: { [name: string]: number }
 }
 

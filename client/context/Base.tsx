@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Id, indexData, House, StudySpot, Washroom } from '../utils'
+import { Id, indexData, House, StudySpot, Washroom , Faculty } from '../utils'
 import { useQuery } from 'react-query'
 
 interface AppData {
@@ -32,7 +32,7 @@ export const AppProvider = ({ children }) => {
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-        faculty: 'Math' as const,
+        faculty: Faculty.Math,
         timestamp: new Date(),
         comment:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
@@ -44,7 +44,7 @@ export const AppProvider = ({ children }) => {
       },
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-        faculty: 'Engineering' as const,
+        faculty: Faculty.Engineering,
         timestamp: new Date(0),
         comment: 'comment2',
         ratings: {
@@ -76,7 +76,7 @@ export const AppProvider = ({ children }) => {
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-        faculty: 'Environment' as const,
+        faculty: Faculty.Environment,
         timestamp: new Date(0),
         comment: 'comment',
         ratings: {
@@ -87,7 +87,7 @@ export const AppProvider = ({ children }) => {
       },
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-        faculty: 'Health' as const,
+        faculty: Faculty.Health,
         timestamp: new Date(),
         comment: 'comment2',
         ratings: {
@@ -128,7 +128,7 @@ export const AppProvider = ({ children }) => {
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-        faculty: 'Science' as const,
+        faculty: Faculty.Science,
         timestamp: new Date(),
         comment: 'comment',
         ratings: {
@@ -138,7 +138,7 @@ export const AppProvider = ({ children }) => {
       },
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-        faculty: 'Engineering' as const,
+        faculty: Faculty.Engineering,
         timestamp: new Date(0),
         comment: 'comment2',
         ratings: {
@@ -169,7 +169,7 @@ export const AppProvider = ({ children }) => {
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-        faculty: 'Math' as const,
+        faculty: Faculty.Math,
         timestamp: new Date(),
         comment: 'comment',
         ratings: {
@@ -180,7 +180,7 @@ export const AppProvider = ({ children }) => {
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
         comment: 'comment2',
-        faculty: 'Engineering' as const,
+        faculty: Faculty.Engineering,
         timestamp: new Date(0),
         ratings: {
           cleaniness: 90,
@@ -220,7 +220,7 @@ export const AppProvider = ({ children }) => {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
         comment: 'comment',
         timestamp: new Date(),
-        faculty: 'Engineering' as const,
+        faculty: Faculty.Engineering,
         ratings: {
           cleaniness: 50,
         },
@@ -229,7 +229,7 @@ export const AppProvider = ({ children }) => {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
         comment: 'comment2',
         timestamp: new Date(0),
-        faculty: 'Math' as const,
+        faculty: Faculty.Math,
         ratings: {
           cleaniness: 90,
         },
@@ -259,7 +259,7 @@ export const AppProvider = ({ children }) => {
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
         comment: 'comment',
-        faculty: 'Science' as const,
+        faculty: Faculty.Science,
         timestamp: new Date(),
         ratings: {
           cleaniness: 50,
@@ -268,7 +268,7 @@ export const AppProvider = ({ children }) => {
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
         comment: 'comment2',
-        faculty: 'Arts' as const,
+        faculty: Faculty.Arts,
         timestamp: new Date(0),
         ratings: {
           cleaniness: 90,

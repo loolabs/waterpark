@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { colours, fontWeight, PageTitle, largerThan, smallerThan, width } from '../../styles'
 import { Resource } from '../../utils'
-import { Review } from '../../utils/types'
+import { Review, Faculty } from '../../utils/types'
 import { TagBubble } from '../common/TagBubble'
 import ReactStars from 'react-stars'
 import ImageGallery from 'react-image-gallery'
@@ -210,32 +210,31 @@ const Comment = styled.div`
 `
 
 //https://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site
-function timeSince( date: Date ): string {
+function timeSince(date: Date): string {
+  var seconds = Math.floor((Date.now() - Number(date)) / 1000)
 
-  var seconds = Math.floor((Date.now() - Number(date)) / 1000);
-
-  var interval = seconds / 31536000;
+  var interval = seconds / 31536000
 
   if (interval > 2) {
-    return Math.floor(interval) + " years";
+    return Math.floor(interval) + ' years'
   }
-  interval = seconds / 2592000;
+  interval = seconds / 2592000
   if (interval > 2) {
-    return Math.floor(interval) + " months";
+    return Math.floor(interval) + ' months'
   }
-  interval = seconds / 86400;
+  interval = seconds / 86400
   if (interval > 2) {
-    return Math.floor(interval) + " days";
+    return Math.floor(interval) + ' days'
   }
-  interval = seconds / 3600;
+  interval = seconds / 3600
   if (interval > 2) {
-    return Math.floor(interval) + " hours";
+    return Math.floor(interval) + ' hours'
   }
-  interval = seconds / 60;
+  interval = seconds / 60
   if (interval > 2) {
-    return Math.floor(interval) + " minutes";
+    return Math.floor(interval) + ' minutes'
   }
-  return Math.floor(seconds) + 2 + " seconds";
+  return Math.floor(seconds) + 2 + ' seconds'
 }
 
 const ReviewEntry = ({ review }: { review: Review }) => {
@@ -246,7 +245,9 @@ const ReviewEntry = ({ review }: { review: Review }) => {
         <ShowOnLaptop>
           <Comment>
             <Description>{review.comment}</Description>
-            <AuthorInfo>— {review.faculty} Student, {timeSince(review.timestamp)} ago</AuthorInfo>
+            <AuthorInfo>
+              — {Faculty[review.faculty]} Student, {timeSince(review.timestamp)} ago
+            </AuthorInfo>
           </Comment>
         </ShowOnLaptop>
         <RatingList>
@@ -258,7 +259,9 @@ const ReviewEntry = ({ review }: { review: Review }) => {
       <HideOnLaptop>
         <Comment>
           <Description>{review.comment}</Description>
-          <AuthorInfo>— {review.faculty} Student, {timeSince(review.timestamp)} ago</AuthorInfo>
+          <AuthorInfo>
+            — {review.faculty} Student, {timeSince(review.timestamp)} ago
+          </AuthorInfo>
         </Comment>
       </HideOnLaptop>
     </ReviewCard>
