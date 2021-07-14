@@ -76,7 +76,7 @@ export const AppProvider = ({ children }) => {
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-        faculty: 'environment' as const,
+        faculty: 'Environment' as const,
         timestamp: new Date(0),
         comment: 'comment',
         ratings: {
