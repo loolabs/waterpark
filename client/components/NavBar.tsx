@@ -90,25 +90,6 @@ LogoWaterpark.defaultProps = {
   alt: 'Waterpark logo',
 }
 
-const NavbarItemsStyling = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  @media ${smallerThan(width.mobile)} {
-    flex-direction: column;
-    align-items: flex-end;
-  }
-`
-
-const NavBarContainer = styled.div`
-  position: fixed;
-  top: 0;
-  z-index: 8;
-  width: 100%;
-  box-shadow: 0px 2px 10px rgba(34, 34, 34, 0.1);
-  background-color: white;
-`
-
 const HideOnMobile = styled.div`
   @media ${smallerThan(width.mobile)} {
     display: none;
@@ -121,10 +102,10 @@ const ShowOnMobile = styled.div`
   }
 `
 
-const NavbarItems = () => {
+const NavbarItems = styled(({ className }: { className?: string }) => {
   const router = useRouter()
   return (
-    <NavbarItemsStyling>
+    <div className={className}>
       <Link href="/housing">
         <NavBarOption isActive={router.pathname == '/housing' || router.pathname == '/'}>
           Housing
@@ -136,9 +117,17 @@ const NavbarItems = () => {
       <Link href="/washrooms">
         <NavBarOption isActive={router.pathname == '/washrooms'}>Washrooms</NavBarOption>
       </Link>
-    </NavbarItemsStyling>
+    </div>
   )
-}
+})`
+  display: flex;
+  justify-content: space-between;
+
+  @media ${smallerThan(width.mobile)} {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+`
 
 const HamburgerMenu = styled.img<{ active: boolean }>`
   padding: 5px;
@@ -163,11 +152,11 @@ const NavBarDropdown = styled.div`
   }
 `
 
-export const NavBar = () => {
+export const NavBar = styled(({ className }: { className?: string }) => {
   let [openDrawer, setOpenDrawer] = useState(false)
 
   return (
-    <NavBarContainer>
+    <div className={className}>
       <NavBarRow>
         <Link href="/">
           <LogoContainer>
@@ -196,6 +185,13 @@ export const NavBar = () => {
           <NavbarItems />
         </NavBarDropdown>
       </ShowOnMobile>
-    </NavBarContainer>
+    </div>
   )
-}
+})`
+  position: fixed;
+  top: 0;
+  z-index: 8;
+  width: 100%;
+  box-shadow: 0px 2px 10px rgba(34, 34, 34, 0.1);
+  background-color: white;
+`
