@@ -3,10 +3,10 @@ import { UserEntity } from '../../../shared/infra/db/entities/user.entity'
 import { User } from '../domain/entities/user'
 import { UserEmail } from '../domain/value-objects/user-email'
 import { UserPassword } from '../domain/value-objects/user-password'
-import { UserDTO } from './user-dto'
+import { dto } from '@loolabs/waterpark-common'
 
 export class UserMap {
-  public static toDTO(user: User): UserDTO {
+  public static toDTO(user: User): dto.User {
     return {
       email: user.email.value,
       isEmailVerified: user.isEmailVerified,

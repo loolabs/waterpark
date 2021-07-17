@@ -10,6 +10,7 @@
   },
   "workspaces": [
     "client",
+    "common",
     "server"
   ]
 }

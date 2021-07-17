@@ -1,3 +1,5 @@
+import { Either, isRight } from 'fp-ts/lib/Either'
+
 export type Result<T, E> = Ok<T, E> | Err<T, E>
 
 class Ok<T, E> {
@@ -48,5 +50,9 @@ export namespace Result {
     }
 
     return err!
+  }
+
+  export function fromEither<L, R>(either: Either<L, R>): Result<R, L> {
+    return isRight(either) ? ok<R, L>(either.right) : err<R, L>(either.left)
   }
 }

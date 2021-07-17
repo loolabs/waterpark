@@ -4,16 +4,18 @@ services:
   server:
     container_name: server
     build:
-      context: ./server
+      context: .
+      dockerfile: server/Dockerfile
       # target: development
     volumes:
-      - ./server/src:/usr/src/app/src
+      - ./server/src/common:/usr/src/app/src/common
+      - ./server/src/server:/usr/src/app/src/server
       - /usr/src/app/node_modules # isolate container's node_modules from local node_modules (different OS versions)
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
-    # command: npm run test:unit
+    command: npm run test:unit
     # command: npm run test:integration
-    command: npm run start:dev
+    # command: npm run start:dev
     env_file:
       - .env
     depends_on:

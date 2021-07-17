@@ -1,6 +1,6 @@
-import { ClubDTO } from '../../../../modules/clubs/mappers/club-dto'
+import { dto } from '@loolabs/waterpark-common'
 
-const mockClubDTO = (id: string): ClubDTO => {
+const mockClubDTO = (id: string): dto.Club => {
   return {
     id: id,
     name: `Club Name ${id}`,

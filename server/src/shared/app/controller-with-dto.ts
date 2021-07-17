@@ -1,8 +1,8 @@
 import express from 'express'
+import * as t from 'io-ts'
 import { BaseController } from './base-controller'
 import { UseCaseWithDTO } from './use-case-with-dto'
 import { Result } from '../../shared/core/result'
-import Joi, { ValidationError } from 'joi'
 
 type extractDTO<UseCase> = UseCase extends UseCaseWithDTO<infer T, any> ? T : never
 
@@ -13,13 +13,13 @@ export abstract class ControllerWithDTO<
     super()
   }
 
-  protected abstract buildDTO(
-    req: express.Request
-  ): Result<extractDTO<UseCase>, Array<ValidationError>>
+  protected abstract buildDTO(req: express.Request): Result<extractDTO<UseCase>, t.Errors>
 
-  protected validate<T>(obj: unknown, schema: Joi.ObjectSchema<T>): Result<T, ValidationError> {
-    const { error } = schema.validate(obj)
-    return error === undefined ? Result.ok(obj as T) : Result.err(error)
+  protected validate<T extends t.Type<any>>(
+    obj: unknown,
+    schema: T
+  ): Result<t.TypeOf<T>, t.Errors> {
+    return Result.fromEither(schema.decode(obj))
   }
 
   public async execute<Res extends express.Response>(req: express.Request, res: Res): Promise<Res> {

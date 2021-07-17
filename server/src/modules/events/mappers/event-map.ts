@@ -1,10 +1,10 @@
 import { UniqueEntityID } from '../../../shared/domain/unique-entity-id'
 import { EventEntity } from '../../../shared/infra/db/entities/event.entity'
 import { Event } from '../domain/entities/event'
-import { EventDTO } from './event-dto'
+import { dto } from '@loolabs/waterpark-common'
 
 export class EventMap {
-  public static toDTO(event: Event): EventDTO {
+  public static toDTO(event: Event): dto.Event {
     return {
       ...event.props,
       id: event.id.toString(),

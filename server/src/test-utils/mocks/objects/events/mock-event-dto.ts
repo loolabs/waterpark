@@ -1,6 +1,6 @@
-import { EventDTO } from '../../../../modules/events/mappers/event-dto'
+import { dto } from '@loolabs/waterpark-common'
 
-const mockEventDTO = (id: string): EventDTO => {
+const mockEventDTO = (id: string): dto.Event => {
   return {
     id: id,
     name: `Event Name ${id}`,

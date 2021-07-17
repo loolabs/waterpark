@@ -2,7 +2,7 @@ import { UniqueEntityID } from '../../../shared/domain/unique-entity-id'
 import { ClubEntity } from '../../../shared/infra/db/entities/club.entity'
 import { EventEntity } from '../../../shared/infra/db/entities/event.entity'
 import { BasicEvent, Club } from '../domain/entities/club'
-import { ClubDTO } from './club-dto'
+import { dto } from '@loolabs/waterpark-common'
 
 const basicEventsToDomain = (eventEntities: Array<EventEntity>): Array<BasicEvent> =>
   eventEntities.map((eventEntity) => {
@@ -17,7 +17,7 @@ const basicEventsToDomain = (eventEntities: Array<EventEntity>): Array<BasicEven
   })
 
 export class ClubMap {
-  public static toDTO(club: Club): ClubDTO {
+  public static toDTO(club: Club): dto.Club {
     return {
       ...club.props,
       id: club.id.toString(),

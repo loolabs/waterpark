@@ -3,15 +3,15 @@ import { AppError } from '../../../../../../shared/core/app-error'
 import { Result } from '../../../../../../shared/core/result'
 import { UserValueObjectErrors } from '../../../../domain/value-objects/errors'
 import { CreateUserController } from '../create-user-controller'
-import { CreateUserDTO } from '../create-user-dto'
 import { CreateUserErrors } from '../create-user-errors'
 import { CreateUserUseCase } from '../create-user-use-case'
+import { dto } from '@loolabs/waterpark-common'
 
 // TODO: how to show developer these mocks are necessary when building a controller? aka must be synced with buildController()
 jest.mock('../create-user-use-case')
 
 describe('CreateUserController', () => {
-  const createUserDTO: CreateUserDTO = {
+  const createUserDTO: dto.CreateUser = {
     email: 'john.doe@uwaterloo.ca',
     password: 'secret',
   }
@@ -22,7 +22,7 @@ describe('CreateUserController', () => {
   })
 
   test('When the CreateUserUseCase returns Ok, the CreateUserController returns 200 OK', async () => {
-    const user = mocks.mockUser(createUserDTO)
+    const user = mocks.mockUserDTO(createUserDTO)
     jest.spyOn(CreateUserUseCase.prototype, 'execute').mockResolvedValue(Result.ok(user))
 
     const { req, res } = mocks.mockHandlerParams(createUserDTO)
