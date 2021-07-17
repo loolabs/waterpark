@@ -35,7 +35,7 @@ export interface Washroom extends Resource {
 export type Id = number
 
 export enum Faculty {
-  Math,
+  Mathematics,
   Engineering,
   Arts,
   Health,
