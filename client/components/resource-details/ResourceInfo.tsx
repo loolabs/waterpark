@@ -111,14 +111,14 @@ const Categories = ({ tags }: { tags: Array<string> }) => (
 )
 
 const GalleryWrapper = styled.div`
-  width: 50%;
+  width: 60%;
 `
 
 const Gallery = ({ links }: { links: Array<string> }) => {
   const images = links.map((link) => {
     return {
       original: link,
-      thumbnail: 'https://picsum.photos/id/1018/250/150/',
+      thumbnail: link,
     }
   })
 
@@ -126,12 +126,7 @@ const Gallery = ({ links }: { links: Array<string> }) => {
     <GalleryWrapper>
       <h1>Gallery</h1>
 
-      <ImageGallery
-        items={images}
-        showPlayButton={false}
-        showFullscreenButton={false}
-        showThumbnails={false}
-      />
+      <ImageGallery items={images} showPlayButton={false} showFullscreenButton={false} />
     </GalleryWrapper>
   )
 }
