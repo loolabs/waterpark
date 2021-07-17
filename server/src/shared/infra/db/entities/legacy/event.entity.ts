@@ -7,11 +7,11 @@ import {
   ManyToMany,
   Property,
 } from '@mikro-orm/core'
-import { DomainEvents } from '../../../domain/events/domain-events'
-import { UniqueEntityID } from '../../../domain/unique-entity-id'
-import { BaseEntity } from './base.entity'
+import { DomainEvents } from '../../../../domain/events/domain-events'
+import { UniqueEntityID } from '../../../../domain/unique-entity-id'
+import { BaseEntity } from '../base.entity'
 import { ClubEntity } from './club.entity'
-import { TagEntity } from './tags/tag.entity'
+import { LegacyTagEntity } from './tag.entity'
 
 @Entity()
 export class EventEntity extends BaseEntity {
@@ -45,8 +45,8 @@ export class EventEntity extends BaseEntity {
   @ManyToMany({ entity: () => ClubEntity, mappedBy: 'events', strategy: LoadStrategy.JOINED })
   clubs = new Collection<ClubEntity>(this)
 
-  @ManyToMany({ entity: () => TagEntity, mappedBy: 'events', strategy: LoadStrategy.JOINED })
-  tags = new Collection<TagEntity>(this)
+  @ManyToMany({ entity: () => LegacyTagEntity, mappedBy: 'events', strategy: LoadStrategy.JOINED })
+  tags = new Collection<LegacyTagEntity>(this)
 
   @AfterCreate()
   afterCreate(target: EventArgs<EventEntity>) {

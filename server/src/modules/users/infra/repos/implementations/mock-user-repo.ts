@@ -1,6 +1,6 @@
 import { User } from '../../../domain/entities/user'
 import { UserEmail } from '../../../domain/value-objects/user-email'
-import { UserEntity } from '../../../../../shared/infra/db/entities/user.entity'
+import { UserEntity } from '../../../../../shared/infra/db/entities/legacy/user.entity'
 import { UserMap } from '../../../mappers/user-map'
 import { UserRepo } from '../user-repo'
 

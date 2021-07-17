@@ -1,4 +1,4 @@
-import { ClubEntity } from '../../../../shared/infra/db/entities/club.entity'
+import { ClubEntity } from '../../../../shared/infra/db/entities/legacy/club.entity'
 
 const mockClubEntity = (id: string): ClubEntity => {
   const clubEntity = new ClubEntity()
