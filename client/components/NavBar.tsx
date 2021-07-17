@@ -103,7 +103,7 @@ const NavbarItemsStyling = styled.div`
 const NavBarContainer = styled.div`
   position: fixed;
   top: 0;
-  z-index: 1;
+  z-index: 8;
   width: 100%;
   box-shadow: 0px 2px 10px rgba(34, 34, 34, 0.1);
   background-color: white;
