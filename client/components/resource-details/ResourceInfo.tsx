@@ -6,6 +6,7 @@ import { Review, Faculty } from '../../utils/types'
 import { TagBubble } from '../common/TagBubble'
 import ReactStars from 'react-stars'
 import ImageGallery from 'react-image-gallery'
+import { formatRelative } from 'date-fns'
 
 const BackArrow = styled.img`
   margin-top: 64px;
@@ -198,41 +199,13 @@ const Comment = styled(({ className, review }: { className?: string; review: Rev
     <div className={className}>
       <Description>{review.comment}</Description>
       <AuthorInfo>
-        — {Faculty[review.faculty]} Student, {timeSince(review.timestamp)} ago
+        — {Faculty[review.faculty]} Student, {formatRelative(review.timestamp, Date.now())}
       </AuthorInfo>
     </div>
   )
 })`
   margin: 24px;
 `
-
-//https://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site
-function timeSince(date: Date): string {
-  var seconds = Math.floor((Date.now() - Number(date)) / 1000)
-
-  var interval = seconds / 31536000
-
-  if (interval > 2) {
-    return Math.floor(interval) + ' years'
-  }
-  interval = seconds / 2592000
-  if (interval > 2) {
-    return Math.floor(interval) + ' months'
-  }
-  interval = seconds / 86400
-  if (interval > 2) {
-    return Math.floor(interval) + ' days'
-  }
-  interval = seconds / 3600
-  if (interval > 2) {
-    return Math.floor(interval) + ' hours'
-  }
-  interval = seconds / 60
-  if (interval > 2) {
-    return Math.floor(interval) + ' minutes'
-  }
-  return Math.floor(seconds) + 2 + ' seconds'
-}
 
 const ReviewCard = styled(({ review, className }: { review: Review; className?: string }) => {
   return (
