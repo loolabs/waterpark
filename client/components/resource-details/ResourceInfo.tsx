@@ -152,6 +152,10 @@ const Avatar = styled.img`
   margin-top: 24px;
   height: 80px;
   width: 80px;
+
+  @media ${largerThan(width.laptop)} {
+    margin-bottom: 24px;
+  }
 `
 
 const RatingList = styled.div`
