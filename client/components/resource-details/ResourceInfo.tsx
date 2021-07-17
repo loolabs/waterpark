@@ -135,6 +135,7 @@ interface ReviewsProps {
 }
 
 const Reviews = ({ reviews }: ReviewsProps) => {
+  reviews.sort((a, b) => (b.timestamp.getTime() - a.timestamp.getTime()));
   return (
     <div>
       <h1>Reviews</h1>
