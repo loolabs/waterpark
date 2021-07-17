@@ -35,12 +35,26 @@ export interface Washroom extends Resource {
 export type Id = number
 
 export enum Faculty {
-  Mathematics,
-  Engineering,
-  Arts,
-  Health,
-  Science,
-  Environment
+  Mathematics = 'Mathematics',
+  Engineering = 'Engineering',
+  Arts = 'Arts',
+  Health = 'Health',
+  Science = 'Science',
+  Environment = 'Environment',
+  NonWaterloo = 'Non-Waterloo'
+}
+
+export enum Status {
+  U1 = 'First-Year Student',
+  U2 = 'Second-Year Student',
+  U3 = 'Third-Year Student',
+  U4 = 'Fourth-Year Student',
+  U5 = 'Fifth-Year Student',
+  U6Plus = 'Sixth-Year+ Student',
+  Masters = 'Master\'s Student',
+  PhD = 'PhD Student',
+  Faculty = 'Faculty Member',
+  Other = 'Reviewer'
 }
 
 export interface Review {
@@ -48,6 +62,7 @@ export interface Review {
   comment: string
   timestamp: Date
   faculty: Faculty
+  status: Status
   ratings: { [name: string]: number }
 }
 

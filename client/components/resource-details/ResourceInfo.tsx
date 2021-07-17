@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { colours, fontWeight, PageTitle, largerThan, smallerThan, width } from '../../styles'
 import { Resource } from '../../utils'
-import { Review, Faculty } from '../../utils/types'
+import { Review, Faculty, Status } from '../../utils/types'
 import { TagBubble } from '../common/TagBubble'
 import ReactStars from 'react-stars'
 import ImageGallery from 'react-image-gallery'
@@ -200,7 +200,7 @@ const Comment = styled(({ className, review }: { className?: string; review: Rev
     <div className={className}>
       <Description>{review.comment}</Description>
       <AuthorInfo>
-        — {Faculty[review.faculty]} Student, {formatRelative(review.timestamp, Date.now())}
+        — {review.faculty} {review.status}, {formatRelative(review.timestamp, Date.now())}
       </AuthorInfo>
     </div>
   )
