@@ -243,8 +243,8 @@ const ReviewCard = styled(({ review, className }: { review: Review; className?: 
           <Comment review={review} />
         </ShowOnLaptop>
         <RatingList>
-          {Object.entries(review.ratings).map((rating) => {
-            return <Rating rating={rating} key={rating[0]}></Rating>
+          {Object.entries(review.ratings).map(([label, score]) => {
+            return <Rating score={score} key={label} label={label}></Rating>
           })}
         </RatingList>
       </ReviewTopRow>
@@ -276,14 +276,14 @@ const RatingLabel = styled.p`
   color: ${colours.neutralDark2};
 `
 
-const Rating = styled(({ className, rating }: { className?: string; rating: [string, number] }) => {
+const Rating = styled(({ className, score, label }: { className?: string; score: number; label: string}) => {
   return (
     <div className={className}>
-      <RatingLabel>{rating[0].toUpperCase()}:</RatingLabel>
+      <RatingLabel>{label.toUpperCase()}:</RatingLabel>
       <ReactStars
         count={5}
         char={'●'}
-        value={rating[1] / 20}
+        value={score / 20}
         size={24}
         color1={'#DDDDDD'}
         color2={colours.primary1}
