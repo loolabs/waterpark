@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { colours, fontWeight, PageTitle } from '../../styles'
+import { colours, fontWeight, PageTitle, width, largerThan } from '../../styles'
 import { Resource } from '../../utils'
 import { Review } from '../../utils/types'
 import { TagBubble } from '../common/TagBubble'
@@ -111,7 +111,11 @@ const Categories = ({ tags }: { tags: Array<string> }) => (
 )
 
 const GalleryWrapper = styled.div`
-  width: 60%;
+  width: 100%;
+
+  @media ${largerThan(width.laptop)} {
+    width: 60%;
+  }
 `
 
 const Gallery = ({ links }: { links: Array<string> }) => {
@@ -126,7 +130,37 @@ const Gallery = ({ links }: { links: Array<string> }) => {
     <GalleryWrapper>
       <h1>Gallery</h1>
 
-      <ImageGallery items={images} showPlayButton={false} showFullscreenButton={false} />
+      <ImageGallery
+        items={images}
+        showPlayButton={false}
+        showFullscreenButton={false}
+        renderLeftNav={(onClick, disabled) => {
+          return (
+            <img
+              className="image-gallery-icon image-gallery-left-nav"
+              src="/left-chevron.png"
+              onClick={onClick}
+              style={{
+                opacity: '0.7',
+                width: '40px',
+              }}
+            />
+          )
+        }}
+        renderRightNav={(onClick, disabled) => {
+          return (
+            <img
+              className="image-gallery-icon image-gallery-right-nav"
+              src="/right-chevron.png"
+              onClick={onClick}
+              style={{
+                opacity: '0.7',
+                width: '40px',
+              }}
+            />
+          )
+        }}
+      />
     </GalleryWrapper>
   )
 }
