@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { colours, fontWeight, PageTitle, largerThan, smallerThan, width } from '../../styles'
 import { Resource } from '../../utils'
 import { Review } from '../../utils/types'
-import { TagBubble } from '../common/TagBubble'
 import ReactStars from 'react-stars'
 import ImageGallery from 'react-image-gallery'
 import { formatRelative } from 'date-fns'
@@ -28,16 +27,6 @@ const Name = styled(PageTitle)`
   margin-top: 32px;
 `
 
-// const Links = styled.div`
-//   display: flex;
-//   margin-top: 16px;
-// `
-
-// const SocialLink = styled.a`
-//   margin-right: 32px;
-//   text-decoration: underline;
-// `
-
 const Metadata = styled.div`
   align-items: center;
   display: flex;
@@ -51,20 +40,6 @@ const MemberCount = styled.p`
   margin-bottom: 0;
 `
 
-// const CategoriesWrapper = styled.div`
-// display: flex;
-// margin-right: -4px;
-// `
-// const Categories = ({ tags }: { tags: Array<string> }) => (
-//   <CategoriesWrapper>
-//     {tags.map((t, i) => (
-//       <TagBubble key={`category-tag-${i}`} colour={colours.tagColours[t]}>
-//         {t}
-//       </TagBubble>
-//     ))}
-//   </CategoriesWrapper>
-// )
-
 const Description = styled.p`
   line-height: 1.3;
 `
@@ -76,8 +51,6 @@ interface ResourceInfoProps {
 export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
   const router = useRouter()
   const { name, description, links, galleryImages, reviews } = resource
-  // const potentialLinks = [links.facebook, links.twitter, links.instagram, links.website]
-  // const linksThatExist = potentialLinks.filter((link) => link !== undefined)
 
   return (
     <div>
@@ -90,15 +63,8 @@ export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
 
       <Name>{name}</Name>
 
-      {/* <Links>
-        {linksThatExist.map((l, i) => (
-          <SocialLink key={`social-link-${i}`}>{l}</SocialLink>
-        ))}
-      </Links> */}
-
       <Metadata>
         <MemberCount>200-300 students</MemberCount>
-        {/* <Categories tags={tags} /> */}
       </Metadata>
 
       <Description>{description}</Description>
@@ -163,7 +129,7 @@ interface ReviewsProps {
 }
 
 const Reviews = ({ reviews }: ReviewsProps) => {
-  reviews.sort((a, b) => (b.timestamp.getTime() - a.timestamp.getTime()));
+  reviews.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
   return (
     <div>
       <h1>Reviews</h1>
@@ -278,22 +244,24 @@ const RatingLabel = styled.p`
   color: ${colours.neutralDark2};
 `
 
-const Rating = styled(({ className, score, label }: { className?: string; score: number; label: string}) => {
-  return (
-    <div className={className}>
-      <RatingLabel>{label.toUpperCase()}:</RatingLabel>
-      <ReactStars
-        count={5}
-        char={'●'}
-        value={score / 20}
-        size={24}
-        color1={'#DDDDDD'}
-        color2={colours.primary1}
-        edit={false}
-      />
-    </div>
-  )
-})`
+const Rating = styled(
+  ({ className, score, label }: { className?: string; score: number; label: string }) => {
+    return (
+      <div className={className}>
+        <RatingLabel>{label.toUpperCase()}:</RatingLabel>
+        <ReactStars
+          count={5}
+          char={'●'}
+          value={score / 20}
+          size={24}
+          color1={'#DDDDDD'}
+          color2={colours.primary1}
+          edit={false}
+        />
+      </div>
+    )
+  }
+)`
   @media ${smallerThan(width.laptop)} {
     display: flex;
     margin-right: 0;
