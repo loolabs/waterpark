@@ -102,7 +102,7 @@ export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
 
       <Description>{description}</Description>
       <Gallery links={galleryImages} />
-      <Reviews reviews={reviews} name={name}/>
+      <Reviews reviews={reviews} name={name} />
     </div>
   )
 }
@@ -111,7 +111,8 @@ const SubmitButton = styled.button`
   font-size: 18px;
   background-color: ${colours.primary1};
   color: ${colours.white};
-  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-weight: 600;
   padding: 5px;
   border-radius: 5px;
@@ -124,7 +125,7 @@ const SubmitButton = styled.button`
   }
 `
 
-const SubmitReview = styled(({className, name} : {className?: string; name: string}) => {
+const SubmitReview = styled(({ className, name }: { className?: string; name: string }) => {
   return (
     <div className={className}>
       <h3>What are your thoughts on {name}?</h3>
@@ -191,12 +192,12 @@ const Gallery = styled(({ className, links }: { links: Array<string>; className?
   }
 `
 
-const Reviews = ({ reviews, name }: {reviews: Array<Review>; name: string}) => {
-  reviews.sort((a, b) => (b.timestamp.getTime() - a.timestamp.getTime()));
+const Reviews = ({ reviews, name }: { reviews: Array<Review>; name: string }) => {
+  reviews.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
   return (
     <div>
       <h1>Reviews</h1>
-      <SubmitReview name={name}/>
+      <SubmitReview name={name} />
       {reviews.map((review, index) => {
         return <ReviewCard key={index} review={review} />
       })}
@@ -308,22 +309,24 @@ const RatingLabel = styled.p`
   color: ${colours.neutralDark2};
 `
 
-const Rating = styled(({ className, score, label }: { className?: string; score: number; label: string}) => {
-  return (
-    <div className={className}>
-      <RatingLabel>{label.toUpperCase()}:</RatingLabel>
-      <ReactStars
-        count={5}
-        char={'●'}
-        value={score / 20}
-        size={24}
-        color1={'#DDDDDD'}
-        color2={colours.primary1}
-        edit={false}
-      />
-    </div>
-  )
-})`
+const Rating = styled(
+  ({ className, score, label }: { className?: string; score: number; label: string }) => {
+    return (
+      <div className={className}>
+        <RatingLabel>{label.toUpperCase()}:</RatingLabel>
+        <ReactStars
+          count={5}
+          char={'●'}
+          value={score / 20}
+          size={24}
+          color1={'#DDDDDD'}
+          color2={colours.primary1}
+          edit={false}
+        />
+      </div>
+    )
+  }
+)`
   @media ${smallerThan(width.laptop)} {
     display: flex;
     margin-right: 0;
