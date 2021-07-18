@@ -103,10 +103,44 @@ export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
 
       <Description>{description}</Description>
       <Gallery links={galleryImages} />
-      <Reviews reviews={reviews} />
+      <Reviews reviews={reviews} name={name}/>
     </div>
   )
 }
+
+const SubmitButton = styled.button`
+  font-size: 18px;
+  background-color: ${colours.primary1};
+  color: ${colours.white};
+  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-weight: 600;
+  padding: 5px;
+  border-radius: 5px;
+  border: 3px solid ${colours.primary1};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${colours.white};
+    color: ${colours.primary1};
+  }
+`
+
+const SubmitReview = styled(({className, name} : {className?: string; name: string}) => {
+  return (
+    <div className={className}>
+      <h3>What are your thoughts on {name}?</h3>
+      <SubmitButton>SUBMIT REVIEW</SubmitButton>
+    </div>
+  )
+})`
+  @media ${largerThan(width.tablet)} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  margin-bottom: 15px;
+`
 
 const Gallery = styled(({ className, links }: { links: Array<string>; className?: string }) => {
   const images = links.map((link) => {
@@ -155,15 +189,12 @@ const Gallery = styled(({ className, links }: { links: Array<string>; className?
   width: 50%;
 `
 
-interface ReviewsProps {
-  reviews: Array<Review>
-}
-
-const Reviews = ({ reviews }: ReviewsProps) => {
+const Reviews = ({ reviews, name }: {reviews: Array<Review>; name: string}) => {
   reviews.sort((a, b) => (b.timestamp.getTime() - a.timestamp.getTime()));
   return (
     <div>
       <h1>Reviews</h1>
+      <SubmitReview name={name}/>
       {reviews.map((review, index) => {
         return <ReviewCard key={index} review={review} />
       })}
