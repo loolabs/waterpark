@@ -155,6 +155,6 @@ const Rating = styled(
   }
 
   @media ${smallerThan(width.tablet)} {
-    width: 120px;
+    max-width: 130px;
   }
 `
