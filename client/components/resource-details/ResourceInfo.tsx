@@ -2,8 +2,7 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { colours, fontWeight, PageTitle, largerThan, smallerThan, width } from '../../styles'
 import { Resource } from '../../utils'
-import { Review, Faculty, Status } from '../../utils/types'
-import { TagBubble } from '../common/TagBubble'
+import { Review } from '../../utils/types'
 import ReactStars from 'react-stars'
 import ImageGallery from 'react-image-gallery'
 import { formatRelative } from 'date-fns'
@@ -332,6 +331,6 @@ const Rating = styled(({ className, score, label }: { className?: string; score:
   }
 
   @media ${smallerThan(width.tablet)} {
-    width: 120px;
+    max-width: 130px;
   }
 `
