@@ -186,7 +186,10 @@ const Gallery = styled(({ className, links }: { links: Array<string>; className?
     </div>
   )
 })`
-  width: 50%;
+  width: 100%;
+  @media ${largerThan(width.laptop)} {
+    width: 60%;
+  }
 `
 
 const Reviews = ({ reviews, name }: {reviews: Array<Review>; name: string}) => {
