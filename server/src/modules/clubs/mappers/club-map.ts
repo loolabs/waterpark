@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '../../../shared/domain/unique-entity-id'
-import { ClubEntity } from '../../../shared/infra/db/entities/club.entity'
-import { EventEntity } from '../../../shared/infra/db/entities/event.entity'
+import { ClubEntity } from '../../../shared/infra/db/entities/legacy/club.entity'
+import { EventEntity } from '../../../shared/infra/db/entities/legacy/event.entity'
 import { BasicEvent, Club } from '../domain/entities/club'
 import { ClubDTO } from './club-dto'
 

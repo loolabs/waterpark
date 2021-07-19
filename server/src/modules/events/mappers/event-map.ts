@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '../../../shared/domain/unique-entity-id'
-import { EventEntity } from '../../../shared/infra/db/entities/event.entity'
+import { EventEntity } from '../../../shared/infra/db/entities/legacy/event.entity'
 import { Event } from '../domain/entities/event'
 import { EventDTO } from './event-dto'
 

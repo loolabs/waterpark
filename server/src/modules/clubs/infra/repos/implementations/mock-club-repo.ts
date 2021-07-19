@@ -1,5 +1,5 @@
 import { Club } from '../../../domain/entities/club'
-import { ClubEntity } from '../../../../../shared/infra/db/entities/club.entity'
+import { ClubEntity } from '../../../../../shared/infra/db/entities/legacy/club.entity'
 import { ClubMap } from '../../../mappers/club-map'
 import { ClubRepo } from '../club-repo'
 import { Result } from '../../../../../shared/core/result'

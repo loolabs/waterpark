@@ -8,11 +8,12 @@ import {
   Property,
   QueryOrder,
 } from '@mikro-orm/core'
-import { DomainEvents } from '../../../domain/events/domain-events'
-import { UniqueEntityID } from '../../../domain/unique-entity-id'
-import { BaseEntity } from './base.entity'
+import { DomainEvents } from '../../../../domain/events/domain-events'
+import { UniqueEntityID } from '../../../../domain/unique-entity-id'
+import { BaseEntity } from '../base.entity'
 import { EventEntity } from './event.entity'
-import { TagEntity } from './tags/tag.entity'
+import { LegacyTagEntity } from './tag.entity'
+
 @Entity()
 export class ClubEntity extends BaseEntity {
   @Property()
@@ -50,8 +51,8 @@ export class ClubEntity extends BaseEntity {
   })
   events = new Collection<EventEntity>(this)
 
-  @ManyToMany({ entity: () => TagEntity, mappedBy: 'clubs', strategy: LoadStrategy.JOINED })
-  tags = new Collection<TagEntity>(this)
+  @ManyToMany({ entity: () => LegacyTagEntity, mappedBy: 'clubs', strategy: LoadStrategy.JOINED })
+  tags = new Collection<LegacyTagEntity>(this)
 
   @AfterCreate()
   afterCreate(target: EventArgs<ClubEntity>) {

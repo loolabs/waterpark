@@ -1,4 +1,4 @@
-import { ClubEntity } from '../../../shared/infra/db/entities/club.entity'
+import { ClubEntity } from '../../../shared/infra/db/entities/legacy/club.entity'
 import { MockClubRepo } from '../../../modules/clubs/infra/repos/implementations/mock-club-repo'
 import { GetAllClubsController } from '../../../modules/clubs/application/use-cases/get-all-clubs/get-all-clubs-controller'
 import { GetAllClubsUseCase } from '../../../modules/clubs/application/use-cases/get-all-clubs/get-all-clubs-use-case'

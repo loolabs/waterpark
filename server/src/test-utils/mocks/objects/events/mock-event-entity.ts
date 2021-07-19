@@ -1,4 +1,4 @@
-import { EventEntity } from '../../../../shared/infra/db/entities/event.entity'
+import { EventEntity } from '../../../../shared/infra/db/entities/legacy/event.entity'
 
 const mockEventEntity = (id: string): EventEntity => {
   const eventEntity = new EventEntity()

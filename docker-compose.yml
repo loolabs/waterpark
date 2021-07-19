@@ -7,12 +7,13 @@ services:
       context: ./server
       # target: development
     volumes:
-      - ./server/src:/usr/src/app/src
-      - /usr/src/app/node_modules # isolate container's node_modules from local node_modules (different OS versions)
+      - ./server/src/:/usr/src/app/src/
+      - /usr/src/app/node_modules/ # isolate container's node_modules from local node_modules (different OS versions)
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
     # command: npm run test:unit
     # command: npm run test:integration
+    # command: npm run migration:create
     command: npm run start:dev
     env_file:
       - .env

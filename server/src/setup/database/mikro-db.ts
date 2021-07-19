@@ -10,10 +10,10 @@ import { TsMorphMetadataProvider } from '@mikro-orm/reflection'
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter'
 import path from 'path'
 import { Repos, DB } from './types'
-import { ClubEntity } from '../../shared/infra/db/entities/club.entity'
-import { EventEntity } from '../../shared/infra/db/entities/event.entity'
-import { TagEntity } from '../../shared/infra/db/entities/tags/tag.entity'
-import { UserEntity } from '../../shared/infra/db/entities/user.entity'
+import { ClubEntity } from '../../shared/infra/db/entities/legacy/club.entity'
+import { EventEntity } from '../../shared/infra/db/entities/legacy/event.entity'
+import { LegacyTagEntity } from '../../shared/infra/db/entities/legacy/tag.entity'
+import { UserEntity } from '../../shared/infra/db/entities/legacy/user.entity'
 import { MikroClubRepo } from '../../modules/clubs/infra/repos/implementations/mikro-club-repo'
 import { MikroEventRepo } from '../../modules/events/infra/repos/implementations/mikro-event-repo'
 import { MikroUserRepo } from '../../modules/users/infra/repos/implementations/mikro-user-repo'
@@ -88,14 +88,14 @@ const setupMikroORM = async (options: Options = {}): Promise<MikroORM> => {
 interface MikroEntityRepos {
   club: EntityRepository<ClubEntity>
   event: EntityRepository<EventEntity>
-  tag: EntityRepository<TagEntity>
+  tag: EntityRepository<LegacyTagEntity>
   user: EntityRepository<UserEntity>
 }
 const setupMikroEntityRepos = ({ em: entityManager }: MikroORM): MikroEntityRepos => {
   return {
     club: entityManager.getRepository(ClubEntity),
     event: entityManager.getRepository(EventEntity),
-    tag: entityManager.getRepository(TagEntity),
+    tag: entityManager.getRepository(LegacyTagEntity),
     user: entityManager.getRepository(UserEntity),
   }
 }
@@ -131,4 +131,4 @@ const setupMikroDB = async (options: Options = {}): Promise<MikroDB> => {
 }
 
 export { MikroORM, MikroEntityRepos, MikroRepos, MikroDB, setupMikroDB }
-export default baseOptions; // migrations CLI requires that these options be the default export
+export default baseOptions // migrations CLI requires that these options be the default export
