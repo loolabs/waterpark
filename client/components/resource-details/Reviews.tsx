@@ -5,10 +5,6 @@ import ReactStars from 'react-stars'
 import { formatRelative } from 'date-fns'
 import { SubmitReview } from './SubmitReview'
 
-interface ReviewsProps {
-  reviews: Array<Review>
-}
-
 export const Reviews = ({ reviews, name }: { reviews: Array<Review>; name: string }) => {
   reviews.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
   return (
