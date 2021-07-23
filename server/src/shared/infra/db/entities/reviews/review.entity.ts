@@ -11,7 +11,7 @@ export const enum Faculty {
   Health,
   Science,
   Environment,
-  NotWaterloo,
+  NonWaterloo,
 }
 
 export const enum Status {
