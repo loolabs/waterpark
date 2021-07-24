@@ -1,6 +1,6 @@
 import { Repos, DB } from './types'
-import { MockClubRepo } from '../../modules/clubs/infra/repos/implementations/mock-club-repo'
-import { MockEventRepo } from '../../modules/events/infra/repos/implementations/mock-event-repo'
+import { MockClubRepo } from '../../modules/legacy/clubs/infra/repos/implementations/mock-club-repo'
+import { MockEventRepo } from '../../modules/legacy/events/infra/repos/implementations/mock-event-repo'
 import { MockUserRepo } from '../../modules/users/infra/repos/implementations/mock-user-repo'
 import { ClubEntity } from '../../shared/infra/db/entities/legacy/club.entity'
 import { EventEntity } from '../../shared/infra/db/entities/legacy/event.entity'
