@@ -43,14 +43,15 @@ const SubmitReviewBanner = styled.div`
 const ModalStyle = {
   content: {
     position: 'relative',
-    top: '10%',
     width: '50%',
     minWidth: 'min(100%, ' + width.mobile + ')',
-    minHeight: width.mobile,
+    maxHeight: '90vh',
     overflowX: 'scroll',
     overflowY: 'scroll',
     height: 'max(auto, 80%)',
-    margin: 'auto',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: '5vh',
     textAlign: 'center',
     inset: '0',
   },
@@ -152,6 +153,11 @@ const CancelButton = styled.button`
   margin-right: 20px;
   cursor: pointer;
 
+  @media ${smallerThan(width.mobileS)} {
+    margin-right: 0px;
+    margin-bottom: 10px;
+  }
+
   &:hover {
     background: #ff0000;
   }
@@ -179,6 +185,13 @@ const ButtonDiv = styled.div`
     display: flex;
     justify-content: flex-end;
   }
+
+  @media ${smallerThan(width.mobileS)} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   margin-left: 10px;
   margin-right: 10px;
 `
