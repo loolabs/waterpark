@@ -57,7 +57,6 @@ const sslOptions = { rejectUnauthorized: false }
 const isDatabaseLocal = process.env.IS_DATABASE_LOCAL === 'true'
 const isDatabaseSSL = isDatabaseLocal ? false : sslOptions
 
-// TODO: import connection-related properties from root .env
 const baseOptions: Options = {
   // debug: process.env.NODE_ENV !== 'production',
   clientUrl,
@@ -82,6 +81,7 @@ const baseOptions: Options = {
 }
 
 const setupMikroORM = async (options: Options = {}): Promise<MikroORM> => {
+  console.log('INITIALIZING MIKRO ORM')
   return await MikroORM.init({ ...baseOptions, ...options })
 }
 

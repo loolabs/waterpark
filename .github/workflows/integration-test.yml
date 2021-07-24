@@ -1,0 +1,41 @@
+name: Integration Tests
+on: push
+
+jobs:
+  container-job:
+    name: Tests
+    runs-on: ubuntu-16.04
+    container: node:10.18-jessie
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: clubs
+          POSTGRES_USER: loolabs
+          POSTGRES_PASSWORD: loolabs
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        working-directory: server
+        run: npm install
+
+      - name: Test
+        working-directory: server
+        run: npm run test:integration:ci
+        env:
+          SERVER_PORT: 3001
+          DB_DATABASE_NAME: clubs
+          DB_USERNAME: loolabs
+          DB_PASSWORD: loolabs
+          DB_PORT: 5432
+          DATABASE_URL: postgresql://loolabs:loolabs@postgres/clubs
