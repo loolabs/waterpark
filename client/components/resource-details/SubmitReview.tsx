@@ -42,10 +42,14 @@ const SubmitReviewBanner = styled.div`
 
 const ModalStyle = {
   content: {
+    position: 'relative',
+    top: '10%',
     width: '50%',
-    minWidth: width.mobileS,
+    minWidth: 'min(100%, ' + width.mobile + ')',
     minHeight: width.mobile,
-    height: '75%',
+    overflowX: 'scroll',
+    overflowY: 'scroll',
+    height: 'max(auto, 80%)',
     margin: 'auto',
     textAlign: 'center',
     inset: '0',
@@ -97,6 +101,7 @@ const ModalRating = styled(
           color1={'#DDDDDD'}
           color2={colours.primary1}
           edit={true}
+          onRatingChange={onRatingChange}
         />
       </div>
     )
@@ -145,10 +150,15 @@ const CancelButton = styled.button`
   border: none;
   font-size: ${desktopFontSize.body1};
   margin-right: 20px;
+  cursor: pointer;
+
+  &:hover {
+    background: #ff0000;
+  }
 `
 
 const PostButton = styled.button`
-  background: #47209d;
+  background: ${colours.primary1};
   border-radius: 5px;
   font-family: ${fontInter};
   font-weight: ${fontWeight.bold};
@@ -157,9 +167,21 @@ const PostButton = styled.button`
   padding: 10px 20px;
   border: none;
   font-size: ${desktopFontSize.body1};
+  cursor: pointer;
+
+  &:hover {
+    background: #31166d;
+  }
 `
 
-const ButtonDiv = styled.div``
+const ButtonDiv = styled.div`
+  @media ${largerThan(width.mobile)} {
+    display: flex;
+    justify-content: flex-end;
+  }
+  margin-left: 10px;
+  margin-right: 10px;
+`
 
 const DropdownRow = styled.div`
   display: flex;
@@ -226,13 +248,11 @@ const ModalContent = ({ onRequestClose }: { onRequestClose: () => void }) => {
             />
           </label>
         </ModalCommentDiv>
-        <AboutYou>About You:</AboutYou>
+        <AboutYou>About You</AboutYou>
         <DropdownRow>
           <label htmlFor="faculty">Faculty/Affiliation: </label>
           <Dropdown name="faculty">
             {Object.values(Faculty).map((value) => {
-              console.log('value: ' + value)
-              console.log('string: ' + Faculty[value])
               return (
                 <option key={value} value={value}>
                   {value}
