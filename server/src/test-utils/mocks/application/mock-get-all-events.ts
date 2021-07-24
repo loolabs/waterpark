@@ -1,4 +1,4 @@
-import { EventEntity } from '../../../shared/infra/db/entities/event.entity'
+import { EventEntity } from '../../../shared/infra/db/entities/legacy/event.entity'
 import { MockEventRepo } from '../../../modules/events/infra/repos/implementations/mock-event-repo'
 import { GetAllEventsController } from '../../../modules/events/application/use-cases/get-all-events/get-all-events-controller'
 import { GetAllEventsUseCase } from '../../../modules/events/application/use-cases/get-all-events/get-all-events-use-case'
