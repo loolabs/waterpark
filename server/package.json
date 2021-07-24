@@ -12,7 +12,7 @@
     "start:dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
     "test:all": "jest --maxWorkers =1",
     "test:unit": "jest --testPathPattern=unit.ts$ --runInBand",
-    "test:integration": "jest --testPathPattern=integration.ts$ --runInBand"
+    "test:integration": "DATABASE_URL=postgresql://loolabs:loolabs@localhost/clubs IS_DATABASE_LOCAL=true jest --testPathPattern=integration.ts$ --runInBand"
   },
   "dependencies": {
     "@mikro-orm/cli": "^4.3.4",
