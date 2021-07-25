@@ -72,14 +72,14 @@ const ModalTitle = styled.h2`
   margin: 0;
 `
 
-const Bar = styled.hr`
-  border: transparent;
-  border-top: 2px solid black;
-`
-
 interface Ratings {
   [ratingName: string]: number
 }
+
+const RatingLabel = styled.p`
+  margin-top: 10px;
+  margin-bottom: 10px;
+`
 
 const ModalRating = styled(
   ({
@@ -93,14 +93,14 @@ const ModalRating = styled(
   }) => {
     return (
       <div className={className}>
-        <p>{ratingName}</p>
+        <RatingLabel>{ratingName}</RatingLabel>
         <ReactStars
           count={5}
           char={'●'}
           value={0}
           size={24}
           color1={'#DDDDDD'}
-          color2={colours.primary1}
+          color2={colours.primary2}
           edit={true}
           onRatingChange={onRatingChange}
         />
@@ -131,6 +131,7 @@ const ModalComment = styled.textarea`
   outline: none;
   padding: 7px;
   font-family: ${fontInter};
+  font-size: 1em;
 `
 
 const AboutYou = styled.h3`
@@ -141,14 +142,14 @@ const AboutYou = styled.h3`
 `
 
 const CancelButton = styled.button`
-  background: #ff6961;
+  background: white;
+  border: medium solid #ff6961;
   border-radius: 5px;
   font-family: ${fontInter};
   font-weight: ${fontWeight.bold};
-  color: white;
+  color: #ff6961;
   width: 100px;
-  padding: 10px 20px;
-  border: none;
+  padding: 5px 20px;
   font-size: ${desktopFontSize.body1};
   margin-right: 20px;
   cursor: pointer;
@@ -159,24 +160,26 @@ const CancelButton = styled.button`
   }
 
   &:hover {
-    background: #ff0000;
+    background: #ff6961;
+    color: white;
   }
 `
 
 const PostButton = styled.button`
-  background: ${colours.primary1};
+  background: ${colours.primary2};
   border-radius: 5px;
   font-family: ${fontInter};
   font-weight: ${fontWeight.bold};
   color: white;
   width: 100px;
-  padding: 10px 20px;
-  border: none;
+  padding: 5px 20px;
+  border: medium solid ${colours.primary2};
   font-size: ${desktopFontSize.body1};
   cursor: pointer;
 
   &:hover {
-    background: #31166d;
+    background: white;
+    color: ${colours.primary2};
   }
 `
 
@@ -204,7 +207,20 @@ const DropdownRow = styled.div`
   margin-right: 10px;
 `
 
-const Dropdown = styled.select``
+const Dropdown = styled.select`
+  padding: 5px;
+  border-radius: 5px;
+  background: white;
+  font-family: ${fontInter};
+  &:hover {
+    background: ${colours.neutralLight1};
+  }
+`
+
+const DropdownLabel = styled.label`
+  text-align: left;
+  margin-right: 10px;
+`
 
 const ModalContent = ({ onRequestClose }: { onRequestClose: () => void }) => {
   const [comment, setComment] = useState('')
@@ -235,7 +251,6 @@ const ModalContent = ({ onRequestClose }: { onRequestClose: () => void }) => {
           <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
         </svg>
       </ModalHeaderRow>
-      <Bar />
       <form>
         {Object.keys(ratings).map((name) => {
           return (
@@ -250,20 +265,18 @@ const ModalContent = ({ onRequestClose }: { onRequestClose: () => void }) => {
           )
         })}
         <ModalCommentDiv>
-          <label>
-            Leave a Comment: <br />
             <ModalComment
+              placeholder="Leave a comment"
               value={comment}
               onChange={changeComment}
               rows={5}
               cols={50}
               required={true}
             />
-          </label>
         </ModalCommentDiv>
         <AboutYou>About You</AboutYou>
         <DropdownRow>
-          <label htmlFor="faculty">Faculty/Affiliation: </label>
+          <DropdownLabel htmlFor="faculty">Faculty or Affiliation </DropdownLabel>
           <Dropdown name="faculty">
             {Object.values(Faculty).map((value) => {
               return (
@@ -276,7 +289,7 @@ const ModalContent = ({ onRequestClose }: { onRequestClose: () => void }) => {
         </DropdownRow>
         <br />
         <DropdownRow>
-          <label htmlFor="status">Reviewer Status: </label>
+          <DropdownLabel htmlFor="status">Reviewer Status </DropdownLabel>
           <Dropdown name="status">
             {Object.values(Status).map((value) => {
               return (
