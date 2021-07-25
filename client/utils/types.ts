@@ -41,7 +41,7 @@ export enum Faculty {
   Health = 'Health',
   Science = 'Science',
   Environment = 'Environment',
-  NonWaterloo = 'Non-Waterloo',
+  NonWaterloo = 'Non-Waterloo'
 }
 
 export enum Status {
@@ -54,7 +54,7 @@ export enum Status {
   Masters = "Master's Student",
   PhD = 'PhD Student',
   Faculty = 'Faculty Member',
-  Other = 'Reviewer',
+  Other = 'Reviewer'
 }
 
 export interface Review {
