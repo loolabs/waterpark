@@ -265,14 +265,14 @@ const ModalContent = ({ onRequestClose }: { onRequestClose: () => void }) => {
           )
         })}
         <ModalCommentDiv>
-            <ModalComment
-              placeholder="Leave a comment"
-              value={comment}
-              onChange={changeComment}
-              rows={5}
-              cols={50}
-              required={true}
-            />
+          <ModalComment
+            placeholder="Leave a comment"
+            value={comment}
+            onChange={changeComment}
+            rows={5}
+            cols={50}
+            required={true}
+          />
         </ModalCommentDiv>
         <AboutYou>About You</AboutYou>
         <DropdownRow>
