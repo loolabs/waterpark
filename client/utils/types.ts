@@ -51,7 +51,7 @@ export enum Status {
   U4 = 'Fourth-Year Student',
   U5 = 'Fifth-Year Student',
   U6Plus = 'Sixth-Year+ Student',
-  Masters = "Master's Student",
+  Masters = 'Master\'s Student',
   PhD = 'PhD Student',
   Faculty = 'Faculty Member',
   Other = 'Reviewer'
