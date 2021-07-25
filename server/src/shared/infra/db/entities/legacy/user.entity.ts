@@ -1,7 +1,7 @@
 import { AfterCreate, Entity, EventArgs, Property } from '@mikro-orm/core'
-import { DomainEvents } from '../../../domain/events/domain-events'
-import { UniqueEntityID } from '../../../domain/unique-entity-id'
-import { BaseEntity } from './base.entity'
+import { DomainEvents } from '../../../../domain/events/domain-events'
+import { UniqueEntityID } from '../../../../domain/unique-entity-id'
+import { BaseEntity } from '../base.entity'
 
 @Entity()
 export class UserEntity extends BaseEntity {

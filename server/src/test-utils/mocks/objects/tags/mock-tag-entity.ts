@@ -1,7 +1,7 @@
-import { TagEntity } from '../../../../shared/infra/db/entities/tags/tag.entity'
+import { LegacyTagEntity } from '../../../../shared/infra/db/entities/legacy/tag.entity'
 
-const mockTagEntity = (id: string): TagEntity => {
-  const tagEntity = new TagEntity()
+const mockTagEntity = (id: string): LegacyTagEntity => {
+  const tagEntity = new LegacyTagEntity()
   tagEntity.name = `Tag Name ${id}`
   return tagEntity
 }
