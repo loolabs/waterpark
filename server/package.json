@@ -12,7 +12,7 @@
     "start:dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
     "test:all": "jest --maxWorkers =1",
     "test:unit": "jest --testPathPattern=unit.ts$ --runInBand",
-    "test:integration:ci": "IS_DATABASE_LOCAL=true jest --setupFiles dotenv/config --testPathPattern=integration.ts$ --runInBand",
+    "test:integration:ci": "IS_CI=true IS_DATABASE_LOCAL=true jest --setupFiles dotenv/config --testPathPattern=integration.ts$ --runInBand",
     "test:integration:local": "DATABASE_URL=postgresql://loolabs:loolabs@localhost/clubs IS_DATABASE_LOCAL=true jest --setupFiles dotenv/config --testPathPattern=integration.ts$ --runInBand"
   },
   "dependencies": {

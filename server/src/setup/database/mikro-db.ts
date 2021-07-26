@@ -81,7 +81,6 @@ const baseOptions: Options = {
 }
 
 const setupMikroORM = async (options: Options = {}): Promise<MikroORM> => {
-  console.log('INITIALIZING MIKRO ORM')
   return await MikroORM.init({ ...baseOptions, ...options })
 }
 
