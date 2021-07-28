@@ -76,6 +76,11 @@ interface Ratings {
   [ratingName: string]: number
 }
 
+interface AboutYouData {
+  faculty: Faculty
+  status: Status
+}
+
 const RatingLabel = styled.p`
   margin-top: 10px;
   margin-bottom: 10px;
@@ -237,10 +242,6 @@ const ModalContent = ({
 }) => {
   const [comment, setComment] = useState('')
 
-  const changeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setComment(e.target.value)
-  }
-
   const initialRatings: Ratings = RatingCriteria[resourceSlug].reduce(
     (o, key) => ({ ...o, [key]: 0 }),
     {}
@@ -249,6 +250,25 @@ const ModalContent = ({
 
   const changeRatings = (label: string, score: number) => {
     setRatings({ ...ratings, [label]: score })
+  }
+
+  const changeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(e.target.value)
+  }
+
+  const [aboutYou, setAboutYou] = useState<AboutYouData>({
+    faculty: Faculty.Mathematics,
+    status: Status.Other,
+  })
+
+  const changeFaculty = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setAboutYou({ ...aboutYou, faculty: Faculty[e.target.value] })
+    console.log(aboutYou)
+  }
+
+  const changeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setAboutYou({ ...aboutYou, status: Status[e.target.value] })
+    console.log(aboutYou)
   }
 
   return (
@@ -293,10 +313,10 @@ const ModalContent = ({
         <AboutYou>About You</AboutYou>
         <DropdownRow>
           <DropdownLabel htmlFor="faculty">Faculty or Affiliation </DropdownLabel>
-          <Dropdown name="faculty">
-            {Object.values(Faculty).map((value) => {
+          <Dropdown name="faculty" onChange={changeFaculty}>
+            {Object.entries(Faculty).map(([key, value]) => {
               return (
-                <option key={value} value={value}>
+                <option key={key} value={key}>
                   {value}
                 </option>
               )
@@ -306,10 +326,10 @@ const ModalContent = ({
         <br />
         <DropdownRow>
           <DropdownLabel htmlFor="status">Reviewer Status </DropdownLabel>
-          <Dropdown name="status">
-            {Object.values(Status).map((value) => {
+          <Dropdown name="status" onChange={changeStatus}>
+            {Object.entries(Status).map(([key, value]) => {
               return (
-                <option key={value} value={value}>
+                <option key={key} value={key}>
                   {value}
                 </option>
               )
