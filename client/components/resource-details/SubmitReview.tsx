@@ -263,12 +263,18 @@ const ModalContent = ({
 
   const changeFaculty = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setAboutYou({ ...aboutYou, faculty: Faculty[e.target.value] })
-    console.log(aboutYou)
   }
 
   const changeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setAboutYou({ ...aboutYou, status: Status[e.target.value] })
-    console.log(aboutYou)
+  }
+
+  const onRequestPost = () => {
+    Object.keys(ratings).map((key) => (ratings[key] *= 10))
+    const response = { ...ratings, comment, ...aboutYou }
+    console.log(response)
+    // TODO post response
+    onRequestClose()
   }
 
   return (
@@ -338,8 +344,10 @@ const ModalContent = ({
         </DropdownRow>
         <br />
         <ButtonDiv>
-          <CancelButton onClick={onRequestClose}>Cancel</CancelButton>
-          <PostButton>Post</PostButton>
+          <CancelButton type="button" onClick={onRequestClose}>
+            Cancel
+          </CancelButton>
+          <PostButton onClick={onRequestPost}>Post</PostButton>
         </ButtonDiv>
       </form>
     </>
@@ -384,17 +392,4 @@ export const SubmitReview = ({
       </Modal>
     </Fragment>
   )
-}
-
-export const SubmitReviewForm = () => {
-  const [modalIsOpen, setIsOpen] = useState(false)
-
-  const openModal = () => {
-    setIsOpen(true)
-  }
-  const closeModal = () => {
-    setIsOpen(false)
-  }
-
-  return <div></div>
 }
