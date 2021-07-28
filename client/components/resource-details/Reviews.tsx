@@ -5,12 +5,12 @@ import ReactStars from 'react-stars'
 import { formatRelative } from 'date-fns'
 import { SubmitReview } from './SubmitReview'
 
-export const Reviews = ({ reviews, name }: { reviews: Array<Review>; name: string }) => {
+export const Reviews = ({ reviews, name, resourceSlug }: { reviews: Array<Review>; name: string; resourceSlug: string}) => {
   reviews.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
   return (
     <div>
       <h1>Reviews</h1>
-      <SubmitReview name={name} />
+      <SubmitReview name={name} resourceSlug={resourceSlug}/>
       {reviews.map((review, index) => {
         return <ReviewCard key={index} review={review} />
       })}

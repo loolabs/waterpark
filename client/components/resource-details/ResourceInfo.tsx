@@ -48,7 +48,7 @@ interface ResourceInfoProps {
 
 export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
   const router = useRouter()
-  const { name, description, links, galleryImages, reviews } = resource
+  const { name, description, links, galleryImages, reviews, resourceSlug } = resource
 
   return (
     <div>
@@ -67,7 +67,7 @@ export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
 
       <Description>{description}</Description>
       <Gallery links={galleryImages} />
-      <Reviews reviews={reviews} name={name} />
+      <Reviews reviews={reviews} name={name} resourceSlug={resourceSlug}/>
     </div>
   )
 }

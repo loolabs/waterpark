@@ -11,7 +11,7 @@ import {
 import Modal from 'react-modal'
 import { useState, Fragment } from 'react'
 import ReactStars from 'react-stars'
-import { Faculty, Status } from '../../utils'
+import { Faculty, Status, RatingCriteria } from '../../utils'
 
 const SubmitButton = styled.button`
   font-size: 18px;
@@ -93,9 +93,13 @@ const ModalRating = styled(
     onRatingChange: (number: number) => void
     rating: number
   }) => {
+    const capitalizeFirstLetter = (str: string): string => {
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    }
+
     return (
       <div className={className}>
-        <RatingLabel>{ratingName}</RatingLabel>
+        <RatingLabel>{capitalizeFirstLetter(ratingName)}</RatingLabel>
         <ReactStars
           count={5}
           char={'●'}
@@ -224,23 +228,27 @@ const DropdownLabel = styled.label`
   margin-right: 10px;
 `
 
-const ModalContent = ({ onRequestClose }: { onRequestClose: () => void }) => {
+const ModalContent = ({
+  onRequestClose,
+  resourceSlug,
+}: {
+  onRequestClose: () => void
+  resourceSlug: string
+}) => {
   const [comment, setComment] = useState('')
 
   const changeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value)
   }
 
-  const initialRatings: Ratings = {
-    'Rating 1': 0,
-    'Rating 2': 0,
-    'Rating 3': 0,
-  }
-
+  const initialRatings: Ratings = RatingCriteria[resourceSlug].reduce(
+    (o, key) => ({ ...o, [key]: 0 }),
+    {}
+  )
   const [ratings, setRatings] = useState<Ratings>(initialRatings)
 
-  const changeRatings = (label : string, score: number) => {
-    setRatings({...ratings, [label]: score})
+  const changeRatings = (label: string, score: number) => {
+    setRatings({ ...ratings, [label]: score })
   }
 
   return (
@@ -267,7 +275,7 @@ const ModalContent = ({ onRequestClose }: { onRequestClose: () => void }) => {
               rating={ratings[name]}
               ratingName={name}
               onRatingChange={(score) => {
-                changeRatings(name, score);
+                changeRatings(name, score)
               }}
             />
           )
@@ -321,7 +329,15 @@ const ModalContent = ({ onRequestClose }: { onRequestClose: () => void }) => {
 // here for accessiblity, TODO: check
 Modal.setAppElement('#__next')
 
-export const SubmitReview = ({ className, name }: { className?: string; name: string }) => {
+export const SubmitReview = ({
+  className,
+  name,
+  resourceSlug,
+}: {
+  className?: string
+  name: string
+  resourceSlug: string
+}) => {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [formResponse, setFormResponse] = useState({})
 
@@ -344,7 +360,7 @@ export const SubmitReview = ({ className, name }: { className?: string; name: st
         contentLabel="Example Modal"
         style={ModalStyle}
       >
-        <ModalContent onRequestClose={closeModal} />
+        <ModalContent onRequestClose={closeModal} resourceSlug={resourceSlug} />
       </Modal>
     </Fragment>
   )

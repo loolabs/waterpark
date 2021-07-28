@@ -2,6 +2,13 @@ import { Moment } from 'moment-timezone'
 
 type URL = string
 
+// Maps resource slugs to arrays of review rating criteria
+export const RatingCriteria: { [key: string]: Array<string> } = {
+  housing: ['cleanliness', 'price', 'management'],
+  'study-spots': ['cleanliness', 'noise'],
+  washrooms: ['cleanliness'],
+}
+
 export interface Resource {
   id: Id
   resourceSlug: 'housing' | 'study-spots' | 'washrooms'
@@ -41,7 +48,7 @@ export enum Faculty {
   Health = 'Health',
   Science = 'Science',
   Environment = 'Environment',
-  NonWaterloo = 'Non-Waterloo'
+  NonWaterloo = 'Non-Waterloo',
 }
 
 export enum Status {
@@ -51,10 +58,10 @@ export enum Status {
   U4 = 'Fourth-Year Student',
   U5 = 'Fifth-Year Student',
   U6Plus = 'Sixth-Year+ Student',
-  Masters = 'Master\'s Student',
+  Masters = "Master's Student",
   PhD = 'PhD Student',
   Faculty = 'Faculty Member',
-  Other = 'Reviewer'
+  Other = 'Reviewer',
 }
 
 export interface Review {
@@ -68,7 +75,7 @@ export interface Review {
 
 export interface HousingReview extends Review {
   ratings: {
-    cleaniness: number
+    cleanliness: number
     price: number
     management: number
   }
@@ -76,13 +83,13 @@ export interface HousingReview extends Review {
 
 export interface StudySpotReview extends Review {
   ratings: {
-    cleaniness: number
+    cleanliness: number
     noise: number
   }
 }
 
 export interface WashroomReview extends Review {
   ratings: {
-    cleaniness: number
+    cleanliness: number
   }
 }
