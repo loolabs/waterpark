@@ -46,8 +46,8 @@ const ModalStyle = {
     width: '50%',
     minWidth: 'min(100%, ' + width.mobile + ')',
     maxHeight: '90vh',
-    overflowX: 'scroll',
-    overflowY: 'scroll',
+    overflowX: 'auto',
+    overflowY: 'auto',
     height: 'max(auto, 80%)',
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -86,10 +86,12 @@ const ModalRating = styled(
     className,
     ratingName,
     onRatingChange,
+    rating,
   }: {
     className?: string
     ratingName: string
-    onRatingChange: (number) => void
+    onRatingChange: (number: number) => void
+    rating: number
   }) => {
     return (
       <div className={className}>
@@ -97,12 +99,12 @@ const ModalRating = styled(
         <ReactStars
           count={5}
           char={'●'}
-          value={0}
+          value={rating}
           size={24}
           color1={'#DDDDDD'}
           color2={colours.primary2}
           edit={true}
-          onRatingChange={onRatingChange}
+          onChange={onRatingChange}
         />
       </div>
     )
@@ -225,14 +227,20 @@ const DropdownLabel = styled.label`
 const ModalContent = ({ onRequestClose }: { onRequestClose: () => void }) => {
   const [comment, setComment] = useState('')
 
-  const changeComment = (e) => {
+  const changeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value)
   }
 
-  let ratings: Ratings = {
+  const initialRatings: Ratings = {
     'Rating 1': 0,
     'Rating 2': 0,
     'Rating 3': 0,
+  }
+
+  const [ratings, setRatings] = useState<Ratings>(initialRatings)
+
+  const changeRatings = (label : string, score: number) => {
+    setRatings({...ratings, [label]: score})
   }
 
   return (
@@ -256,10 +264,10 @@ const ModalContent = ({ onRequestClose }: { onRequestClose: () => void }) => {
           return (
             <ModalRating
               key={name}
+              rating={ratings[name]}
               ratingName={name}
               onRatingChange={(score) => {
-                ratings[name] = score
-                console.log(ratings)
+                changeRatings(name, score);
               }}
             />
           )
