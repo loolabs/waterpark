@@ -114,6 +114,7 @@ const ModalRating = styled(
           color2={colours.primary2}
           edit={true}
           onChange={onRatingChange}
+          half={false}
         />
       </div>
     )
