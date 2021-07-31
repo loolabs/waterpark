@@ -166,7 +166,6 @@ const CancelButton = styled.button`
   cursor: pointer;
 
   @media ${smallerThan(width.mobileS)} {
-    margin-right: 0px;
     margin-bottom: 10px;
   }
 
@@ -188,6 +187,10 @@ const PostButton = styled.button`
   font-size: ${desktopFontSize.body1};
   cursor: pointer;
 
+  @media ${smallerThan(width.mobileS)} {
+    margin-bottom: 10px;
+  }
+
   &:hover {
     background: white;
     color: ${colours.primary2};
@@ -195,16 +198,8 @@ const PostButton = styled.button`
 `
 
 const ButtonDiv = styled.div`
-  @media ${largerThan(width.mobile)} {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  @media ${smallerThan(width.mobileS)} {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: flex-end;
 
   margin-left: 10px;
   margin-right: 10px;
