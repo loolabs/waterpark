@@ -17,6 +17,10 @@ export class WashroomEntity {
   @OneToOne({ primary: true, strategy: LoadStrategy.JOINED })
   place!: PlaceEntity;
 
+  constructor(place: PlaceEntity) {
+    this.place = place;
+  }
+
   @AfterCreate()
   afterCreate(target: EventArgs<WashroomEntity>) {
     const id = target.entity.place.id;

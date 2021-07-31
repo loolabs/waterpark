@@ -9,21 +9,25 @@ import { AppError } from '../../../../../shared/core/app-error';
 export class MikroPlaceRepo implements PlaceRepo {
   constructor(protected placesEntityRepo: EntityRepository<PlaceEntity>) {}
 
-  async getAllPlaces(): Promise<Result<Array<Place>, AppError.UnexpectedError>> {
+  async getAllPlaces(reviews: boolean = false): Promise<Result<Array<Place>, AppError.UnexpectedError>> {
+    const populateFields = ['tags']
+    if (reviews) {
+      populateFields.push('reviews')
+    }
+
     try {
       const placeEntities: Array<PlaceEntity> = await this.placesEntityRepo.find(
         {},
         {
-          populate: ['tags', 'reviews'],
+          populate: populateFields,
           orderBy: { name: QueryOrder.ASC_NULLS_LAST },
         }
       );
-      console.log(placeEntities);
       const places = await Promise.all(placeEntities.map(PlaceMap.toDomain));
       return Result.ok(places);
-    } catch (err) {
+    } catch (err: unknown) {
       // TODO: Fix unknown type error
-      return Result.err(new AppError.UnexpectedError(err));
+      return Result.err(new AppError.UnexpectedError(String(err)));
     }
   }
 }
