@@ -324,7 +324,9 @@ const ModalContent = ({
         <DropdownRow>
           <DropdownLabel htmlFor="faculty">Faculty or Affiliation </DropdownLabel>
           <Dropdown name="faculty" onChange={changeFaculty}>
-            <option disabled selected>Select an option</option>
+            <option disabled selected>
+              Select an option
+            </option>
             {Object.entries(Faculty).map(([key, value]) => {
               return (
                 <option key={key} value={key}>
@@ -338,7 +340,9 @@ const ModalContent = ({
         <DropdownRow>
           <DropdownLabel htmlFor="status">Reviewer Status </DropdownLabel>
           <Dropdown name="status" onChange={changeStatus}>
-            <option disabled selected>Select an option</option>
+            <option disabled selected>
+              Select an option
+            </option>
             {Object.entries(Status).map(([key, value]) => {
               return (
                 <option key={key} value={key}>
@@ -373,7 +377,6 @@ export const SubmitReview = ({
   resourceSlug: string
 }) => {
   const [modalIsOpen, setIsOpen] = useState(false)
-  const [formResponse, setFormResponse] = useState({})
 
   const openModal = () => {
     setIsOpen(true)
