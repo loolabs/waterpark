@@ -1,4 +1,4 @@
-import { EventDTO } from '../../../../modules/legacy/events/mappers/event-dto'
+import { EventDTO } from '../../../../../modules/legacy/events/mappers/event-dto'
 
 const mockEventDTO = (id: string): EventDTO => {
   return {
