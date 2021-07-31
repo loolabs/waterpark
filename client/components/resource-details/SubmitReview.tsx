@@ -312,7 +312,7 @@ const ModalContent = ({
         })}
         <ModalCommentDiv>
           <ModalComment
-            placeholder="Leave a comment"
+            placeholder="Leave a comment (Optional)"
             value={comment}
             onChange={changeComment}
             rows={5}
