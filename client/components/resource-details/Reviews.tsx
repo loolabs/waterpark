@@ -104,8 +104,8 @@ const ReviewCard = styled(({ review, className }: { review: Review; className?: 
     </div>
   )
 })`
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 16px;
+  margin-bottom: 16px;
   border-radius: 8px;
   overflow: hidden;
   width: 100%;
@@ -115,9 +115,9 @@ const ReviewCard = styled(({ review, className }: { review: Review; className?: 
 `
 
 const RatingLabel = styled.p`
-  margin-bottom: 5px;
-  margin-top: 5px;
-  margin-right: 10px;
+  margin-bottom: 4px;
+  margin-top: 4px;
+  margin-right: 8px;
   padding-left: auto;
   flex: 1;
   flex-grow: 1;

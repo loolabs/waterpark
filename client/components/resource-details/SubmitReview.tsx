@@ -19,7 +19,7 @@ const SubmitButton = styled.button`
   color: ${colours.white};
   font-family: ${fontInter};
   font-weight: 600;
-  padding: 5px;
+  padding: 4px;
   border-radius: 5px;
   border: 3px solid ${colours.primary2};
   cursor: pointer;
@@ -37,7 +37,7 @@ const SubmitReviewBanner = styled.div`
     align-items: center;
   }
 
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 `
 
 const ModalStyle = {
@@ -64,8 +64,8 @@ const ModalHeaderRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px;
-  margin-bottom: 20px;
+  margin: 8px;
+  margin-bottom: 16px;
 `
 
 const ModalTitle = styled.h2`
@@ -82,8 +82,8 @@ interface AboutYouData {
 }
 
 const RatingLabel = styled.p`
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 `
 
 const ModalRating = styled(
@@ -122,18 +122,18 @@ const ModalRating = styled(
 )`
   display: flex;
   justify-content: space-between;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 8px;
+  margin-right: 8px;
   align-items: center;
 `
 
 const ModalCommentDiv = styled.div`
   text-align: left;
-  margin: 10px;
+  margin: 8px;
 `
 
 const ModalComment = styled.textarea`
-  margin-top: 10px;
+  margin-top: 8px;
   width: 100%;
   height: 100px;
   resize: none;
@@ -141,7 +141,7 @@ const ModalComment = styled.textarea`
   background: #efefef;
   border-radius: 5px;
   outline: none;
-  padding: 7px;
+  padding: 8px;
   font-family: ${fontInter};
   font-size: 1em;
 `
@@ -149,8 +149,8 @@ const ModalComment = styled.textarea`
 const AboutYou = styled.h3`
   text-align: left;
   width: 100%;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 8px;
+  margin-right: 8px;
 `
 
 const CancelButton = styled.button`
@@ -161,13 +161,13 @@ const CancelButton = styled.button`
   font-weight: ${fontWeight.bold};
   color: #ff6961;
   width: 100px;
-  padding: 5px 20px;
+  padding: 4px 16px;
   font-size: ${desktopFontSize.body1};
-  margin-right: 20px;
+  margin-right: 16px;
   cursor: pointer;
 
   @media ${smallerThan(width.mobileS)} {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 
   &:hover {
@@ -183,13 +183,13 @@ const PostButton = styled.button`
   font-weight: ${fontWeight.bold};
   color: white;
   width: 100px;
-  padding: 5px 20px;
+  padding: 4px 16px;
   border: medium solid ${colours.primary2};
   font-size: ${desktopFontSize.body1};
   cursor: pointer;
 
   @media ${smallerThan(width.mobileS)} {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 
   &:hover {
@@ -202,20 +202,20 @@ const ButtonDiv = styled.div`
   display: flex;
   justify-content: flex-end;
 
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 8px;
+  margin-right: 8px;
 `
 
 const DropdownRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 8px;
+  margin-right: 8px;
 `
 
 const Dropdown = styled.select`
-  padding: 5px;
+  padding: 4px;
   border-radius: 5px;
   background: white;
   font-family: ${fontInter};
@@ -226,7 +226,7 @@ const Dropdown = styled.select`
 
 const DropdownLabel = styled.label`
   text-align: left;
-  margin-right: 10px;
+  margin-right: 8px;
 `
 
 const CloseButton = styled.svg`
