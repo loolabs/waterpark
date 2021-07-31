@@ -1,17 +1,17 @@
 import { DomainEvent } from '../../../../shared/domain/events/domain-event'
 import { UniqueEntityID } from '../../../../shared/domain/unique-entity-id'
-import { Place } from '../entities/place'
+import { Place } from '../entities/washroom'
 
-export class PlaceCreated implements DomainEvent {
+export class WashroomCreated implements DomainEvent {
   public dateTimeOccurred: Date
-  public place: Place
+  public event: Place
 
-  constructor(place: Place) {
+  constructor(event: Place) {
     this.dateTimeOccurred = new Date()
-    this.place = place
+    this.event = event
   }
 
   public getAggregateId(): UniqueEntityID {
-    return this.place.id
+    return this.event.id
   }
 }
