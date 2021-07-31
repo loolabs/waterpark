@@ -19,7 +19,7 @@ const SubmitButton = styled.button`
   color: ${colours.white};
   font-family: ${fontInter};
   font-weight: 600;
-  padding: 4px;
+  padding: 8px;
   border-radius: 5px;
   border: 3px solid ${colours.primary2};
   cursor: pointer;
