@@ -20,7 +20,8 @@ export interface Resource {
     iconImage: URL
   }
   galleryImages: Array<URL>
-  overallRating: number
+  averageRating: Rating
+  totalReviews: number
   reviews: Array<Review>
 }
 
@@ -70,7 +71,11 @@ export interface Review {
   timestamp: Date
   faculty: Faculty
   status: Status
-  ratings: { [name: string]: number }
+  ratings: Rating
+}
+
+export interface Rating {
+  [name: string]: number
 }
 
 export interface HousingReview extends Review {

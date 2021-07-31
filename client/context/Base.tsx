@@ -28,7 +28,8 @@ export const AppProvider = ({ children }) => {
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
     ],
-    overallRating: 80,
+    averageRating: {cleanliness: 20, price: 40, management: 60},
+    totalReviews: 3,
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
@@ -74,7 +75,8 @@ export const AppProvider = ({ children }) => {
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
     ],
-    overallRating: 80,
+    averageRating: {cleanliness: 40, price: 20, management: 80},
+    totalReviews: 5,
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
@@ -128,7 +130,8 @@ export const AppProvider = ({ children }) => {
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
     ],
-    overallRating: 80,
+    averageRating: {cleanliness: 20, noise: 40},
+    totalReviews: 2,
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
@@ -171,7 +174,8 @@ export const AppProvider = ({ children }) => {
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
     ],
-    overallRating: 80,
+    averageRating: {cleanliness: 80, noise: 20},
+    totalReviews: 6,
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
@@ -222,7 +226,8 @@ export const AppProvider = ({ children }) => {
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
     ],
-    overallRating: 80,
+    averageRating: {cleanliness: 80},
+    totalReviews: 5,
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
@@ -264,7 +269,8 @@ export const AppProvider = ({ children }) => {
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
     ],
-    overallRating: 80,
+    averageRating: {cleanliness: 40, noise: 20},
+    totalReviews: 3,
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
