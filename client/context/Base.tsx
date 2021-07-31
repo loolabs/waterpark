@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Id, indexData, House, StudySpot, Washroom , Faculty, Status } from '../utils'
+import { Id, indexData, House, StudySpot, Washroom, Faculty, Status } from '../utils'
 import { useQuery } from 'react-query'
 
 interface AppData {
@@ -38,7 +38,7 @@ export const AppProvider = ({ children }) => {
         comment:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         ratings: {
-          cleaniness: 70,
+          cleanliness: 70,
           price: 60,
           management: 30,
         },
@@ -50,7 +50,7 @@ export const AppProvider = ({ children }) => {
         timestamp: new Date(0),
         comment: 'comment2',
         ratings: {
-          cleaniness: 80,
+          cleanliness: 80,
           price: 50,
           management: 40,
         },
@@ -83,7 +83,7 @@ export const AppProvider = ({ children }) => {
         timestamp: new Date(0),
         comment: 'comment',
         ratings: {
-          cleaniness: 50,
+          cleanliness: 50,
           price: 70,
           management: 40,
         },
@@ -95,7 +95,7 @@ export const AppProvider = ({ children }) => {
         timestamp: new Date(),
         comment: 'comment2',
         ratings: {
-          cleaniness: 90,
+          cleanliness: 90,
           price: 30,
           management: 20,
         },
@@ -137,7 +137,7 @@ export const AppProvider = ({ children }) => {
         timestamp: new Date(),
         comment: 'comment',
         ratings: {
-          cleaniness: 50,
+          cleanliness: 50,
           noise: 70,
         },
       },
@@ -148,7 +148,7 @@ export const AppProvider = ({ children }) => {
         timestamp: new Date(0),
         comment: 'comment2',
         ratings: {
-          cleaniness: 90,
+          cleanliness: 90,
           noise: 30,
         },
       },
@@ -180,7 +180,7 @@ export const AppProvider = ({ children }) => {
         timestamp: new Date(),
         comment: 'comment',
         ratings: {
-          cleaniness: 50,
+          cleanliness: 50,
           noise: 70,
         },
       },
@@ -191,7 +191,7 @@ export const AppProvider = ({ children }) => {
         status: Status.Faculty,
         timestamp: new Date(0),
         ratings: {
-          cleaniness: 90,
+          cleanliness: 90,
           noise: 30,
         },
       },
@@ -231,7 +231,7 @@ export const AppProvider = ({ children }) => {
         faculty: Faculty.Engineering,
         status: Status.Faculty,
         ratings: {
-          cleaniness: 50,
+          cleanliness: 50,
         },
       },
       {
@@ -241,7 +241,7 @@ export const AppProvider = ({ children }) => {
         faculty: Faculty.Mathematics,
         status: Status.U1,
         ratings: {
-          cleaniness: 90,
+          cleanliness: 90,
         },
       },
     ],
@@ -273,7 +273,7 @@ export const AppProvider = ({ children }) => {
         status: Status.U1,
         timestamp: new Date(),
         ratings: {
-          cleaniness: 50,
+          cleanliness: 50,
         },
       },
       {
@@ -283,7 +283,7 @@ export const AppProvider = ({ children }) => {
         status: Status.U3,
         timestamp: new Date(0),
         ratings: {
-          cleaniness: 90,
+          cleanliness: 90,
         },
       },
     ],

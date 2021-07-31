@@ -3,16 +3,22 @@ import { colours, largerThan, smallerThan, width } from '../../styles'
 import { Review } from '../../utils/types'
 import ReactStars from 'react-stars'
 import { formatRelative } from 'date-fns'
+import { SubmitReview } from './SubmitReview'
 
-interface ReviewsProps {
+export const Reviews = ({
+  reviews,
+  name,
+  resourceSlug,
+}: {
   reviews: Array<Review>
-}
-
-export const Reviews = ({ reviews }: ReviewsProps) => {
+  name: string
+  resourceSlug: string
+}) => {
   reviews.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
   return (
     <div>
       <h1>Reviews</h1>
+      <SubmitReview name={name} resourceSlug={resourceSlug} />
       {reviews.map((review, index) => {
         return <ReviewCard key={index} review={review} />
       })}
@@ -100,14 +106,15 @@ const ReviewCard = styled(({ review, className }: { review: Review; className?: 
           })}
         </RatingList>
       </ReviewTopRow>
+
       <HideOnLaptop>
         <Comment review={review} />
       </HideOnLaptop>
     </div>
   )
 })`
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 16px;
+  margin-bottom: 16px;
   border-radius: 8px;
   overflow: hidden;
   width: 100%;
@@ -117,9 +124,9 @@ const ReviewCard = styled(({ review, className }: { review: Review; className?: 
 `
 
 const RatingLabel = styled.p`
-  margin-bottom: 5px;
-  margin-top: 5px;
-  margin-right: 5px;
+  margin-bottom: 4px;
+  margin-top: 4px;
+  margin-right: 8px;
   padding-left: auto;
   flex: 1;
   flex-grow: 1;
@@ -128,24 +135,30 @@ const RatingLabel = styled.p`
   color: ${colours.neutralDark2};
 `
 
+const capitalizeFirstLetter = (str: string): string => {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
 const Rating = styled(
   ({ className, score, label }: { className?: string; score: number; label: string }) => {
     return (
       <div className={className}>
-        <RatingLabel>{label.toUpperCase()}:</RatingLabel>
+        <RatingLabel>{capitalizeFirstLetter(label)}</RatingLabel>
         <ReactStars
           count={5}
           char={'●'}
           value={score / 20}
           size={24}
           color1={'#DDDDDD'}
-          color2={colours.primary1}
+          color2={colours.primary2}
           edit={false}
         />
       </div>
     )
   }
 )`
+  min-width: 120px;
+
   @media ${smallerThan(width.laptop)} {
     display: flex;
     margin-right: 0;
@@ -153,6 +166,6 @@ const Rating = styled(
   }
 
   @media ${smallerThan(width.tablet)} {
-    width: 120px;
+    max-width: 130px;
   }
 `
