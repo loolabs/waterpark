@@ -44,7 +44,7 @@ const ModalStyle = {
   content: {
     position: 'relative',
     width: '50%',
-    minWidth: 'min(100%, ' + width.mobile + ')',
+    minWidth: 'min(90%, ' + width.mobile + ')',
     maxHeight: '90vh',
     overflowX: 'auto',
     overflowY: 'auto',
