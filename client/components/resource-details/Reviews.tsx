@@ -137,7 +137,7 @@ const Rating = styled(
           value={score / 20}
           size={24}
           color1={'#DDDDDD'}
-          color2={colours.primary1}
+          color2={colours.primary2}
           edit={false}
         />
       </div>

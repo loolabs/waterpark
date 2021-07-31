@@ -15,18 +15,18 @@ import { Faculty, Status, RatingCriteria } from '../../utils'
 
 const SubmitButton = styled.button`
   font-size: 18px;
-  background-color: ${colours.primary1};
+  background-color: ${colours.primary2};
   color: ${colours.white};
   font-family: ${fontInter};
   font-weight: 600;
   padding: 5px;
   border-radius: 5px;
-  border: 3px solid ${colours.primary1};
+  border: 3px solid ${colours.primary2};
   cursor: pointer;
 
   &:hover {
     background-color: ${colours.white};
-    color: ${colours.primary1};
+    color: ${colours.primary2};
   }
 `
 
