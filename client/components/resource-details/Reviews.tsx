@@ -117,7 +117,7 @@ const ReviewCard = styled(({ review, className }: { review: Review; className?: 
 const RatingLabel = styled.p`
   margin-bottom: 5px;
   margin-top: 5px;
-  margin-right: 5px;
+  margin-right: 10px;
   padding-left: auto;
   flex: 1;
   flex-grow: 1;
@@ -126,11 +126,15 @@ const RatingLabel = styled.p`
   color: ${colours.neutralDark2};
 `
 
+const capitalizeFirstLetter = (str: string): string => {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
 const Rating = styled(
   ({ className, score, label }: { className?: string; score: number; label: string }) => {
     return (
       <div className={className}>
-        <RatingLabel>{label.toUpperCase()}:</RatingLabel>
+        <RatingLabel>{capitalizeFirstLetter(label)}</RatingLabel>
         <ReactStars
           count={5}
           char={'●'}
@@ -144,6 +148,9 @@ const Rating = styled(
     )
   }
 )`
+
+  min-width: 120px;
+
   @media ${smallerThan(width.laptop)} {
     display: flex;
     margin-right: 0;
