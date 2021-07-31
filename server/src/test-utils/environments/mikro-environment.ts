@@ -11,10 +11,11 @@ export class MikroTestEnvironment extends TestEnvironment<MikroEnvironmentVariab
   protected waterparkExpress!: http.WaterparkExpress
 
   public async setup(): Promise<MikroEnvironmentVariables> {
-    // must set environment variable DATABASE_URL to postgresql://loolabs:loolabs@localhost/clubs
-    // to access postgres container on Docker
-    // TODO: fix integration testing
     this.mikroDB = await db.setupMikroDB({ debug: false })
+
+    const migrator = await this.mikroDB.orm.getMigrator()
+    if (process.env.IS_CI === 'true') await migrator.up()
+
     const { orm, repos } = this.mikroDB
 
     this.application = app.setupApplication(repos)
