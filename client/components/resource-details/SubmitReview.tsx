@@ -368,11 +368,9 @@ const ModalContent = ({
 Modal.setAppElement('#__next')
 
 export const SubmitReview = ({
-  className,
   name,
   resourceSlug,
 }: {
-  className?: string
   name: string
   resourceSlug: string
 }) => {
