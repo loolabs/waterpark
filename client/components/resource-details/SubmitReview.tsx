@@ -297,6 +297,7 @@ const ModalContent = ({
           <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
         </CloseButton>
       </ModalHeaderRow>
+
       <form>
         {Object.keys(ratings).map((name) => {
           return (
@@ -310,6 +311,7 @@ const ModalContent = ({
             />
           )
         })}
+
         <ModalCommentDiv>
           <ModalComment
             placeholder="Leave a comment (Optional)"
@@ -320,7 +322,9 @@ const ModalContent = ({
             required={true}
           />
         </ModalCommentDiv>
+
         <AboutYou>About You</AboutYou>
+
         <DropdownRow>
           <DropdownLabel htmlFor="faculty">Faculty or Affiliation </DropdownLabel>
           <Dropdown name="faculty" onChange={changeFaculty}>
@@ -337,6 +341,7 @@ const ModalContent = ({
           </Dropdown>
         </DropdownRow>
         <br />
+
         <DropdownRow>
           <DropdownLabel htmlFor="status">Reviewer Status </DropdownLabel>
           <Dropdown name="status" onChange={changeStatus}>
@@ -353,6 +358,7 @@ const ModalContent = ({
           </Dropdown>
         </DropdownRow>
         <br />
+
         <ButtonDiv>
           <CancelButton type="button" onClick={onRequestClose}>
             Cancel
@@ -367,13 +373,7 @@ const ModalContent = ({
 // here for accessiblity, TODO: check
 Modal.setAppElement('#__next')
 
-export const SubmitReview = ({
-  name,
-  resourceSlug,
-}: {
-  name: string
-  resourceSlug: string
-}) => {
+export const SubmitReview = ({ name, resourceSlug }: { name: string; resourceSlug: string }) => {
   const [modalIsOpen, setIsOpen] = useState(false)
 
   const openModal = () => {
@@ -389,6 +389,7 @@ export const SubmitReview = ({
         <h3>What are your thoughts on {name}?</h3>
         <SubmitButton onClick={openModal}>Add Review</SubmitButton>
       </SubmitReviewBanner>
+
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
