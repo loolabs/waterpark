@@ -383,7 +383,7 @@ export const SubmitReview = ({
     <Fragment>
       <SubmitReviewBanner>
         <h3>What are your thoughts on {name}?</h3>
-        <SubmitButton onClick={openModal}>SUBMIT REVIEW</SubmitButton>
+        <SubmitButton onClick={openModal}>Add Review</SubmitButton>
       </SubmitReviewBanner>
       <Modal
         isOpen={modalIsOpen}
