@@ -12,8 +12,8 @@ export abstract class WashroomRepo {
     options?: WashroomOptions
   ): Promise<Result<Array<Washroom>, AppError.UnexpectedError>>;
 
-  abstract getWashroomByPlaceId(
-    placeId: string,
+  abstract getWashroomById(
+    id: string,
     options?: WashroomOptions
   ): Promise<Result<Washroom, AppError.UnexpectedError>>;
 }

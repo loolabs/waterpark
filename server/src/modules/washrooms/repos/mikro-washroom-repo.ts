@@ -33,8 +33,8 @@ export class MikroWashroomRepo implements WashroomRepo {
     }
   }
 
-  async getWashroomByPlaceId(
-    placeId: string,
+  async getWashroomById(
+    id: string,
     { mustIncludeReviews }: WashroomOptions
   ): Promise<Result<Washroom, AppError.UnexpectedError>> {
     const populateFields = ['tags'];
@@ -44,7 +44,7 @@ export class MikroWashroomRepo implements WashroomRepo {
 
     try {
       const washroomEntity = await this.washroomsEntityRepo.findOne(
-        { place: { id: placeId } },
+        { place: { id } },
         {
           populate: populateFields,
         }

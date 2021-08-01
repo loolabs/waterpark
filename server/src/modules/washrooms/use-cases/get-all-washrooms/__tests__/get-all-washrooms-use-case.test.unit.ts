@@ -4,7 +4,7 @@ import { Result } from '../../../../../shared/core/result';
 import { Washroom } from '../../../domain/entities/washroom';
 import { WashroomDTO } from '../../../mappers/washroom-dto';
 
-jest.mock('../../../../infra/repos/implementations/mock-washroom-repo');
+jest.mock('../../../repos/mock-washroom-repo');
 
 describe('GetAllWashroomsUseCase', () => {
   const ids: Array<string> = [1, 2, 3].map(String);
@@ -12,17 +12,17 @@ describe('GetAllWashroomsUseCase', () => {
   const mockWashroomDTOs: Array<WashroomDTO> = ids.map(mocks.mockWashroomDTO);
   const { washroomRepo, getAllWashroomsUseCase } = mocks.mockGetAllWashrooms();
 
-  test('When executed, should return all places and an Ok', async () => {
+  test('When executed, should return all washrooms and an Ok', async () => {
     jest.spyOn(washroomRepo, 'getAllWashrooms').mockResolvedValue(Result.ok(mockWashrooms));
 
-    const getAllWashroomsResult = await getAllWashroomsUseCase.execute();
+    const result = await getAllWashroomsUseCase.execute();
 
     expect(washroomRepo.getAllWashrooms).toBeCalled();
-    expect(getAllWashroomsResult.isOk()).toBe(true);
-    if (getAllWashroomsResult.isOk()) {
-      expect(getAllWashroomsResult.value.length).toBe(ids.length);
+    expect(result.isOk()).toBe(true);
+    if (result.isOk()) {
+      expect(result.value.length).toBe(ids.length);
       for (const mockWashroomDTO of mockWashroomDTOs) {
-        expect(getAllWashroomsResult.value).toContainEqual(mockWashroomDTO);
+        expect(result.value).toContainEqual(mockWashroomDTO);
       }
     }
   });
@@ -32,9 +32,9 @@ describe('GetAllWashroomsUseCase', () => {
       .spyOn(washroomRepo, 'getAllWashrooms')
       .mockResolvedValue(Result.err(new AppError.UnexpectedError('Pretend something failed.')));
 
-    const getAllWashroomsResult = await getAllWashroomsUseCase.execute();
+    const result = await getAllWashroomsUseCase.execute();
 
     expect(washroomRepo.getAllWashrooms).toBeCalled();
-    expect(getAllWashroomsResult.isErr()).toBe(true);
+    expect(result.isErr()).toBe(true);
   });
 });

@@ -8,7 +8,7 @@ import { WashroomMap } from '../../mappers/washroom-map';
 type GetWashroomByIdUseCaseError = AppError.UnexpectedError;
 
 export type DTO = {
-  placeId: string;
+  id: string;
 };
 type Response = Result<WashroomDTO, GetWashroomByIdUseCaseError>;
 
@@ -19,8 +19,8 @@ export class GetWashroomByIdUseCase implements UseCaseWithDTO<DTO, Response> {
     this.washroomRepo = washroomRepo;
   }
 
-  async execute({ placeId }: DTO): Promise<Response> {
-    const result = await this.washroomRepo.getWashroomByPlaceId(placeId, {
+  async execute({ id }: DTO): Promise<Response> {
+    const result = await this.washroomRepo.getWashroomById(id, {
       mustIncludeReviews: true,
     });
     if (result.isOk()) {

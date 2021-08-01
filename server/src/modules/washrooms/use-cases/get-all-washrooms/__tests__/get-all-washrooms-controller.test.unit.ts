@@ -4,14 +4,14 @@ import { Result } from '../../../../../shared/core/result';
 import { GetAllWashroomsUseCase } from '../get-all-washrooms-use-case';
 import { AppError } from '../../../../../shared/core/app-error';
 
-jest.mock('../../../../infra/repos/implementations/mock-washroom-repo');
+jest.mock('../../../repos/mock-washroom-repo');
 
 describe('GetAllWashoomsController', () => {
   const ids: Array<string> = [1, 2, 3].map(String);
   const mockWashroomDTOs: Array<WashroomDTO> = ids.map(mocks.mockWashroomDTO);
   const { getAllWashroomsController } = mocks.mockGetAllWashrooms();
 
-  test('When executed, the GetAllWashoomsController returns 200 OK', async () => {
+  test('If use case executes successfully, should respond 200 OK', async () => {
     jest
       .spyOn(GetAllWashroomsUseCase.prototype, 'execute')
       .mockResolvedValue(Result.ok(mockWashroomDTOs));
@@ -26,7 +26,7 @@ describe('GetAllWashoomsController', () => {
     }
   });
 
-  test('If use case throws error, the GetAllWashoomsController responds 500', async () => {
+  test('If use case throws error, should respond 500', async () => {
     jest
       .spyOn(GetAllWashroomsUseCase.prototype, 'execute')
       .mockResolvedValue(Result.err(new AppError.UnexpectedError('Pretend something failed.')));

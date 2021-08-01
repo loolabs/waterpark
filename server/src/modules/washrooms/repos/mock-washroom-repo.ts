@@ -23,11 +23,11 @@ export class MockWashroomRepo implements WashroomRepo {
     return Result.ok(this.washroomEntities.map(WashroomMap.toDomain));
   }
 
-  async getWashroomByPlaceId(
-    placeId: string,
+  async getWashroomById(
+    id: string,
     _options?: WashroomOptions
   ): Promise<Result<Washroom, AppError.UnexpectedError>> {
-    const washroomEntity = this.washroomEntitiesById.get(placeId);
+    const washroomEntity = this.washroomEntitiesById.get(id);
     if (washroomEntity === undefined) {
       return Result.err(new AppError.UnexpectedError('Washroom not found')); // TODO: proper error classes
     }

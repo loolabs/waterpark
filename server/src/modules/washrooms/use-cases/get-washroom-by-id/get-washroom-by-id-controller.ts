@@ -12,9 +12,7 @@ export class GetWashroomByIdController extends ControllerWithDTO<GetWashroomById
   protected buildDTO(req: express.Request): Result<DTO, Array<ValidationError>> {
     // TODO: implement actual validation once API type changes (io-ts) are in
     const { id } = req.params;
-    return Result.ok({
-      placeId: id,
-    });
+    return Result.ok({ id });
   }
 
   async executeImpl<Res extends express.Response>(dto: DTO, res: Res): Promise<Res> {
