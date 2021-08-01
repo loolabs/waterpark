@@ -17,8 +17,10 @@ export class WashroomEntity {
   @OneToOne({ primary: true, strategy: LoadStrategy.JOINED })
   place!: PlaceEntity;
 
-  constructor(place: PlaceEntity) {
-    this.place = place;
+  constructor(place?: PlaceEntity) {
+    if (place !== undefined) {
+      this.place = place;
+    }
   }
 
   @AfterCreate()

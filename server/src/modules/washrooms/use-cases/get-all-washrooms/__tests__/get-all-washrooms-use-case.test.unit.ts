@@ -1,8 +1,8 @@
-import { mocks } from '../../../../../../test-utils';
-import { AppError } from '../../../../../../shared/core/app-error';
-import { Result } from '../../../../../../shared/core/result';
-import { Washroom } from '../../../../domain/entities/washroom';
-import { WashroomDTO } from '../../../../mappers/washroom-dto';
+import { mocks } from '../../../../../test-utils';
+import { AppError } from '../../../../../shared/core/app-error';
+import { Result } from '../../../../../shared/core/result';
+import { Washroom } from '../../../domain/entities/washroom';
+import { WashroomDTO } from '../../../mappers/washroom-dto';
 
 jest.mock('../../../../infra/repos/implementations/mock-washroom-repo');
 

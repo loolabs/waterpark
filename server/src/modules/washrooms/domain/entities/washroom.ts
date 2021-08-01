@@ -20,16 +20,16 @@ interface WashroomProps {
 export class Washroom extends AggregateRoot<WashroomProps> {
   public static create(props: WashroomProps, id?: UniqueEntityID): Result<Washroom, Error> {
     const isNewWashroom = id === undefined;
-    const place = new Washroom(
+    const washroom = new Washroom(
       {
         ...props,
       },
       id
     );
 
-    if (isNewWashroom) place.addDomainEvent(new WashroomCreated(place));
+    if (isNewWashroom) washroom.addDomainEvent(new WashroomCreated(washroom));
 
-    return Result.ok(place);
+    return Result.ok(washroom);
   }
 
   private constructor(props: WashroomProps, id?: UniqueEntityID) {
