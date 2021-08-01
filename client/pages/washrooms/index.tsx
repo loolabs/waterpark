@@ -5,5 +5,5 @@ import { ResourceList } from '../../components/resource'
 export default function Washrooms() {
   const { washrooms } = useAppContext()
 
-  return <ResourceList resources={washrooms} />
+  return <ResourceList resources={washrooms} slug={'washrooms'} />
 }

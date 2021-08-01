@@ -1,11 +1,9 @@
 import { useSearch } from '../hooks'
-import { Tag, TagGroup, TagRow } from './Tag'
-import { TagBubble } from '../common/TagBubble'
-import { Resource, Id } from '../../utils'
+import { Resource, Id, ResourceDisplayStrings } from '../../utils'
 import { useMemo } from 'react'
 import styled from 'styled-components'
 import { ResourceCard } from './ResourceCard'
-import { colours, PageTitle, width, smallerThan, largerThan } from '../../styles'
+import { PageTitle, width, smallerThan, largerThan } from '../../styles'
 import { SearchInput } from '../SearchInput'
 
 const ResourceListPage = styled.div`
@@ -69,40 +67,14 @@ const RightSpaceWrapper = styled.div`
 
 interface ResourceListHeaderProps {
   onSearch: (search: string) => any
+  slug: string
 }
 
-interface ResourceListTagsProps {
-  tags: Array<Tag>
-}
-
-const ResourceListTags = () => {
-  return (
-    <TagRow>
-      <TagGroup>
-        {Object.keys(colours.tagColours).map((text, index) => (
-          <RightSpaceWrapper key={text}>
-            <TagBubble
-              colour={colours.tagColours[text]}
-              highlightOnHover
-              key={`club-card-tag-${index}-${text}`}
-            >
-              {text}
-            </TagBubble>
-          </RightSpaceWrapper>
-        ))}
-      </TagGroup>
-      <TagBubble borderStyle="dashed" borderWidth="2px">
-        + More
-      </TagBubble>
-    </TagRow>
-  )
-}
-
-const ResourceListHeader = ({ onSearch }: ResourceListHeaderProps) => {
+const ResourceListHeader = ({ onSearch, slug }: ResourceListHeaderProps) => {
   return (
     <ResourceListHeaderContainer>
       <ResourceListTitleRow>
-        <ResourceListTitle>Explore Resources</ResourceListTitle>
+        <ResourceListTitle>Explore {ResourceDisplayStrings[slug]}</ResourceListTitle>
         <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
       </ResourceListTitleRow>
     </ResourceListHeaderContainer>
@@ -111,9 +83,10 @@ const ResourceListHeader = ({ onSearch }: ResourceListHeaderProps) => {
 
 interface ResourceListProps {
   resources: Map<Id, Resource>
+  slug: string
 }
 
-export const ResourceList = ({ resources }: ResourceListProps) => {
+export const ResourceList = ({ resources, slug }: ResourceListProps) => {
   const allResources: Array<Resource> = useMemo(() => Array.from(resources.values()), [resources])
 
   const [filteredResources, setSearchValue] = useSearch(allResources, ['name'])
@@ -121,7 +94,7 @@ export const ResourceList = ({ resources }: ResourceListProps) => {
   return (
     <ResourceListPage>
       <ResourceListGrid>
-        <ResourceListHeader onSearch={setSearchValue} />
+        <ResourceListHeader onSearch={setSearchValue} slug={slug} />
         {filteredResources.map((resource) => (
           <ResourceCard key={resource.id} Resource={resource} />
         ))}

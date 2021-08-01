@@ -1,5 +1,3 @@
-import { Moment } from 'moment-timezone'
-
 type URL = string
 
 // Maps resource slugs to arrays of review rating criteria
@@ -7,6 +5,12 @@ export const RatingCriteria: { [key: string]: Array<string> } = {
   housing: ['cleanliness', 'price', 'management'],
   'study-spots': ['cleanliness', 'noise'],
   washrooms: ['cleanliness'],
+}
+
+export const ResourceDisplayStrings: { [key: string]: string } = {
+  housing: 'Housing',
+  'study-spots': 'Study Spots',
+  washrooms: 'Washrooms',
 }
 
 export interface Resource {
