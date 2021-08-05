@@ -12,6 +12,7 @@ import Modal from 'react-modal'
 import { useState, Fragment } from 'react'
 import ReactStars from 'react-stars'
 import { Faculty, Status, RatingCriteria } from '../../utils'
+import { capitalizeFirstLetter } from '../common/functions'
 
 const SubmitButton = styled.button`
   font-size: 18px;
@@ -98,10 +99,6 @@ const ModalRating = styled(
     onRatingChange: (number: number) => void
     rating: number
   }) => {
-    const capitalizeFirstLetter = (str: string): string => {
-      return str.charAt(0).toUpperCase() + str.slice(1)
-    }
-
     return (
       <div className={className}>
         <RatingLabel>{capitalizeFirstLetter(ratingName)}</RatingLabel>

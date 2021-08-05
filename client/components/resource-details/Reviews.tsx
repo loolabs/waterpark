@@ -4,6 +4,7 @@ import { Review } from '../../utils/types'
 import ReactStars from 'react-stars'
 import { formatRelative } from 'date-fns'
 import { SubmitReview } from './SubmitReview'
+import { capitalizeFirstLetter } from '../common/functions'
 
 export const Reviews = ({
   reviews,
@@ -134,10 +135,6 @@ const RatingLabel = styled.p`
   width: auto;
   color: ${colours.neutralDark2};
 `
-
-const capitalizeFirstLetter = (str: string): string => {
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
 
 const Rating = styled(
   ({ className, score, label }: { className?: string; score: number; label: string }) => {

@@ -1,10 +1,13 @@
 import { useSearch } from '../hooks'
-import { Resource, Id, ResourceDisplayStrings } from '../../utils'
-import { useMemo } from 'react'
+import { TagGroup, TagRow } from './Tag'
+import { TagBubble } from '../common/TagBubble'
+import { Resource, Id, ResourceDisplayStrings, RatingCriteria } from '../../utils'
+import { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { ResourceCard } from './ResourceCard'
-import { PageTitle, width, smallerThan, largerThan } from '../../styles'
+import { PageTitle, width, smallerThan, largerThan, colours } from '../../styles'
 import { SearchInput } from '../SearchInput'
+import { capitalizeFirstLetter } from '../common/functions'
 
 const ResourceListPage = styled.div`
   margin-top: 65px;
@@ -65,11 +68,54 @@ const RightSpaceWrapper = styled.div`
   margin-right: auto;
 `
 
+// type sortPatternType = (first: Resource, second: Resource) => number
+
 interface ResourceListHeaderProps {
   onSearch: (search: string) => any
+  // changeSortPattern: (sortPatternType) => void
   slug: string
 }
 
+// const ResourceListTags = ({slug, changeSortPattern} : {slug: string, changeSortPattern: (sortPatternType) => void}) => { 
+  const ResourceListTags = ({slug} : {slug: string}) => { 
+  let criteria = RatingCriteria[slug];
+  let sortingDefinitions = { 
+    "Alphabetical" : (first : Resource, second : Resource) => {
+      return first.name.localeCompare(second.name);
+    },
+    "Number of Ratings" : (first : Resource, second : Resource) => {
+      return second.totalReviews - first.totalReviews;
+    }
+  }
+  
+  criteria.map(item => {
+    sortingDefinitions[item] = (first : Resource, second : Resource) => {
+      return second.averageRating[item.toLowerCase()] - first.averageRating[item.toLowerCase()]
+    }
+  })
+  
+  criteria = criteria.map(item => capitalizeFirstLetter(item))
+  criteria = [ "Alphabetical", "Number of Ratings", ...criteria]
+
+  return (
+    <TagRow>
+      <TagGroup>  
+        {criteria.map((text, index) => (
+          <TagBubble
+            colour={colours.neutralLight2}
+            highlightOnHover
+            key={`club-card-tag-${index}-${text}`}
+            // onChange={() => {changeSortPattern(sortingDefinitions[text])}}
+          >
+            {text}
+          </TagBubble>
+        ))}
+      </TagGroup>
+    </TagRow>
+  )
+}
+
+// const ResourceListHeader = ({ onSearch, changeSortPattern, slug }: ResourceListHeaderProps) => {
 const ResourceListHeader = ({ onSearch, slug }: ResourceListHeaderProps) => {
   return (
     <ResourceListHeaderContainer>
@@ -77,6 +123,8 @@ const ResourceListHeader = ({ onSearch, slug }: ResourceListHeaderProps) => {
         <ResourceListTitle>Explore {ResourceDisplayStrings[slug]}</ResourceListTitle>
         <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
       </ResourceListTitleRow>
+      {/* <ResourceListTags changeSortPattern={changeSortPattern} slug={slug} ></ResourceListTags> */}
+      <ResourceListTags slug={slug} ></ResourceListTags>
     </ResourceListHeaderContainer>
   )
 }
@@ -91,10 +139,21 @@ export const ResourceList = ({ resources, slug }: ResourceListProps) => {
 
   const [filteredResources, setSearchValue] = useSearch(allResources, ['name'])
 
+  // const [sortPattern, setSortPattern] = useState<sortPattern>((first : Resource, second : Resource) => {
+  //   return first.name.localeCompare(second.name);
+  // })
+
+  // const changeSortPattern = (sortPattern : sortPatternType) => {
+  //   setSortPattern(sortPattern)
+  // }
+
+  // filteredResources.sort(sortPattern);
+
   return (
     <ResourceListPage>
       <ResourceListGrid>
-        <ResourceListHeader onSearch={setSearchValue} slug={slug} />
+        {/* <ResourceListHeader changeSortPattern={changeSortPattern} onSearch={setSearchValue} slug={slug} /> */}
+        <ResourceListHeader onSearch={setSearchValue} slug={slug} />      
         {filteredResources.map((resource) => (
           <ResourceCard key={resource.id} Resource={resource} />
         ))}
