@@ -73,24 +73,26 @@ const RightSpaceWrapper = styled.div`
 interface ResourceListHeaderProps {
   onSearch: (search: string) => any
   // changeSortPattern: (sortPatternType) => void
+  changeSortPattern: any
   slug: string
 }
 
 // const ResourceListTags = ({slug, changeSortPattern} : {slug: string, changeSortPattern: (sortPatternType) => void}) => { 
-  const ResourceListTags = ({slug} : {slug: string}) => { 
+const ResourceListTags = ({slug, changeSortPattern} : {slug: string, changeSortPattern: any}) => { 
+  // const ResourceListTags = ({slug} : {slug: string}) => { 
   let criteria = RatingCriteria[slug];
   let sortingDefinitions = { 
-    "Alphabetical" : (first : Resource, second : Resource) => {
+    "alphabetical" : (first : Resource, second : Resource) => {
       return first.name.localeCompare(second.name);
     },
-    "Number of Ratings" : (first : Resource, second : Resource) => {
+    "number of ratings" : (first : Resource, second : Resource) => {
       return second.totalReviews - first.totalReviews;
     }
   }
   
   criteria.map(item => {
     sortingDefinitions[item] = (first : Resource, second : Resource) => {
-      return second.averageRating[item.toLowerCase()] - first.averageRating[item.toLowerCase()]
+      return second.averageRating[item] - first.averageRating[item]
     }
   })
   
@@ -105,7 +107,7 @@ interface ResourceListHeaderProps {
             colour={colours.neutralLight2}
             highlightOnHover
             key={`club-card-tag-${index}-${text}`}
-            // onChange={() => {changeSortPattern(sortingDefinitions[text])}}
+            onClick={() => {changeSortPattern(sortingDefinitions[text.toLowerCase()])}}
           >
             {text}
           </TagBubble>
@@ -115,16 +117,16 @@ interface ResourceListHeaderProps {
   )
 }
 
-// const ResourceListHeader = ({ onSearch, changeSortPattern, slug }: ResourceListHeaderProps) => {
-const ResourceListHeader = ({ onSearch, slug }: ResourceListHeaderProps) => {
+const ResourceListHeader = ({ onSearch, changeSortPattern, slug }: ResourceListHeaderProps) => {
+// const ResourceListHeader = ({ onSearch, slug }: ResourceListHeaderProps) => {
   return (
     <ResourceListHeaderContainer>
       <ResourceListTitleRow>
         <ResourceListTitle>Explore {ResourceDisplayStrings[slug]}</ResourceListTitle>
         <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
       </ResourceListTitleRow>
-      {/* <ResourceListTags changeSortPattern={changeSortPattern} slug={slug} ></ResourceListTags> */}
-      <ResourceListTags slug={slug} ></ResourceListTags>
+      <ResourceListTags changeSortPattern={changeSortPattern} slug={slug} ></ResourceListTags>
+      {/* <ResourceListTags slug={slug} ></ResourceListTags> */}
     </ResourceListHeaderContainer>
   )
 }
@@ -139,21 +141,21 @@ export const ResourceList = ({ resources, slug }: ResourceListProps) => {
 
   const [filteredResources, setSearchValue] = useSearch(allResources, ['name'])
 
-  // const [sortPattern, setSortPattern] = useState<sortPattern>((first : Resource, second : Resource) => {
-  //   return first.name.localeCompare(second.name);
-  // })
+  const [sortPattern, setSortPattern] = useState(() => (first : Resource, second : Resource) => {
+    return first.name.localeCompare(second.name);
+  })
 
-  // const changeSortPattern = (sortPattern : sortPatternType) => {
-  //   setSortPattern(sortPattern)
-  // }
-
-  // filteredResources.sort(sortPattern);
+  const changeSortPattern = (sortPattern) => {
+    setSortPattern(() => sortPattern)
+  }
+  console.log(sortPattern)
+  filteredResources.sort(sortPattern);
 
   return (
     <ResourceListPage>
       <ResourceListGrid>
-        {/* <ResourceListHeader changeSortPattern={changeSortPattern} onSearch={setSearchValue} slug={slug} /> */}
-        <ResourceListHeader onSearch={setSearchValue} slug={slug} />      
+        <ResourceListHeader changeSortPattern={changeSortPattern} onSearch={setSearchValue} slug={slug} />
+        {/* <ResourceListHeader onSearch={setSearchValue} slug={slug} />       */}
         {filteredResources.map((resource) => (
           <ResourceCard key={resource.id} Resource={resource} />
         ))}

@@ -104,11 +104,58 @@ export const AppProvider = ({ children }) => {
       },
     ],
   }
+  const Village2 = {
+    id: 3,
+    resourceSlug: 'housing' as const,
+    name: 'Village 2',
+    description:
+      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?',
+    location: '123 Street',
+    links: {
+      bannerImage:
+        'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/v1-4.jpg',
+      iconImage: 'https://i.pinimg.com/originals/a6/02/c1/a602c159ab8e0bcac0093805240597ed.png',
+    },
+    galleryImages: [
+      'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
+      'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
+      'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
+    ],
+    averageRating: {cleanliness: 100, price: 0, management: 0},
+    totalReviews: 100,
+    reviews: [
+      {
+        avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
+        faculty: Faculty.Environment,
+        status: Status.PhD,
+        timestamp: new Date(0),
+        comment: 'comment',
+        ratings: {
+          cleanliness: 60,
+          price: 80,
+          management: 40,
+        },
+      },
+      {
+        avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
+        faculty: Faculty.Health,
+        status: Status.U6Plus,
+        timestamp: new Date(),
+        comment: 'comment2',
+        ratings: {
+          cleanliness: 100,
+          price: 40,
+          management: 20,
+        },
+      },
+    ],
+  }
 
   const [houses, setClubs] = useState<Map<Id, House>>(
     new Map([
       [1, REVillage],
       [2, Village1],
+      [3, Village2],
     ])
   )
 
