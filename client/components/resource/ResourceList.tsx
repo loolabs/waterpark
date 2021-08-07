@@ -95,32 +95,37 @@ const SortDropdownSelect = styled.select`
     outline: none;
     border-color: ${colours.primary2};
   }
-
 `
 
 const SortByLabel = styled.label`
   margin-right: 10px;
 `
 
-const SortDropdown = ({slug, changeSortPattern} : {slug: string, changeSortPattern: (sortPatternType) => void}) => { 
-  let criteria = RatingCriteria[slug];
-  let sortingDefinitions = { 
-    "alphabetical" : (first : Resource, second : Resource) => {
-      return first.name.localeCompare(second.name); // sort from least (a) to most (z)
+const SortDropdown = ({
+  slug,
+  changeSortPattern,
+}: {
+  slug: string
+  changeSortPattern: (sortPatternType) => void
+}) => {
+  let criteria = RatingCriteria[slug]
+  let sortingDefinitions = {
+    alphabetical: (first: Resource, second: Resource) => {
+      return first.name.localeCompare(second.name) // sort from least (a) to most (z)
     },
-    "number of ratings" : (first : Resource, second : Resource) => {
-      return second.totalReviews - first.totalReviews; // sort from most to least
-    }
+    'number of ratings': (first: Resource, second: Resource) => {
+      return second.totalReviews - first.totalReviews // sort from most to least
+    },
   }
-  
-  criteria.map(item => {
-    sortingDefinitions[item] = (first : Resource, second : Resource) => {
+
+  criteria.map((item) => {
+    sortingDefinitions[item] = (first: Resource, second: Resource) => {
       return second.averageRating[item] - first.averageRating[item] // sort from most to least
     }
   })
-  
-  criteria = criteria.map(item => capitalizeFirstLetter(item))
-  criteria = [ "Alphabetical", "Number of Ratings", ...criteria]
+
+  criteria = criteria.map((item) => capitalizeFirstLetter(item))
+  criteria = ['Alphabetical', 'Number of Ratings', ...criteria]
 
   const [selected, setSelected] = useState(criteria[0])
 
@@ -129,16 +134,13 @@ const SortDropdown = ({slug, changeSortPattern} : {slug: string, changeSortPatte
       <SortByLabel>Sort: </SortByLabel>
       <SortDropdownSelect
         value={selected}
-        onChange = {(e) => {
-          setSelected(e.target.value);
+        onChange={(e) => {
+          setSelected(e.target.value)
           changeSortPattern(sortingDefinitions[e.target.value.toLowerCase()])
         }}
       >
         {criteria.map((text, index) => (
-          <option
-            key={index}
-            value={text}
-          >
+          <option key={index} value={text}>
             {text}
           </option>
         ))}
@@ -167,14 +169,14 @@ const ResourceListHeader = ({ onSearch, changeSortPattern, slug }: ResourceListH
 
         <Row>
           <ShowLargerThanLaptop>
-            <SortDropdown changeSortPattern={changeSortPattern} slug={slug}/>
+            <SortDropdown changeSortPattern={changeSortPattern} slug={slug} />
           </ShowLargerThanLaptop>
           <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
         </Row>
       </ResourceListTitleRow>
 
       <ShowSmallerThanLaptop>
-        <SortDropdown changeSortPattern={changeSortPattern} slug={slug}/>
+        <SortDropdown changeSortPattern={changeSortPattern} slug={slug} />
       </ShowSmallerThanLaptop>
     </ResourceListHeaderContainer>
   )
@@ -190,19 +192,23 @@ export const ResourceList = ({ resources, slug }: ResourceListProps) => {
 
   const [filteredResources, setSearchValue] = useSearch(allResources, ['name'])
 
-  const [sortPattern, setSortPattern] = useState(() => (first : Resource, second : Resource) => {
-    return first.name.localeCompare(second.name);
+  const [sortPattern, setSortPattern] = useState(() => (first: Resource, second: Resource) => {
+    return first.name.localeCompare(second.name)
   })
 
   const changeSortPattern = (sortPattern) => {
     setSortPattern(() => sortPattern)
   }
-  filteredResources.sort(sortPattern);
+  filteredResources.sort(sortPattern)
 
   return (
     <ResourceListPage>
       <ResourceListGrid>
-        <ResourceListHeader changeSortPattern={changeSortPattern} onSearch={setSearchValue} slug={slug} />
+        <ResourceListHeader
+          changeSortPattern={changeSortPattern}
+          onSearch={setSearchValue}
+          slug={slug}
+        />
         {filteredResources.map((resource) => (
           <ResourceCard key={resource.id} Resource={resource} />
         ))}
