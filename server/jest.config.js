@@ -6,5 +6,5 @@ module.exports = {
       isolatedModules: true,
     },
   },
-  testPathIgnorePatterns: ['/dist', '/legacy'],
+  testPathIgnorePatterns: ['/dist'],
 }
