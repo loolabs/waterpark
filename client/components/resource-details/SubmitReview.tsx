@@ -73,6 +73,10 @@ const ModalTitle = styled.h2`
   margin: 0;
 `
 
+const RedText = styled.span`
+  color: red;
+`
+
 interface Ratings {
   [ratingName: string]: number
 }
@@ -101,7 +105,7 @@ const ModalRating = styled(
   }) => {
     return (
       <div className={className}>
-        <RatingLabel>{capitalizeFirstLetter(ratingName)}</RatingLabel>
+        <RatingLabel>{capitalizeFirstLetter(ratingName)}<RedText> *</RedText></RatingLabel>
         <ReactStars
           count={5}
           char={'●'}
@@ -329,7 +333,7 @@ const ModalContent = ({
         <AboutYou>About You</AboutYou>
 
         <DropdownRow>
-          <DropdownLabel htmlFor="faculty">Faculty or Affiliation </DropdownLabel>
+          <DropdownLabel htmlFor="faculty">Faculty or Affiliation <RedText>*</RedText></DropdownLabel>
           <Dropdown name="faculty" onChange={changeFaculty}>
             <option disabled selected>
               Select an option
@@ -346,7 +350,7 @@ const ModalContent = ({
         <br />
 
         <DropdownRow>
-          <DropdownLabel htmlFor="status">Reviewer Status </DropdownLabel>
+          <DropdownLabel htmlFor="status">Reviewer Status <RedText>*</RedText></DropdownLabel>
           <Dropdown name="status" onChange={changeStatus}>
             <option disabled selected>
               Select an option
