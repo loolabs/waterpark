@@ -1,11 +1,9 @@
 import { useSearch } from '../hooks'
-import { TagGroup, TagRow } from './Tag'
-import { TagBubble } from '../common/TagBubble'
 import { Resource, Id, ResourceDisplayStrings, RatingCriteria } from '../../utils'
 import { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { ResourceCard } from './ResourceCard'
-import { PageTitle, width, smallerThan, largerThan, colours } from '../../styles'
+import { PageTitle, width, smallerThan, largerThan, colours, fontInter } from '../../styles'
 import { SearchInput } from '../SearchInput'
 import { capitalizeFirstLetter } from '../common/Functions'
 
@@ -64,10 +62,6 @@ const ResourceListTitle = styled(PageTitle)`
   white-space: nowrap;
 `
 
-const RightSpaceWrapper = styled.div`
-  margin-right: auto;
-`
-
 type sortPatternType = (first: Resource, second: Resource) => number
 
 interface ResourceListHeaderProps {
@@ -76,7 +70,40 @@ interface ResourceListHeaderProps {
   slug: string
 }
 
-const ResourceListTags = ({slug, changeSortPattern} : {slug: string, changeSortPattern: (sortPatternType) => void}) => { 
+const Row = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const SortDropdownSelect = styled.select`
+  padding: 4px;
+  border-radius: 16px;
+  font-size: 12px;
+  background: white;
+  font-family: ${fontInter};
+  &:hover {
+    background: ${colours.neutralLight1};
+  }
+  height: 32px;
+  @media ${largerThan(width.tablet)} {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 24px;
+    height: 48px;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: ${colours.primary2};
+  }
+
+`
+
+const SortByLabel = styled.label`
+  margin-right: 10px;
+`
+
+const SortDropdown = ({slug, changeSortPattern} : {slug: string, changeSortPattern: (sortPatternType) => void}) => { 
   let criteria = RatingCriteria[slug];
   let sortingDefinitions = { 
     "alphabetical" : (first : Resource, second : Resource) => {
@@ -96,32 +123,60 @@ const ResourceListTags = ({slug, changeSortPattern} : {slug: string, changeSortP
   criteria = criteria.map(item => capitalizeFirstLetter(item))
   criteria = [ "Alphabetical", "Number of Ratings", ...criteria]
 
+  const [selected, setSelected] = useState(criteria[0])
+
   return (
-    <TagRow>
-      <TagGroup>  
+    <Row>
+      <SortByLabel>Sort: </SortByLabel>
+      <SortDropdownSelect
+        value={selected}
+        onChange = {(e) => {
+          setSelected(e.target.value);
+          changeSortPattern(sortingDefinitions[e.target.value.toLowerCase()])
+        }}
+      >
         {criteria.map((text, index) => (
-          <TagBubble
-            colour={colours.neutralLight2}
-            highlightOnHover
-            key={`club-card-tag-${index}-${text}`}
-            onClick={() => {changeSortPattern(sortingDefinitions[text.toLowerCase()])}}
+          <option
+            key={index}
+            value={text}
           >
             {text}
-          </TagBubble>
+          </option>
         ))}
-      </TagGroup>
-    </TagRow>
+      </SortDropdownSelect>
+    </Row>
   )
 }
+
+const ShowSmallerThanLaptop = styled.div`
+  @media ${largerThan(width.laptop)} {
+    display: none;
+  }
+`
+
+const ShowLargerThanLaptop = styled.div`
+  @media ${smallerThan(width.laptop)} {
+    display: none;
+  }
+`
 
 const ResourceListHeader = ({ onSearch, changeSortPattern, slug }: ResourceListHeaderProps) => {
   return (
     <ResourceListHeaderContainer>
       <ResourceListTitleRow>
         <ResourceListTitle>Explore {ResourceDisplayStrings[slug]}</ResourceListTitle>
-        <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
+
+        <Row>
+          <ShowLargerThanLaptop>
+            <SortDropdown changeSortPattern={changeSortPattern} slug={slug}/>
+          </ShowLargerThanLaptop>
+          <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
+        </Row>
       </ResourceListTitleRow>
-      <ResourceListTags changeSortPattern={changeSortPattern} slug={slug} ></ResourceListTags>
+
+      <ShowSmallerThanLaptop>
+        <SortDropdown changeSortPattern={changeSortPattern} slug={slug}/>
+      </ShowSmallerThanLaptop>
     </ResourceListHeaderContainer>
   )
 }
