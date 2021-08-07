@@ -1,3 +1,4 @@
+import { MikroPlaceRepo } from './../../modules/places/infra/repos/implementations/mikro-place-repo';
 import {
   MikroORM,
   EntityRepository,
@@ -17,6 +18,7 @@ import { UserEntity } from '../../shared/infra/db/entities/legacy/user.entity'
 import { MikroClubRepo } from '../../modules/legacy/clubs/infra/repos/implementations/mikro-club-repo'
 import { MikroEventRepo } from '../../modules/legacy/events/infra/repos/implementations/mikro-event-repo'
 import { MikroUserRepo } from '../../modules/users/infra/repos/implementations/mikro-user-repo'
+import { PlaceEntity } from '../../shared/infra/db/entities/places/place.entity';
 
 class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrategy {
   classToTableName(entityName: string) {
@@ -48,7 +50,7 @@ class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrat
 }
 
 const clientUrl = process.env.DATABASE_URL
-// Heroku's postgres service self-signs SSL certificates,
+// Heroku's postgres service self-signs SSL certificates (whatever that means),
 // and in production, the dyno complains with Error: self signed certificate.
 // This is probably the underlying PG driver complaining, so the temporary
 // workaround is to allow unauthorized SSL certificates, per below.
@@ -57,6 +59,7 @@ const sslOptions = { rejectUnauthorized: false }
 const isDatabaseLocal = process.env.IS_DATABASE_LOCAL === 'true'
 const isDatabaseSSL = isDatabaseLocal ? false : sslOptions
 
+// TODO: import connection-related properties from root .env
 const baseOptions: Options = {
   // debug: process.env.NODE_ENV !== 'production',
   clientUrl,
@@ -69,7 +72,7 @@ const baseOptions: Options = {
   debug: true,
   highlighter: new SqlHighlighter(),
   entities: ['**/*.entity.js'],
-  entitiesTs: ['**/*.entity.ts'], // path to TS entities (source), relative to `baseDir`
+  entitiesTs: ['**/*.entity.ts'], // path to your TS entities (source), relative to `baseDir`
   metadataProvider: TsMorphMetadataProvider,
   migrations: {
     disableForeignKeys: false,
@@ -89,6 +92,7 @@ interface MikroEntityRepos {
   event: EntityRepository<EventEntity>
   tag: EntityRepository<LegacyTagEntity>
   user: EntityRepository<UserEntity>
+  place: EntityRepository<PlaceEntity>
 }
 const setupMikroEntityRepos = ({ em: entityManager }: MikroORM): MikroEntityRepos => {
   return {
@@ -96,6 +100,7 @@ const setupMikroEntityRepos = ({ em: entityManager }: MikroORM): MikroEntityRepo
     event: entityManager.getRepository(EventEntity),
     tag: entityManager.getRepository(LegacyTagEntity),
     user: entityManager.getRepository(UserEntity),
+    place: entityManager.getRepository(PlaceEntity),
   }
 }
 
@@ -103,6 +108,7 @@ interface MikroRepos extends Repos {
   club: MikroClubRepo
   event: MikroEventRepo
   user: MikroUserRepo
+  place: MikroPlaceRepo
 }
 
 const setupMikroRepos = (mikroEntityRepos: MikroEntityRepos): MikroRepos => {
@@ -110,6 +116,7 @@ const setupMikroRepos = (mikroEntityRepos: MikroEntityRepos): MikroRepos => {
     club: new MikroClubRepo(mikroEntityRepos.club),
     event: new MikroEventRepo(mikroEntityRepos.event),
     user: new MikroUserRepo(mikroEntityRepos.user),
+    place: new MikroPlaceRepo(mikroEntityRepos.place),
   }
 }
 
