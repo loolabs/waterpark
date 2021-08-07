@@ -1,3 +1,4 @@
+import { MikroPlaceRepo } from './../../modules/places/infra/repos/implementations/mikro-place-repo';
 import {
   MikroORM,
   EntityRepository,
@@ -14,9 +15,10 @@ import { ClubEntity } from '../../shared/infra/db/entities/legacy/club.entity'
 import { EventEntity } from '../../shared/infra/db/entities/legacy/event.entity'
 import { LegacyTagEntity } from '../../shared/infra/db/entities/legacy/tag.entity'
 import { UserEntity } from '../../shared/infra/db/entities/legacy/user.entity'
-import { MikroClubRepo } from '../../modules/clubs/infra/repos/implementations/mikro-club-repo'
-import { MikroEventRepo } from '../../modules/events/infra/repos/implementations/mikro-event-repo'
+import { MikroClubRepo } from '../../modules/legacy/clubs/infra/repos/implementations/mikro-club-repo'
+import { MikroEventRepo } from '../../modules/legacy/events/infra/repos/implementations/mikro-event-repo'
 import { MikroUserRepo } from '../../modules/users/infra/repos/implementations/mikro-user-repo'
+import { PlaceEntity } from '../../shared/infra/db/entities/places/place.entity';
 
 class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrategy {
   classToTableName(entityName: string) {
@@ -89,6 +91,7 @@ interface MikroEntityRepos {
   event: EntityRepository<EventEntity>
   tag: EntityRepository<LegacyTagEntity>
   user: EntityRepository<UserEntity>
+  place: EntityRepository<PlaceEntity>
 }
 const setupMikroEntityRepos = ({ em: entityManager }: MikroORM): MikroEntityRepos => {
   return {
@@ -96,6 +99,7 @@ const setupMikroEntityRepos = ({ em: entityManager }: MikroORM): MikroEntityRepo
     event: entityManager.getRepository(EventEntity),
     tag: entityManager.getRepository(LegacyTagEntity),
     user: entityManager.getRepository(UserEntity),
+    place: entityManager.getRepository(PlaceEntity),
   }
 }
 
@@ -103,12 +107,15 @@ interface MikroRepos extends Repos {
   club: MikroClubRepo
   event: MikroEventRepo
   user: MikroUserRepo
+  place: MikroPlaceRepo
 }
+
 const setupMikroRepos = (mikroEntityRepos: MikroEntityRepos): MikroRepos => {
   return {
     club: new MikroClubRepo(mikroEntityRepos.club),
     event: new MikroEventRepo(mikroEntityRepos.event),
     user: new MikroUserRepo(mikroEntityRepos.user),
+    place: new MikroPlaceRepo(mikroEntityRepos.place),
   }
 }
 

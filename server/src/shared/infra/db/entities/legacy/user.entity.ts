@@ -1,35 +1,35 @@
-import { AfterCreate, Entity, EventArgs, Property } from '@mikro-orm/core'
-import { DomainEvents } from '../../../../domain/events/domain-events'
-import { UniqueEntityID } from '../../../../domain/unique-entity-id'
-import { BaseEntity } from '../base.entity'
+import { AfterCreate, Entity, EventArgs, Property } from '@mikro-orm/core';
+import { DomainEvents } from '../../../../domain/events/domain-events';
+import { UniqueEntityID } from '../../../../domain/unique-entity-id';
+import { BaseEntity } from '../base.entity';
 
 @Entity()
 export class UserEntity extends BaseEntity {
   @Property()
-  email!: string
+  email!: string;
 
   @Property()
-  password!: string
+  password!: string;
 
   @Property({ default: false })
-  emailVerified!: boolean
+  emailVerified!: boolean;
 
   @Property({ default: false })
-  isDeleted!: boolean
+  isDeleted!: boolean;
 
   @Property()
-  accessToken?: string
+  accessToken?: string;
 
   @Property()
-  refreshToken?: string
+  refreshToken?: string;
 
   @Property()
-  lastLogin?: Date
+  lastLogin?: Date;
 
   @AfterCreate()
   afterCreate(target: EventArgs<UserEntity>) {
-    const id = target.entity.id
-    const aggregateId = new UniqueEntityID(id)
-    DomainEvents.dispatchEventsForAggregate(aggregateId)
+    const id = target.entity.id;
+    const aggregateId = new UniqueEntityID(id);
+    DomainEvents.dispatchEventsForAggregate(aggregateId);
   }
 }
