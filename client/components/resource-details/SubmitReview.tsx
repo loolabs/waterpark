@@ -199,10 +199,10 @@ const PostButton = styled.button`
   }
 
   &:disabled {
-    border: medium solid ${colours.neutralDark1} !important;
-    background: ${colours.neutralDark1} !important;
+    border: medium solid ${colours.neutralLight3} !important;
+    background: ${colours.neutralLight3} !important;
     color: white !important;
-    cursor: auto;
+    cursor: not-allowed;
   }
 `
 
