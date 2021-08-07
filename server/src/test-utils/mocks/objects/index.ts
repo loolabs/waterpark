@@ -1,4 +1,4 @@
-export * from './clubs'
-export * from './events'
-export * from './tags'
+export * from './legacy/clubs'
+export * from './legacy/events'
+export * from './legacy/tags'
 export * from './users'

@@ -2,8 +2,8 @@ import { Router } from 'express'
 import { APIRouter } from './types'
 import { Controllers } from '../../application'
 import { UserRouter } from '../../../modules/users/infra/http/routes/user-router'
-import { ClubRouter } from '../../../modules/clubs/infra/http/routes/club-router'
-import { EventRouter } from '../../../modules/events/infra/http/routes/event-router'
+import { ClubRouter } from '../../../modules/legacy/clubs/infra/http/routes/club-router'
+import { EventRouter } from '../../../modules/legacy/events/infra/http/routes/event-router'
 
 const setupV1APIRouter = (controllers: Controllers): APIRouter => {
   const endpointRouters = {

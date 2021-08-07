@@ -14,8 +14,8 @@ import { ClubEntity } from '../../shared/infra/db/entities/legacy/club.entity'
 import { EventEntity } from '../../shared/infra/db/entities/legacy/event.entity'
 import { LegacyTagEntity } from '../../shared/infra/db/entities/legacy/tag.entity'
 import { UserEntity } from '../../shared/infra/db/entities/legacy/user.entity'
-import { MikroClubRepo } from '../../modules/clubs/infra/repos/implementations/mikro-club-repo'
-import { MikroEventRepo } from '../../modules/events/infra/repos/implementations/mikro-event-repo'
+import { MikroClubRepo } from '../../modules/legacy/clubs/infra/repos/implementations/mikro-club-repo'
+import { MikroEventRepo } from '../../modules/legacy/events/infra/repos/implementations/mikro-event-repo'
 import { MikroUserRepo } from '../../modules/users/infra/repos/implementations/mikro-user-repo'
 
 class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrategy {
@@ -104,6 +104,7 @@ interface MikroRepos extends Repos {
   event: MikroEventRepo
   user: MikroUserRepo
 }
+
 const setupMikroRepos = (mikroEntityRepos: MikroEntityRepos): MikroRepos => {
   return {
     club: new MikroClubRepo(mikroEntityRepos.club),
