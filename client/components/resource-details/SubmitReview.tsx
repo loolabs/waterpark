@@ -197,6 +197,13 @@ const PostButton = styled.button`
     background: white;
     color: ${colours.primary2};
   }
+
+  &:disabled {
+    border: medium solid ${colours.neutralDark1} !important;
+    background: ${colours.neutralDark1} !important;
+    color: white !important;
+    cursor: auto;
+  }
 `
 
 const ButtonDiv = styled.div`
@@ -268,8 +275,8 @@ const ModalContent = ({
   }
 
   const [aboutYou, setAboutYou] = useState<AboutYouData>({
-    faculty: Faculty.Mathematics,
-    status: Status.Other,
+    faculty: null,
+    status: null,
   })
 
   const changeFaculty = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -280,10 +287,26 @@ const ModalContent = ({
     setAboutYou({ ...aboutYou, status: Status[e.target.value] })
   }
 
+  const validate = () => {
+    let validated = true;
+
+    Object.keys(ratings).forEach((key) => { if (ratings[key] == 0) { validated = false }})
+
+    if (aboutYou.faculty == null) {
+      validated = false;
+    }
+    if (aboutYou.status == null) {
+      validated = false;
+    }
+
+    return validated;
+  }
+
   const onRequestPost = () => {
     Object.keys(ratings).map((key) => (ratings[key] *= 10))
     const response = { ...ratings, comment, ...aboutYou }
     console.log(response)
+
     // TODO post response
     onRequestClose()
   }
@@ -326,7 +349,6 @@ const ModalContent = ({
             onChange={changeComment}
             rows={5}
             cols={50}
-            required={true}
           />
         </ModalCommentDiv>
 
@@ -370,7 +392,7 @@ const ModalContent = ({
           <CancelButton type="button" onClick={onRequestClose}>
             Cancel
           </CancelButton>
-          <PostButton onClick={onRequestPost}>Post</PostButton>
+          <PostButton onClick={onRequestPost} disabled={!validate()}>Post</PostButton>
         </ButtonDiv>
       </form>
     </>
