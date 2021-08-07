@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import { ResourceCard } from './ResourceCard'
 import { PageTitle, width, smallerThan, largerThan, colours } from '../../styles'
 import { SearchInput } from '../SearchInput'
-import { capitalizeFirstLetter } from '../common/functions'
+import { capitalizeFirstLetter } from '../common/Functions'
 
 const ResourceListPage = styled.div`
   margin-top: 65px;
@@ -83,16 +83,16 @@ const ResourceListTags = ({slug, changeSortPattern} : {slug: string, changeSortP
   let criteria = RatingCriteria[slug];
   let sortingDefinitions = { 
     "alphabetical" : (first : Resource, second : Resource) => {
-      return first.name.localeCompare(second.name);
+      return first.name.localeCompare(second.name); // sort from least (a) to most (z)
     },
     "number of ratings" : (first : Resource, second : Resource) => {
-      return second.totalReviews - first.totalReviews;
+      return second.totalReviews - first.totalReviews; // sort from most to least
     }
   }
   
   criteria.map(item => {
     sortingDefinitions[item] = (first : Resource, second : Resource) => {
-      return second.averageRating[item] - first.averageRating[item]
+      return second.averageRating[item] - first.averageRating[item] // sort from most to least
     }
   })
   

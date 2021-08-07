@@ -4,7 +4,7 @@ import { Review } from '../../utils/types'
 import ReactStars from 'react-stars'
 import { formatRelative } from 'date-fns'
 import { SubmitReview } from './SubmitReview'
-import { capitalizeFirstLetter } from '../common/functions'
+import { capitalizeFirstLetter } from '../common/Functions'
 
 export const Reviews = ({
   reviews,
