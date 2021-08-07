@@ -2,7 +2,6 @@
 # yet. See example clubs.yml file for example input. db.ini file must be
 # in same directory
 
-import sys
 from configparser import ConfigParser
 from datetime import datetime
 from os import path
@@ -13,7 +12,7 @@ import psycopg2
 import yaml
 from marshmallow import Schema, fields, validate
 
-filepath = "temp.yml"
+filepath = "clubs.yml"
 tag_entities = {}
 
 
@@ -61,18 +60,6 @@ class ClubSchema(Schema):
     tags = fields.List(fields.Str(
         validate=validate.OneOf([tag.value for tag in Tags])))
 
-def get_tags():
-    tags = []
-    with conn.cursor() as cursor:
-        cursor.execute("SELECT * FROM tag")
-        tags = cursor.fetchall()
-    if (len(tags) == 0):
-        return False
-    else:
-        for tag in tags:
-            tag_entities[tag[0]] = tag[3]
-        print("Tags Found")
-        return True
 
 def insert_tags():
     tag_args = []
@@ -172,18 +159,11 @@ def connect():
 
 conn = connect()
 
-if (not get_tags()):
-    insert_tags()
+if conn is None:
+    exit()
 
-# CURRENT CLUB.YML IS WRONG. EVENTS MUST HAVE TAGS
-# if ("-t" in sys.argv):
-#     insert_tags();
-
-# if conn is None:
-#     exit()
-
-# insert_tags()
-# insert_clubs()
+insert_tags()
+insert_clubs()
 
 conn.close()
 print("Connection Closed")
