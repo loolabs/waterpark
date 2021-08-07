@@ -3,8 +3,8 @@ import { MockPlaceRepo } from '../../../modules/places/infra/repos/implementatio
 import { GetAllPlacesController } from '../../../modules/places/application/use-cases/get-all-places/get-all-places-controller';
 import { GetAllPlacesUseCase } from '../../../modules/places/application/use-cases/get-all-places/get-all-places-use-case';
 
-const mockGetAllPlaces = (eventEntities: Array<PlaceEntity> = []) => {
-  const placeRepo = new MockPlaceRepo(eventEntities);
+const mockGetAllPlaces = (placeEntities: Array<PlaceEntity> = []) => {
+  const placeRepo = new MockPlaceRepo(placeEntities);
   const getAllPlacesUseCase = new GetAllPlacesUseCase(placeRepo);
   const getAllPlacesController = new GetAllPlacesController(getAllPlacesUseCase);
 

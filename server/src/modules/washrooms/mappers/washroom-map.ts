@@ -36,8 +36,20 @@ export class WashroomMap {
 
   public static async toPersistence(washroom: Washroom): Promise<WashroomEntity> {
     const washroomEntity = new WashroomEntity();
+<<<<<<< HEAD
     washroomEntity.place.name = washroom.name;
     washroomEntity.place.description = washroom.description;
+=======
+    const { place } = washroomEntity;
+    place.name = washroom.name;
+    place.description = washroom.description;
+    place.address = washroom.address;
+    place.url = washroom.url;
+    place.onCampus = washroom.onCampus;
+    place.bannerImage = washroom.bannerImage;
+    place.iconImage = washroom.iconImage;
+    // TODO: not sure about reviews or tags
+>>>>>>> 254b99c8f433e5f91c174bce3cfb264e5a8dd40f
 
     return washroomEntity;
   }
