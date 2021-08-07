@@ -219,6 +219,12 @@ const Dropdown = styled.select`
   &:hover {
     background: ${colours.neutralLight1};
   }
+
+  &:focus {
+    outline: none;
+    border-color: ${colours.primary2};
+  }
+
 `
 
 const DropdownLabel = styled.label`

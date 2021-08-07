@@ -78,7 +78,7 @@ const Row = styled.div`
 const SortDropdownSelect = styled.select`
   padding: 4px;
   border-radius: 16px;
-  font-size: 12px;
+  font-size: 16px;
   background: white;
   font-family: ${fontInter};
   &:hover {
@@ -87,7 +87,6 @@ const SortDropdownSelect = styled.select`
   height: 32px;
   @media ${largerThan(width.tablet)} {
     padding: 8px;
-    font-size: 16px;
     border-radius: 24px;
     height: 48px;
   }
