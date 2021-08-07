@@ -1,9 +1,9 @@
-import { UseCaseWithoutDTO } from '../../../../../shared/app/use-case-without-dto'
-import { AppError } from '../../../../../shared/core/app-error'
-import { Result } from '../../../../../shared/core/result'
-import { PlaceRepo } from '../../../infra/repos/place-repo'
-import { PlaceDTO } from '../../../mappers/place-dto'
-import { PlaceMap } from '../../../mappers/place-map'
+import { UseCaseWithoutDTO } from '../../../../shared/app/use-case-without-dto'
+import { AppError } from '../../../../shared/core/app-error'
+import { Result } from '../../../../shared/core/result'
+import { PlaceRepo } from '../../repos/place-repo'
+import { PlaceDTO } from '../../mappers/place-dto'
+import { PlaceMap } from '../../mappers/place-map'
 
 type GetAllPlacesUseCaseError = AppError.UnexpectedError
 

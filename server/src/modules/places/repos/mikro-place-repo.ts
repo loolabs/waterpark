@@ -1,10 +1,10 @@
-import { PlaceEntity } from './../../../../../shared/infra/db/entities/places/place.entity'
+import { PlaceEntity } from '../../../shared/infra/db/entities/places/place.entity'
 import { EntityRepository, QueryOrder } from '@mikro-orm/core'
-import { Place } from '../../../domain/entities/place'
-import { PlaceMap } from '../../../mappers/place-map'
-import { PlaceRepo } from '../place-repo'
-import { Result } from '../../../../../shared/core/result'
-import { AppError } from '../../../../../shared/core/app-error'
+import { Place } from '../domain/entities/place'
+import { PlaceMap } from '../mappers/place-map'
+import { PlaceRepo } from './place-repo'
+import { Result } from '../../../shared/core/result'
+import { AppError } from '../../../shared/core/app-error'
 
 export class MikroPlaceRepo implements PlaceRepo {
   constructor(protected placesEntityRepo: EntityRepository<PlaceEntity>) {}

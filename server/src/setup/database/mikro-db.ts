@@ -1,4 +1,4 @@
-import { MikroPlaceRepo } from './../../modules/places/infra/repos/implementations/mikro-place-repo';
+import { MikroPlaceRepo } from '../../modules/places/repos/mikro-place-repo'
 import {
   MikroORM,
   EntityRepository,
@@ -18,7 +18,7 @@ import { UserEntity } from '../../shared/infra/db/entities/legacy/user.entity'
 import { MikroClubRepo } from '../../modules/legacy/clubs/infra/repos/implementations/mikro-club-repo'
 import { MikroEventRepo } from '../../modules/legacy/events/infra/repos/implementations/mikro-event-repo'
 import { MikroUserRepo } from '../../modules/users/infra/repos/implementations/mikro-user-repo'
-import { PlaceEntity } from '../../shared/infra/db/entities/places/place.entity';
+import { PlaceEntity } from '../../shared/infra/db/entities/places/place.entity'
 
 class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrategy {
   classToTableName(entityName: string) {

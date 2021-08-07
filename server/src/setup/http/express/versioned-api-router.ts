@@ -4,7 +4,7 @@ import { Controllers } from '../../application'
 import { UserRouter } from '../../../modules/users/infra/http/routes/user-router'
 import { ClubRouter } from '../../../modules/legacy/clubs/infra/http/routes/club-router'
 import { EventRouter } from '../../../modules/legacy/events/infra/http/routes/event-router'
-import { PlaceRouter } from '../../../modules/places/infra/http/routes/place-router'
+import { PlaceRouter } from '../../../modules/places/http/place-router'
 
 const setupV1APIRouter = (controllers: Controllers): APIRouter => {
   const endpointRouters = {

@@ -1,10 +1,10 @@
-import { mocks } from '../../../../../../test-utils'
-import { PlaceDTO } from '../../../../mappers/place-dto'
-import { Result } from '../../../../../../shared/core/result'
+import { mocks } from '../../../../../test-utils'
+import { PlaceDTO } from '../../../mappers/place-dto'
+import { Result } from '../../../../../shared/core/result'
 import { GetAllPlacesUseCase } from '../get-all-places-use-case'
-import { AppError } from '../../../../../../shared/core/app-error'
+import { AppError } from '../../../../../shared/core/app-error'
 
-jest.mock('../../../../infra/repos/implementations/mock-place-repo')
+jest.mock('../../../repos/mock-place-repo')
 
 describe('GetAllPlacesController', () => {
   const ids: Array<string> = [1, 2, 3].map(String)

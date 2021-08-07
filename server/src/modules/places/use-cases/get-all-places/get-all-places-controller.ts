@@ -1,5 +1,5 @@
 import express from 'express'
-import { ControllerWithoutDTO } from '../../../../../shared/app/controller-without-dto'
+import { ControllerWithoutDTO } from '../../../../shared/app/controller-without-dto'
 import { GetAllPlacesUseCase } from './get-all-places-use-case'
 
 export class GetAllPlacesController extends ControllerWithoutDTO<GetAllPlacesUseCase> {
