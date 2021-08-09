@@ -2,18 +2,18 @@ import { PlaceEntity } from '../../../shared/infra/db/entities/places/place.enti
 import { EntityRepository, QueryOrder } from '@mikro-orm/core'
 import { Place } from '../domain/entities/place'
 import { PlaceMap } from '../mappers/place-map'
-import { PlaceRepo } from './place-repo'
+import { PlaceRepo, PlaceOptions } from './place-repo'
 import { Result } from '../../../shared/core/result'
 import { AppError } from '../../../shared/core/app-error'
 
 export class MikroPlaceRepo implements PlaceRepo {
   constructor(protected placesEntityRepo: EntityRepository<PlaceEntity>) {}
 
-  async getAllPlaces(
-    reviews: boolean = false
-  ): Promise<Result<Array<Place>, AppError.UnexpectedError>> {
+  async getAllPlaces({ mustIncludeReviews }: PlaceOptions = {}): Promise<
+    Result<Array<Place>, AppError.UnexpectedError>
+  > {
     const populateFields = ['tags']
-    if (reviews) {
+    if (mustIncludeReviews) {
       populateFields.push('reviews')
     }
 
