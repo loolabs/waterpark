@@ -1,5 +1,5 @@
 import { useSearch } from '../hooks'
-import { Resource, Id, ResourceDisplayStrings, RatingCriteria } from '../../utils'
+import { Resource, Id, resourceLookup } from '../../utils'
 import { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { ResourceCard } from './ResourceCard'
@@ -108,7 +108,7 @@ const SortDropdown = ({
   slug: string
   changeSortPattern: (sortPatternType) => void
 }) => {
-  let criteria = RatingCriteria[slug]
+  let criteria = resourceLookup[slug]['criteria']
   const sortingDefinitions = {
     alphabetical: (first: Resource, second: Resource) => {
       return first.name.localeCompare(second.name) // sort from least (a) to most (z)
@@ -118,16 +118,15 @@ const SortDropdown = ({
     },
   }
 
-  criteria.map((item) => {
+  for (const item of criteria) {
     sortingDefinitions[item] = (first: Resource, second: Resource) => {
       return second.averageRating[item] - first.averageRating[item] // sort from most to least
     }
-  })
+  }
 
-  criteria = criteria.map((item) => capitalizeFirstLetter(item))
-  criteria = ['Alphabetical', 'Number of Ratings', ...criteria]
-
-  const [selected, setSelected] = useState(criteria[0])
+  const capitalizedCriteria = criteria.map((item) => capitalizeFirstLetter(item))
+  capitalizedCriteria.unshift('Alphabetical', 'Number of Ratings')
+  const [selected, setSelected] = useState(capitalizedCriteria[0])
 
   return (
     <Row>
@@ -139,7 +138,7 @@ const SortDropdown = ({
           changeSortPattern(sortingDefinitions[e.target.value.toLowerCase()])
         }}
       >
-        {criteria.map((text, index) => (
+        {capitalizedCriteria.map((text, index) => (
           <option key={index} value={text}>
             {text}
           </option>
@@ -165,7 +164,7 @@ const ResourceListHeader = ({ onSearch, changeSortPattern, slug }: ResourceListH
   return (
     <ResourceListHeaderContainer>
       <ResourceListTitleRow>
-        <ResourceListTitle>Explore {ResourceDisplayStrings[slug]}</ResourceListTitle>
+        <ResourceListTitle>Explore {resourceLookup[slug]['title']}</ResourceListTitle>
 
         <Row>
           <ShowLargerThanLaptop>

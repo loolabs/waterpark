@@ -11,7 +11,7 @@ import {
 import Modal from 'react-modal'
 import { useState, Fragment } from 'react'
 import ReactStars from 'react-stars'
-import { Faculty, Status, RatingCriteria } from '../../utils'
+import { Faculty, Status, resourceLookup } from '../../utils'
 import { capitalizeFirstLetter } from '../common/Functions'
 
 const SubmitButton = styled.button`
@@ -249,7 +249,7 @@ const ModalContent = ({
 }) => {
   const [comment, setComment] = useState('')
 
-  const initialRatings: Ratings = RatingCriteria[resourceSlug].reduce(
+  const initialRatings: Ratings = resourceLookup[resourceSlug]['criteria'].reduce(
     (o, key) => ({ ...o, [key]: 0 }),
     {}
   )
