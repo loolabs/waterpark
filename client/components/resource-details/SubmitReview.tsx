@@ -292,10 +292,10 @@ const ModalContent = ({
 
     Object.keys(ratings).forEach((key) => { if (ratings[key] == 0) { validated = false }})
 
-    if (aboutYou.faculty == null) {
+    if (!aboutYou.faculty) {
       validated = false;
     }
-    if (aboutYou.status == null) {
+    if (!aboutYou.status) {
       validated = false;
     }
 
