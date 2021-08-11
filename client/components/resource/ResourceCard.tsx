@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-import { TagGroup, TagRow } from './Tag'
+import { capitalizeFirstLetter } from '../common/Functions'
 import { TagBubble } from '../common/TagBubble'
-import { Resource } from '../../utils'
+import { Resource, resourceLookup } from '../../utils'
 import { colours } from '../../styles'
 
 // Shared styled components that can probably be factored out later
@@ -63,7 +63,7 @@ const ResourceCardName = styled.h2`
 `
 
 const ResourceCardDescription = styled.p`
-  height: 64px;
+  height: 3.5em;
   overflow: hidden;
   position: relative;
   margin-bottom: 24px;
@@ -92,6 +92,38 @@ interface ResourceCardProps {
   Resource: Resource
 }
 
+const StatisticsRow = styled.div`
+  display: flex;
+  margin-left: 24px;
+  margin-right: 24px;
+  margin-top: 24px;
+`
+
+const Statistic = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+`
+
+const StatisticHeader = styled.p`
+  margin: 0;
+  font-weight: 700;
+`
+
+const StatisticNumber = styled.p`
+  margin-top: 8px;
+  font-size: 1.2em;
+  margin-bottom: 0px;
+`
+
+const TotalReviews = styled.p`
+  color: ${colours.primary1};
+  margin-left: 24px;
+  margin-right: 24px;
+  margin-bottom: 24px;
+  font-weight: 700;
+`
+
 export const ResourceCard = ({ Resource }: ResourceCardProps) => {
   const { id, name, description, links, resourceSlug } = Resource
   const router = useRouter()
@@ -99,6 +131,8 @@ export const ResourceCard = ({ Resource }: ResourceCardProps) => {
   const handleClick = () => {
     router.push({ pathname: `/${resourceSlug}/${id}` })
   }
+
+  console.log(resourceLookup[resourceSlug]['criteria'])
 
   return (
     <ResourceCardContainer onClick={handleClick}>
@@ -113,6 +147,15 @@ export const ResourceCard = ({ Resource }: ResourceCardProps) => {
           <TagGroup>{tags.map(ResourceCardTag)}</TagGroup>
         </TagRow> */}
       </ResourceCardContent>
+      <StatisticsRow>
+        {resourceLookup[resourceSlug]['criteria'].map((criteria) => (
+          <Statistic>
+            <StatisticHeader>{capitalizeFirstLetter(criteria)}</StatisticHeader>
+            <StatisticNumber>{Resource.averageRating[criteria]}%</StatisticNumber>
+          </Statistic>
+        ))}
+      </StatisticsRow>
+      <TotalReviews>{Resource.totalReviews} Reviews</TotalReviews>
       {/* <p>
         {JSON.stringify(Resource.averageRating)}
       </p>
