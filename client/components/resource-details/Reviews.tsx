@@ -146,7 +146,7 @@ const Rating = styled(
         <RatingLabel>{capitalizeFirstLetter(label)}</RatingLabel>
         <ReactStars
           count={5}
-          char={'●'}
+          char={'⬤'}
           value={score / 20}
           size={24}
           color1={'#DDDDDD'}
