@@ -1,16 +1,28 @@
 type URL = string
 
-// Maps resource slugs to arrays of review rating criteria
-export const RatingCriteria: { [key: string]: Array<string> } = {
-  housing: ['cleanliness', 'price', 'management'],
-  'study-spots': ['cleanliness', 'noise'],
-  washrooms: ['cleanliness'],
+interface ResourceInfo {
+  title: string
+  criteria: Array<string>
 }
 
-export const ResourceDisplayStrings: { [key: string]: string } = {
-  housing: 'Housing',
-  'study-spots': 'Study Spots',
-  washrooms: 'Washrooms',
+interface ResourceLookup {
+  [name: string]: ResourceInfo
+}
+
+// Maps resource slugs to arrays of review rating criteria
+export const resourceLookup: ResourceLookup = {
+  housing: {
+    title: 'Housing',
+    criteria: ['cleanliness', 'price', 'management'],
+  },
+  'study-spots': {
+    title: 'Study Spots',
+    criteria: ['cleanliness', 'noise'],
+  },
+  washrooms: {
+    title: 'Washrooms',
+    criteria: ['cleanliness'],
+  },
 }
 
 export interface Resource {
