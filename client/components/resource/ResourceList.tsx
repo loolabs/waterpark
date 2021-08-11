@@ -109,7 +109,7 @@ const SortDropdown = ({
   changeSortPattern: (sortPatternType) => void
 }) => {
   let criteria = RatingCriteria[slug]
-  let sortingDefinitions = {
+  const sortingDefinitions = {
     alphabetical: (first: Resource, second: Resource) => {
       return first.name.localeCompare(second.name) // sort from least (a) to most (z)
     },
