@@ -63,7 +63,6 @@ const ResourceCardName = styled.h2`
 `
 
 const ResourceCardDescription = styled.p`
-  height: 3.5em;
   overflow: hidden;
   position: relative;
   margin-bottom: 24px;
