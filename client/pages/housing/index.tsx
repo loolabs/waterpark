@@ -5,5 +5,5 @@ import { ResourceList } from '../../components/resource'
 export default function Housing() {
   const { houses } = useAppContext()
 
-  return <ResourceList resources={houses} />
+  return <ResourceList resources={houses} slug={'housing'} />
 }

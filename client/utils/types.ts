@@ -1,12 +1,28 @@
-import { Moment } from 'moment-timezone'
-
 type URL = string
 
+interface ResourceInfo {
+  title: string
+  criteria: Array<string>
+}
+
+interface ResourceLookup {
+  [name: string]: ResourceInfo
+}
+
 // Maps resource slugs to arrays of review rating criteria
-export const RatingCriteria: { [key: string]: Array<string> } = {
-  housing: ['cleanliness', 'price', 'management'],
-  'study-spots': ['cleanliness', 'noise'],
-  washrooms: ['cleanliness'],
+export const resourceLookup: ResourceLookup = {
+  housing: {
+    title: 'Housing',
+    criteria: ['cleanliness', 'price', 'management'],
+  },
+  'study-spots': {
+    title: 'Study Spots',
+    criteria: ['cleanliness', 'noise'],
+  },
+  washrooms: {
+    title: 'Washrooms',
+    criteria: ['cleanliness'],
+  },
 }
 
 export interface Resource {
@@ -20,7 +36,8 @@ export interface Resource {
     iconImage: URL
   }
   galleryImages: Array<URL>
-  overallRating: number
+  averageRating: Rating
+  totalReviews: number
   reviews: Array<Review>
 }
 
@@ -70,7 +87,11 @@ export interface Review {
   timestamp: Date
   faculty: Faculty
   status: Status
-  ratings: { [name: string]: number }
+  ratings: Rating
+}
+
+export interface Rating {
+  [name: string]: number
 }
 
 export interface HousingReview extends Review {

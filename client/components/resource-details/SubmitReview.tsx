@@ -11,7 +11,8 @@ import {
 import Modal from 'react-modal'
 import { useState, Fragment } from 'react'
 import ReactStars from 'react-stars'
-import { Faculty, Status, RatingCriteria } from '../../utils'
+import { Faculty, Status, resourceLookup } from '../../utils'
+import { capitalizeFirstLetter } from '../common/Functions'
 
 const SubmitButton = styled.button`
   font-size: 18px;
@@ -19,7 +20,7 @@ const SubmitButton = styled.button`
   color: ${colours.white};
   font-family: ${fontInter};
   font-weight: 600;
-  padding: 4px;
+  padding: 8px;
   border-radius: 5px;
   border: 3px solid ${colours.primary2};
   cursor: pointer;
@@ -98,10 +99,6 @@ const ModalRating = styled(
     onRatingChange: (number: number) => void
     rating: number
   }) => {
-    const capitalizeFirstLetter = (str: string): string => {
-      return str.charAt(0).toUpperCase() + str.slice(1)
-    }
-
     return (
       <div className={className}>
         <RatingLabel>{capitalizeFirstLetter(ratingName)}</RatingLabel>
@@ -223,6 +220,12 @@ const Dropdown = styled.select`
   &:hover {
     background: ${colours.neutralLight1};
   }
+
+  &:focus {
+    outline: none;
+    border-color: ${colours.primary2};
+  }
+
 `
 
 const DropdownLabel = styled.label`
@@ -247,7 +250,7 @@ const ModalContent = ({
 }) => {
   const [comment, setComment] = useState('')
 
-  const initialRatings: Ratings = RatingCriteria[resourceSlug].reduce(
+  const initialRatings: Ratings = resourceLookup[resourceSlug]['criteria'].reduce(
     (o, key) => ({ ...o, [key]: 0 }),
     {}
   )
