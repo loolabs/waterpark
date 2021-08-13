@@ -146,7 +146,8 @@ const Rating = styled(
         <RatingLabel>{capitalizeFirstLetter(label)}</RatingLabel>
         <ReactStars
           count={5}
-          char={'●'}
+          // Circles are too small on Windows font
+          char={navigator.appVersion.indexOf('Win') != -1 ? '⬤' : '●'} 
           value={score / 20}
           size={24}
           color1={'#DDDDDD'}
