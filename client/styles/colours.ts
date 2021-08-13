@@ -16,6 +16,7 @@ const white = "#FFFFFF";
 
 const greyLight1 = "#F1F1F1";
 const greyLight2 = "#A3A3A3";
+const greyLight3 = "#DDDDDD";
 
 const greyDark1 = "#8C8C8C";
 const greyDark2 = "#666666";
@@ -49,6 +50,7 @@ export const colours = Object.freeze({
     white: white,
     neutralLight1: greyLight1,
     neutralLight2: greyLight2,
+    neutralLight3: greyLight3,
     neutralDark1: greyDark1,
     neutralDark2: greyDark2,
     tagColours: tagColours

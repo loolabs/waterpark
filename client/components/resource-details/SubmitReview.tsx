@@ -73,6 +73,10 @@ const ModalTitle = styled.h2`
   margin: 0;
 `
 
+const RedText = styled.span`
+  color: red;
+`
+
 interface Ratings {
   [ratingName: string]: number
 }
@@ -101,7 +105,7 @@ const ModalRating = styled(
   }) => {
     return (
       <div className={className}>
-        <RatingLabel>{capitalizeFirstLetter(ratingName)}</RatingLabel>
+        <RatingLabel>{capitalizeFirstLetter(ratingName)}<RedText> *</RedText></RatingLabel>
         <ReactStars
           count={5}
           // Circles are too small on Windows font
@@ -194,6 +198,13 @@ const PostButton = styled.button`
     background: white;
     color: ${colours.primary2};
   }
+
+  &:disabled {
+    border: medium solid ${colours.neutralLight3} !important;
+    background: ${colours.neutralLight3} !important;
+    color: white !important;
+    cursor: not-allowed;
+  }
 `
 
 const ButtonDiv = styled.div`
@@ -265,8 +276,8 @@ const ModalContent = ({
   }
 
   const [aboutYou, setAboutYou] = useState<AboutYouData>({
-    faculty: Faculty.Mathematics,
-    status: Status.Other,
+    faculty: null,
+    status: null,
   })
 
   const changeFaculty = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -277,10 +288,26 @@ const ModalContent = ({
     setAboutYou({ ...aboutYou, status: Status[e.target.value] })
   }
 
+  const validate = () => {
+    let validated = true;
+
+    Object.keys(ratings).forEach((key) => { if (ratings[key] == 0) { validated = false }})
+
+    if (!aboutYou.faculty) {
+      validated = false;
+    }
+    if (!aboutYou.status) {
+      validated = false;
+    }
+
+    return validated;
+  }
+
   const onRequestPost = () => {
     Object.keys(ratings).map((key) => (ratings[key] *= 10))
     const response = { ...ratings, comment, ...aboutYou }
     console.log(response)
+
     // TODO post response
     onRequestClose()
   }
@@ -323,14 +350,13 @@ const ModalContent = ({
             onChange={changeComment}
             rows={5}
             cols={50}
-            required={true}
           />
         </ModalCommentDiv>
 
         <AboutYou>About You</AboutYou>
 
         <DropdownRow>
-          <DropdownLabel htmlFor="faculty">Faculty or Affiliation </DropdownLabel>
+          <DropdownLabel htmlFor="faculty">Faculty or Affiliation <RedText>*</RedText></DropdownLabel>
           <Dropdown name="faculty" onChange={changeFaculty}>
             <option disabled selected>
               Select an option
@@ -347,7 +373,7 @@ const ModalContent = ({
         <br />
 
         <DropdownRow>
-          <DropdownLabel htmlFor="status">Reviewer Status </DropdownLabel>
+          <DropdownLabel htmlFor="status">Reviewer Status <RedText>*</RedText></DropdownLabel>
           <Dropdown name="status" onChange={changeStatus}>
             <option disabled selected>
               Select an option
@@ -367,7 +393,7 @@ const ModalContent = ({
           <CancelButton type="button" onClick={onRequestClose}>
             Cancel
           </CancelButton>
-          <PostButton onClick={onRequestPost}>Post</PostButton>
+          <PostButton onClick={onRequestPost} disabled={!validate()}>Post</PostButton>
         </ButtonDiv>
       </form>
     </>
