@@ -86,7 +86,6 @@ const AggregateRating = ({ criteria, value }: AggregateRatingProps) => {
     background-color: ${colours.neutralLight1};
     border-radius: 3px;
     margin-right: 10px;
-    margin-bottom: 10px;
   `
   const InnerBar = styled.div`
     width: ${value}%;
@@ -98,6 +97,7 @@ const AggregateRating = ({ criteria, value }: AggregateRatingProps) => {
     margin: 0;
     margin-bottom: 8px;
     font-weight: 700;
+    margin-top: 10px;
   `
 
   return (
@@ -116,6 +116,12 @@ const AggregateRating = ({ criteria, value }: AggregateRatingProps) => {
 export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
   const router = useRouter()
   const { name, description, links, galleryImages, reviews, resourceSlug } = resource
+
+  const TotalReviews = styled.p`
+    color: ${colours.primary1};
+    margin-bottom: 24px;
+    font-weight: 700;
+  `
 
   return (
     <div>
@@ -136,6 +142,9 @@ export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
           {resourceLookup[resource.resourceSlug]['criteria'].map((criteria) => {
             return <AggregateRating criteria={criteria} value={resource.averageRating[criteria]} />
           })}
+          <TotalReviews>
+            {resource.totalReviews} Reviews
+          </TotalReviews>
         </Ratings>
       </RatingDescription>
 
