@@ -1,6 +1,29 @@
-import { Moment } from 'moment-timezone'
-
 type URL = string
+
+interface ResourceInfo {
+  title: string
+  criteria: Array<string>
+}
+
+interface ResourceLookup {
+  [name: string]: ResourceInfo
+}
+
+// Maps resource slugs to arrays of review rating criteria
+export const resourceLookup: ResourceLookup = {
+  housing: {
+    title: 'Housing',
+    criteria: ['cleanliness', 'price', 'management'],
+  },
+  'study-spots': {
+    title: 'Study Spots',
+    criteria: ['cleanliness', 'noise'],
+  },
+  washrooms: {
+    title: 'Washrooms',
+    criteria: ['cleanliness'],
+  },
+}
 
 export interface Resource {
   id: Id
@@ -13,7 +36,8 @@ export interface Resource {
     iconImage: URL
   }
   galleryImages: Array<URL>
-  overallRating: number
+  averageRating: Rating
+  totalReviews: number
   reviews: Array<Review>
 }
 
@@ -41,7 +65,7 @@ export enum Faculty {
   Health = 'Health',
   Science = 'Science',
   Environment = 'Environment',
-  NonWaterloo = 'Non-Waterloo'
+  NonWaterloo = 'Non-Waterloo',
 }
 
 export enum Status {
@@ -51,10 +75,10 @@ export enum Status {
   U4 = 'Fourth-Year Student',
   U5 = 'Fifth-Year Student',
   U6Plus = 'Sixth-Year+ Student',
-  Masters = 'Master\'s Student',
+  Masters = "Master's Student",
   PhD = 'PhD Student',
   Faculty = 'Faculty Member',
-  Other = 'Reviewer'
+  Other = 'Reviewer',
 }
 
 export interface Review {
@@ -63,12 +87,16 @@ export interface Review {
   timestamp: Date
   faculty: Faculty
   status: Status
-  ratings: { [name: string]: number }
+  ratings: Rating
+}
+
+export interface Rating {
+  [name: string]: number
 }
 
 export interface HousingReview extends Review {
   ratings: {
-    cleaniness: number
+    cleanliness: number
     price: number
     management: number
   }
@@ -76,13 +104,13 @@ export interface HousingReview extends Review {
 
 export interface StudySpotReview extends Review {
   ratings: {
-    cleaniness: number
+    cleanliness: number
     noise: number
   }
 }
 
 export interface WashroomReview extends Review {
   ratings: {
-    cleaniness: number
+    cleanliness: number
   }
 }

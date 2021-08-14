@@ -1,4 +1,4 @@
-import { PlaceDTO } from '../../../../modules/places/mappers/place-dto';
+import { PlaceDTO } from '../../../../modules/places/mappers/place-dto'
 
 const mockPlaceDTO = (id: string): PlaceDTO => {
   return {
@@ -12,7 +12,7 @@ const mockPlaceDTO = (id: string): PlaceDTO => {
       iconImage: `Place Icon ${id}`,
     },
     tags: ['tag 1', 'tag 2', 'tag 3'],
-  };
-};
+  }
+}
 
 export { mockPlaceDTO }

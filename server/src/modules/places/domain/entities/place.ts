@@ -4,19 +4,18 @@ import { AggregateRoot } from '../../../../shared/domain/aggregate-root'
 import { PlaceCreated } from '../events/place-created'
 
 interface PlaceProps {
-  name: string;
-  description: string;
-  address: string;
-  onCampus: boolean;
+  name: string
+  description: string
+  address: string
+  onCampus: boolean
   links: {
-    url?: string;
-    bannerImage: string;
-    iconImage: string;
-  };
-  tags: Array<string>;
+    url?: string
+    bannerImage: string
+    iconImage: string
+  }
+  tags: Array<string>
   //TODO reviews
 }
-
 
 export class Place extends AggregateRoot<PlaceProps> {
   public static create(props: PlaceProps, id?: UniqueEntityID): Result<Place, Error> {
@@ -52,7 +51,7 @@ export class Place extends AggregateRoot<PlaceProps> {
   get onCampus(): boolean {
     return this.props.onCampus
   }
-  
+
   get url(): string | undefined {
     return this.props.links.url
   }
@@ -60,7 +59,7 @@ export class Place extends AggregateRoot<PlaceProps> {
   get bannerImage(): string {
     return this.props.links.bannerImage
   }
-  
+
   get iconImage(): string {
     return this.props.links.iconImage
   }
@@ -68,5 +67,4 @@ export class Place extends AggregateRoot<PlaceProps> {
   get tags(): Array<string> {
     return this.props.tags
   }
-
 }

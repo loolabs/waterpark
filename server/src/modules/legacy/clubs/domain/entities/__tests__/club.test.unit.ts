@@ -4,9 +4,8 @@ import { Result } from '../../../../../../shared/core/result'
 import { ClubCreated } from '../../events/club-created'
 import { Club } from '../club'
 
-
 jest.mock('../../events/club-created')
-jest.mock('../../../../../shared/domain/events/domain-events')
+jest.mock('../../../../../../shared/domain/events/domain-events')
 
 let clubResult: Result<Club, Error>
 

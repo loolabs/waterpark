@@ -5,7 +5,7 @@ import { EventCreated } from '../../events/event-created'
 import { Event } from '../event'
 
 jest.mock('../../events/event-created')
-jest.mock('../../../../../shared/domain/events/domain-events')
+jest.mock('../../../../../../shared/domain/events/domain-events')
 
 let eventResult: Result<Event, Error>
 

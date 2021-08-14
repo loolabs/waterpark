@@ -113,6 +113,12 @@ export const ResourceCard = ({ Resource }: ResourceCardProps) => {
           <TagGroup>{tags.map(ResourceCardTag)}</TagGroup>
         </TagRow> */}
       </ResourceCardContent>
+      {/* <p>
+        {JSON.stringify(Resource.averageRating)}
+      </p>
+      <p>
+        Total Reviews:{Resource.totalReviews}
+      </p> */}
     </ResourceCardContainer>
   )
 }

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Id, indexData, House, StudySpot, Washroom , Faculty, Status } from '../utils'
+import { Id, indexData, House, StudySpot, Washroom, Faculty, Status } from '../utils'
 import { useQuery } from 'react-query'
 
 interface AppData {
@@ -28,7 +28,8 @@ export const AppProvider = ({ children }) => {
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
     ],
-    overallRating: 80,
+    averageRating: { cleanliness: 20, price: 40, management: 60 },
+    totalReviews: 3,
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
@@ -38,9 +39,9 @@ export const AppProvider = ({ children }) => {
         comment:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         ratings: {
-          cleaniness: 70,
+          cleanliness: 60,
           price: 60,
-          management: 30,
+          management: 40,
         },
       },
       {
@@ -50,8 +51,8 @@ export const AppProvider = ({ children }) => {
         timestamp: new Date(0),
         comment: 'comment2',
         ratings: {
-          cleaniness: 80,
-          price: 50,
+          cleanliness: 80,
+          price: 60,
           management: 40,
         },
       },
@@ -74,7 +75,8 @@ export const AppProvider = ({ children }) => {
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
     ],
-    overallRating: 80,
+    averageRating: { cleanliness: 40, price: 20, management: 80 },
+    totalReviews: 5,
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
@@ -83,8 +85,8 @@ export const AppProvider = ({ children }) => {
         timestamp: new Date(0),
         comment: 'comment',
         ratings: {
-          cleaniness: 50,
-          price: 70,
+          cleanliness: 60,
+          price: 80,
           management: 40,
         },
       },
@@ -95,8 +97,54 @@ export const AppProvider = ({ children }) => {
         timestamp: new Date(),
         comment: 'comment2',
         ratings: {
-          cleaniness: 90,
-          price: 30,
+          cleanliness: 100,
+          price: 40,
+          management: 20,
+        },
+      },
+    ],
+  }
+  const Village2 = {
+    id: 3,
+    resourceSlug: 'housing' as const,
+    name: 'Village 2',
+    description:
+      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?',
+    location: '123 Street',
+    links: {
+      bannerImage:
+        'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/v1-4.jpg',
+      iconImage: 'https://i.pinimg.com/originals/a6/02/c1/a602c159ab8e0bcac0093805240597ed.png',
+    },
+    galleryImages: [
+      'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
+      'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
+      'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
+    ],
+    averageRating: { cleanliness: 100, price: 0, management: 0 },
+    totalReviews: 100,
+    reviews: [
+      {
+        avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
+        faculty: Faculty.Environment,
+        status: Status.PhD,
+        timestamp: new Date(0),
+        comment: 'comment',
+        ratings: {
+          cleanliness: 60,
+          price: 80,
+          management: 40,
+        },
+      },
+      {
+        avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
+        faculty: Faculty.Health,
+        status: Status.U6Plus,
+        timestamp: new Date(),
+        comment: 'comment2',
+        ratings: {
+          cleanliness: 100,
+          price: 40,
           management: 20,
         },
       },
@@ -107,6 +155,7 @@ export const AppProvider = ({ children }) => {
     new Map([
       [1, REVillage],
       [2, Village1],
+      [3, Village2],
     ])
   )
 
@@ -128,7 +177,8 @@ export const AppProvider = ({ children }) => {
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
     ],
-    overallRating: 80,
+    averageRating: { cleanliness: 20, noise: 40 },
+    totalReviews: 2,
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
@@ -137,8 +187,8 @@ export const AppProvider = ({ children }) => {
         timestamp: new Date(),
         comment: 'comment',
         ratings: {
-          cleaniness: 50,
-          noise: 70,
+          cleanliness: 60,
+          noise: 80,
         },
       },
       {
@@ -148,8 +198,8 @@ export const AppProvider = ({ children }) => {
         timestamp: new Date(0),
         comment: 'comment2',
         ratings: {
-          cleaniness: 90,
-          noise: 30,
+          cleanliness: 100,
+          noise: 20,
         },
       },
     ],
@@ -171,7 +221,8 @@ export const AppProvider = ({ children }) => {
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
     ],
-    overallRating: 80,
+    averageRating: { cleanliness: 80, noise: 20 },
+    totalReviews: 6,
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
@@ -180,8 +231,8 @@ export const AppProvider = ({ children }) => {
         timestamp: new Date(),
         comment: 'comment',
         ratings: {
-          cleaniness: 50,
-          noise: 70,
+          cleanliness: 60,
+          noise: 80,
         },
       },
       {
@@ -191,8 +242,8 @@ export const AppProvider = ({ children }) => {
         status: Status.Faculty,
         timestamp: new Date(0),
         ratings: {
-          cleaniness: 90,
-          noise: 30,
+          cleanliness: 100,
+          noise: 40,
         },
       },
     ],
@@ -222,7 +273,8 @@ export const AppProvider = ({ children }) => {
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
     ],
-    overallRating: 80,
+    averageRating: { cleanliness: 80 },
+    totalReviews: 5,
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
@@ -231,7 +283,7 @@ export const AppProvider = ({ children }) => {
         faculty: Faculty.Engineering,
         status: Status.Faculty,
         ratings: {
-          cleaniness: 50,
+          cleanliness: 40,
         },
       },
       {
@@ -241,7 +293,7 @@ export const AppProvider = ({ children }) => {
         faculty: Faculty.Mathematics,
         status: Status.U1,
         ratings: {
-          cleaniness: 90,
+          cleanliness: 80,
         },
       },
     ],
@@ -264,7 +316,8 @@ export const AppProvider = ({ children }) => {
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
       'https://uwaterloo.ca/campus-housing/sites/ca.campus-housing/files/uploads/images/rev-4.jpg',
     ],
-    overallRating: 80,
+    averageRating: { cleanliness: 40, noise: 20 },
+    totalReviews: 3,
     reviews: [
       {
         avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
@@ -273,7 +326,7 @@ export const AppProvider = ({ children }) => {
         status: Status.U1,
         timestamp: new Date(),
         ratings: {
-          cleaniness: 50,
+          cleanliness: 60,
         },
       },
       {
@@ -283,7 +336,7 @@ export const AppProvider = ({ children }) => {
         status: Status.U3,
         timestamp: new Date(0),
         ratings: {
-          cleaniness: 90,
+          cleanliness: 80,
         },
       },
     ],

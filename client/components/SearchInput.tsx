@@ -26,7 +26,7 @@ export const SearchInput = styled.input`
     margin-right: 0;
     padding-left: 48px;
     padding-right: 16px;
-    width: 240px;
+    width: 200px;
   }
 
   :focus,

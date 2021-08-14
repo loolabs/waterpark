@@ -4,7 +4,7 @@ import { Controllers } from '../../application'
 import { UserRouter } from '../../../modules/users/infra/http/routes/user-router'
 import { ClubRouter } from '../../../modules/legacy/clubs/infra/http/routes/club-router'
 import { EventRouter } from '../../../modules/legacy/events/infra/http/routes/event-router'
-import { PlaceRouter } from '../../../modules/places/infra/http/routes/place-router'
+import { PlaceRouter } from '../../../modules/places/http/place-router'
 
 const setupV1APIRouter = (controllers: Controllers): APIRouter => {
   const endpointRouters = {
@@ -15,7 +15,7 @@ const setupV1APIRouter = (controllers: Controllers): APIRouter => {
 
   const router = Router()
   router.get('/', (_req, res) => {
-    return res.json({ message: 'Water, water, water. Loo, loo loo.' })
+    return res.json({ message: 'This API is deprecated.' })
   })
   router.use('/clubs', endpointRouters.clubs)
   router.use('/events', endpointRouters.events)
@@ -25,11 +25,14 @@ const setupV1APIRouter = (controllers: Controllers): APIRouter => {
 
 const setupV2APIRouter = (controllers: Controllers): APIRouter => {
   const endpointRouters = {
-    places: PlaceRouter.using(controllers.getAllPlaces)
+    places: PlaceRouter.using(controllers.getAllPlaces),
   }
   const router = Router()
+  router.get('/', (_req, res) => {
+    return res.json({ message: 'Water, water, water. Loo, loo, loo.' })
+  })
   router.use('/places', endpointRouters.places)
-  return router;
+  return router
 }
 
 const setupVersionedAPIRouter = (controllers: Controllers): APIRouter => {

@@ -1,14 +1,14 @@
-import { UniqueEntityID } from '../../../shared/domain/unique-entity-id';
-import { PlaceEntity } from '../../../shared/infra/db/entities/places/place.entity';
-import { Place } from '../domain/entities/place';
-import { PlaceDTO } from './place-dto';
+import { UniqueEntityID } from '../../../shared/domain/unique-entity-id'
+import { PlaceEntity } from '../../../shared/infra/db/entities/places/place.entity'
+import { Place } from '../domain/entities/place'
+import { PlaceDTO } from './place-dto'
 
 export class PlaceMap {
   public static toDTO(place: Place): PlaceDTO {
     return {
       ...place.props,
       //TODO reviews
-    };
+    }
   }
 
   public static toDomain(placeEntity: PlaceEntity): Place {
@@ -27,17 +27,17 @@ export class PlaceMap {
         // TODO reviews
       },
       new UniqueEntityID(placeEntity.id)
-    );
-    if (placeResult.isErr()) throw new Error(); // TODO: error handling
+    )
+    if (placeResult.isErr()) throw new Error() // TODO: error handling
 
-    return placeResult.value;
+    return placeResult.value
   }
 
   public static async toPersistence(place: Place): Promise<PlaceEntity> {
-    const placeEntity = new PlaceEntity();
-    placeEntity.name = place.name;
-    placeEntity.description = place.description;
+    const placeEntity = new PlaceEntity()
+    placeEntity.name = place.name
+    placeEntity.description = place.description
 
-    return placeEntity;
+    return placeEntity
   }
 }

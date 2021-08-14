@@ -13,7 +13,7 @@ const waterpark = async (options: WaterparkOptions) => {
 
   const { webServer } = http.setupWaterparkExpress(controllers, { mikroORM: orm })
   webServer.listen(options.port, () => {
-    console.log(`Waterpark REST API server running on http://localhost:${port}/api/v1 🦆`)
+    console.log(`Waterpark REST API server running on http://localhost:${port}/api/v2 🦆`)
   })
 }
 

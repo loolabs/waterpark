@@ -1,40 +1,40 @@
-import { mocks } from '../../../../../test-utils';
-import { AppError } from '../../../../../shared/core/app-error';
-import { Result } from '../../../../../shared/core/result';
-import { Washroom } from '../../../domain/entities/washroom';
-import { WashroomDTO } from '../../../mappers/washroom-dto';
+import { mocks } from '../../../../../test-utils'
+import { AppError } from '../../../../../shared/core/app-error'
+import { Result } from '../../../../../shared/core/result'
+import { Washroom } from '../../../domain/entities/washroom'
+import { WashroomDTO } from '../../../mappers/washroom-dto'
 
-jest.mock('../../../repos/mock-washroom-repo');
+jest.mock('../../../repos/mock-washroom-repo')
 
 describe('GetAllWashroomsUseCase', () => {
-  const ids: Array<string> = [1, 2, 3].map(String);
-  const mockWashrooms: Array<Washroom> = ids.map(mocks.mockWashroom);
-  const mockWashroomDTOs: Array<WashroomDTO> = ids.map(mocks.mockWashroomDTO);
-  const { washroomRepo, getAllWashroomsUseCase } = mocks.mockGetAllWashrooms();
+  const ids: Array<string> = [1, 2, 3].map(String)
+  const mockWashrooms: Array<Washroom> = ids.map(mocks.mockWashroom)
+  const mockWashroomDTOs: Array<WashroomDTO> = ids.map(mocks.mockWashroomDTO)
+  const { washroomRepo, getAllWashroomsUseCase } = mocks.mockGetAllWashrooms()
 
   test('When executed, should return all washrooms and an Ok', async () => {
-    jest.spyOn(washroomRepo, 'getAllWashrooms').mockResolvedValue(Result.ok(mockWashrooms));
+    jest.spyOn(washroomRepo, 'getAllWashrooms').mockResolvedValue(Result.ok(mockWashrooms))
 
-    const result = await getAllWashroomsUseCase.execute();
+    const result = await getAllWashroomsUseCase.execute()
 
-    expect(washroomRepo.getAllWashrooms).toBeCalled();
-    expect(result.isOk()).toBe(true);
+    expect(washroomRepo.getAllWashrooms).toBeCalled()
+    expect(result.isOk()).toBe(true)
     if (result.isOk()) {
-      expect(result.value.length).toBe(ids.length);
+      expect(result.value.length).toBe(ids.length)
       for (const mockWashroomDTO of mockWashroomDTOs) {
-        expect(result.value).toContainEqual(mockWashroomDTO);
+        expect(result.value).toContainEqual(mockWashroomDTO)
       }
     }
-  });
+  })
 
   test('When repo throws error, should return AppError.UnexpectedError', async () => {
     jest
       .spyOn(washroomRepo, 'getAllWashrooms')
-      .mockResolvedValue(Result.err(new AppError.UnexpectedError('Pretend something failed.')));
+      .mockResolvedValue(Result.err(new AppError.UnexpectedError('Pretend something failed.')))
 
-    const result = await getAllWashroomsUseCase.execute();
+    const result = await getAllWashroomsUseCase.execute()
 
-    expect(washroomRepo.getAllWashrooms).toBeCalled();
-    expect(result.isErr()).toBe(true);
-  });
-});
+    expect(washroomRepo.getAllWashrooms).toBeCalled()
+    expect(result.isErr()).toBe(true)
+  })
+})
