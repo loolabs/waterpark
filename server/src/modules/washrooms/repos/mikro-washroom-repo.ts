@@ -9,9 +9,9 @@ import { AppError } from '../../../shared/core/app-error'
 export class MikroWashroomRepo implements WashroomRepo {
   constructor(protected washroomsEntityRepo: EntityRepository<WashroomEntity>) {}
 
-  async getAllWashrooms({
-    mustIncludeReviews,
-  }: WashroomOptions): Promise<Result<Array<Washroom>, AppError.UnexpectedError>> {
+  async getAllWashrooms({ mustIncludeReviews }: WashroomOptions = {}): Promise<
+    Result<Array<Washroom>, AppError.UnexpectedError>
+  > {
     const populateFields = ['tags']
     if (mustIncludeReviews === true) {
       populateFields.push('reviews')
@@ -22,7 +22,7 @@ export class MikroWashroomRepo implements WashroomRepo {
         {},
         {
           populate: populateFields,
-          orderBy: { name: QueryOrder.ASC_NULLS_LAST },
+          orderBy: { place: { name: QueryOrder.ASC_NULLS_LAST } },
         }
       )
       const places = await Promise.all(washroomEntities.map(WashroomMap.toDomain))
@@ -35,7 +35,7 @@ export class MikroWashroomRepo implements WashroomRepo {
 
   async getWashroomById(
     id: string,
-    { mustIncludeReviews }: WashroomOptions
+    { mustIncludeReviews }: WashroomOptions = {}
   ): Promise<Result<Washroom, AppError.UnexpectedError>> {
     const populateFields = ['tags']
     if (mustIncludeReviews === true) {

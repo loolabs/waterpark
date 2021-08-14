@@ -9,7 +9,7 @@ export class MockPlaceRepo implements PlaceRepo {
   constructor(protected eventEntities: Array<PlaceEntity> = []) {}
 
   async getAllPlaces(
-    _: PlaceOptions = {}
+    _options: PlaceOptions = {}
   ): Promise<Result<Array<Place>, AppError.UnexpectedError>> {
     return Result.ok(this.eventEntities.map(PlaceMap.toDomain))
   }
