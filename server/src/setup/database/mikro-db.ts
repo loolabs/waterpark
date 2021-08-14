@@ -1,4 +1,3 @@
-import { MikroPlaceRepo } from '../../modules/places/repos/mikro-place-repo'
 import {
   MikroORM,
   EntityRepository,
@@ -15,10 +14,13 @@ import { ClubEntity } from '../../shared/infra/db/entities/legacy/club.entity'
 import { EventEntity } from '../../shared/infra/db/entities/legacy/event.entity'
 import { LegacyTagEntity } from '../../shared/infra/db/entities/legacy/tag.entity'
 import { UserEntity } from '../../shared/infra/db/entities/legacy/user.entity'
+import { PlaceEntity } from '../../shared/infra/db/entities/places/place.entity'
+import { WashroomEntity } from '../../shared/infra/db/entities/places/washroom.entity'
 import { MikroClubRepo } from '../../modules/legacy/clubs/infra/repos/implementations/mikro-club-repo'
 import { MikroEventRepo } from '../../modules/legacy/events/infra/repos/implementations/mikro-event-repo'
 import { MikroUserRepo } from '../../modules/users/infra/repos/implementations/mikro-user-repo'
-import { PlaceEntity } from '../../shared/infra/db/entities/places/place.entity'
+import { MikroPlaceRepo } from './../../modules/places/repos/mikro-place-repo'
+import { MikroWashroomRepo } from '../../modules/washrooms/repos/mikro-washroom-repo'
 
 class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrategy {
   classToTableName(entityName: string) {
@@ -92,6 +94,7 @@ interface MikroEntityRepos {
   tag: EntityRepository<LegacyTagEntity>
   user: EntityRepository<UserEntity>
   place: EntityRepository<PlaceEntity>
+  washroom: EntityRepository<WashroomEntity>
 }
 const setupMikroEntityRepos = ({ em: entityManager }: MikroORM): MikroEntityRepos => {
   return {
@@ -100,6 +103,7 @@ const setupMikroEntityRepos = ({ em: entityManager }: MikroORM): MikroEntityRepo
     tag: entityManager.getRepository(LegacyTagEntity),
     user: entityManager.getRepository(UserEntity),
     place: entityManager.getRepository(PlaceEntity),
+    washroom: entityManager.getRepository(WashroomEntity),
   }
 }
 
@@ -108,6 +112,7 @@ interface MikroRepos extends Repos {
   event: MikroEventRepo
   user: MikroUserRepo
   place: MikroPlaceRepo
+  washroom: MikroWashroomRepo
 }
 
 const setupMikroRepos = (mikroEntityRepos: MikroEntityRepos): MikroRepos => {
@@ -116,6 +121,7 @@ const setupMikroRepos = (mikroEntityRepos: MikroEntityRepos): MikroRepos => {
     event: new MikroEventRepo(mikroEntityRepos.event),
     user: new MikroUserRepo(mikroEntityRepos.user),
     place: new MikroPlaceRepo(mikroEntityRepos.place),
+    washroom: new MikroWashroomRepo(mikroEntityRepos.washroom),
   }
 }
 
