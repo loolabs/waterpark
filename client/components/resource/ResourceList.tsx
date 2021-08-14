@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { ResourceCard } from './ResourceCard'
 import { PageTitle, width, smallerThan, largerThan, colours, fontInter } from '../../styles'
 import { SearchInput } from '../SearchInput'
-import { capitalizeFirstLetter } from '../common/Functions'
+import { capitalizeFirstLetter } from '../common/Utils'
 
 const ResourceListPage = styled.div`
   margin-top: 65px;

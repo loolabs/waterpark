@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-import { capitalizeFirstLetter } from '../common/Functions'
+import { capitalizeFirstLetter } from '../common/Utils'
 import { TagBubble } from '../common/TagBubble'
 import { Resource, resourceLookup } from '../../utils'
 import { colours } from '../../styles'

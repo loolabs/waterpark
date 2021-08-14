@@ -12,7 +12,7 @@ import Modal from 'react-modal'
 import { useState, Fragment } from 'react'
 import ReactStars from 'react-stars'
 import { Faculty, Status, resourceLookup } from '../../utils'
-import { capitalizeFirstLetter } from '../common/Functions'
+import { capitalizeFirstLetter } from '../common/Utils'
 
 const SubmitButton = styled.button`
   font-size: 18px;
