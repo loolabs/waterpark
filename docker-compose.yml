@@ -12,7 +12,7 @@ services:
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
     # command: npm run test:unit
-    # command: npm run test:integration
+    # command: npm run test:integration:local
     # command: npm run migration:create
     command: npm run start:dev
     env_file:
