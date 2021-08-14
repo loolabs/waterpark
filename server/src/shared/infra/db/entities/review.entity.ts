@@ -1,8 +1,8 @@
 import { AfterCreate, Entity, Enum, EventArgs, ManyToOne, Property } from '@mikro-orm/core'
-import { DomainEvents } from '../../../../domain/events/domain-events'
-import { UniqueEntityID } from '../../../../domain/unique-entity-id'
-import { BaseEntity } from '../base.entity'
-import { PlaceEntity } from '../places/place.entity'
+import { DomainEvents } from '../../../domain/events/domain-events'
+import { UniqueEntityID } from '../../../domain/unique-entity-id'
+import { BaseEntity } from './base.entity'
+import { PlaceEntity } from './places/place.entity'
 
 export const enum Faculty {
   Mathematics,
@@ -32,8 +32,8 @@ export class ReviewEntity extends BaseEntity {
   @ManyToOne({ entity: () => PlaceEntity, inversedBy: 'reviews' })
   place!: PlaceEntity
 
-  @Property({ columnType: 'text' })
-  comment!: string
+  @Property({ nullable: true, columnType: 'text' })
+  comment?: string
 
   @Property({ columnType: 'text' })
   avatarImage!: string
@@ -43,6 +43,18 @@ export class ReviewEntity extends BaseEntity {
 
   @Enum({ type: 'Status' })
   status!: Status
+
+  @Property({ nullable: true })
+  affordabilityRating?: number
+
+  @Property({ nullable: true })
+  cleanlinessRating?: number
+
+  @Property({ nullable: true })
+  managementRating?: number
+
+  @Property({ nullable: true })
+  quietnessRating?: number
 
   @AfterCreate()
   afterCreate(target: EventArgs<ReviewEntity>) {
