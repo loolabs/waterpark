@@ -131,8 +131,6 @@ export const ResourceCard = ({ Resource }: ResourceCardProps) => {
     router.push({ pathname: `/${resourceSlug}/${id}` })
   }
 
-  console.log(resourceLookup[resourceSlug]['criteria'])
-
   return (
     <ResourceCardContainer onClick={handleClick}>
       <ResourceCardBanner bannerImageURL={links.bannerImage}></ResourceCardBanner>
@@ -147,10 +145,10 @@ export const ResourceCard = ({ Resource }: ResourceCardProps) => {
         </TagRow> */}
       </ResourceCardContent>
       <StatisticsRow>
-        {resourceLookup[resourceSlug]['criteria'].map((criteria) => (
+        {resourceLookup[resourceSlug]['criteria'].map((criterion) => (
           <Statistic>
-            <StatisticHeader>{capitalizeFirstLetter(criteria)}</StatisticHeader>
-            <StatisticNumber>{Resource.averageRating[criteria]}%</StatisticNumber>
+            <StatisticHeader>{capitalizeFirstLetter(criterion)}</StatisticHeader>
+            <StatisticNumber>{Resource.averageRating[criterion]}%</StatisticNumber>
           </Statistic>
         ))}
       </StatisticsRow>
