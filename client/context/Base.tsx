@@ -202,6 +202,28 @@ export const AppProvider = ({ children }) => {
           noise: 20,
         },
       },
+      {
+        avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
+        faculty: Faculty.NonWaterloo,
+        status: Status.Other,
+        timestamp: new Date(),
+        comment: '',
+        ratings: {
+          cleanliness: 60,
+          noise: 80,
+        },
+      },
+      {
+        avatarImage: 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
+        faculty: Faculty.Engineering,
+        status: Status.U3,
+        timestamp: new Date(0),
+        comment: null,
+        ratings: {
+          cleanliness: 100,
+          noise: 20,
+        },
+      },
     ],
   }
 
