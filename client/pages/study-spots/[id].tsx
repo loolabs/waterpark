@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { ResourceInfo } from '../../components/resource-details'
 import { Banner } from '../../components/Banner'
 import { Container } from '../../components/DetailContainer'
+import Head from 'next/head'
 
 export default function StudySpotDetail() {
   const { studySpots } = useAppContext()
@@ -16,6 +17,9 @@ export default function StudySpotDetail() {
 
   return (
     <div>
+      <Head>
+        <title>{studySpot.name} | Waterpark</title>
+      </Head>
       <Banner backgroundImageUrl={studySpot.links.bannerImage} />
       <Container>
         <ResourceInfo resource={studySpot} />

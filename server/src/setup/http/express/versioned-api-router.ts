@@ -5,6 +5,7 @@ import { UserRouter } from '../../../modules/users/infra/http/routes/user-router
 import { ClubRouter } from '../../../modules/legacy/clubs/infra/http/routes/club-router'
 import { EventRouter } from '../../../modules/legacy/events/infra/http/routes/event-router'
 import { PlaceRouter } from '../../../modules/places/http/place-router'
+import { WashroomRouter } from '../../../modules/washrooms/http/washroom-router'
 
 const setupV1APIRouter = (controllers: Controllers): APIRouter => {
   const endpointRouters = {
@@ -26,12 +27,14 @@ const setupV1APIRouter = (controllers: Controllers): APIRouter => {
 const setupV2APIRouter = (controllers: Controllers): APIRouter => {
   const endpointRouters = {
     places: PlaceRouter.using(controllers.getAllPlaces),
+    washrooms: WashroomRouter.using(controllers.getAllWashrooms, controllers.getWashroomById),
   }
   const router = Router()
   router.get('/', (_req, res) => {
     return res.json({ message: 'Water, water, water. Loo, loo, loo.' })
   })
   router.use('/places', endpointRouters.places)
+  router.use('/washrooms', endpointRouters.washrooms)
   return router
 }
 
