@@ -7,11 +7,11 @@ export default function Washrooms() {
   const { washrooms } = useAppContext()
 
   return (
-  <>
-    <Head>
-      <title>Explore Washrooms | Waterpark</title>
-    </Head>
-    <ResourceList resources={washrooms} slug={'washrooms'} />
-  </>
+    <>
+      <Head>
+        <title>Explore Washrooms | Waterpark</title>
+      </Head>
+      <ResourceList resources={washrooms} slug={'washrooms'} />
+    </>
   )
 }
