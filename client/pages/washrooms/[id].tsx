@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { ResourceInfo } from '../../components/resource-details'
 import { Banner } from '../../components/Banner'
 import { Container } from '../../components/DetailContainer'
+import Head from 'next/head'
 
 export default function WashroomDetail() {
   const { washrooms } = useAppContext()
@@ -16,6 +17,9 @@ export default function WashroomDetail() {
 
   return (
     <div>
+      <Head>
+        <title>{washroom.name} | Waterpark</title>
+      </Head>
       <Banner backgroundImageUrl={washroom.links.bannerImage} />
       <Container>
         <ResourceInfo resource={washroom} />
