@@ -48,7 +48,7 @@ const RatingList = styled.div`
   margin: 24px;
   margin-left: auto;
   align-self: flex-start;
-  @media ${smallerThan(width.mobileS)} {
+  @media (max-width: 433px) {
     margin-left: 24px;
   }
 `
