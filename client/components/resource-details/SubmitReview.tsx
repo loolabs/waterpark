@@ -108,7 +108,8 @@ const ModalRating = styled(
         <RatingLabel>{capitalizeFirstLetter(ratingName)}<RedText> *</RedText></RatingLabel>
         <ReactStars
           count={5}
-          char={'●'}
+          // Circles are too small on Windows font
+          char={navigator.appVersion.indexOf('Win') != -1 ? '⬤' : '●'}
           value={rating}
           size={24}
           color1={'#DDDDDD'}
