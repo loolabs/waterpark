@@ -1,4 +1,3 @@
-import { MikroPlaceRepo } from '../../modules/places/repos/mikro-place-repo'
 import {
   MikroORM,
   EntityRepository,
@@ -15,10 +14,13 @@ import { ClubEntity } from '../../shared/infra/db/entities/legacy/club.entity'
 import { EventEntity } from '../../shared/infra/db/entities/legacy/event.entity'
 import { LegacyTagEntity } from '../../shared/infra/db/entities/legacy/tag.entity'
 import { UserEntity } from '../../shared/infra/db/entities/legacy/user.entity'
+import { PlaceEntity } from '../../shared/infra/db/entities/places/place.entity'
+import { WashroomEntity } from '../../shared/infra/db/entities/places/washroom.entity'
 import { MikroClubRepo } from '../../modules/legacy/clubs/infra/repos/implementations/mikro-club-repo'
 import { MikroEventRepo } from '../../modules/legacy/events/infra/repos/implementations/mikro-event-repo'
 import { MikroUserRepo } from '../../modules/users/infra/repos/implementations/mikro-user-repo'
-import { PlaceEntity } from '../../shared/infra/db/entities/places/place.entity'
+import { MikroPlaceRepo } from './../../modules/places/repos/mikro-place-repo'
+import { MikroWashroomRepo } from '../../modules/washrooms/repos/mikro-washroom-repo'
 
 class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrategy {
   classToTableName(entityName: string) {
@@ -50,8 +52,8 @@ class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrat
 }
 
 const clientUrl = process.env.DATABASE_URL
-// Heroku's postgres service self-signs SSL certificates.
-// In production, the dyno complains with Error: self signed certificate.
+// Heroku's postgres service self-signs SSL certificates (whatever that means),
+// and in production, the dyno complains with Error: self signed certificate.
 // This is probably the underlying PG driver complaining, so the temporary
 // workaround is to allow unauthorized SSL certificates, per below.
 // TODO: look into risk factors: https://stackoverflow.com/a/63914477/6113956
@@ -59,6 +61,7 @@ const sslOptions = { rejectUnauthorized: false }
 const isDatabaseLocal = process.env.IS_DATABASE_LOCAL === 'true'
 const isDatabaseSSL = isDatabaseLocal ? false : sslOptions
 
+// TODO: import connection-related properties from root .env
 const baseOptions: Options = {
   // debug: process.env.NODE_ENV !== 'production',
   clientUrl,
@@ -71,7 +74,7 @@ const baseOptions: Options = {
   debug: true,
   highlighter: new SqlHighlighter(),
   entities: ['**/*.entity.js'],
-  entitiesTs: ['**/*.entity.ts'], // path to TS entities (source), relative to `baseDir`
+  entitiesTs: ['**/*.entity.ts'], // path to your TS entities (source), relative to `baseDir`
   metadataProvider: TsMorphMetadataProvider,
   migrations: {
     disableForeignKeys: false,
@@ -92,6 +95,7 @@ interface MikroEntityRepos {
   tag: EntityRepository<LegacyTagEntity>
   user: EntityRepository<UserEntity>
   place: EntityRepository<PlaceEntity>
+  washroom: EntityRepository<WashroomEntity>
 }
 const setupMikroEntityRepos = ({ em: entityManager }: MikroORM): MikroEntityRepos => {
   return {
@@ -100,6 +104,7 @@ const setupMikroEntityRepos = ({ em: entityManager }: MikroORM): MikroEntityRepo
     tag: entityManager.getRepository(LegacyTagEntity),
     user: entityManager.getRepository(UserEntity),
     place: entityManager.getRepository(PlaceEntity),
+    washroom: entityManager.getRepository(WashroomEntity),
   }
 }
 
@@ -108,6 +113,7 @@ interface MikroRepos extends Repos {
   event: MikroEventRepo
   user: MikroUserRepo
   place: MikroPlaceRepo
+  washroom: MikroWashroomRepo
 }
 
 const setupMikroRepos = (mikroEntityRepos: MikroEntityRepos): MikroRepos => {
@@ -116,6 +122,7 @@ const setupMikroRepos = (mikroEntityRepos: MikroEntityRepos): MikroRepos => {
     event: new MikroEventRepo(mikroEntityRepos.event),
     user: new MikroUserRepo(mikroEntityRepos.user),
     place: new MikroPlaceRepo(mikroEntityRepos.place),
+    washroom: new MikroWashroomRepo(mikroEntityRepos.washroom),
   }
 }
 
