@@ -13,6 +13,7 @@ const BackArrow = styled.img`
 `
 
 const Logo = styled.img`
+  object-fit: cover;
   border-radius: 4px;
   display: block;
   margin-top: 40px;
@@ -142,9 +143,7 @@ export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
           {resourceLookup[resource.resourceSlug]['criteria'].map((criteria) => {
             return <AggregateRating criteria={criteria} value={resource.averageRating[criteria]} />
           })}
-          <TotalReviews>
-            {resource.totalReviews} Reviews
-          </TotalReviews>
+          <TotalReviews>{resource.totalReviews} Reviews</TotalReviews>
         </Ratings>
       </RatingDescription>
 
