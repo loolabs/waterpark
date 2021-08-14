@@ -1,0 +1,104 @@
+- name: Frontend Spam Club # All possible club fields listed
+  description: The purpose of this club is to spam the UI of our frontend.
+  size: 10
+  banner_image: https://res.cloudinary.com/demo/image/upload/sample.jpg
+  icon_image: https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Speaker_Icon.svg/600px-Speaker_Icon.svg.png
+  facebook: https://facebook.com
+  twitter: https://twitter.com
+  instagram: https://instagram.com
+  website: https://website.com
+  events:
+    - name: Work Session 1 # All non-nullable event fields listed
+      description: Building more stuff
+      banner_image: https://i.ytimg.com/vi/cn591Vct9OU/maxresdefault.jpg
+      start_time: '2021-05-30 00:00:00+00'
+      end_time: '2021-05-30 00:00:00+00'
+      tags: 
+        - Tech
+    - name: Work Session 2 # All non-nullable event fields listed
+      description: Building more stuff
+      banner_image: https://i.ytimg.com/vi/cn591Vct9OU/maxresdefault.jpg
+      start_time: '2021-06-01 00:00:00+00'
+      end_time: '2021-06-01 00:00:00+00'
+      tags: 
+        - Tech
+    - name: Work Session 3 # All non-nullable event fields listed
+      description: Building more stuff
+      banner_image: https://i.ytimg.com/vi/cn591Vct9OU/maxresdefault.jpg
+      start_time: '2021-06-03 00:00:00+00'
+      end_time: '2021-06-03 00:00:00+00'
+      tags: 
+        - Tech
+    - name: Work Session 4 # All non-nullable event fields listed
+      description: Building more stuff
+      banner_image: https://i.ytimg.com/vi/cn591Vct9OU/maxresdefault.jpg
+      start_time: '2021-06-05 00:00:00+00'
+      end_time: '2021-06-05 00:00:00+00'
+      tags: 
+        - Tech
+    - name: Work Session 5 # All non-nullable event fields listed
+      description: Building more stuff
+      banner_image: https://i.ytimg.com/vi/cn591Vct9OU/maxresdefault.jpg
+      start_time: '2021-06-07 00:00:00+00'
+      end_time: '2021-06-07 00:00:00+00'
+      tags: 
+        - Tech
+    - name: Work Session 6 # All non-nullable event fields listed
+      description: Building more stuff
+      banner_image: https://i.ytimg.com/vi/cn591Vct9OU/maxresdefault.jpg
+      start_time: '2021-06-09 00:00:00+00'
+      end_time: '2021-06-09 00:00:00+00'
+      tags: 
+        - Tech
+    - name: Work Session 7 # All non-nullable event fields listed
+      description: Building more stuff
+      banner_image: https://i.ytimg.com/vi/cn591Vct9OU/maxresdefault.jpg
+      start_time: '2021-06-11 00:00:00+00'
+      end_time: '2021-06-11 00:00:00+00'
+      tags: 
+        - Tech
+    - name: Work Session 8 # All non-nullable event fields listed
+      description: Building more stuff
+      banner_image: https://i.ytimg.com/vi/cn591Vct9OU/maxresdefault.jpg
+      start_time: '2021-06-11 00:00:00+00'
+      end_time: '2021-06-11 00:00:00+00'
+      tags: 
+        - Tech
+    - name: Work Session 9 # All non-nullable event fields listed
+      description: Building more stuff
+      banner_image: https://i.ytimg.com/vi/cn591Vct9OU/maxresdefault.jpg
+      start_time: '2021-06-13 00:00:00+00'
+      end_time: '2021-06-13 00:00:00+00'
+      tags: 
+        - Tech
+    - name: Work Session 10 # All non-nullable event fields listed
+      description: Building more stuff
+      banner_image: https://i.ytimg.com/vi/cn591Vct9OU/maxresdefault.jpg
+      start_time: '2021-06-15 00:00:00+00'
+      end_time: '2021-06-15 00:00:00+00'
+      tags: 
+        - Tech
+    - name: Work Session 11 # All non-nullable event fields listed
+      description: Building more stuff
+      banner_image: https://i.ytimg.com/vi/cn591Vct9OU/maxresdefault.jpg
+      start_time: '2021-06-17 00:00:00+00'
+      end_time: '2021-06-17 00:00:00+00'
+      tags: 
+        - Tech
+    - name: Work Session 13 # All non-nullable event fields listed
+      description: Building more stuff
+      banner_image: https://i.ytimg.com/vi/cn591Vct9OU/maxresdefault.jpg
+      start_time: '2021-06-19 00:00:00+00'
+      end_time: '2021-06-19 00:00:00+00'
+      tags: 
+        - Tech
+    - name: Work Session 14 # All non-nullable event fields listed
+      description: Building more stuff
+      banner_image: https://i.ytimg.com/vi/cn591Vct9OU/maxresdefault.jpg
+      start_time: '2021-06-21 00:00:00+00'
+      end_time: '2021-06-21 00:00:00+00'
+      tags: 
+        - Tech
+  tags:
+    - Tech
+    - Community
