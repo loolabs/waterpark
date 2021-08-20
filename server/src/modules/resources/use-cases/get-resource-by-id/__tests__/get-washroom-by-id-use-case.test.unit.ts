@@ -4,7 +4,7 @@ import { Result } from '../../../../../shared/core/result'
 import { Washroom } from '../../../domain/entities/washroom'
 import { WashroomDTO } from '../../../mappers/washroom-dto'
 
-jest.mock('../../../repos/mock-washroom-repo')
+jest.mock('../../../repos')
 
 describe('GetWashroomByIdUseCase', () => {
   const id: string = String(1)
@@ -13,11 +13,11 @@ describe('GetWashroomByIdUseCase', () => {
   const { washroomRepo, getWashroomByIdUseCase } = mocks.mockGetWashroomById()
 
   test('When executed, should return the washroom', async () => {
-    jest.spyOn(washroomRepo, 'getWashroomById').mockResolvedValue(Result.ok(mockWashroom))
+    jest.spyOn(washroomRepo, 'getById').mockResolvedValue(Result.ok(mockWashroom))
 
     const result = await getWashroomByIdUseCase.execute({ id })
 
-    expect(washroomRepo.getWashroomById).toBeCalled()
+    expect(washroomRepo.getById).toBeCalled()
     expect(result.isOk()).toBe(true)
     if (result.isOk()) {
       expect(result.value).toStrictEqual(mockWashroomDTO)
@@ -26,12 +26,12 @@ describe('GetWashroomByIdUseCase', () => {
 
   test('When repo throws error, should return AppError.UnexpectedError', async () => {
     jest
-      .spyOn(washroomRepo, 'getWashroomById')
+      .spyOn(washroomRepo, 'getById')
       .mockResolvedValue(Result.err(new AppError.UnexpectedError('Pretend something failed.')))
 
     const result = await getWashroomByIdUseCase.execute({ id })
 
-    expect(washroomRepo.getWashroomById).toBeCalled()
+    expect(washroomRepo.getById).toBeCalled()
     expect(result.isErr()).toBe(true)
   })
 })

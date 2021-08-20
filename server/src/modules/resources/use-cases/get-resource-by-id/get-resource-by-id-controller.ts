@@ -2,10 +2,12 @@ import { ValidationError } from 'joi'
 import express from 'express'
 import { ControllerWithDTO } from '../../../../shared/app/controller-with-dto'
 import { Result } from '../../../../shared/core/result'
-import { GetWashroomByIdUseCase, DTO } from './get-washroom-by-id-use-case'
+import { GetResourceByIdUseCase, DTO } from './get-resource-by-id-use-case'
 
-export class GetWashroomByIdController extends ControllerWithDTO<GetWashroomByIdUseCase> {
-  constructor(useCase: GetWashroomByIdUseCase) {
+export class GetResourceByIdController<Resource, ResourceDTO> extends ControllerWithDTO<
+  GetResourceByIdUseCase<Resource, ResourceDTO>
+> {
+  constructor(useCase: GetResourceByIdUseCase<Resource, ResourceDTO>) {
     super(useCase)
   }
 

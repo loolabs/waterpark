@@ -1,4 +1,4 @@
-import { WashroomDTO } from '../../../../modules/washrooms/mappers/washroom-dto';
+import { WashroomDTO } from '../../../../modules/resources/mappers/washroom-dto'
 
 const mockWashroomDTO = (id: string): WashroomDTO => {
   return {
@@ -12,7 +12,7 @@ const mockWashroomDTO = (id: string): WashroomDTO => {
       iconImage: `Place Icon ${id}`,
     },
     tags: ['tag 1', 'tag 2', 'tag 3'],
-  };
-};
+  }
+}
 
-export { mockWashroomDTO };
+export { mockWashroomDTO }

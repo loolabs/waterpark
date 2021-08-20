@@ -7,7 +7,7 @@ export class WashroomMap {
   public static toDTO(washroom: Washroom): WashroomDTO {
     return {
       ...washroom.props,
-      //TODO reviews
+      // TODO reviews
     }
   }
 
