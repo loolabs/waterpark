@@ -6,6 +6,14 @@ import { formatRelative } from 'date-fns'
 import { SubmitReview } from './SubmitReview'
 import { capitalizeFirstLetter } from '../common/Utils'
 
+const ReviewHeading = styled.h1`
+  padding-top: 75px; // for scrolling, so the content appears below the 55px navbar
+`
+
+const ReviewWrapper = styled.div`
+  margin-top: -75px; // to cancel out padding for display purposes
+`
+
 export const Reviews = ({
   reviews,
   name,
@@ -17,13 +25,13 @@ export const Reviews = ({
 }) => {
   reviews.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
   return (
-    <div>
-      <h1>Reviews</h1>
+    <ReviewWrapper>
+      <ReviewHeading id="reviews">Reviews</ReviewHeading>
       <SubmitReview name={name} resourceSlug={resourceSlug} />
       {reviews.map((review, index) => {
         return <ReviewCard key={index} review={review} />
       })}
-    </div>
+    </ReviewWrapper>
   )
 }
 

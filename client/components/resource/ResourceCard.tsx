@@ -96,6 +96,7 @@ const StatisticsRow = styled.div`
   margin-left: 24px;
   margin-right: 24px;
   margin-top: 24px;
+  margin-bottom: 24px;
 `
 
 const Statistic = styled.div`
@@ -115,12 +116,16 @@ const StatisticNumber = styled.p`
   margin-bottom: 0px;
 `
 
-const TotalReviews = styled.p`
-  color: ${colours.primary1};
+const TotalReviews = styled.div`
+  color: ${colours.primary2};
   margin-left: 24px;
   margin-right: 24px;
   margin-bottom: 24px;
-  font-weight: 700;
+  text-decoration: underline;
+
+  &:hover {
+    color: ${colours.primary1};
+  }
 `
 
 export const ResourceCard = ({ Resource }: ResourceCardProps) => {
@@ -152,7 +157,9 @@ export const ResourceCard = ({ Resource }: ResourceCardProps) => {
           </Statistic>
         ))}
       </StatisticsRow>
-      <TotalReviews>{Resource.totalReviews} Reviews</TotalReviews>
+      <TotalReviews>
+        <a href={'/' + resourceSlug + '/' + id + '#reviews'}>{Resource.totalReviews} Reviews </a>
+      </TotalReviews>
       {/* <p>
         {JSON.stringify(Resource.averageRating)}
       </p>

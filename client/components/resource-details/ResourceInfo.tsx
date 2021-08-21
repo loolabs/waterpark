@@ -118,10 +118,15 @@ export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
   const router = useRouter()
   const { name, description, links, galleryImages, reviews, resourceSlug } = resource
 
-  const TotalReviews = styled.p`
-    color: ${colours.primary1};
+  const TotalReviews = styled.div`
+    color: ${colours.primary2};
     margin-bottom: 24px;
-    font-weight: 700;
+    margin-top: 24px;
+    text-decoration: underline;
+
+    &:hover {
+      color: ${colours.primary1};
+    }
   `
 
   return (
@@ -143,7 +148,9 @@ export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
           {resourceLookup[resource.resourceSlug]['criteria'].map((criteria) => {
             return <AggregateRating criteria={criteria} value={resource.averageRating[criteria]} />
           })}
-          <TotalReviews>{resource.totalReviews} Reviews</TotalReviews>
+          <TotalReviews>
+            <a href="#reviews">{resource.totalReviews} Reviews</a>
+          </TotalReviews>
         </Ratings>
       </RatingDescription>
 
