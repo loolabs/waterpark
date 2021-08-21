@@ -57,7 +57,7 @@ const RatingList = styled.div`
   margin: 24px;
   margin-left: auto;
   align-self: flex-start;
-  @media (max-width: 433px) {
+  @media (max-width: 500px) {
     margin-left: 24px;
   }
 `
