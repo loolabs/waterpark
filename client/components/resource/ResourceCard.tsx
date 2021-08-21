@@ -93,6 +93,8 @@ interface ResourceCardProps {
 const StatisticsRow = styled.div`
   display: flex;
   flex-wrap: wrap;
+  // display: grid;
+  // grid-template-columns: repeat(auto-fit, minmax(100px, 33%));
   margin-left: 20px;
   margin-right: 20px;
   margin-top: 24px;
@@ -102,10 +104,11 @@ const StatisticsRow = styled.div`
 const Statistic = styled.div`
   display: flex;
   flex-direction: column;
-  width: 127px;
+  min-width: 100px;
   margin-left: 4px;
   margin-right: 4px;
   margin-bottom: 8px;
+  flex-grow: 1;
 `
 
 const StatisticHeader = styled.p`
