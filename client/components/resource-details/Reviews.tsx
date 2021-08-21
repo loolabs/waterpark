@@ -1,10 +1,9 @@
 import styled from 'styled-components'
 import { colours, largerThan, smallerThan, width } from '../../styles'
-import { Review } from '../../utils/types'
+import { Review, capitalizeFirstLetter } from '../../utils'
 import ReactStars from 'react-stars'
 import { formatRelative } from 'date-fns'
 import { SubmitReview } from './SubmitReview'
-import { capitalizeFirstLetter } from '../common/Utils'
 
 const ReviewHeading = styled.h1`
   padding-top: 75px; // for scrolling, so the content appears below the 55px navbar

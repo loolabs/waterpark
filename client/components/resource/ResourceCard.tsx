@@ -1,9 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-import { capitalizeFirstLetter } from '../common/Utils'
 import { TagBubble } from '../common/TagBubble'
-import { Resource, resourceLookup } from '../../utils'
+import { Resource, resourceLookup, capitalizeFirstLetter } from '../../utils'
 import { colours } from '../../styles'
 
 // Shared styled components that can probably be factored out later

@@ -1,9 +1,8 @@
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { Resource, resourceLookup } from '../../utils'
+import { Resource, resourceLookup, capitalizeFirstLetter } from '../../utils'
 import { Gallery } from './Gallery'
 import { Reviews } from './Reviews'
-import { capitalizeFirstLetter } from '../common/Utils'
 import { PageTitle, fontWeight } from '../../styles'
 import { colours, width, smallerThan } from '../../styles'
 

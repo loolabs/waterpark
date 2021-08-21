@@ -1,11 +1,10 @@
 import { useSearch } from '../hooks'
-import { Resource, Id, resourceLookup } from '../../utils'
+import { Resource, Id, resourceLookup, capitalizeFirstLetter } from '../../utils'
 import { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { ResourceCard } from './ResourceCard'
 import { PageTitle, width, smallerThan, largerThan, colours, fontInter } from '../../styles'
 import { SearchInput } from '../SearchInput'
-import { capitalizeFirstLetter } from '../common/Utils'
 
 const ResourceListPage = styled.div`
   margin-top: 65px;
