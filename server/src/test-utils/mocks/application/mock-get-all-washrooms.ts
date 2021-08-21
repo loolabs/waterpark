@@ -1,7 +1,9 @@
 import { WashroomEntity } from '../../../shared/infra/db/entities/places/washroom.entity'
-import { MockWashroomRepo } from '../../../modules/washrooms/repos/mock-washroom-repo'
-import { GetAllWashroomsController } from '../../../modules/washrooms/use-cases/get-all-washrooms/get-all-washrooms-controller'
-import { GetAllWashroomsUseCase } from '../../../modules/washrooms/use-cases/get-all-washrooms/get-all-washrooms-use-case'
+import { MockWashroomRepo } from '../../../modules/resources/repos'
+import {
+  GetAllWashroomsUseCase,
+  GetAllWashroomsController,
+} from '../../../modules/resources/use-cases/get-all-resources'
 
 const mockGetAllWashrooms = (washroomEntities: Array<WashroomEntity> = []) => {
   const washroomRepo = new MockWashroomRepo(washroomEntities)

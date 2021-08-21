@@ -1,28 +1,10 @@
-import {
-  AfterCreate,
-  Entity,
-  EventArgs,
-  LoadStrategy,
-  OneToOne,
-  PrimaryKeyType,
-} from '@mikro-orm/core'
+import { AfterCreate, Entity, EventArgs } from '@mikro-orm/core'
 import { DomainEvents } from '../../../../domain/events/domain-events'
 import { UniqueEntityID } from '../../../../domain/unique-entity-id'
-import { PlaceEntity } from './place.entity'
+import { BaseResourceEntity } from './place.entity'
 
 @Entity()
-export class StudySpotEntity {
-  [PrimaryKeyType]: PlaceEntity['id']
-
-  @OneToOne({ primary: true, strategy: LoadStrategy.JOINED })
-  place!: PlaceEntity
-
-  constructor(place?: PlaceEntity) {
-    if (place !== undefined) {
-      this.place = place
-    }
-  }
-
+export class StudySpotEntity extends BaseResourceEntity {
   @AfterCreate()
   afterCreate(target: EventArgs<StudySpotEntity>) {
     const id = target.entity.place.id

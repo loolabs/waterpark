@@ -4,8 +4,8 @@ import { CreateUserUseCase } from '../../modules/users/application/use-cases/cre
 import { GetAllClubsUseCase } from '../../modules/legacy/clubs/application/use-cases/get-all-clubs/get-all-clubs-use-case'
 import { GetAllEventsUseCase } from '../../modules/legacy/events/application/use-cases/get-all-events/get-all-events-use-case'
 import { GetAllPlacesUseCase } from '../../modules/places/use-cases/get-all-places/get-all-places-use-case'
-import { GetAllWashroomsUseCase } from '../../modules/washrooms/use-cases/get-all-washrooms/get-all-washrooms-use-case'
-import { GetWashroomByIdUseCase } from '../../modules/washrooms/use-cases/get-washroom-by-id/get-washroom-by-id-use-case'
+import { GetAllWashroomsUseCase } from '../../modules/resources/use-cases/get-all-resources'
+import { GetWashroomByIdUseCase } from '../../modules/resources/use-cases/get-resource-by-id'
 
 export const setupUseCases = (repos: Repos): UseCases => {
   return {

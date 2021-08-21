@@ -1,10 +1,10 @@
 import { mocks } from '../../../../../test-utils'
 import { WashroomDTO } from '../../../mappers/washroom-dto'
 import { Result } from '../../../../../shared/core/result'
-import { GetAllWashroomsUseCase } from '../get-all-washrooms-use-case'
+import { GetAllWashroomsUseCase } from '..'
 import { AppError } from '../../../../../shared/core/app-error'
 
-jest.mock('../../../repos/mock-washroom-repo')
+jest.mock('../../../repos')
 
 describe('GetAllWashoomsController', () => {
   const ids: Array<string> = [1, 2, 3].map(String)

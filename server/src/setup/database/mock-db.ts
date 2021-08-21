@@ -3,7 +3,7 @@ import { MockClubRepo } from '../../modules/legacy/clubs/infra/repos/implementat
 import { MockEventRepo } from '../../modules/legacy/events/infra/repos/implementations/mock-event-repo'
 import { MockUserRepo } from '../../modules/users/infra/repos/implementations/mock-user-repo'
 import { MockPlaceRepo } from './../../modules/places/repos/mock-place-repo'
-import { MockWashroomRepo } from '../../modules/washrooms/repos/mock-washroom-repo'
+import { MockWashroomRepo } from '../../modules/resources/repos'
 import { ClubEntity } from '../../shared/infra/db/entities/legacy/club.entity'
 import { EventEntity } from '../../shared/infra/db/entities/legacy/event.entity'
 import { UserEntity } from '../../shared/infra/db/entities/legacy/user.entity'

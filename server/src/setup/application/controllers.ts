@@ -3,8 +3,8 @@ import { CreateUserController } from '../../modules/users/application/use-cases/
 import { GetAllClubsController } from '../../modules/legacy/clubs/application/use-cases/get-all-clubs/get-all-clubs-controller'
 import { GetAllEventsController } from '../../modules/legacy/events/application/use-cases/get-all-events/get-all-events-controller'
 import { GetAllPlacesController } from '../../modules/places/use-cases/get-all-places/get-all-places-controller'
-import { GetAllWashroomsController } from '../../modules/washrooms/use-cases/get-all-washrooms/get-all-washrooms-controller'
-import { GetWashroomByIdController } from '../../modules/washrooms/use-cases/get-washroom-by-id/get-washroom-by-id-controller'
+import { GetAllWashroomsController } from '../../modules/resources/use-cases/get-all-resources'
+import { GetWashroomByIdController } from '../../modules/resources/use-cases/get-resource-by-id'
 
 export const setupControllers = (useCases: UseCases): Controllers => {
   return {
