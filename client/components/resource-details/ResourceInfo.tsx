@@ -42,7 +42,7 @@ const Description = styled.p`
   @media ${smallerThan(width.mobile)} {
     width: 100%;
   }
-  min-width: ${width.mobileS};
+  min-width: min(calc(100% - 60px), ${width.mobileS});
   margin-left: 16px;
   margin-right: 16px;
 `
