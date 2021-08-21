@@ -2,14 +2,15 @@ import { UserRepo } from '../../modules/users/infra/repos/user-repo'
 import { EventRepo } from '../../modules/legacy/events/infra/repos/event-repo'
 import { ClubRepo } from '../../modules/legacy/clubs/infra/repos/club-repo'
 import { PlaceRepo } from '../../modules/places/repos/place-repo'
-import { WashroomRepo } from '../../modules/washrooms/repos/washroom-repo'
+import { ResourceRepo } from '../../modules/resources/repos/resource-repo'
+import { Washroom } from '../../modules/resources/domain/entities/washroom'
 
 export interface Repos {
   club: ClubRepo
   event: EventRepo
   user: UserRepo
   place: PlaceRepo
-  washroom: WashroomRepo
+  washroom: ResourceRepo<Washroom>
 }
 
 export interface DB {

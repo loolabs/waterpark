@@ -26,11 +26,13 @@ export const Reviews = ({
   reviews.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
   return (
     <ReviewWrapper>
-      <ReviewHeading id="reviews">Reviews</ReviewHeading>
+      <ReviewHeading id="reviews">Comments</ReviewHeading>
       <SubmitReview name={name} resourceSlug={resourceSlug} />
-      {reviews.map((review, index) => {
-        return <ReviewCard key={index} review={review} />
-      })}
+      {reviews
+        .filter((review) => !!review.comment)
+        .map((review, index) => {
+          return <ReviewCard key={index} review={review} />
+        })}
     </ReviewWrapper>
   )
 }
@@ -152,7 +154,7 @@ const Rating = styled(
         <ReactStars
           count={5}
           // Circles are too small on Windows font
-          char={navigator.appVersion.indexOf('Win') != -1 ? '⬤' : '●'} 
+          char={navigator.appVersion.indexOf('Win') != -1 ? '⬤' : '●'}
           value={score / 20}
           size={24}
           color1={'#DDDDDD'}

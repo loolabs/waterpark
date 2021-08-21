@@ -1,10 +1,10 @@
 import { mocks } from '../../../../../test-utils'
 import { WashroomDTO } from '../../../mappers/washroom-dto'
 import { Result } from '../../../../../shared/core/result'
-import { GetWashroomByIdUseCase } from '../get-washroom-by-id-use-case'
+import { GetWashroomByIdUseCase } from '..'
 import { AppError } from '../../../../../shared/core/app-error'
 
-jest.mock('../../../repos/mock-washroom-repo')
+jest.mock('../../../repos')
 
 describe('GetWashroomByIdController', () => {
   const id: string = String(1)

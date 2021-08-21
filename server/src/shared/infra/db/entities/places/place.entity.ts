@@ -6,6 +6,8 @@ import {
   LoadStrategy,
   ManyToMany,
   OneToMany,
+  OneToOne,
+  PrimaryKeyType,
   Property,
 } from '@mikro-orm/core'
 import { DomainEvents } from '../../../../domain/events/domain-events'
@@ -52,5 +54,19 @@ export class PlaceEntity extends BaseEntity {
     const id = target.entity.id
     const aggregateId = new UniqueEntityID(id)
     DomainEvents.dispatchEventsForAggregate(aggregateId)
+  }
+}
+
+// A base class for resource entities, but not an entity on its own.
+export class BaseResourceEntity {
+  [PrimaryKeyType]: PlaceEntity['id']
+
+  @OneToOne({ primary: true, strategy: LoadStrategy.JOINED })
+  place!: PlaceEntity
+
+  constructor(place?: PlaceEntity) {
+    if (place !== undefined) {
+      this.place = place
+    }
   }
 }

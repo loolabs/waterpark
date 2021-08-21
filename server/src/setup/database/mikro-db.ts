@@ -20,7 +20,7 @@ import { MikroClubRepo } from '../../modules/legacy/clubs/infra/repos/implementa
 import { MikroEventRepo } from '../../modules/legacy/events/infra/repos/implementations/mikro-event-repo'
 import { MikroUserRepo } from '../../modules/users/infra/repos/implementations/mikro-user-repo'
 import { MikroPlaceRepo } from './../../modules/places/repos/mikro-place-repo'
-import { MikroWashroomRepo } from '../../modules/washrooms/repos/mikro-washroom-repo'
+import { MikroWashroomRepo } from '../../modules/resources/repos'
 
 class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrategy {
   classToTableName(entityName: string) {

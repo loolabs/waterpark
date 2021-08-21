@@ -1,4 +1,4 @@
-import { Washroom } from '../../../../modules/washrooms/domain/entities/washroom';
+import { Washroom } from '../../../../modules/resources/domain/entities/washroom'
 
 const mockWashroom = (id: string): Washroom => {
   const washroomResult = Washroom.create({
@@ -12,10 +12,10 @@ const mockWashroom = (id: string): Washroom => {
       iconImage: `Place Icon ${id}`,
     },
     tags: ['tag 1', 'tag 2', 'tag 3'],
-  });
+  })
 
-  if (washroomResult.isErr()) throw washroomResult.error;
-  return washroomResult.value;
-};
+  if (washroomResult.isErr()) throw washroomResult.error
+  return washroomResult.value
+}
 
-export { mockWashroom };
+export { mockWashroom }
