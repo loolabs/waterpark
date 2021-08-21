@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { colours } from './colours'
-import { width, smallerThan } from './device'
+import { width, smallerThan, largerThan } from './device'
 
 // font size
 const text48 = '48px'

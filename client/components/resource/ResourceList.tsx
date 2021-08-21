@@ -53,12 +53,18 @@ const ResourceListTitleRow = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
+  @media ${smallerThan(width.tablet)} {
+    justify-content: start;
+  }
   height: 64px;
 `
 
 const ResourceListTitle = styled(PageTitle)`
   margin: 0;
-  white-space: nowrap;
+  @media ${largerThan(width.mobile)} {
+    white-space: nowrap;
+    margin-right: 16px;
+  }
 `
 
 type sortPatternType = (first: Resource, second: Resource) => number
@@ -159,6 +165,18 @@ const ShowLargerThanLaptop = styled.div`
   }
 `
 
+const ShowSmallerThanMobile = styled.div`
+  @media ${largerThan(width.mobile)} {
+    display: none;
+  }
+`
+
+const ShowLargerThanMobile = styled.div`
+  @media ${smallerThan(width.mobile)} {
+    display: none;
+  }
+`
+
 const ResourceListHeader = ({ onSearch, changeSortPattern, slug }: ResourceListHeaderProps) => {
   return (
     <ResourceListHeaderContainer>
@@ -169,13 +187,19 @@ const ResourceListHeader = ({ onSearch, changeSortPattern, slug }: ResourceListH
           <ShowLargerThanLaptop>
             <SortDropdown changeSortPattern={changeSortPattern} slug={slug} />
           </ShowLargerThanLaptop>
-          <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
+          <ShowLargerThanMobile>
+            <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
+          </ShowLargerThanMobile>
         </Row>
       </ResourceListTitleRow>
 
+      <ShowSmallerThanMobile>
+        <SearchInput onChange={(e) => onSearch(e.target.value)} placeholder="Search" />
+      </ShowSmallerThanMobile>
       <ShowSmallerThanLaptop>
         <SortDropdown changeSortPattern={changeSortPattern} slug={slug} />
       </ShowSmallerThanLaptop>
+
     </ResourceListHeaderContainer>
   )
 }
