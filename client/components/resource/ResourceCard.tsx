@@ -1,9 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-import { TagGroup, TagRow } from './Tag'
 import { TagBubble } from '../common/TagBubble'
-import { Resource } from '../../utils'
+import { Resource, resourceLookup, capitalizeFirstLetter } from '../../utils'
 import { colours } from '../../styles'
 
 // Shared styled components that can probably be factored out later
@@ -63,7 +62,6 @@ const ResourceCardName = styled.h2`
 `
 
 const ResourceCardDescription = styled.p`
-  height: 64px;
   overflow: hidden;
   position: relative;
   margin-bottom: 24px;
@@ -92,6 +90,50 @@ interface ResourceCardProps {
   Resource: Resource
 }
 
+const StatisticsRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  // display: grid;
+  // grid-template-columns: repeat(auto-fit, minmax(100px, 33%));
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 24px;
+  margin-bottom: 16px;
+`
+
+const Statistic = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-width: 100px;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-bottom: 8px;
+  flex-grow: 1;
+`
+
+const StatisticHeader = styled.p`
+  margin: 0;
+  font-weight: 700;
+`
+
+const StatisticNumber = styled.p`
+  margin-top: 8px;
+  font-size: 1.2em;
+  margin-bottom: 0px;
+`
+
+const TotalReviews = styled.div`
+  color: ${colours.primary2};
+  margin-left: 24px;
+  margin-right: 24px;
+  margin-bottom: 24px;
+  text-decoration: underline;
+
+  &:hover {
+    color: ${colours.primary1};
+  }
+`
+
 export const ResourceCard = ({ Resource }: ResourceCardProps) => {
   const { id, name, description, links, resourceSlug } = Resource
   const router = useRouter()
@@ -113,6 +155,17 @@ export const ResourceCard = ({ Resource }: ResourceCardProps) => {
           <TagGroup>{tags.map(ResourceCardTag)}</TagGroup>
         </TagRow> */}
       </ResourceCardContent>
+      <StatisticsRow>
+        {resourceLookup[resourceSlug]['criteria'].map((criterion) => (
+          <Statistic>
+            <StatisticHeader>{capitalizeFirstLetter(criterion)}</StatisticHeader>
+            <StatisticNumber>{Resource.averageRating[criterion]}%</StatisticNumber>
+          </Statistic>
+        ))}
+      </StatisticsRow>
+      <TotalReviews>
+        <a href={'/' + resourceSlug + '/' + id + '#reviews'}>{Resource.totalReviews} Reviews </a>
+      </TotalReviews>
       {/* <p>
         {JSON.stringify(Resource.averageRating)}
       </p>

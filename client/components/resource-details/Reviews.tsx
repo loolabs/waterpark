@@ -1,10 +1,17 @@
 import styled from 'styled-components'
 import { colours, largerThan, smallerThan, width } from '../../styles'
-import { Review } from '../../utils/types'
+import { Review, capitalizeFirstLetter } from '../../utils'
 import ReactStars from 'react-stars'
 import { formatRelative } from 'date-fns'
 import { SubmitReview } from './SubmitReview'
-import { capitalizeFirstLetter } from '../common/Functions'
+
+const ReviewHeading = styled.h1`
+  padding-top: 75px; // for scrolling, so the content appears below the 55px navbar
+`
+
+const ReviewWrapper = styled.div`
+  margin-top: -75px; // to cancel out padding for display purposes
+`
 
 export const Reviews = ({
   reviews,
@@ -17,15 +24,15 @@ export const Reviews = ({
 }) => {
   reviews.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
   return (
-    <div>
-      <h1>Comments</h1>
+    <ReviewWrapper>
+      <ReviewHeading id="reviews">Comments</ReviewHeading>
       <SubmitReview name={name} resourceSlug={resourceSlug} />
       {reviews
         .filter((review) => !!review.comment)
         .map((review, index) => {
           return <ReviewCard key={index} review={review} />
         })}
-    </div>
+    </ReviewWrapper>
   )
 }
 
@@ -50,7 +57,7 @@ const RatingList = styled.div`
   margin: 24px;
   margin-left: auto;
   align-self: flex-start;
-  @media ${smallerThan(width.mobileS)} {
+  @media (max-width: 500px) {
     margin-left: 24px;
   }
 `

@@ -9,7 +9,6 @@ export const SearchInput = styled.input`
   font-family: ${fontInter};
   font-size: 16px;
   font-weight: ${fontWeight.semiBold};
-  margin-left: 16px;
 
   background-position: 4px 4px;
   background-size: 24px 24px;
@@ -26,6 +25,7 @@ export const SearchInput = styled.input`
     margin-right: 0;
     padding-left: 48px;
     padding-right: 16px;
+    margin-left: 16px;
     width: 200px;
   }
 
@@ -35,13 +35,14 @@ export const SearchInput = styled.input`
 
     @media ${smallerThan(width.tablet)} {
       background-color: ${colours.neutralLight1};
-      background-position: 8px 4px;
-      padding-left: 36px;
       padding-right: 12px;
-      margin-left: 12px;
 
       width: 100%;
       transition: width 0.5s;
+    }
+
+    @media ${smallerThan(width.tablet)} and ${largerThan(width.mobile)} {
+      padding-left: 32px;
     }
   }
 `

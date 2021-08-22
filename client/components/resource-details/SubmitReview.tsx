@@ -11,8 +11,7 @@ import {
 import Modal from 'react-modal'
 import { useState, Fragment } from 'react'
 import ReactStars from 'react-stars'
-import { Faculty, Status, resourceLookup } from '../../utils'
-import { capitalizeFirstLetter } from '../common/Functions'
+import { Faculty, Status, resourceLookup, capitalizeFirstLetter } from '../../utils'
 
 const SubmitButton = styled.button`
   font-size: 18px;
@@ -24,6 +23,10 @@ const SubmitButton = styled.button`
   border-radius: 5px;
   border: 3px solid ${colours.primary2};
   cursor: pointer;
+  margin-left: 8px;
+  margin-right: 8px;
+  width: 125px;
+  flex-shrink: 0;
 
   &:hover {
     background-color: ${colours.white};
@@ -39,6 +42,8 @@ const SubmitReviewBanner = styled.div`
   }
 
   margin-bottom: 16px;
+  margin-left: -8px;
+  margin-right: -8px;
 `
 
 const ModalStyle = {
@@ -413,10 +418,15 @@ export const SubmitReview = ({ name, resourceSlug }: { name: string; resourceSlu
     setIsOpen(false)
   }
 
+  const Thoughts = styled.h3`
+    margin-left: 8px;
+    margin-right: 8px;
+  `
+
   return (
     <Fragment>
       <SubmitReviewBanner>
-        <h3>What are your thoughts on {name}?</h3>
+        <Thoughts>What are your thoughts on {name}?</Thoughts>
         <SubmitButton onClick={openModal}>Add Review</SubmitButton>
       </SubmitReviewBanner>
 
