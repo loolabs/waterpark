@@ -13,11 +13,11 @@ interface ResourceLookup {
 export const resourceLookup: ResourceLookup = {
   housing: {
     title: 'Housing',
-    criteria: ['cleanliness', 'price', 'management'],
+    criteria: ['cleanliness', 'affordability', 'management'],
   },
   'study-spots': {
     title: 'Study Spots',
-    criteria: ['cleanliness', 'noise'],
+    criteria: ['cleanliness', 'atmosphere'],
   },
   washrooms: {
     title: 'Washrooms',
@@ -97,7 +97,7 @@ export interface Rating {
 export interface HousingReview extends Review {
   ratings: {
     cleanliness: number
-    price: number
+    affordability: number
     management: number
   }
 }
@@ -105,7 +105,7 @@ export interface HousingReview extends Review {
 export interface StudySpotReview extends Review {
   ratings: {
     cleanliness: number
-    noise: number
+    atmosphere: number
   }
 }
 
