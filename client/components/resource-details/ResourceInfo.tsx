@@ -25,17 +25,6 @@ const Name = styled(PageTitle)`
   margin-top: 32px;
 `
 
-const Metadata = styled.div`
-  margin-bottom: 16px;
-`
-
-const MemberCount = styled.p`
-  font-style: italic;
-  font-weight: ${fontWeight.bold};
-  margin-bottom: 0;
-  margin-top: 0;
-`
-
 const Description = styled.p`
   line-height: 1.3;
   flex: 1;
@@ -115,7 +104,7 @@ const AggregateRating = ({ criteria, value }: AggregateRatingProps) => {
 
 export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
   const router = useRouter()
-  const { name, description, links, galleryImages, reviews, resourceSlug } = resource
+  const { name, description, location, links, galleryImages, reviews, resourceSlug } = resource
 
   const TotalReviews = styled.div`
     color: ${colours.primary2};
@@ -138,9 +127,7 @@ export const ResourceInfo = ({ resource }: ResourceInfoProps) => {
 
       <RatingDescription>
         <Description>
-          <Metadata>
-            <MemberCount>200-300 students</MemberCount>
-          </Metadata>
+          <h3>{location}</h3>
           {description}
         </Description>
         <Ratings>
