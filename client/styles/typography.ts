@@ -57,7 +57,7 @@ export const PageTitle = styled.h1`
   font-weight: ${fontWeight.semiBold};
   font-size: ${desktopFontSize.h1};
   line-height: 120%;
-  color: ${colours.black};
+  color: ${colours.darkGrey};
   @media ${smallerThan(width.tablet)} {
     font-size: ${mobileFontSize.h1};
   }

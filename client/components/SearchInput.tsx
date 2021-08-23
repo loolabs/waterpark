@@ -29,6 +29,13 @@ export const SearchInput = styled.input`
     width: 200px;
   }
 
+  @media ${smallerThan(width.mobile)} {
+    background-color: ${colours.neutralLight1};
+    padding-right: 12px;
+    margin-bottom: 8px;
+    width: 100%;
+  }
+
   :focus,
   :not(:placeholder-shown) {
     outline: none;

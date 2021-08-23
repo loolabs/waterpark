@@ -9,6 +9,7 @@ import { SearchInput } from '../SearchInput'
 const ResourceListPage = styled.div`
   margin-top: 65px;
   margin-bottom: 24px;
+  color: ${colours.darkGrey};
 `
 
 const ResourceListGrid = styled.div`
