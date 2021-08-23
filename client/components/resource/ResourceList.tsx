@@ -57,15 +57,15 @@ const ResourceListTitleRow = styled.div`
   @media ${smallerThan(width.tablet)} {
     justify-content: start;
   }
-  height: 64px;
 `
 
 const ResourceListTitle = styled(PageTitle)`
   margin: 0;
   @media ${largerThan(width.mobile)} {
     white-space: nowrap;
-    margin-right: 16px;
+    margin-right: 24px;
   }
+  margin-bottom: 8px;
 `
 
 type sortPatternType = (first: Resource, second: Resource) => number

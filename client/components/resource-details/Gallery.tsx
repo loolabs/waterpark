@@ -30,6 +30,7 @@ export const Gallery = styled(
               />
             )
           }}
+          // thumbnailPosition={'right'}
           renderRightNav={(onClick, disabled) => {
             return (
               <img
@@ -49,7 +50,4 @@ export const Gallery = styled(
   }
 )`
   width: 100%;
-  @media ${largerThan(width.laptop)} {
-    width: 60%;
-  }
 `
