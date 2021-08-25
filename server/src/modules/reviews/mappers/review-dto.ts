@@ -1,43 +1,20 @@
-import * as t from 'io-ts'
-import { Faculty, tFaculty, Status, tStatus } from '../domain/entities/review'
+import { z } from 'zod'
+import { Faculty, Status } from '../domain/entities/review'
 
-interface UserInfoDTO {
-  avatarImage: string
-  faculty: Faculty
-  status: Status
-}
-
-interface RatingsDTO {
-  affordability?: number
-  atmosphere?: number
-  cleanliness?: number
-  management?: number
-}
-
-export interface ReviewDTO {
-  reviewId: string
-  placeId: string
-  comment?: string
-  user: UserInfoDTO
-  ratings: RatingsDTO
-}
-export const tReviewDTO: t.Type<ReviewDTO> = t.intersection([
-  t.strict({
-    reviewId: t.string,
-    placeId: t.string,
-    user: t.strict({
-      avatarImage: t.string,
-      faculty: tFaculty,
-      status: tStatus,
-    }),
-    ratings: t.partial({
-      affordability: t.number,
-      atmosphere: t.number,
-      cleanliness: t.number,
-      management: t.number,
-    }),
+export const ReviewDTO = z.strictObject({
+  reviewId: z.string(),
+  placeId: z.string(),
+  comment: z.string().optional(),
+  user: z.strictObject({
+    avatarImage: z.string(),
+    faculty: Faculty,
+    status: Status,
   }),
-  t.partial({
-    comment: t.string,
+  ratings: z.strictObject({
+    affordability: z.number().optional(),
+    atmosphere: z.number().optional(),
+    cleanliness: z.number().optional(),
+    management: z.number().optional(),
   }),
-])
+})
+export type ReviewDTO = z.infer<typeof ReviewDTO>

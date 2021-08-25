@@ -1,57 +1,55 @@
-import * as t from 'io-ts'
-import { Request, Response } from 'express'
+import { z } from 'zod'
+import express from 'express'
+import { Result, Ok, Err } from '../core/result'
+import { ValidationError } from '../core/validation'
 import { BaseController } from './base-controller'
 import { UseCaseWithDTO } from './use-case-with-dto'
-import { Result, Ok, Err } from '../core/result'
-import { PathReporter } from 'io-ts/lib/PathReporter'
-import { toResult, toEither } from '../core/validation'
 
 type getArgs<UseCase> = UseCase extends UseCaseWithDTO<infer T, any> ? T : never
 type getResult<UseCase> = UseCase extends UseCaseWithDTO<any, infer T> ? T : never
-export type ValidationErrors = t.Errors
 
 export abstract class TypedController<
   UseCase extends UseCaseWithDTO<any, any>,
-  UCResult = getResult<UseCase>,
-  UCArgs extends getArgs<UseCase> = getArgs<UseCase>
+  UseCaseResult = getResult<UseCase>,
+  UseCaseArgs extends getArgs<UseCase> = getArgs<UseCase>
 > extends BaseController {
   constructor(protected useCase: UseCase) {
     super()
   }
 
   // Utilities
-  protected validate<T>(obj: unknown, type: t.Type<T>): Result<T, ValidationErrors> {
-    return toResult(type.decode(obj))
+  protected validate<T>(data: unknown, type: z.ZodType<T>): Result<T, ValidationError> {
+    const parsed = type.safeParse(data)
+    return parsed.success ? Result.ok(parsed.data) : Result.err(parsed.error)
   }
 
   // Things that must be overridden
-  protected abstract buildArgs(req: Request): Result<UCArgs, ValidationErrors>
-  protected abstract onResult<Res extends Response>(
-    req: Request,
+  protected abstract buildArgs(req: express.Request): Result<UseCaseArgs, ValidationError>
+  protected abstract onResult<Res extends express.Response>(
+    req: express.Request,
     res: Res,
-    result: UCResult
+    result: UseCaseResult
   ): Promise<Res>
 
   // Default implementations of things that could be overridden
-  protected async onArgsOk<Res extends Response>(
-    req: Request,
+  protected async onArgsOk<Res extends express.Response>(
+    req: express.Request,
     res: Res,
-    args: Ok<UCArgs, ValidationErrors>
+    args: Ok<UseCaseArgs, ValidationError>
   ): Promise<Res> {
     const result: getResult<UseCase> = await this.useCase.execute(args.value)
     return this.onResult(req, res, result)
   }
-  protected async onArgsErr<Res extends Response>(
-    _: Request,
+  protected async onArgsErr<Res extends express.Response>(
+    _: express.Request,
     res: Res,
-    args: Err<UCArgs, ValidationErrors>
+    args: Err<UseCaseArgs, ValidationError>
   ): Promise<Res> {
-    const message = PathReporter.report(toEither(args)).join('\n\n')
-    return this.clientError(res, message)
+    return this.badRequest(res, args.error.toString())
   }
 
   // Implement BaseController
-  public async execute<Res extends Response>(req: Request, res: Res): Promise<Res> {
+  public async execute<Res extends express.Response>(req: express.Request, res: Res): Promise<Res> {
     try {
       const args = this.buildArgs(req)
       if (args.isOk()) {

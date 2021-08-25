@@ -1,23 +1,17 @@
-import { isRight, Either, left, right } from 'fp-ts/lib/Either'
-import * as t from 'io-ts'
+import { z } from 'zod'
 import { Result } from './result'
 
-// Helper functions for type validation (io-ts).
+export class ValidationError extends z.ZodError {}
 
-export function tEnum<Value>(name: string, sEnum: Record<string, Value>): t.Type<Value> {
-  const isValue = (input: unknown): input is Value => Object.values<unknown>(sEnum).includes(input)
-  return new t.Type<Value>(
-    name,
-    isValue,
-    (input, context) => (isValue(input) ? t.success(input) : t.failure(input, context)),
-    t.identity
-  )
-}
-
-export function toResult<L, R>(either: Either<L, R>): Result<R, L> {
-  return isRight(either) ? Result.ok(either.right) : Result.err(either.left)
-}
-
-export function toEither<L, R>(result: Result<R, L>): Either<L, R> {
-  return result.isOk() ? right(result.value) : left(result.error)
+export function merge<T1, T2>(
+  result1: Result<T1, ValidationError>,
+  result2: Result<T2, ValidationError>
+): Result<T1 & T2, ValidationError> {
+  if (result1.isOk() && result2.isOk()) {
+    return Result.ok({ ...result1.value, ...result2.value })
+  }
+  const error = ValidationError.create([])
+  if (result1.isErr()) error.addIssues(result1.error.issues)
+  if (result2.isErr()) error.addIssues(result2.error.issues)
+  return Result.err(error)
 }

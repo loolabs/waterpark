@@ -1,54 +1,25 @@
-import * as t from 'io-ts'
+import { z } from 'zod'
 import express from 'express'
 import { LeaveReviewUseCase, LeaveReviewArgs, LeaveReviewResult } from './leave-review-use-case'
-import { tFaculty, tStatus } from '../../domain/entities/review'
 import { TypedController } from '../../../../shared/app/typed-controller'
 import { Result } from '../../../../shared/core/result'
 import { ReviewMap } from '../../mappers/review-map'
+import { ValidationError, merge } from '../../../../shared/core/validation'
 
 // TODO: factor these types out when API types land
 
-export type LeaveReviewBody = Omit<LeaveReviewArgs, 'placeId'>
-export const tLeaveReviewBody: t.Type<LeaveReviewBody> = t.intersection([
-  t.strict({
-    user: t.strict({
-      avatarImage: t.string,
-      faculty: tFaculty,
-      status: tStatus,
-    }),
-    ratings: t.partial({
-      affordability: t.number,
-      atmosphere: t.number,
-      cleanliness: t.number,
-      management: t.number,
-    }),
-  }),
-  t.partial({
-    comment: t.string,
-  }),
-])
+export const LeaveReviewParams = LeaveReviewArgs.pick({ placeId: true })
+export type LeaveReviewParams = z.infer<typeof LeaveReviewParams>
 
-export type LeaveReviewParams = {
-  placeId: string
-}
-export const tLeaveReviewParams: t.Type<LeaveReviewParams> = t.strict({
-  placeId: t.string,
-})
+export const LeaveReviewBody = LeaveReviewArgs.omit({ placeId: true })
+export type LeaveReviewBody = z.infer<typeof LeaveReviewBody>
 
 export class LeaveReviewController extends TypedController<LeaveReviewUseCase> {
-  buildArgs(req: express.Request): Result<LeaveReviewArgs, t.Errors> {
-    const paramsResult = this.validate(req.params, tLeaveReviewParams)
-    const bodyResult = this.validate(req.body, tLeaveReviewBody)
-    if (paramsResult.isOk() && bodyResult.isOk()) {
-      return Result.ok({
-        ...paramsResult.value,
-        ...bodyResult.value,
-      })
-    }
-    const errors: t.Errors = []
-    if (paramsResult.isErr()) errors.push(...paramsResult.error)
-    if (bodyResult.isErr()) errors.push(...bodyResult.error)
-    return Result.err(errors)
+  buildArgs(req: express.Request): Result<LeaveReviewArgs, ValidationError> {
+    return merge(
+      this.validate(req.params, LeaveReviewParams),
+      this.validate(req.body, LeaveReviewBody)
+    )
   }
 
   async onResult<Res extends express.Response>(

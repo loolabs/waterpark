@@ -1,6 +1,6 @@
 import { Result } from '../../../../../shared/core/result'
 import { mocks } from '../../../../../test-utils'
-import { ReviewRepo, InvalidPlaceIdError, ReviewRepoError } from '../../../repos/review-repo'
+import { ReviewRepo, ReviewRepoError } from '../../../repos/review-repo'
 import { LeaveReviewUseCase, LeaveReviewArgs } from '../leave-review-use-case'
 
 jest.mock('../../../repos/mock-review-repo')

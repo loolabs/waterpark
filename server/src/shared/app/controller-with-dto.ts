@@ -29,7 +29,7 @@ export abstract class ControllerWithDTO<
         return await this.executeImpl(dtoResult.value, res)
       } else {
         const message = dtoResult.error.map((err) => err.message).join('\n\n')
-        return this.clientError(res, message)
+        return this.badRequest(res, message)
       }
     } catch (err) {
       console.log(`[BaseController]: Uncaught controller error`)

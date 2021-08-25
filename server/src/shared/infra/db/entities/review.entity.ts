@@ -8,7 +8,7 @@ import {
   Property,
   Reference,
 } from '@mikro-orm/core'
-import { Faculty, Status } from '../../../../modules/reviews/domain/entities/review'
+import { FacultyEnum, StatusEnum } from '../../../../modules/reviews/domain/entities/review'
 import { DomainEvents } from '../../../domain/events/domain-events'
 import { UniqueEntityID } from '../../../domain/unique-entity-id'
 import { BaseEntity } from './base.entity'
@@ -25,11 +25,11 @@ export class ReviewEntity extends BaseEntity {
   @Property({ columnType: 'text' })
   avatarImage!: string
 
-  @Enum(() => Faculty)
-  faculty!: Faculty
+  @Enum(() => FacultyEnum)
+  faculty!: FacultyEnum
 
-  @Enum(() => Status)
-  status!: Status
+  @Enum(() => StatusEnum)
+  status!: StatusEnum
 
   @Property({ nullable: true })
   affordabilityRating?: number
@@ -48,8 +48,8 @@ export class ReviewEntity extends BaseEntity {
     comment?: string
     user: {
       avatarImage: string
-      faculty: Faculty
-      status: Status
+      faculty: FacultyEnum
+      status: StatusEnum
     }
     ratings: {
       affordability?: number

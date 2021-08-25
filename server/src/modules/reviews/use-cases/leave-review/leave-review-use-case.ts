@@ -1,3 +1,4 @@
+import { z } from 'zod'
 import { UseCaseWithDTO } from '../../../../shared/app/use-case-with-dto'
 import { AppError } from '../../../../shared/core/app-error'
 import { Result } from '../../../../shared/core/result'
@@ -11,7 +12,10 @@ export class LeaveReviewError extends AppError.UnexpectedError {
     super(message)
   }
 }
-export type LeaveReviewArgs = Omit<ReviewDTO, 'reviewId'>
+
+export const LeaveReviewArgs = ReviewDTO.omit({ reviewId: true })
+export type LeaveReviewArgs = z.infer<typeof LeaveReviewArgs>
+
 export type LeaveReviewResult = Result<Review, LeaveReviewError>
 
 export class LeaveReviewUseCase implements UseCaseWithDTO<LeaveReviewArgs, LeaveReviewResult> {

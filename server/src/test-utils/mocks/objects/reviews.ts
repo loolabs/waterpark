@@ -1,4 +1,4 @@
-import { Review, Faculty, Status } from '../../../modules/reviews/domain/entities/review'
+import { Review, FacultyEnum, StatusEnum } from '../../../modules/reviews/domain/entities/review'
 import { ReviewDTO } from '../../../modules/reviews/mappers/review-dto'
 import {
   LeaveReviewBody,
@@ -8,8 +8,8 @@ import { LeaveReviewArgs } from '../../../modules/reviews/use-cases/leave-review
 import { PlaceEntity } from '../../../shared/infra/db/entities/places/place.entity'
 import { ReviewEntity } from '../../../shared/infra/db/entities/review.entity'
 
-const mockFaculty = Faculty.Mathematics
-const mockStatus = Status.U1
+const mockFaculty = FacultyEnum.Mathematics
+const mockStatus = StatusEnum.U1
 
 export const mockReview = (reviewId: string, placeId: string): Review => {
   const reviewResult = Review.create({

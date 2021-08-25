@@ -1,11 +1,16 @@
-import * as t from 'io-ts'
+import { z } from 'zod'
 import { UniqueEntityID } from '../../../../shared/domain/unique-entity-id'
 import { Result } from '../../../../shared/core/result'
 import { AggregateRoot } from '../../../../shared/domain/aggregate-root'
 import { ReviewCreated } from '../events/review-created'
-import { tEnum } from '../../../../shared/core/validation'
 
-export enum Faculty {
+// FacultyEnum and StatusEnum are string enums, so they are somewhere between a
+//   type and a variable. To keep things clear, we export Faculty and Status as
+//   the canonical type + validator objects.
+// If you're confused how we export two identifiers with the same name, see
+//   https://stackoverflow.com/a/49798480
+
+export enum FacultyEnum {
   Mathematics = 'Mathematics',
   Engineering = 'Engineering',
   Arts = 'Arts',
@@ -14,9 +19,10 @@ export enum Faculty {
   Environment = 'Environment',
   NonWaterloo = 'Non-Waterloo',
 }
-export const tFaculty: t.Type<Faculty> = tEnum('Faculty', Faculty)
+export const Faculty = z.nativeEnum(FacultyEnum)
+export type Faculty = z.infer<typeof Faculty>
 
-export enum Status {
+export enum StatusEnum {
   U1 = 'First-Year Student',
   U2 = 'Second-Year Student',
   U3 = 'Third-Year Student',
@@ -28,7 +34,8 @@ export enum Status {
   Faculty = 'Faculty Member',
   Other = 'Reviewer',
 }
-export const tStatus: t.Type<Status> = tEnum('Status', Status)
+export const Status = z.nativeEnum(StatusEnum)
+export type Status = z.infer<typeof Status>
 
 interface UserInfo {
   avatarImage: string
