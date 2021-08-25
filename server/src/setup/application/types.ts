@@ -14,6 +14,8 @@ import {
   GetWashroomByIdUseCase,
   GetWashroomByIdController,
 } from '../../modules/resources/use-cases/get-resource-by-id'
+import { LeaveReviewUseCase } from '../../modules/reviews/use-cases/leave-review/leave-review-use-case'
+import { LeaveReviewController } from '../../modules/reviews/use-cases/leave-review/leave-review-controller'
 
 export interface UseCases {
   createUser: CreateUserUseCase
@@ -22,6 +24,7 @@ export interface UseCases {
   getAllPlaces: GetAllPlacesUseCase
   getAllWashrooms: GetAllWashroomsUseCase
   getWashroomById: GetWashroomByIdUseCase
+  leaveReview: LeaveReviewUseCase
 }
 
 export interface Controllers {
@@ -31,6 +34,7 @@ export interface Controllers {
   getAllPlaces: GetAllPlacesController
   getAllWashrooms: GetAllWashroomsController
   getWashroomById: GetWashroomByIdController
+  leaveReview: LeaveReviewController
 }
 
 export interface Application {

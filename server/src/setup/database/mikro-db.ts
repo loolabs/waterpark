@@ -21,6 +21,8 @@ import { MikroEventRepo } from '../../modules/legacy/events/infra/repos/implemen
 import { MikroUserRepo } from '../../modules/users/infra/repos/implementations/mikro-user-repo'
 import { MikroPlaceRepo } from './../../modules/places/repos/mikro-place-repo'
 import { MikroWashroomRepo } from '../../modules/resources/repos'
+import { MikroReviewRepo } from '../../modules/reviews/repos/mikro-review-repo'
+import { ReviewEntity } from '../../shared/infra/db/entities/review.entity'
 
 class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrategy {
   classToTableName(entityName: string) {
@@ -94,6 +96,7 @@ interface MikroEntityRepos {
   tag: EntityRepository<LegacyTagEntity>
   user: EntityRepository<UserEntity>
   place: EntityRepository<PlaceEntity>
+  review: EntityRepository<ReviewEntity>
   washroom: EntityRepository<WashroomEntity>
 }
 const setupMikroEntityRepos = ({ em: entityManager }: MikroORM): MikroEntityRepos => {
@@ -103,6 +106,7 @@ const setupMikroEntityRepos = ({ em: entityManager }: MikroORM): MikroEntityRepo
     tag: entityManager.getRepository(LegacyTagEntity),
     user: entityManager.getRepository(UserEntity),
     place: entityManager.getRepository(PlaceEntity),
+    review: entityManager.getRepository(ReviewEntity),
     washroom: entityManager.getRepository(WashroomEntity),
   }
 }
@@ -112,6 +116,7 @@ interface MikroRepos extends Repos {
   event: MikroEventRepo
   user: MikroUserRepo
   place: MikroPlaceRepo
+  review: MikroReviewRepo
   washroom: MikroWashroomRepo
 }
 
@@ -121,6 +126,7 @@ const setupMikroRepos = (mikroEntityRepos: MikroEntityRepos): MikroRepos => {
     event: new MikroEventRepo(mikroEntityRepos.event),
     user: new MikroUserRepo(mikroEntityRepos.user),
     place: new MikroPlaceRepo(mikroEntityRepos.place),
+    review: new MikroReviewRepo(mikroEntityRepos.review, mikroEntityRepos.place),
     washroom: new MikroWashroomRepo(mikroEntityRepos.washroom),
   }
 }

@@ -1,6 +1,6 @@
 export type Result<T, E> = Ok<T, E> | Err<T, E>
 
-class Ok<T, E> {
+export class Ok<T, E> {
   public constructor(public readonly value: T) {}
 
   public isOk(): this is Ok<T, E> {

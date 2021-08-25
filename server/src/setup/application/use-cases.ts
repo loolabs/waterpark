@@ -6,6 +6,7 @@ import { GetAllEventsUseCase } from '../../modules/legacy/events/application/use
 import { GetAllPlacesUseCase } from '../../modules/places/use-cases/get-all-places/get-all-places-use-case'
 import { GetAllWashroomsUseCase } from '../../modules/resources/use-cases/get-all-resources'
 import { GetWashroomByIdUseCase } from '../../modules/resources/use-cases/get-resource-by-id'
+import { LeaveReviewUseCase } from '../../modules/reviews/use-cases/leave-review/leave-review-use-case'
 
 export const setupUseCases = (repos: Repos): UseCases => {
   return {
@@ -15,5 +16,6 @@ export const setupUseCases = (repos: Repos): UseCases => {
     getAllPlaces: new GetAllPlacesUseCase(repos.place),
     getAllWashrooms: new GetAllWashroomsUseCase(repos.washroom),
     getWashroomById: new GetWashroomByIdUseCase(repos.washroom),
+    leaveReview: new LeaveReviewUseCase(repos.review),
   }
 }
