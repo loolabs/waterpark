@@ -34,7 +34,9 @@ const setupV2APIRouter = (controllers: Controllers): APIRouter => {
     return res.json({ message: 'Water, water, water. Loo, loo, loo.' })
   })
   router.use('/places', endpointRouters.places)
-  router.post('/places/:id/reviews', controllers.leaveReview.execute)
+  router.post('/places/:placeId/reviews', (req, res) => {
+    controllers.leaveReview.execute(req, res)
+  })
   router.use('/washrooms', endpointRouters.washrooms)
   return router
 }

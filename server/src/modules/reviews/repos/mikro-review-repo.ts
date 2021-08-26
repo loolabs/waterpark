@@ -39,6 +39,7 @@ export class MikroReviewRepo implements ReviewRepo {
       // TODO: ReviewMap.toMikro probably throws something if the placeID on the entity is invalid.
       //       We should add a catch for that specific error (probably in ReviewMap) and transform
       //       it into an InvalidPlaceIdError
+      // TODO: check the above assumption that toMikro actually throws
       return Result.err(new ReviewRepoError(String(err)))
     }
   }
