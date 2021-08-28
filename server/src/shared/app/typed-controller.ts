@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import express from 'express'
-import { Result, Ok, Err } from '../core/result'
+import { Result } from '../core/result'
 import { ValidationError } from '../core/validation'
 import { BaseController } from './base-controller'
 import { UseCaseWithDTO } from './use-case-with-dto'
@@ -35,7 +35,7 @@ export abstract class TypedController<
   protected async onArgsOk<Res extends express.Response>(
     req: express.Request,
     res: Res,
-    args: Ok<UseCaseArgs, ValidationError>
+    args: UseCaseArgs
   ): Promise<Res> {
     const result: getResult<UseCase> = await this.useCase.execute(args.value)
     return this.onResult(req, res, result)
@@ -43,9 +43,9 @@ export abstract class TypedController<
   protected async onArgsErr<Res extends express.Response>(
     _: express.Request,
     res: Res,
-    args: Err<UseCaseArgs, ValidationError>
+    err: ValidationError
   ): Promise<Res> {
-    return this.badRequest(res, args.error.toString())
+    return this.badRequest(res, err.toString())
   }
 
   // Implement BaseController
@@ -53,9 +53,9 @@ export abstract class TypedController<
     try {
       const args = this.buildArgs(req)
       if (args.isOk()) {
-        return await this.onArgsOk(req, res, args)
+        return await this.onArgsOk(req, res, args.value)
       } else {
-        return await this.onArgsErr(req, res, args)
+        return await this.onArgsErr(req, res, args.error)
       }
     } catch (err) {
       console.error(`[IOController]: Uncaught controller error\n${err}`)
