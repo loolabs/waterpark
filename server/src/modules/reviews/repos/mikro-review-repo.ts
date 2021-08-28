@@ -27,7 +27,7 @@ export class MikroReviewRepo extends ReviewRepo {
 
   async upsert(review: Review): Promise<Result<null, ReviewRepoError>> {
     try {
-      const reviewEntity = await ReviewMap.toMikro(review, this.placesEntityRepo)
+      const reviewEntity = await ReviewMap.toMikroPersistence(review, this.placesEntityRepo)
 
       this.reviewsEntityRepo.persist(reviewEntity)
       return Result.ok(null)

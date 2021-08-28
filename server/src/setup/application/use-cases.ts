@@ -16,6 +16,6 @@ export const setupUseCases = (repos: Repos): UseCases => {
     getAllPlaces: new GetAllPlacesUseCase(repos.place),
     getAllWashrooms: new GetAllWashroomsUseCase(repos.washroom),
     getWashroomById: new GetWashroomByIdUseCase(repos.washroom),
-    leaveReview: new LeaveReviewUseCase(repos.review),
+    leaveReview: new LeaveReviewUseCase(repos.place, repos.review),
   }
 }

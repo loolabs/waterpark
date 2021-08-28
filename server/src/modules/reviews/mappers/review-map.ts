@@ -19,7 +19,7 @@ export class ReviewMap {
     return Review.create({ ...reviewDTO, placeId: new UniqueEntityID(reviewDTO.placeId) })
   }
 
-  public static fromMikro(reviewEntity: ReviewEntity): Review {
+  public static fromMikroPersistence(reviewEntity: ReviewEntity): Review {
     const reviewResult = Review.create(
       {
         placeId: new UniqueEntityID(reviewEntity.place.id),
@@ -43,7 +43,7 @@ export class ReviewMap {
     return reviewResult.value
   }
 
-  public static async toMikro(
+  public static async toMikroPersistence(
     review: Review,
     placesEntityRepo: EntityRepository<PlaceEntity>
   ): Promise<ReviewEntity> {
