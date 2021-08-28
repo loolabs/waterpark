@@ -5,6 +5,7 @@ import { GetAllEventsController } from '../../modules/legacy/events/application/
 import { GetAllPlacesController } from '../../modules/places/use-cases/get-all-places/get-all-places-controller'
 import { GetAllWashroomsController } from '../../modules/resources/use-cases/get-all-resources'
 import { GetWashroomByIdController } from '../../modules/resources/use-cases/get-resource-by-id'
+import { LeaveReviewController } from '../../modules/reviews/use-cases/leave-review/leave-review-controller'
 
 export const setupControllers = (useCases: UseCases): Controllers => {
   return {
@@ -14,5 +15,6 @@ export const setupControllers = (useCases: UseCases): Controllers => {
     getAllPlaces: new GetAllPlacesController(useCases.getAllPlaces),
     getAllWashrooms: new GetAllWashroomsController(useCases.getAllWashrooms),
     getWashroomById: new GetWashroomByIdController(useCases.getWashroomById),
+    leaveReview: new LeaveReviewController(useCases.leaveReview),
   }
 }

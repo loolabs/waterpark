@@ -33,10 +33,7 @@ export abstract class BaseController {
     return res.sendStatus(201)
   }
 
-  public clientError<Res extends express.Response>(
-    res: Res,
-    message: string = 'Unauthorized'
-  ): Res {
+  public badRequest<Res extends express.Response>(res: Res, message: string = 'Bad Request'): Res {
     return BaseController.jsonResponse(res, 400, message)
   }
 

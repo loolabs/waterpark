@@ -1,10 +1,10 @@
-import { PlaceEntity } from '../../../shared/infra/db/entities/places/place.entity'
+import { Place } from '../../../modules/places/domain/entities/place'
 import { MockPlaceRepo } from '../../../modules/places/repos/mock-place-repo'
 import { GetAllPlacesController } from '../../../modules/places/use-cases/get-all-places/get-all-places-controller'
 import { GetAllPlacesUseCase } from '../../../modules/places/use-cases/get-all-places/get-all-places-use-case'
 
-const mockGetAllPlaces = (placeEntities: Array<PlaceEntity> = []) => {
-  const placeRepo = new MockPlaceRepo(placeEntities)
+const mockGetAllPlaces = (place: Array<Place> = []) => {
+  const placeRepo = new MockPlaceRepo(place)
   const getAllPlacesUseCase = new GetAllPlacesUseCase(placeRepo)
   const getAllPlacesController = new GetAllPlacesController(getAllPlacesUseCase)
 

@@ -13,7 +13,7 @@ import {
 import { DomainEvents } from '../../../../domain/events/domain-events'
 import { UniqueEntityID } from '../../../../domain/unique-entity-id'
 import { BaseEntity } from '../base.entity'
-import { ReviewEntity } from '../reviews/review.entity'
+import { ReviewEntity } from '../review.entity'
 import { TagEntity } from '../tag.entity'
 
 @Entity()
