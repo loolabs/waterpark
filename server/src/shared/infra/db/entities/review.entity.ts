@@ -44,6 +44,7 @@ export class ReviewEntity extends BaseEntity {
   managementRating?: number
 
   constructor(props: {
+    reviewId: string
     place: PlaceEntity
     comment?: string
     user: {
@@ -59,7 +60,8 @@ export class ReviewEntity extends BaseEntity {
     }
   }) {
     super()
-    const { place, comment, user, ratings } = props
+    const { reviewId, place, comment, user, ratings } = props
+    this.id = reviewId
     this.place = Reference.create(place)
     this.comment = comment
     this.avatarImage = user.avatarImage

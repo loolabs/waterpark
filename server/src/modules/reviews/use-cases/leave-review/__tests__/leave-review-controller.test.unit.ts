@@ -17,7 +17,8 @@ describe('LeaveReviewController', () => {
   let leaveReviewUseCase: LeaveReviewUseCase
   let leaveReviewController: LeaveReviewController
   beforeAll(async () => {
-    const leaveReview = await mocks.mockLeaveReview([placeId])
+    const place = mocks.mockPlace(placeId)
+    const leaveReview = await mocks.mockLeaveReview([place])
     leaveReviewUseCase = leaveReview.leaveReviewUseCase
     leaveReviewController = leaveReview.leaveReviewController
   })

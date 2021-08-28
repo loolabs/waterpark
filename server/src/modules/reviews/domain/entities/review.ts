@@ -51,7 +51,7 @@ interface Ratings {
 }
 
 interface ReviewProps {
-  placeId: string
+  placeId: UniqueEntityID
   comment?: string
   user: UserInfo
   ratings: Ratings
@@ -76,7 +76,7 @@ export class Review extends AggregateRoot<ReviewProps> {
     super(props, id)
   }
 
-  get placeId(): string {
+  get placeId(): UniqueEntityID {
     return this.props.placeId
   }
 

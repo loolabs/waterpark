@@ -5,16 +5,19 @@ import { ReviewRepo, ReviewRepoError } from './review-repo'
 import { Result } from '../../../shared/core/result'
 import { ReviewEntity } from '../../../shared/infra/db/entities/review.entity'
 import { PlaceEntity } from '../../../shared/infra/db/entities/places/place.entity'
+import { UniqueEntityID } from '../../../shared/domain/unique-entity-id'
 
-export class MikroReviewRepo implements ReviewRepo {
+export class MikroReviewRepo extends ReviewRepo {
   constructor(
     protected reviewsEntityRepo: EntityRepository<ReviewEntity>,
     protected placesEntityRepo: EntityRepository<PlaceEntity>
-  ) {}
+  ) {
+    super()
+  }
 
-  async exists(reviewId: string): Promise<Result<boolean, ReviewRepoError>> {
+  async exists(reviewId: UniqueEntityID): Promise<Result<boolean, ReviewRepoError>> {
     try {
-      const reviewEntity = await this.reviewsEntityRepo.findOne({ id: reviewId })
+      const reviewEntity = await this.reviewsEntityRepo.findOne({ id: reviewId.toString() })
       return Result.ok(reviewEntity !== null)
     } catch (err: unknown) {
       // TODO: Fix unknown type error
@@ -22,24 +25,14 @@ export class MikroReviewRepo implements ReviewRepo {
     }
   }
 
-  async insert(review: Review): Promise<Result<null, ReviewRepoError>> {
+  async upsert(review: Review): Promise<Result<null, ReviewRepoError>> {
     try {
-      // see TODO in ReviewMap.toMikro
-      /*
-      const reviewId = review.id.toString()
-      const exists = await this.exists(reviewId)
-      if (exists) return Result.err(new ReviewAlreadyExistsError(reviewId))
-      */
-
       const reviewEntity = await ReviewMap.toMikro(review, this.placesEntityRepo)
+
       this.reviewsEntityRepo.persist(reviewEntity)
       return Result.ok(null)
     } catch (err: unknown) {
       // TODO: Fix unknown type error
-      // TODO: ReviewMap.toMikro probably throws something if the placeID on the entity is invalid.
-      //       We should add a catch for that specific error (probably in ReviewMap) and transform
-      //       it into an InvalidPlaceIdError
-      // TODO: check the above assumption that toMikro actually throws
       return Result.err(new ReviewRepoError(String(err)))
     }
   }

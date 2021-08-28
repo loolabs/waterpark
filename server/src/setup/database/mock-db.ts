@@ -3,20 +3,20 @@ import { MockClubRepo } from '../../modules/legacy/clubs/infra/repos/implementat
 import { MockEventRepo } from '../../modules/legacy/events/infra/repos/implementations/mock-event-repo'
 import { MockUserRepo } from '../../modules/users/infra/repos/implementations/mock-user-repo'
 import { MockPlaceRepo } from './../../modules/places/repos/mock-place-repo'
+import { MockReviewRepo } from '../../modules/reviews/repos/mock-review-repo'
 import { MockWashroomRepo } from '../../modules/resources/repos'
 import { ClubEntity } from '../../shared/infra/db/entities/legacy/club.entity'
 import { EventEntity } from '../../shared/infra/db/entities/legacy/event.entity'
 import { UserEntity } from '../../shared/infra/db/entities/legacy/user.entity'
-import { PlaceEntity } from '../../shared/infra/db/entities/places/place.entity'
-import { WashroomEntity } from '../../shared/infra/db/entities/places/washroom.entity'
-import { MockReviewRepo } from '../../modules/reviews/repos/mock-review-repo'
+import { Place } from '../../modules/places/domain/entities/place'
 import { Review } from '../../modules/reviews/domain/entities/review'
+import { WashroomEntity } from '../../shared/infra/db/entities/places/washroom.entity'
 
 interface MockEntities {
   clubs?: Array<ClubEntity>
   events?: Array<EventEntity>
   users?: Array<UserEntity>
-  places?: Array<PlaceEntity>
+  places?: Array<Place>
   reviews?: Array<Review> // TODO: turn the others into domain entities too
   washrooms?: Array<WashroomEntity>
 }
@@ -31,13 +31,12 @@ interface MockRepos extends Repos {
 }
 
 const setupMockRepos = (entities: MockEntities): MockRepos => {
-  const placeIds = entities.places === undefined ? [] : entities.places.map((place) => place.id)
   return {
     club: new MockClubRepo(entities.clubs),
     event: new MockEventRepo(entities.events),
     user: new MockUserRepo(entities.users),
     place: new MockPlaceRepo(entities.places),
-    review: new MockReviewRepo(placeIds, entities.reviews),
+    review: new MockReviewRepo(entities.reviews),
     washroom: new MockWashroomRepo(entities.washrooms),
   }
 }

@@ -5,6 +5,7 @@ import {
   LeaveReviewParams,
 } from '../../../modules/reviews/use-cases/leave-review/leave-review-controller'
 import { LeaveReviewArgs } from '../../../modules/reviews/use-cases/leave-review/leave-review-use-case'
+import { UniqueEntityID } from '../../../shared/domain/unique-entity-id'
 import { PlaceEntity } from '../../../shared/infra/db/entities/places/place.entity'
 import { ReviewEntity } from '../../../shared/infra/db/entities/review.entity'
 
@@ -13,7 +14,7 @@ const mockStatus = StatusEnum.U1
 
 export const mockReview = (reviewId: string, placeId: string): Review => {
   const reviewResult = Review.create({
-    placeId: placeId,
+    placeId: new UniqueEntityID(placeId),
     comment: `Comment ${reviewId}`,
     user: {
       avatarImage: `Avatar Image ${reviewId}`,
@@ -51,6 +52,7 @@ export const mockReviewDTO = (reviewId: string, placeId: string): ReviewDTO => {
 
 export const mockReviewEntity = (reviewId: string, placeEntity: PlaceEntity): ReviewEntity => {
   return new ReviewEntity({
+    reviewId,
     place: placeEntity,
     comment: `Comment ${reviewId}`,
     user: {
