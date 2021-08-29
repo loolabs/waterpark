@@ -1,38 +1,39 @@
+import { UniqueEntityID } from '../../../../../shared/domain/unique-entity-id'
 import { User } from '../../../domain/entities/user'
 import { UserEmail } from '../../../domain/value-objects/user-email'
-import { UserEntity } from '../../../../../shared/infra/db/entities/legacy/user.entity'
-import { UserMap } from '../../../mappers/user-map'
 import { UserRepo } from '../user-repo'
 
 export class MockUserRepo implements UserRepo {
-  protected userEntities: Map<string, UserEntity>
+  protected users: Array<User>
+  protected usersById: Map<UniqueEntityID, User>
+  protected usersByEmail: Map<UserEmail, User>
 
-  constructor(userEntities: Array<UserEntity> = []) {
-    this.userEntities = new Map(userEntities.map((userEntity) => [userEntity.id, userEntity]))
+  constructor(users: Array<User> = []) {
+    this.users = users
+    this.usersById = new Map(users.map((user) => [user.id, user]))
+    this.usersByEmail = new Map(users.map((user) => [user.email, user]))
   }
 
   async exists(userEmail: UserEmail): Promise<boolean> {
-    for (const userEntity of this.userEntities.values()) {
-      if (userEntity.email === userEmail.value) return true
-    }
-    return false
+    return this.usersByEmail.has(userEmail)
   }
 
   async getUserByUserId(userId: string): Promise<User> {
-    const userEntity = this.userEntities.get(userId)
-    if (!userEntity) throw new Error()
-    return UserMap.toDomain(userEntity)
+    const user = this.usersById.get(new UniqueEntityID(userId))
+    if (user === undefined) throw new Error()
+    return user
   }
 
   async save(user: User): Promise<void> {
     const exists = await this.exists(user.email)
     if (exists) return
 
-    const userEntity = await UserMap.toPersistence(user)
-    this.userEntities.set(userEntity.id, userEntity)
+    this.users.push(user)
+    this.usersById.set(user.id, user)
+    this.usersByEmail.set(user.email, user)
   }
 
-  // async findAll(): Promise<Array<User>> {
-  //   return Array.from(this.userEntities.values()).map(UserMap.toDomain)
-  // }
+  async findAll(): Promise<Array<User>> {
+    return this.users
+  }
 }

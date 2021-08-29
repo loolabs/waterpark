@@ -17,7 +17,7 @@ describe('CreateUserController', () => {
   }
   let createUserController: CreateUserController
   beforeAll(async () => {
-    const createUser = await mocks.mockCreateUser()
+    const createUser = mocks.mockCreateUser()
     createUserController = createUser.createUserController
   })
 

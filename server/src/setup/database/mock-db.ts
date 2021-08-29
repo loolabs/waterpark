@@ -7,7 +7,7 @@ import { MockReviewRepo } from '../../modules/reviews/repos/mock-review-repo'
 import { MockWashroomRepo } from '../../modules/resources/repos'
 import { ClubEntity } from '../../shared/infra/db/entities/legacy/club.entity'
 import { EventEntity } from '../../shared/infra/db/entities/legacy/event.entity'
-import { UserEntity } from '../../shared/infra/db/entities/legacy/user.entity'
+import { User } from '../../modules/users/domain/entities/user'
 import { Place } from '../../modules/places/domain/entities/place'
 import { Review } from '../../modules/reviews/domain/entities/review'
 import { WashroomEntity } from '../../shared/infra/db/entities/places/washroom.entity'
@@ -15,7 +15,7 @@ import { WashroomEntity } from '../../shared/infra/db/entities/places/washroom.e
 interface MockEntities {
   clubs?: Array<ClubEntity>
   events?: Array<EventEntity>
-  users?: Array<UserEntity>
+  users?: Array<User>
   places?: Array<Place>
   reviews?: Array<Review> // TODO: turn the others into domain entities too
   washrooms?: Array<WashroomEntity>
