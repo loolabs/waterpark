@@ -3,7 +3,7 @@ import { Club } from '../../../../modules/legacy/clubs/domain/entities/club'
 import { ClubDTO } from '../../../../modules/legacy/clubs/mappers/club-dto'
 import { ClubEntity } from '../../../../shared/infra/db/entities/legacy/club.entity'
 
-export const mockClub = (id: string): Club => {
+export function mockClub(id: string): Club {
   const clubResult = Club.create(
     {
       name: `Club Name ${id}`,
@@ -36,7 +36,7 @@ export const mockClub = (id: string): Club => {
   return clubResult.value
 }
 
-export const mockClubDTO = (id: string): ClubDTO => {
+export function mockClubDTO(id: string): ClubDTO {
   return {
     id: id,
     name: `Club Name ${id}`,
@@ -64,7 +64,7 @@ export const mockClubDTO = (id: string): ClubDTO => {
   }
 }
 
-export const mockClubEntity = (id: string): ClubEntity => {
+export function mockClubEntity(id: string): ClubEntity {
   const clubEntity = new ClubEntity()
   clubEntity.name = `Club Name ${id}`
   clubEntity.description = `Club Description ${id}`

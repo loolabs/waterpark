@@ -2,7 +2,7 @@ import { Place } from '../../../modules/places/domain/entities/place'
 import { PlaceDTO } from '../../../modules/places/mappers/place-dto'
 import { PlaceEntity } from '../../../shared/infra/db/entities/places/place.entity'
 
-export const mockPlace = (id: string): Place => {
+export function mockPlace(id: string): Place {
   const placeResult = Place.create({
     name: `Place Name ${id}`,
     description: `Place Description ${id}`,
@@ -20,7 +20,7 @@ export const mockPlace = (id: string): Place => {
   return placeResult.value
 }
 
-export const mockPlaceDTO = (id: string): PlaceDTO => {
+export function mockPlaceDTO(id: string): PlaceDTO {
   return {
     name: `Place Name ${id}`,
     description: `Place Description ${id}`,
@@ -35,7 +35,7 @@ export const mockPlaceDTO = (id: string): PlaceDTO => {
   }
 }
 
-export const mockPlaceEntity = (id: string): PlaceEntity => {
+export function mockPlaceEntity(id: string): PlaceEntity {
   const placeEntity = new PlaceEntity()
   placeEntity.name = `Place Name ${id}`
   placeEntity.description = `Place Description ${id}`

@@ -4,7 +4,7 @@ import { CreateUserController } from '../../../modules/users/application/use-cas
 import { User } from '../../../modules/users/domain/entities/user'
 import { UserMap } from '../../../modules/users/mappers/user-map'
 
-export const mockCreateUser = async (users: Array<User> = []) => {
+export async function mockCreateUser(users: Array<User> = []) {
   const userRepo = new MockUserRepo(await Promise.all(users.map(UserMap.toPersistence)))
   const createUserUseCase = new CreateUserUseCase(userRepo)
   const createUserController = new CreateUserController(createUserUseCase)

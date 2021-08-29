@@ -3,7 +3,7 @@ import { Event } from '../../../../modules/legacy/events/domain/entities/event'
 import { EventDTO } from '../../../../modules/legacy/events/mappers/event-dto'
 import { EventEntity } from '../../../../shared/infra/db/entities/legacy/event.entity'
 
-export const mockEvent = (id: string): Event => {
+export function mockEvent(id: string): Event {
   const eventResult = Event.create(
     {
       name: `Event Name ${id}`,
@@ -27,7 +27,7 @@ export const mockEvent = (id: string): Event => {
   return eventResult.value
 }
 
-export const mockEventDTO = (id: string): EventDTO => {
+export function mockEventDTO(id: string): EventDTO {
   return {
     id: id,
     name: `Event Name ${id}`,
@@ -46,7 +46,7 @@ export const mockEventDTO = (id: string): EventDTO => {
   }
 }
 
-export const mockEventEntity = (id: string): EventEntity => {
+export function mockEventEntity(id: string): EventEntity {
   const eventEntity = new EventEntity()
   eventEntity.name = `Event Name ${id}`
   eventEntity.description = `Event Description ${id}`

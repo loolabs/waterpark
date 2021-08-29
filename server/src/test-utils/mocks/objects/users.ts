@@ -4,7 +4,7 @@ import { UserEmail } from '../../../modules/users/domain/value-objects/user-emai
 import { UserPassword } from '../../../modules/users/domain/value-objects/user-password'
 import { CreateUserDTO } from '../../../modules/users/application/use-cases/create-user/create-user-dto'
 
-export const mockUser = ({ email, password }: CreateUserDTO): User => {
+export function mockUser({ email, password }: CreateUserDTO): User {
   const userEmailResult = UserEmail.create(email)
   const userPasswordResult = UserPassword.create({ value: password, hashed: false })
 

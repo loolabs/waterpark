@@ -5,7 +5,7 @@ import { LeaveReviewUseCase } from '../../../modules/reviews/use-cases/leave-rev
 import { LeaveReviewController } from '../../../modules/reviews/use-cases/leave-review/leave-review-controller'
 import { MockPlaceRepo } from '../../../modules/places/repos/mock-place-repo'
 
-export const mockLeaveReview = async (places: Array<Place>, reviews: Array<Review> = []) => {
+export function mockLeaveReview(places: Array<Place>, reviews: Array<Review> = []) {
   const placeRepo = new MockPlaceRepo(places)
   const reviewRepo = new MockReviewRepo(reviews)
   const leaveReviewUseCase = new LeaveReviewUseCase(placeRepo, reviewRepo)

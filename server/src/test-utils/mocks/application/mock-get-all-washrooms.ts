@@ -5,7 +5,7 @@ import {
   GetAllWashroomsController,
 } from '../../../modules/resources/use-cases/get-all-resources'
 
-export const mockGetAllWashrooms = (washroomEntities: Array<WashroomEntity> = []) => {
+export function mockGetAllWashrooms(washroomEntities: Array<WashroomEntity> = []) {
   const washroomRepo = new MockWashroomRepo(washroomEntities)
   const getAllWashroomsUseCase = new GetAllWashroomsUseCase(washroomRepo)
   const getAllWashroomsController = new GetAllWashroomsController(getAllWashroomsUseCase)

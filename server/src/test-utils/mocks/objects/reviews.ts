@@ -12,7 +12,7 @@ import { ReviewEntity } from '../../../shared/infra/db/entities/review.entity'
 const mockFaculty = FacultyEnum.Mathematics
 const mockStatus = StatusEnum.U1
 
-export const mockReview = (reviewId: string, placeId: string): Review => {
+export function mockReview(reviewId: string, placeId: string): Review {
   const reviewResult = Review.create({
     placeId: new UniqueEntityID(placeId),
     comment: `Comment ${reviewId}`,
@@ -32,7 +32,7 @@ export const mockReview = (reviewId: string, placeId: string): Review => {
   return reviewResult.value
 }
 
-export const mockReviewDTO = (reviewId: string, placeId: string): ReviewDTO => {
+export function mockReviewDTO(reviewId: string, placeId: string): ReviewDTO {
   return {
     reviewId: reviewId,
     placeId: placeId,
@@ -50,7 +50,7 @@ export const mockReviewDTO = (reviewId: string, placeId: string): ReviewDTO => {
   }
 }
 
-export const mockReviewEntity = (reviewId: string, placeEntity: PlaceEntity): ReviewEntity => {
+export function mockReviewEntity(reviewId: string, placeEntity: PlaceEntity): ReviewEntity {
   return new ReviewEntity({
     reviewId,
     place: placeEntity,
@@ -68,11 +68,11 @@ export const mockReviewEntity = (reviewId: string, placeEntity: PlaceEntity): Re
   })
 }
 
-export const mockLeaveReviewParams = (placeId: string): LeaveReviewParams => {
+export function mockLeaveReviewParams(placeId: string): LeaveReviewParams {
   return { placeId }
 }
 
-export const mockLeaveReviewBody = (reviewId: string): LeaveReviewBody => {
+export function mockLeaveReviewBody(reviewId: string): LeaveReviewBody {
   return {
     comment: `Comment ${reviewId}`,
     user: {
@@ -88,7 +88,7 @@ export const mockLeaveReviewBody = (reviewId: string): LeaveReviewBody => {
   }
 }
 
-export const mockLeaveReviewArgs = (reviewId: string, placeId: string): LeaveReviewArgs => {
+export function mockLeaveReviewArgs(reviewId: string, placeId: string): LeaveReviewArgs {
   return {
     ...mockLeaveReviewParams(placeId),
     ...mockLeaveReviewBody(reviewId),

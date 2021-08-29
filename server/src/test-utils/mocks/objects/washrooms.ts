@@ -3,7 +3,7 @@ import { Washroom } from '../../../modules/resources/domain/entities/washroom'
 import { WashroomDTO } from '../../../modules/resources/mappers/washroom-dto'
 import { WashroomEntity } from '../../../shared/infra/db/entities/places/washroom.entity'
 
-export const mockWashroom = (id: string): Washroom => {
+export function mockWashroom(id: string): Washroom {
   const washroomResult = Washroom.create({
     name: `Place Name ${id}`,
     description: `Place Description ${id}`,
@@ -21,7 +21,7 @@ export const mockWashroom = (id: string): Washroom => {
   return washroomResult.value
 }
 
-export const mockWashroomDTO = (id: string): WashroomDTO => {
+export function mockWashroomDTO(id: string): WashroomDTO {
   return {
     name: `Place Name ${id}`,
     description: `Place Description ${id}`,
@@ -36,7 +36,7 @@ export const mockWashroomDTO = (id: string): WashroomDTO => {
   }
 }
 
-export const mockWashroomEntity = (id: string): WashroomEntity => {
+export function mockWashroomEntity(id: string): WashroomEntity {
   const washroomEntity = new WashroomEntity(mockPlaceEntity(id))
   return washroomEntity
 }
