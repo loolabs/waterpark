@@ -5,12 +5,10 @@ import {
   GetWashroomByIdController,
 } from '../../../modules/resources/use-cases/get-resource-by-id'
 
-const mockGetWashroomById = (washroomEntities: Array<WashroomEntity> = []) => {
+export const mockGetWashroomById = (washroomEntities: Array<WashroomEntity> = []) => {
   const washroomRepo = new MockWashroomRepo(washroomEntities)
   const getWashroomByIdUseCase = new GetWashroomByIdUseCase(washroomRepo)
   const getWashroomByIdController = new GetWashroomByIdController(getWashroomByIdUseCase)
 
   return { washroomRepo, getWashroomByIdUseCase, getWashroomByIdController }
 }
-
-export { mockGetWashroomById }
