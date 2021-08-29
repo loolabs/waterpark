@@ -10,7 +10,7 @@ import { Event } from '../../modules/legacy/events/domain/entities/event'
 import { User } from '../../modules/users/domain/entities/user'
 import { Place } from '../../modules/places/domain/entities/place'
 import { Review } from '../../modules/reviews/domain/entities/review'
-import { WashroomEntity } from '../../shared/infra/db/entities/places/washroom.entity'
+import { Washroom } from '../../modules/resources/domain/entities/washroom'
 
 interface MockEntities {
   clubs?: Array<Club>
@@ -18,7 +18,7 @@ interface MockEntities {
   users?: Array<User>
   places?: Array<Place>
   reviews?: Array<Review> // TODO: turn the others into domain entities too
-  washrooms?: Array<WashroomEntity>
+  washrooms?: Array<Washroom>
 }
 
 interface MockRepos extends Repos {

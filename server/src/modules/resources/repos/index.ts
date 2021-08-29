@@ -9,13 +9,7 @@ import { EntityRepository } from '@mikro-orm/core'
 export { ResourceRepo, MockResourceRepo, MikroResourceRepo }
 
 export type WashroomRepo = ResourceRepo<Washroom>
-
-export class MockWashroomRepo extends MockResourceRepo<Washroom, WashroomEntity> {
-  constructor(washroomEntities?: Array<WashroomEntity>) {
-    super(washroomEntities, WashroomMap)
-  }
-}
-
+export class MockWashroomRepo extends MockResourceRepo<Washroom> {}
 export class MikroWashroomRepo extends MikroResourceRepo<Washroom, WashroomEntity> {
   constructor(washroomEntityRepo: EntityRepository<WashroomEntity>) {
     super(washroomEntityRepo, WashroomMap)
