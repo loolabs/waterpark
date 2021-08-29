@@ -17,7 +17,7 @@ interface MockEntities {
   events?: Array<Event>
   users?: Array<User>
   places?: Array<Place>
-  reviews?: Array<Review> // TODO: turn the others into domain entities too
+  reviews?: Array<Review>
   washrooms?: Array<Washroom>
 }
 
