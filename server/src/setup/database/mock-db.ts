@@ -5,7 +5,7 @@ import { MockUserRepo } from '../../modules/users/infra/repos/implementations/mo
 import { MockPlaceRepo } from './../../modules/places/repos/mock-place-repo'
 import { MockReviewRepo } from '../../modules/reviews/repos/mock-review-repo'
 import { MockWashroomRepo } from '../../modules/resources/repos'
-import { ClubEntity } from '../../shared/infra/db/entities/legacy/club.entity'
+import { Club } from '../../modules/legacy/clubs/domain/entities/club'
 import { EventEntity } from '../../shared/infra/db/entities/legacy/event.entity'
 import { User } from '../../modules/users/domain/entities/user'
 import { Place } from '../../modules/places/domain/entities/place'
@@ -13,7 +13,7 @@ import { Review } from '../../modules/reviews/domain/entities/review'
 import { WashroomEntity } from '../../shared/infra/db/entities/places/washroom.entity'
 
 interface MockEntities {
-  clubs?: Array<ClubEntity>
+  clubs?: Array<Club>
   events?: Array<EventEntity>
   users?: Array<User>
   places?: Array<Place>
