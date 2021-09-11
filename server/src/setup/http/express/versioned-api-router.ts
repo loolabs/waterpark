@@ -41,7 +41,7 @@ function setupV2APIRouter(controllers: Controllers): APIRouter {
   return router
 }
 
-function setupVersionedAPIRouter(controllers: Controllers): APIRouter {
+export function setupVersionedAPIRouter(controllers: Controllers): APIRouter {
   const v1Router = setupV1APIRouter(controllers)
   const v2Router = setupV2APIRouter(controllers)
   const router = Router()
@@ -49,5 +49,3 @@ function setupVersionedAPIRouter(controllers: Controllers): APIRouter {
   router.use('/v2', v2Router)
   return router
 }
-
-export { setupVersionedAPIRouter }

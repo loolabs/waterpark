@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { GetAllResourcesController } from '../use-cases/get-all-resources'
 import { GetResourceByIdController } from '../use-cases/get-resource-by-id'
 
-class ResourceRouter {
+export class ResourceRouter {
   static using<Resource, ResourceDTO>(
     getAllResourcesController: GetAllResourcesController<Resource, ResourceDTO>,
     getResourceByIdController: GetResourceByIdController<Resource, ResourceDTO>
@@ -17,5 +17,3 @@ class ResourceRouter {
     return resourceRouter
   }
 }
-
-export { ResourceRouter }

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { CreateUserController } from '../../../application/use-cases/create-user/create-user-controller'
 
-class UserRouter {
+export class UserRouter {
   static using(createUserController: CreateUserController): Router {
     const userRouter = Router()
 
@@ -33,5 +33,3 @@ class UserRouter {
     return userRouter
   }
 }
-
-export { UserRouter }

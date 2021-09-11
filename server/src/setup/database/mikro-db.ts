@@ -24,6 +24,8 @@ import { MikroWashroomRepo } from '../../modules/resources/repos'
 import { MikroReviewRepo } from '../../modules/reviews/repos/mikro-review-repo'
 import { ReviewEntity } from '../../shared/infra/db/entities/review.entity'
 
+export { MikroORM }
+
 class CustomNamingStrategy extends AbstractNamingStrategy implements NamingStrategy {
   classToTableName(entityName: string) {
     return this.underscore(this.normalize(entityName))
@@ -90,7 +92,7 @@ async function setupMikroORM(options: Options = {}): Promise<MikroORM> {
   return await MikroORM.init({ ...baseOptions, ...options })
 }
 
-interface MikroEntityRepos {
+export interface MikroEntityRepos {
   club: EntityRepository<ClubEntity>
   event: EntityRepository<EventEntity>
   tag: EntityRepository<LegacyTagEntity>
@@ -111,7 +113,7 @@ function setupMikroEntityRepos({ em: entityManager }: MikroORM): MikroEntityRepo
   }
 }
 
-interface MikroRepos extends Repos {
+export interface MikroRepos extends Repos {
   club: MikroClubRepo
   event: MikroEventRepo
   user: MikroUserRepo
@@ -131,12 +133,12 @@ function setupMikroRepos(mikroEntityRepos: MikroEntityRepos): MikroRepos {
   }
 }
 
-interface MikroDB extends DB {
+export interface MikroDB extends DB {
   orm: MikroORM
   entityRepos: MikroEntityRepos
   repos: MikroRepos
 }
-async function setupMikroDB(options: Options = {}): Promise<MikroDB> {
+export async function setupMikroDB(options: Options = {}): Promise<MikroDB> {
   const orm = await setupMikroORM(options)
   const entityRepos = setupMikroEntityRepos(orm)
   const repos = setupMikroRepos(entityRepos)
@@ -148,5 +150,5 @@ async function setupMikroDB(options: Options = {}): Promise<MikroDB> {
   }
 }
 
-export { MikroORM, MikroEntityRepos, MikroRepos, MikroDB, setupMikroDB }
-export default baseOptions // migrations CLI requires that these options be the default export
+// migrations CLI requires that these options be the default export
+export default baseOptions
