@@ -3,9 +3,9 @@ import { setupVersionedAPIRouter } from './versioned-api-router'
 import { BasicWebServerOptions, setupBasicWebServer } from './basic-web-server'
 import { Controllers } from '../../application'
 
-interface WaterparkExpressOptions extends BasicWebServerOptions {}
+export interface WaterparkExpressOptions extends BasicWebServerOptions {}
 
-function setupWaterparkExpress(
+export function setupWaterparkExpress(
   controllers: Controllers,
   options: WaterparkExpressOptions
 ): WaterparkExpress {
@@ -17,5 +17,3 @@ function setupWaterparkExpress(
     webServer,
   }
 }
-
-export { WaterparkExpressOptions, setupWaterparkExpress }

@@ -12,7 +12,7 @@ import { Place } from '../../modules/places/domain/entities/place'
 import { Review } from '../../modules/reviews/domain/entities/review'
 import { Washroom } from '../../modules/resources/domain/entities/washroom'
 
-interface MockEntities {
+export interface MockEntities {
   clubs?: Array<Club>
   events?: Array<Event>
   users?: Array<User>
@@ -21,7 +21,7 @@ interface MockEntities {
   washrooms?: Array<Washroom>
 }
 
-interface MockRepos extends Repos {
+export interface MockRepos extends Repos {
   club: MockClubRepo
   event: MockEventRepo
   user: MockUserRepo
@@ -41,14 +41,12 @@ function setupMockRepos(entities: MockEntities): MockRepos {
   }
 }
 
-interface MockDB extends DB {
+export interface MockDB extends DB {
   repos: MockRepos
 }
 
-function setupMockDB(entities: MockEntities): MockDB {
+export function setupMockDB(entities: MockEntities): MockDB {
   return {
     repos: setupMockRepos(entities),
   }
 }
-
-export { MockEntities, MockRepos, MockDB, setupMockDB }

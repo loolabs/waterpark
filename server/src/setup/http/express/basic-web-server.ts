@@ -4,11 +4,14 @@ import { APIRouter, WebServer } from './types'
 import { MikroORM } from '../../database'
 import cors from 'cors'
 
-interface BasicWebServerOptions {
+export interface BasicWebServerOptions {
   mikroORM?: MikroORM
 }
 
-function setupBasicWebServer(apiRouter: APIRouter, options: BasicWebServerOptions): WebServer {
+export function setupBasicWebServer(
+  apiRouter: APIRouter,
+  options: BasicWebServerOptions
+): WebServer {
   const server = express()
   server.use(express.json())
   server.use(cors())
@@ -23,5 +26,3 @@ function setupBasicWebServer(apiRouter: APIRouter, options: BasicWebServerOption
 
   return server
 }
-
-export { BasicWebServerOptions, setupBasicWebServer }
