@@ -25,8 +25,12 @@ export class Err<T, E> {
 }
 
 export namespace Result {
-  export const ok = <T, E>(value: T): Result<T, E> => new Ok(value)
-  export const err = <T, E>(error: E): Result<T, E> => new Err(error)
+  export function ok<T, E>(value: T): Result<T, E> {
+    return new Ok(value)
+  }
+  export function err<T, E>(error: E): Result<T, E> {
+    return new Err(error)
+  }
   export function resultsAllOk<T1, T2, E1, E2>(
     results: readonly [Result<T1, E1>, Result<T2, E2>]
   ): results is [Ok<T1, E1>, Ok<T2, E2>] {

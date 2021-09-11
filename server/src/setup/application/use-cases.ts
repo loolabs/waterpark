@@ -8,7 +8,7 @@ import { GetAllWashroomsUseCase } from '../../modules/resources/use-cases/get-al
 import { GetWashroomByIdUseCase } from '../../modules/resources/use-cases/get-resource-by-id'
 import { LeaveReviewUseCase } from '../../modules/reviews/use-cases/leave-review/leave-review-use-case'
 
-export const setupUseCases = (repos: Repos): UseCases => {
+export function setupUseCases(repos: Repos): UseCases {
   return {
     createUser: new CreateUserUseCase(repos.user),
     getAllClubs: new GetAllClubsUseCase(repos.club),

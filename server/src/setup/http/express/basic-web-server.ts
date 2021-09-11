@@ -8,7 +8,7 @@ interface BasicWebServerOptions {
   mikroORM?: MikroORM
 }
 
-const setupBasicWebServer = (apiRouter: APIRouter, options: BasicWebServerOptions): WebServer => {
+function setupBasicWebServer(apiRouter: APIRouter, options: BasicWebServerOptions): WebServer {
   const server = express()
   server.use(express.json())
   server.use(cors())

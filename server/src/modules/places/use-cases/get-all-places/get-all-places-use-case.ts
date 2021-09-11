@@ -21,7 +21,7 @@ export class GetAllPlacesUseCase
   async execute(): Promise<GetAllPlacesUseCaseResponse> {
     const result = await this.placeRepo.getAllPlaces()
     if (result.isOk()) {
-      const placeDTOs: Array<PlaceDTO> = result.value.map((place) => PlaceMap.toDTO(place))
+      const placeDTOs: Array<PlaceDTO> = result.value.map(PlaceMap.toDTO)
       return Result.ok(placeDTOs)
     } else {
       return result

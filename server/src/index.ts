@@ -4,7 +4,7 @@ interface WaterparkOptions {
   port: string
 }
 
-const waterpark = async (options: WaterparkOptions) => {
+async function waterpark(options: WaterparkOptions) {
   const { orm, repos } = await db.setupMikroDB()
   const migrator = orm.getMigrator()
   await migrator.up()

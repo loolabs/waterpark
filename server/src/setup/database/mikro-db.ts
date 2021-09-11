@@ -86,7 +86,7 @@ const baseOptions: Options = {
   type: 'postgresql',
 }
 
-const setupMikroORM = async (options: Options = {}): Promise<MikroORM> => {
+async function setupMikroORM(options: Options = {}): Promise<MikroORM> {
   return await MikroORM.init({ ...baseOptions, ...options })
 }
 
@@ -99,7 +99,7 @@ interface MikroEntityRepos {
   review: EntityRepository<ReviewEntity>
   washroom: EntityRepository<WashroomEntity>
 }
-const setupMikroEntityRepos = ({ em: entityManager }: MikroORM): MikroEntityRepos => {
+function setupMikroEntityRepos({ em: entityManager }: MikroORM): MikroEntityRepos {
   return {
     club: entityManager.getRepository(ClubEntity),
     event: entityManager.getRepository(EventEntity),
@@ -120,7 +120,7 @@ interface MikroRepos extends Repos {
   washroom: MikroWashroomRepo
 }
 
-const setupMikroRepos = (mikroEntityRepos: MikroEntityRepos): MikroRepos => {
+function setupMikroRepos(mikroEntityRepos: MikroEntityRepos): MikroRepos {
   return {
     club: new MikroClubRepo(mikroEntityRepos.club),
     event: new MikroEventRepo(mikroEntityRepos.event),
@@ -136,7 +136,7 @@ interface MikroDB extends DB {
   entityRepos: MikroEntityRepos
   repos: MikroRepos
 }
-const setupMikroDB = async (options: Options = {}): Promise<MikroDB> => {
+async function setupMikroDB(options: Options = {}): Promise<MikroDB> {
   const orm = await setupMikroORM(options)
   const entityRepos = setupMikroEntityRepos(orm)
   const repos = setupMikroRepos(entityRepos)
