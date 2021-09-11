@@ -30,6 +30,6 @@ export class MikroUserRepo implements UserRepo {
 
   async findAll(): Promise<Array<User>> {
     const userEntities = await this.usersEntityRepo.findAll()
-    return userEntities.map((userEntity) => UserMap.toDomain(userEntity))
+    return userEntities.map(UserMap.toDomain)
   }
 }

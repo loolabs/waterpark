@@ -5,10 +5,10 @@ import { Controllers } from '../../application'
 
 interface WaterparkExpressOptions extends BasicWebServerOptions {}
 
-const setupWaterparkExpress = (
+function setupWaterparkExpress(
   controllers: Controllers,
   options: WaterparkExpressOptions
-): WaterparkExpress => {
+): WaterparkExpress {
   const apiRouter = setupVersionedAPIRouter(controllers)
   const webServer = setupBasicWebServer(apiRouter, options)
 

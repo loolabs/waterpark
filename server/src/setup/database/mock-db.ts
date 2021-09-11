@@ -30,7 +30,7 @@ interface MockRepos extends Repos {
   washroom: MockWashroomRepo
 }
 
-const setupMockRepos = (entities: MockEntities): MockRepos => {
+function setupMockRepos(entities: MockEntities): MockRepos {
   return {
     club: new MockClubRepo(entities.clubs),
     event: new MockEventRepo(entities.events),
@@ -45,7 +45,7 @@ interface MockDB extends DB {
   repos: MockRepos
 }
 
-const setupMockDB = (entities: MockEntities): MockDB => {
+function setupMockDB(entities: MockEntities): MockDB {
   return {
     repos: setupMockRepos(entities),
   }

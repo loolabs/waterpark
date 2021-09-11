@@ -10,7 +10,8 @@ type GetAllEventsUseCaseError = AppError.UnexpectedError
 type GetAllEventsUseCaseResponse = Result<Array<EventDTO>, GetAllEventsUseCaseError>
 
 export class GetAllEventsUseCase
-  implements UseCaseWithoutDTO<Promise<GetAllEventsUseCaseResponse>> {
+  implements UseCaseWithoutDTO<Promise<GetAllEventsUseCaseResponse>>
+{
   private eventRepo: EventRepo
 
   constructor(eventRepo: EventRepo) {
@@ -20,7 +21,7 @@ export class GetAllEventsUseCase
   async execute(): Promise<GetAllEventsUseCaseResponse> {
     const result = await this.eventRepo.getAllEvents()
     if (result.isOk()) {
-      const eventDTOs: Array<EventDTO> = result.value.map((event) => EventMap.toDTO(event))
+      const eventDTOs: Array<EventDTO> = result.value.map(EventMap.toDTO)
       return Result.ok(eventDTOs)
     } else {
       return result

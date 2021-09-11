@@ -17,6 +17,6 @@ export abstract class Entity<T> {
   }
 }
 
-const isEntity = (v: any): v is Entity<any> => {
+function isEntity(v: any): v is Entity<any> {
   return v instanceof Entity
 }
