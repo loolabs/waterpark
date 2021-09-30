@@ -27,7 +27,7 @@ describe('LeaveReviewController', () => {
     const review = mocks.mockReview(reviewId, placeId)
     jest.spyOn(leaveReviewUseCase, 'execute').mockImplementation(async (_) => Result.ok(review))
 
-    const { req, res } = mocks.mockHandlerParams(body, params)
+    const { req, res } = mocks.mockHandlerParams({ request: { body, params } })
     await leaveReviewController.execute(req, res)
     expect(res.statusCode).toBe(200)
   })
@@ -36,7 +36,7 @@ describe('LeaveReviewController', () => {
     const invalidBody = Object.assign({}, body) as any // shallow copy
     invalidBody.user = 42
 
-    const { req, res } = mocks.mockHandlerParams(invalidBody, params)
+    const { req, res } = mocks.mockHandlerParams({ request: { body: invalidBody, params } })
     await leaveReviewController.execute(req, res)
     expect(res.statusCode).toBe(400)
   })
@@ -46,7 +46,7 @@ describe('LeaveReviewController', () => {
       .spyOn(leaveReviewUseCase, 'execute')
       .mockImplementation(async (_) => Result.err(new LeaveReviewError('Pretend something failed')))
 
-    const { req, res } = mocks.mockHandlerParams(body, params)
+    const { req, res } = mocks.mockHandlerParams({ request: { body, params } })
     await leaveReviewController.execute(req, res)
     expect(res.statusCode).toBe(500)
   })

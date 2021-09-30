@@ -13,7 +13,7 @@ export class MikroTestEnvironment extends TestEnvironment<MikroEnvironmentVariab
   public async setup(): Promise<MikroEnvironmentVariables> {
     this.mikroDB = await db.setupMikroDB({ debug: false })
 
-    const migrator = await this.mikroDB.orm.getMigrator()
+    const migrator = this.mikroDB.orm.getMigrator()
     if (process.env.IS_CI === 'true') await migrator.up()
 
     const { orm, repos } = this.mikroDB

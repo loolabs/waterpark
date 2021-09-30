@@ -5,20 +5,20 @@ import { MockUserRepo } from '../../modules/users/infra/repos/implementations/mo
 import { MockPlaceRepo } from './../../modules/places/repos/mock-place-repo'
 import { MockReviewRepo } from '../../modules/reviews/repos/mock-review-repo'
 import { MockWashroomRepo } from '../../modules/resources/repos'
-import { ClubEntity } from '../../shared/infra/db/entities/legacy/club.entity'
-import { EventEntity } from '../../shared/infra/db/entities/legacy/event.entity'
-import { UserEntity } from '../../shared/infra/db/entities/legacy/user.entity'
+import { Club } from '../../modules/legacy/clubs/domain/entities/club'
+import { Event } from '../../modules/legacy/events/domain/entities/event'
+import { User } from '../../modules/users/domain/entities/user'
 import { Place } from '../../modules/places/domain/entities/place'
 import { Review } from '../../modules/reviews/domain/entities/review'
-import { WashroomEntity } from '../../shared/infra/db/entities/places/washroom.entity'
+import { Washroom } from '../../modules/resources/domain/entities/washroom'
 
 interface MockEntities {
-  clubs?: Array<ClubEntity>
-  events?: Array<EventEntity>
-  users?: Array<UserEntity>
+  clubs?: Array<Club>
+  events?: Array<Event>
+  users?: Array<User>
   places?: Array<Place>
-  reviews?: Array<Review> // TODO: turn the others into domain entities too
-  washrooms?: Array<WashroomEntity>
+  reviews?: Array<Review>
+  washrooms?: Array<Washroom>
 }
 
 interface MockRepos extends Repos {

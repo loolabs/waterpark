@@ -15,7 +15,7 @@ describe('CreateUserUseCase', () => {
   let createUserUseCase: CreateUserUseCase
 
   beforeAll(async () => {
-    const createUser = await mocks.mockCreateUser()
+    const createUser = mocks.mockCreateUser()
     userRepo = createUser.userRepo
     createUserUseCase = createUser.createUserUseCase
   })

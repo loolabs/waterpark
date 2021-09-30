@@ -1,12 +1,14 @@
 import httpMocks from 'node-mocks-http'
 import { DecodedExpressRequest } from '../../../shared/infra/http/routes/decoded-request'
 
-// TODO: just pass in the whole createRequest options object instead
-const mockHandlerParams = (body?: any, params?: any) => {
-  const req = httpMocks.createRequest({ body, params }) as DecodedExpressRequest
-  const res = httpMocks.createResponse()
+type MockHandlerOptions = {
+  request?: httpMocks.RequestOptions
+  response?: httpMocks.ResponseOptions
+}
+
+export function mockHandlerParams({ request, response }: MockHandlerOptions = {}) {
+  const req = httpMocks.createRequest(request) as DecodedExpressRequest
+  const res = httpMocks.createResponse(response)
 
   return { req, res }
 }
-
-export { mockHandlerParams }
