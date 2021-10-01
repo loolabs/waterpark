@@ -51,7 +51,7 @@ export class CreateUserUseCase implements UseCaseWithDTO<CreateUserDTO, CreateUs
 
       return Result.ok(user)
     } catch (err) {
-      return Result.err(new AppError.UnexpectedError(err))
+      return Result.err(new AppError.UnexpectedError(String(err)))
     }
   }
 }

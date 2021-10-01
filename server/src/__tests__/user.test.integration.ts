@@ -1,9 +1,14 @@
 import { environments } from '../test-utils'
 import request from 'supertest'
 
+// The test environment is known to take a while to set up.
+jest.setTimeout(60000)
 const env = new environments.MockEntityMikroTestEnvironment([1, 2, 3])
 
-describe('Club Router', () => {
+// The tests in this file are known to be flaky.
+jest.retryTimes(5)
+
+describe('User Router', () => {
   let webServer: environments.MikroEnvironmentVariables['webServer']
   beforeAll(async () => {
     const variables = await env.setup()
