@@ -14,10 +14,10 @@ export abstract class BaseController {
     }
   }
 
-  public fail<Res extends express.Response>(res: Res, error: Error | string): Res {
+  public fail<Res extends express.Response>(res: Res, error: any): Res {
     console.log(error)
     return res.status(500).json({
-      message: error.toString(),
+      message: String(error),
     })
   }
 

@@ -21,7 +21,7 @@ export class MikroEventRepo implements EventRepo {
       const events = await Promise.all(eventEntities.map(EventMap.toDomain))
       return Result.ok(events)
     } catch (err) {
-      return Result.err(new AppError.UnexpectedError(err))
+      return Result.err(new AppError.UnexpectedError(String(err)))
     }
   }
 }
