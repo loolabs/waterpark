@@ -38,7 +38,7 @@ const NavBarOption = styled.a<any>`
   ${(props: any) =>
     props.isActive &&
     css`
-      color: ${colours.black};
+      color: ${colours.darkGrey};
     `};
   margin: 0px 32px;
 
@@ -53,7 +53,7 @@ const NavBarOption = styled.a<any>`
   }
 
   &:hover {
-    color: ${colours.black};
+    color: ${colours.darkGrey};
     cursor: pointer;
   }
 `

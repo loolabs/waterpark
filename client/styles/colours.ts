@@ -20,6 +20,7 @@ const greyLight3 = "#DDDDDD";
 
 const greyDark1 = "#8C8C8C";
 const greyDark2 = "#666666";
+const greyDark3 = "#222222";
 
 const tagColours = {
     'Community': '#FCF4B1',
@@ -48,6 +49,7 @@ export const colours = Object.freeze({
     secondary5: greenLight,
     black: black,
     white: white,
+    darkGrey: greyDark3,
     neutralLight1: greyLight1,
     neutralLight2: greyLight2,
     neutralLight3: greyLight3,

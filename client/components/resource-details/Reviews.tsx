@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { colours, largerThan, smallerThan, width } from '../../styles'
 import { Review, capitalizeFirstLetter } from '../../utils'
 import ReactStars from 'react-stars'
-import { formatRelative } from 'date-fns'
+import { formatDistanceToNowStrict } from 'date-fns'
 import { SubmitReview } from './SubmitReview'
 
 const ReviewHeading = styled.h1`
@@ -94,7 +94,7 @@ const Comment = styled(({ className, review }: { className?: string; review: Rev
     <div className={className}>
       <Description>{review.comment}</Description>
       <AuthorInfo>
-        — {review.faculty} {review.status}, {formatRelative(review.timestamp, Date.now())}
+        — {review.faculty} {review.status}, {formatDistanceToNowStrict(review.timestamp)} ago
       </AuthorInfo>
     </div>
   )
